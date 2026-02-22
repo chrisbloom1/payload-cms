@@ -26,7 +26,16 @@ export async function POST(req: NextRequest): Promise<Response> {
     await seed({ payload, req: payloadReq })
 
     return Response.json({ success: true })
-  } catch {
-    return new Response('Error seeding data.')
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown seed error'
+    payload.logger.error(`Seed endpoint failed: ${message}`)
+
+    return Response.json(
+      {
+        success: false,
+        error: message,
+      },
+      { status: 500 },
+    )
   }
 }
