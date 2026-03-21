@@ -17,7 +17,7 @@
 
 <h2 align="center">
   Payload CMS V3 Website Template<br>
-  <a href="https://railway.app/template/L8TUlT?referralCode=-Yg50p">One-click deploy on Railway!</a>
+  <a href="https://railway.app/deploy/L8TUlT?referralCode=-Yg50p">One-click deploy on Railway!</a>
 </h2>
 
 <h1 align="center">
