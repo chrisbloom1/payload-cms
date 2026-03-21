@@ -72,11 +72,39 @@ Use one-click deploy template:
 
 1. Clone proejct: (recommeded) Laucnh on Railway and ejct [watch how](https://www.youtube.com/watch?v=LJFek8JP8TE). Alternatively clone this repo or fork it.
 2. Copy `.env.example` to `.env` (fill in your own values..)
-3. Install dependencies: `pnpm install` or `npm install`
-4. Run development mode: `pnpm dev` or `npm run dev`
+3. Start PostgreSQL: `docker compose up -d postgres`
+4. Install dependencies: `pnpm install` or `npm install`
+5. Run development mode: `pnpm dev` or `npm run dev`
 or
-5. Build the project: `pnpm build` or `npm run build`
-6. Start the server: `pnpm start` or `npm run start`
+6. Build the project: `pnpm build` or `npm run build`
+7. Start the server: `pnpm start` or `npm run start`
+
+### End-to-End Testing
+
+The Playwright suite boots a fresh PostgreSQL container, builds the app from scratch, creates the first admin user through the onboarding UI, seeds the demo content, submits a public comment, approves it in the admin UI, and verifies it appears on the public post page.
+
+Before the first run, make sure Docker Desktop is running. The suite starts a fresh PostgreSQL container automatically.
+For test determinism, the e2e harness uses bundled local seed images only during the test run. Normal seeding continues to use the hosted seed images.
+
+1. Install everything required for e2e: `corepack pnpm e2e:install`
+2. Run the suite headlessly: `corepack pnpm test:e2e`
+3. Run the suite with a visible browser: `corepack pnpm test:e2e:headed`
+4. Run the suite slowly and keep the browser open for manual review: `corepack pnpm test:e2e:manual`
+
+What `e2e:install` does:
+
+- Installs project dependencies
+- Rebuilds native dependencies used by the app on Windows, including `sharp` and `esbuild`
+- Downloads the Chromium browser used by Playwright
+
+If you prefer `npm`, you can run:
+
+1. `npm run e2e:install`
+2. `npm run test:e2e`
+3. `npm run test:e2e:headed`
+4. `npm run test:e2e:manual`
+
+`test:e2e:manual` runs the suite in headed mode with a visible slowdown between actions and pauses only at the end of the happy path. While paused, the browser stays open so you can click around and manually inspect seeded content, the admin area, and public pages. When you are done, resume or stop the Playwright session from the inspector/terminal.
 
 
 ### Requirements

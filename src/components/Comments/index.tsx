@@ -10,7 +10,6 @@ type Props = {
 }
 
 export const Comments: React.FC<Props> = async ({ postId, className }) => {
-
   const payload = await getPayload({ config: configPromise })
   const { docs: comments } = await payload.find({
     collection: 'comments',

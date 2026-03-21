@@ -1,6 +1,7 @@
 import type { CollectionSlug, GlobalSlug, Payload, PayloadRequest, File } from 'payload'
 import path from 'path'
-import fs from 'fs'
+import { promises as fs } from 'fs'
+import { fileURLToPath } from 'url'
 
 import { contactForm as contactFormData } from './contact-form'
 import { contact as contactPageData } from './contact-page'
@@ -25,10 +26,17 @@ const collections: CollectionSlug[] = [
 ]
 const globals: GlobalSlug[] = ['header', 'footer']
 
+const seedDirectory = path.dirname(fileURLToPath(import.meta.url))
+
+const mimeTypes: Record<string, string> = {
+  '.png': 'image/png',
+  '.webp': 'image/webp',
+}
+
 async function fetchFileByURL(url: string): Promise<File> {
   const res = await fetch(url, {
     credentials: 'include',
-    method: 'GET'
+    method: 'GET',
   })
 
   if (!res.ok) {
@@ -36,12 +44,26 @@ async function fetchFileByURL(url: string): Promise<File> {
   }
 
   const data = await res.arrayBuffer()
+  const ext = path.extname(new URL(url).pathname).toLowerCase()
 
   return {
     name: url.split('/').pop() || `file-${Date.now()}`,
     data: Buffer.from(data),
-    mimetype: `image/${url.split('.').pop()}`,
-    size: data.byteLength
+    mimetype: mimeTypes[ext] || 'application/octet-stream',
+    size: data.byteLength,
+  }
+}
+
+async function loadSeedFile(filename: string, outputName = filename): Promise<File> {
+  const filePath = path.join(seedDirectory, filename)
+  const data = await fs.readFile(filePath)
+  const ext = path.extname(filename).toLowerCase()
+
+  return {
+    name: outputName,
+    data,
+    mimetype: mimeTypes[ext] || 'application/octet-stream',
+    size: data.byteLength,
   }
 }
 
@@ -57,6 +79,8 @@ export const seed = async ({
   req: PayloadRequest
 }): Promise<void> => {
   try {
+    const useLocalSeedMedia = process.env.USE_LOCAL_SEED_MEDIA === 'true'
+    req.context.disableSearchSync = true
     payload.logger.info('Seeding database...')
 
     // we need to clear the media directory before seeding
@@ -124,23 +148,31 @@ export const seed = async ({
     payload.logger.info(`- Seeding media...`)
 
     // Load all files first
-    const [image1File, image2File, image3File, hero1File, vendureFile] = await Promise.all([
-      fetchFileByURL(
-        'https://res.cloudinary.com/hczpmiapo/image/upload/v1732740471/Static%20assets/graphics/payload%203/payload-cover_ygdcoq.png'
-      ),
-      fetchFileByURL(
-        'https://res.cloudinary.com/hczpmiapo/image/upload/v1732740471/Static%20assets/graphics/payload%203/payload-2-cover_ortrhb.png'
-      ),
-      fetchFileByURL(
-        'https://res.cloudinary.com/hczpmiapo/image/upload/v1732743964/Medusa-2.0-official-release-deploy-on-railway-cover_a7knvp.png'  // Updated to use same URL as image4
-      ),
-      fetchFileByURL(
-        'https://raw.githubusercontent.com/payloadcms/payload/refs/heads/main/templates/website/src/endpoints/seed/image-hero1.webp'
-      ),
-      fetchFileByURL(
-        'https://res-1.cloudinary.com/hczpmiapo/image/upload/q_auto/v1/ghost-blog-images/vendure-cover.png'
-      )
-    ])
+    const [image1File, image2File, image3File, hero1File, vendureFile] = useLocalSeedMedia
+      ? await Promise.all([
+          loadSeedFile('image-post1.webp'),
+          loadSeedFile('image-post2.webp'),
+          loadSeedFile('image-post3.webp'),
+          loadSeedFile('image-hero1.webp'),
+          loadSeedFile('image-post3.webp', 'image-post4.webp'),
+        ])
+      : await Promise.all([
+          fetchFileByURL(
+            'https://res.cloudinary.com/hczpmiapo/image/upload/v1732740471/Static%20assets/graphics/payload%203/payload-cover_ygdcoq.png',
+          ),
+          fetchFileByURL(
+            'https://res.cloudinary.com/hczpmiapo/image/upload/v1732740471/Static%20assets/graphics/payload%203/payload-2-cover_ortrhb.png',
+          ),
+          fetchFileByURL(
+            'https://res.cloudinary.com/hczpmiapo/image/upload/v1732743964/Medusa-2.0-official-release-deploy-on-railway-cover_a7knvp.png',
+          ),
+          fetchFileByURL(
+            'https://raw.githubusercontent.com/payloadcms/payload/refs/heads/main/templates/website/src/endpoints/seed/image-hero1.webp',
+          ),
+          fetchFileByURL(
+            'https://res-1.cloudinary.com/hczpmiapo/image/upload/q_auto/v1/ghost-blog-images/vendure-cover.png',
+          ),
+        ])
 
     payload.logger.info(`- Creating media documents...`)
 
@@ -423,8 +455,10 @@ export const seed = async ({
       }
     })
 
+    req.context.disableSearchSync = false
     payload.logger.info(' Database seeded successfully!')
   } catch (error) {
+    req.context.disableSearchSync = false
     payload.logger.error('Error seeding database:')
     payload.logger.error(error)
     throw error

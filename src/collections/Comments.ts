@@ -1,8 +1,6 @@
 import { CollectionConfig } from 'payload'
-import { authenticatedOrPublished } from '../access/authenticatedOrPublished'
 import { authenticated } from '../access/authenticated'
 import { revalidatePath } from 'next/cache'
-import type { Post } from '../payload-types'
 
 export const Comments: CollectionConfig = {
   slug: 'comments',
@@ -11,7 +9,17 @@ export const Comments: CollectionConfig = {
     description: 'Comments submitted by visitors on blog posts',
   },
   access: {
-    read: authenticatedOrPublished,
+    read: ({ req: { user } }) => {
+      if (user) {
+        return true
+      }
+
+      return {
+        isApproved: {
+          equals: true,
+        },
+      }
+    },
     create: () => true,
     update: authenticated,
     delete: authenticated
