@@ -8,16 +8,22 @@ interface Props {
 }
 
 export const Logo = (props: Props) => {
-  const { className } = props
+  const { loading: loadingFromProps, priority: priorityFromProps, className } = props
+
+  const loading = loadingFromProps || 'lazy'
+  const priority = priorityFromProps || 'low'
 
   return (
-    <span
-      className={clsx(
-        'text-xl font-bold tracking-tight',
-        className,
-      )}
-    >
-      Bloom
-    </span>
+    /* eslint-disable @next/next/no-img-element */
+    <img
+      alt="Bloom"
+      width={140}
+      height={60}
+      loading={loading}
+      fetchPriority={priority}
+      decoding="async"
+      className={clsx('w-[140px] h-auto', className)}
+      src="/logos/bloom-wordmark-dark.svg"
+    />
   )
 }

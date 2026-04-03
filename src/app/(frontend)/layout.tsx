@@ -3,8 +3,7 @@ import type { Metadata } from 'next'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
-import { Footer } from '@/Footer/Component'
-import { Header } from '@/Header/Component'
+import { AppShell } from '@/components/AppShell'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
@@ -21,8 +20,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="en" suppressHydrationWarning>
       <head>
         <InitTheme />
-        <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        <link href="/logos/bloom-symbol.svg" rel="icon" type="image/svg+xml" />
       </head>
       <body>
         <Providers>
@@ -33,9 +31,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           />
           <LivePreviewListener />
 
-          <Header />
-          {children}
-          <Footer />
+          <AppShell>
+            {children}
+          </AppShell>
         </Providers>
       </body>
     </html>
