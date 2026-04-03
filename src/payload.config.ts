@@ -12,6 +12,11 @@ import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
+import { KBCategories } from './collections/KnowledgeBase/KBCategories'
+import { Articles } from './collections/KnowledgeBase/Articles'
+import { FAQs } from './collections/KnowledgeBase/FAQs'
+import { Glossary } from './collections/KnowledgeBase/Glossary'
+import { ReleaseNotes } from './collections/KnowledgeBase/ReleaseNotes'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { plugins } from './plugins'
@@ -65,7 +70,19 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URI || '',
     },
   }),
-  collections: [Pages, Posts, Media, Categories, Users, Comments],
+  collections: [
+    Pages,
+    Posts,
+    Media,
+    Categories,
+    Users,
+    Comments,
+    KBCategories,
+    Articles,
+    FAQs,
+    Glossary,
+    ReleaseNotes,
+  ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins: [

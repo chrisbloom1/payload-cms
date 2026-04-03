@@ -86,13 +86,17 @@ export default {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
         },
+        sidebar: 'hsl(var(--sidebar))',
         success: 'hsl(var(--success))',
         error: 'hsl(var(--error))',
         warning: 'hsl(var(--warning))',
+        build: 'hsl(var(--build))',
+        deliver: 'hsl(var(--deliver))',
+        service: 'hsl(var(--service))',
       },
       fontFamily: {
-        mono: ['var(--font-geist-mono)'],
-        sans: ['var(--font-geist-sans)'],
+        sans: ['Haffer', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        mono: ['Menlo', 'ui-monospace', 'monospace'],
       },
       keyframes: {
         'accordion-down': {
