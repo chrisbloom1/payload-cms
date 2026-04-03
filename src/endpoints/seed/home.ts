@@ -38,7 +38,7 @@ export const home: RequiredDataFromCollectionSlug<'pages'> = {
                 format: 0,
                 mode: 'normal',
                 style: '',
-                text: 'Payload Website Template',
+                text: 'Bloom',
                 version: 1,
               },
             ],
@@ -658,10 +658,10 @@ export const home: RequiredDataFromCollectionSlug<'pages'> = {
     },
   ],
   meta: {
-    description: 'An open-source website built with Payload and Next.js.',
+    description: 'Bloom — Knowledge base and content platform.',
     // @ts-ignore
     image: '{{IMAGE_1}}',
-    title: 'Payload Website Template',
+    title: 'Bloom',
   },
   title: 'Home',
 }
