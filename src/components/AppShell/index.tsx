@@ -1,72 +1,189 @@
 'use client'
 
 import React, { useState, useCallback, useEffect } from 'react'
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, ExternalLink } from 'lucide-react'
 
-import { SidebarNav } from './SidebarNav'
+import { Logo } from '@/components/Logo/Logo'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/utilities/cn'
 
+const navLinks = [
+  { href: '/kb', label: 'Knowledge Base', exact: false },
+  { href: '/kb/faqs', label: 'FAQs', exact: true },
+  { href: '/changelog', label: 'Changelog', exact: false },
+]
+
 export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   const pathname = usePathname()
 
   useEffect(() => {
-    setSidebarOpen(false)
+    setMenuOpen(false)
   }, [pathname])
 
-  const toggleSidebar = useCallback(() => {
-    setSidebarOpen((prev) => !prev)
+  const toggleMenu = useCallback(() => {
+    setMenuOpen((prev) => !prev)
   }, [])
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden">
-      {/* Top header bar — Midnight Violet */}
-      <div className="flex items-center h-10 px-4 bg-topbar text-white text-xs font-medium shrink-0 z-40">
-        <span>bloomnetwork.ai</span>
-      </div>
+    <div className="flex min-h-screen flex-col">
+      {/* Header */}
+      <header className="sticky top-0 z-40 border-b border-border bg-white">
+        <div className="container flex h-14 items-center justify-between">
+          <Link href="/">
+            <Logo />
+          </Link>
 
-      <div className="flex flex-1 overflow-hidden">
-        {/* Desktop sidebar */}
-        <aside className="hidden lg:flex lg:w-64 lg:flex-col lg:shrink-0 bg-sidebar border-r border-border z-30">
-          <SidebarNav />
-        </aside>
-
-        {/* Mobile backdrop */}
-        {sidebarOpen && (
-          <div
-            className="fixed inset-0 z-40 bg-black/50 lg:hidden"
-            onClick={() => setSidebarOpen(false)}
-          />
-        )}
-
-        {/* Mobile sidebar */}
-        <aside
-          className={cn(
-            'fixed inset-y-0 left-0 z-50 w-64 bg-sidebar border-r border-border transform transition-transform duration-200 ease-in-out lg:hidden',
-            sidebarOpen ? 'translate-x-0' : '-translate-x-full',
-          )}
-        >
-          <SidebarNav />
-        </aside>
-
-        {/* Main content */}
-        <div className="flex flex-1 flex-col overflow-hidden">
-          {/* Mobile top bar */}
-          <div className="sticky top-0 z-20 flex items-center gap-4 border-b border-border bg-sidebar px-4 py-3 lg:hidden">
-            <Button variant="ghost" size="icon" onClick={toggleSidebar}>
-              {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-              <span className="sr-only">Toggle sidebar</span>
+          {/* Desktop nav */}
+          <nav className="hidden items-center gap-6 md:flex">
+            {navLinks.map(({ href, label, exact }) => {
+              const isActive = exact ? pathname === href : pathname.startsWith(href)
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  className={cn(
+                    'text-sm font-medium transition-colors hover:text-foreground',
+                    isActive ? 'text-foreground' : 'text-muted-foreground',
+                  )}
+                >
+                  {label}
+                </Link>
+              )
+            })}
+            <Button asChild variant="outline" size="sm">
+              <a href="https://app.bloomnetwork.ai" target="_blank" rel="noopener noreferrer">
+                Open App
+                <ExternalLink className="ml-1.5 h-3 w-3" />
+              </a>
             </Button>
-            <span className="text-xl font-bold tracking-tight">Bloom</span>
+          </nav>
+
+          {/* Mobile hamburger */}
+          <Button variant="ghost" size="icon" className="md:hidden" onClick={toggleMenu}>
+            {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            <span className="sr-only">Toggle menu</span>
+          </Button>
+        </div>
+
+        {/* Mobile menu */}
+        {menuOpen && (
+          <div className="border-t border-border bg-white px-4 pb-4 pt-2 md:hidden">
+            <nav className="flex flex-col gap-2">
+              {navLinks.map(({ href, label, exact }) => {
+                const isActive = exact ? pathname === href : pathname.startsWith(href)
+                return (
+                  <Link
+                    key={href}
+                    href={href}
+                    className={cn(
+                      'rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                      isActive
+                        ? 'bg-muted text-foreground'
+                        : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+                    )}
+                  >
+                    {label}
+                  </Link>
+                )
+              })}
+              <a
+                href="https://app.bloomnetwork.ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
+              >
+                Open App
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </nav>
+          </div>
+        )}
+      </header>
+
+      {/* Main content */}
+      <main className="flex-1">{children}</main>
+
+      {/* Footer */}
+      <footer className="border-t bg-gray-50">
+        <div className="container py-12">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {/* Brand */}
+            <div>
+              <Logo />
+            </div>
+
+            {/* Product */}
+            <div>
+              <h4 className="mb-3 text-sm font-semibold text-foreground">Product</h4>
+              <ul className="flex flex-col gap-2 text-sm text-muted-foreground">
+                <li>
+                  <a href="https://app.bloomnetwork.ai" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">
+                    Bloom Platform
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.bloomnetwork.ai/brands" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">
+                    For Brands
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.bloomnetwork.ai/providers" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">
+                    For Providers
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Resources */}
+            <div>
+              <h4 className="mb-3 text-sm font-semibold text-foreground">Resources</h4>
+              <ul className="flex flex-col gap-2 text-sm text-muted-foreground">
+                <li>
+                  <Link href="/kb" className="hover:text-foreground">Knowledge Base</Link>
+                </li>
+                <li>
+                  <Link href="/kb/faqs" className="hover:text-foreground">FAQs</Link>
+                </li>
+                <li>
+                  <Link href="/changelog" className="hover:text-foreground">Changelog</Link>
+                </li>
+                <li>
+                  <Link href="/kb/glossary" className="hover:text-foreground">Glossary</Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Company */}
+            <div>
+              <h4 className="mb-3 text-sm font-semibold text-foreground">Company</h4>
+              <ul className="flex flex-col gap-2 text-sm text-muted-foreground">
+                <li>
+                  <a href="https://www.bloomnetwork.ai" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">
+                    Website
+                  </a>
+                </li>
+                <li>
+                  <a href="mailto:platform@bloomnetwork.ai" className="hover:text-foreground">
+                    Contact
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.bloomnetwork.ai/careers" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">
+                    Careers
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
 
-          <main className="flex-1 overflow-y-auto bg-background">
-            {children}
-          </main>
+          <div className="mt-8 border-t border-border pt-6 text-sm text-muted-foreground">
+            &copy; 2026 Bloom
+          </div>
         </div>
-      </div>
+      </footer>
     </div>
   )
 }

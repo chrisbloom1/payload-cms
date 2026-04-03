@@ -6,6 +6,9 @@ import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
 import { notFound } from 'next/navigation'
 
+import Link from 'next/link'
+import { ArrowLeft } from 'lucide-react'
+
 import RichText from '@/components/RichText'
 import { ArticleSidebar } from './ArticleSidebar'
 import { Badge } from '@/components/ui/badge'
@@ -40,9 +43,11 @@ export default async function ArticlePage({ params: paramsPromise }: Args) {
       ? article.category
       : null
 
+  const categorySlug = category?.slug?.toLowerCase() ?? ''
   const tags = (article.tags || [])
     .map((t: { tag?: string }) => t.tag)
-    .filter(Boolean) as string[]
+    .filter((tag): tag is string => Boolean(tag))
+    .filter((tag) => tag.toLowerCase() !== categorySlug)
 
   const lastVerified = article.lastVerifiedDate
     ? new Date(article.lastVerifiedDate).toLocaleDateString('en-US', {
@@ -53,11 +58,19 @@ export default async function ArticlePage({ params: paramsPromise }: Args) {
     : null
 
   return (
-    <article className="pt-12 pb-24">
+    <article className="pt-8 pb-24">
       <div className="container">
+        <Link
+          href="/kb"
+          className="mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back to Knowledge Base
+        </Link>
+
         <div className="flex flex-col lg:flex-row gap-10">
           {/* Main content */}
-          <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0 max-w-3xl">
             <div className="mb-6">
               <div className="flex flex-wrap gap-2 mb-3">
                 {category && (
@@ -78,7 +91,7 @@ export default async function ArticlePage({ params: paramsPromise }: Args) {
             </div>
 
             <RichText
-              className="max-w-none"
+              className="max-w-3xl prose-headings:font-bold prose-h2:text-xl prose-h2:mt-8 prose-h2:mb-3 prose-h3:text-lg prose-h3:font-semibold prose-h3:mt-6 prose-h3:mb-2 prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-4 prose-a:text-primary prose-a:underline"
               content={article.body}
               enableGutter={false}
             />

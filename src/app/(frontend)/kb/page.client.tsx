@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useMemo } from 'react'
 import Link from 'next/link'
-import { Search } from 'lucide-react'
+import { Search, FileText } from 'lucide-react'
 
 import { Input } from '@/components/ui/input'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
@@ -121,8 +121,8 @@ export const KBPageClient: React.FC = () => {
                 className={cn(
                   'flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-left transition-all',
                   activeCategory === 'all'
-                    ? 'bg-teal-light text-teal'
-                    : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+                    ? 'bg-white text-foreground shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground',
                 )}
               >
                 All Categories
@@ -134,14 +134,23 @@ export const KBPageClient: React.FC = () => {
                   className={cn(
                     'flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-left transition-all',
                     activeCategory === cat.slug
-                      ? 'bg-teal-light text-teal'
-                      : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+                      ? 'bg-white text-foreground shadow-sm'
+                      : 'text-muted-foreground hover:text-foreground',
                   )}
                 >
                   {cat.name}
                 </button>
               ))}
             </nav>
+
+            <div className="mt-4 border-t border-border pt-4">
+              <Link
+                href="/kb/faqs"
+                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground"
+              >
+                FAQs
+              </Link>
+            </div>
           </div>
 
           {/* Article list */}
@@ -151,10 +160,13 @@ export const KBPageClient: React.FC = () => {
             {loading ? (
               <div className="text-muted-foreground py-12 text-center">Loading articles...</div>
             ) : filtered.length === 0 ? (
-              <div className="text-muted-foreground py-12 text-center">
-                {search || activeCategory !== 'all'
-                  ? 'No articles match your filters.'
-                  : 'No published articles yet.'}
+              <div className="flex flex-col items-center gap-3 py-16 text-center text-muted-foreground">
+                <FileText className="h-10 w-10 opacity-40" />
+                <p>
+                  {search || activeCategory !== 'all'
+                    ? 'No articles match your filters.'
+                    : 'No articles published yet.'}
+                </p>
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -180,9 +192,9 @@ export const KBPageClient: React.FC = () => {
                         </CardHeader>
                         {article.summary && (
                           <CardContent>
-                            <p className="text-sm text-muted-foreground line-clamp-3">
-                              {article.summary.length > 150
-                                ? article.summary.slice(0, 150) + '...'
+                            <p className="text-sm text-muted-foreground">
+                              {article.summary.length > 120
+                                ? article.summary.slice(0, 120) + '...'
                                 : article.summary}
                             </p>
                           </CardContent>
