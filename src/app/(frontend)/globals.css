@@ -50,11 +50,14 @@
   }
 
   :root {
-    --background: 0 0% 100%;
+    --background: 160 40% 97%;
     --foreground: 266.7 46.4% 19%;
 
     --card: 0 0% 100%;
     --card-foreground: 266.7 46.4% 19%;
+
+    --teal: 160 30% 45%;
+    --teal-light: 160 35% 93%;
 
     --popover: 0 0% 100%;
     --popover-foreground: 266.7 46.4% 19%;
@@ -80,7 +83,8 @@
 
     --radius: 0.5rem;
 
-    --sidebar: 220 14% 96%;
+    --sidebar: 0 0% 100%;
+    --topbar: 266.7 46.4% 19%;
 
     --success: 145.9 83.6% 57.1%;
     --warning: 35.8 100% 50%;
@@ -121,6 +125,10 @@
     --ring: 254.8 100% 60%;
 
     --sidebar: 266.7 35% 10%;
+    --topbar: 266.7 46.4% 12%;
+
+    --teal: 160 30% 50%;
+    --teal-light: 160 25% 18%;
 
     --success: 145.9 83.6% 40%;
     --warning: 35.8 80% 40%;

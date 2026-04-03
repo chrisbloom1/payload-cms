@@ -87,6 +87,11 @@ export default {
           foreground: 'hsl(var(--secondary-foreground))',
         },
         sidebar: 'hsl(var(--sidebar))',
+        topbar: 'hsl(var(--topbar))',
+        teal: {
+          DEFAULT: 'hsl(var(--teal))',
+          light: 'hsl(var(--teal-light))',
+        },
         success: 'hsl(var(--success))',
         error: 'hsl(var(--error))',
         warning: 'hsl(var(--warning))',
@@ -115,8 +120,17 @@ export default {
             '--tw-prose-headings': 'var(--text)',
             h1: {
               fontSize: '3.5rem',
-              fontWeight: 'normal',
+              fontWeight: '700',
               marginBottom: '0.25em',
+            },
+            h2: {
+              fontWeight: '700',
+            },
+            h3: {
+              fontWeight: '700',
+            },
+            h4: {
+              fontWeight: '700',
             },
           },
         },
