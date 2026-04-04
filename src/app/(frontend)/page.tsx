@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { getPayload } from 'payload'
 
 import RichText from '@/components/RichText'
+import { SearchInput } from '@/components/SearchInput'
 import {
   Accordion,
   AccordionContent,
@@ -13,7 +14,6 @@ import {
 } from '@/components/ui/accordion'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -69,17 +69,14 @@ export default async function HomePage() {
   const faqs = faqsResult.docs
 
   return (
-    <main className="min-h-screen bg-[var(--theme-bg,#F2FBF9)]">
+    <main className="min-h-screen bg-background">
       {/* Hero */}
       <section className="flex flex-col items-center gap-6 px-4 pb-16 pt-20 text-center">
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Bloom Knowledge Base</h1>
         <p className="max-w-2xl text-lg text-muted-foreground">
           Guides, articles, and answers for the Bloom platform.
         </p>
-        <form action="/kb" method="get" className="flex w-full max-w-md gap-2">
-          <Input name="q" placeholder="Search articles..." className="flex-1" />
-          <Button type="submit">Search</Button>
-        </form>
+        <SearchInput className="w-full max-w-md" placeholder="Search articles..." />
         <div className="flex gap-3">
           <Button asChild>
             <Link href="/kb">Browse Articles</Link>

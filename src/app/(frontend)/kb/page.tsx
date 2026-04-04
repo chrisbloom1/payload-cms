@@ -1,10 +1,14 @@
 import type { Metadata } from 'next/types'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 import { KBPageClient } from './page.client'
 
 export default function KBPage() {
-  return <KBPageClient />
+  return (
+    <Suspense>
+      <KBPageClient />
+    </Suspense>
+  )
 }
 
 export function generateMetadata(): Metadata {

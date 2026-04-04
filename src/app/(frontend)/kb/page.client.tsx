@@ -2,9 +2,10 @@
 
 import React, { useEffect, useState, useMemo } from 'react'
 import Link from 'next/link'
-import { Search, FileText } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
+import { FileText } from 'lucide-react'
 
-import { Input } from '@/components/ui/input'
+import { SearchInput } from '@/components/SearchInput'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { cn } from '@/utilities/cn'
 
@@ -45,11 +46,15 @@ function Badge({ children, className }: { children: React.ReactNode; className?:
 }
 
 export const KBPageClient: React.FC = () => {
+  const searchParams = useSearchParams()
+  const initialQuery = searchParams.get('q') || ''
+  const initialCategory = searchParams.get('category') || 'all'
+
   const [articles, setArticles] = useState<Article[]>([])
   const [categories, setCategories] = useState<KBCategory[]>([])
   const [loading, setLoading] = useState(true)
-  const [search, setSearch] = useState('')
-  const [activeCategory, setActiveCategory] = useState<string>('all')
+  const [search, setSearch] = useState(initialQuery)
+  const [activeCategory, setActiveCategory] = useState<string>(initialCategory)
 
   useEffect(() => {
     async function fetchData() {
@@ -105,13 +110,12 @@ export const KBPageClient: React.FC = () => {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Category sidebar */}
           <div className="lg:w-56 shrink-0">
-            <div className="relative mb-4">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                placeholder="Search..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="pl-10 text-sm"
+            <div className="mb-4">
+              <SearchInput
+                defaultValue={search}
+                placeholder="Search articles..."
+                onSearch={(q) => setSearch(q)}
+                onChange={(q) => setSearch(q)}
               />
             </div>
 

@@ -5,6 +5,7 @@ import { revalidatePath } from 'next/cache'
 export const Comments: CollectionConfig = {
   slug: 'comments',
   admin: {
+    hidden: true,
     defaultColumns: ['content', 'author', 'post', 'isApproved', 'createdAt'],
     description: 'Comments submitted by visitors on blog posts',
   },

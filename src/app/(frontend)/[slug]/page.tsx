@@ -1,16 +1,18 @@
 import type { Metadata } from 'next'
 
-import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { draftMode } from 'next/headers'
+import { notFound, redirect } from 'next/navigation'
 import React, { cache } from 'react'
 
-import type { Page as PageType } from '@/payload-types'
+import type { Page as PageType, Post } from '@/payload-types'
 
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
+import { getCachedDocument } from '@/utilities/getDocument'
+import { getCachedRedirects } from '@/utilities/getRedirects'
 import PageClient from './page.client'
 
 export async function generateStaticParams() {
@@ -53,7 +55,30 @@ export default async function Page({ params: paramsPromise }: Args) {
   })
 
   if (!page) {
-    return <PayloadRedirects url={url} />
+    const redirects = await getCachedRedirects()()
+    const redirectItem = redirects.find((r) => r.from === url)
+
+    if (redirectItem) {
+      if (redirectItem.to?.url) {
+        redirect(redirectItem.to.url)
+      }
+
+      let redirectUrl: string | undefined
+
+      if (typeof redirectItem.to?.reference?.value === 'string') {
+        const collection = redirectItem.to?.reference?.relationTo
+        const id = redirectItem.to?.reference?.value
+        const document = (await getCachedDocument(collection, id)()) as PageType | Post
+        redirectUrl = `${collection !== 'pages' ? `/${collection}` : ''}/${document?.slug}`
+      } else if (typeof redirectItem.to?.reference?.value === 'object') {
+        const collection = redirectItem.to?.reference?.relationTo
+        redirectUrl = `${collection !== 'pages' ? `/${collection}` : ''}/${redirectItem.to?.reference?.value?.slug}`
+      }
+
+      if (redirectUrl) redirect(redirectUrl)
+    }
+
+    notFound()
   }
 
   const { hero, layout } = page
@@ -61,8 +86,6 @@ export default async function Page({ params: paramsPromise }: Args) {
   return (
     <article className="pt-16 pb-24">
       <PageClient />
-      {/* Allows redirects for valid pages too */}
-      <PayloadRedirects disableNotFound url={url} />
 
       <RenderHero {...hero} />
       <RenderBlocks blocks={layout} />

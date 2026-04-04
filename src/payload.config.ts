@@ -28,6 +28,9 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
+    meta: {
+      titleSuffix: ' | Bloom',
+    },
     components: {
       beforeLogin: ['@/components/BeforeLogin'],
     },
@@ -66,17 +69,21 @@ export default buildConfig({
     },
   }),
   collections: [
-    Pages,
-    Posts,
-    Media,
-    Categories,
-    Users,
-    Comments,
-    KBCategories,
+    // Knowledge Base
     Articles,
     FAQs,
     Glossary,
     ReleaseNotes,
+    KBCategories,
+    // Site
+    Pages,
+    Media,
+    // Users
+    Users,
+    // Hidden (legacy)
+    Posts,
+    Categories,
+    Comments,
   ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
