@@ -10,17 +10,23 @@ export const dynamic = 'force-static'
 export const revalidate = 600
 
 export default async function GuidesPage() {
-  const payload = await getPayload({ config: configPromise })
+  let guides: any[] = []
 
-  const result = await payload.find({
-    collection: 'guides',
-    depth: 1,
-    limit: 100,
-    sort: 'sortOrder',
-    where: { _status: { equals: 'published' } },
-  })
+  try {
+    const payload = await getPayload({ config: configPromise })
+    const result = await payload.find({
+      collection: 'guides',
+      depth: 1,
+      limit: 100,
+      sort: 'sortOrder',
+      where: { _status: { equals: 'published' } },
+    })
+    guides = result.docs || []
+  } catch {
+    // Table may not exist yet before migration runs
+  }
 
-  return <GuidesPageClient guides={result.docs || []} />
+  return <GuidesPageClient guides={guides} />
 }
 
 export function generateMetadata(): Metadata {
