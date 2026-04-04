@@ -42,9 +42,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
 export const metadata: Metadata = {
   metadataBase: new URL(getServerSideURL()),
+  title: {
+    default: 'Bloom Knowledge Base',
+    template: '%s | Bloom',
+  },
+  description: 'Guides, articles, and answers for hardware brands and providers on the Bloom platform.',
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
-    creator: '@bloom',
   },
 }

@@ -1,0 +1,154 @@
+{
+  "categories": [
+    { "name": "Getting Started", "slug": "getting-started", "description": "New to Bloom? Start here.", "sortOrder": 1 },
+    { "name": "For Brands", "slug": "for-brands", "description": "Information for hardware brands using the Bloom network.", "sortOrder": 2 },
+    { "name": "For Providers", "slug": "for-providers", "description": "Information for service providers in the Bloom network.", "sortOrder": 3 },
+    { "name": "Build", "slug": "build", "description": "Engineering, manufacturing, assembly, and component sourcing.", "sortOrder": 4 },
+    { "name": "Deliver", "slug": "deliver", "description": "Warehousing, fulfillment, freight, final mile, and reverse logistics.", "sortOrder": 5 },
+    { "name": "Service", "slug": "service", "description": "Field repair, warranty, and customer support.", "sortOrder": 6 },
+    { "name": "Platform", "slug": "platform", "description": "The Bloom platform, tools, and integrations.", "sortOrder": 7 },
+    { "name": "Shipping & Logistics", "slug": "shipping-logistics", "description": "Freight, carriers, routing, and delivery details.", "sortOrder": 8 }
+  ],
+  "articles": [
+    {
+      "title": "What is Bloom?",
+      "slug": "what-is-bloom",
+      "categorySlug": "getting-started",
+      "audience": "both",
+      "tags": ["overview", "intro", "ops-as-a-service"],
+      "body": "Bloom is an ops-as-a-service network. We connect hardware brands with vetted domestic partners who handle manufacturing, warehousing, shipping, and after-sales service.\n\nWe don't build products. We don't run warehouses. We don't drive trucks. We find the right partners, match them to the right brands, manage the bidding, and stay involved through execution.\n\nThe brands we work with make physical products in electric mobility, energy, robotics, and drones. They need operational support to go from prototype to production to customer doorstep. Most of them are too small to build all of that infrastructure internally, and too big to keep duck-taping it together with spreadsheets and cold emails.\n\nThat's where we fit.\n\nBloom's network covers three areas:\n\nBuild — engineering support, contract manufacturing, assembly, component sourcing\n\nDeliver — warehousing, fulfillment, freight, final mile, reverse logistics\n\nService — field repair, warranty, customer support\n\nWe're based in Detroit at Newlab inside Michigan Central. Our provider network stretches across the continental US.",
+      "summary": "Bloom is an ops-as-a-service network connecting hardware brands (mobility, energy, robotics, drones) with vetted domestic supply chain partners for build, deliver, and service operations. Based in Detroit. Does not manufacture, ship, or service directly."
+    },
+    {
+      "title": "How Bloom Works",
+      "slug": "how-bloom-works",
+      "categorySlug": "getting-started",
+      "audience": "both",
+      "tags": ["process", "onboarding", "matching"],
+      "body": "Four steps. Join, Match, Launch, Scale.\n\nJoin — You sign up and tell us what you need. Brands share product specs, volumes, timelines, and where they ship. Providers document their capabilities, capacity, certifications, and coverage areas.\n\nMatch — We evaluate your requirements against our provider network. We're not just finding someone who can do the job. We're finding the right fit: capability, capacity, location, pricing, and track record. Brands get curated shortlists. Providers get qualified RFPs.\n\nLaunch — We help get contracts signed, onboarding done, and the first orders moving. SOPs get established. Systems get connected. We're in the room making sure the handoff from sales to operations is clean.\n\nScale — Volumes go up, we help you add providers, enter new regions, or bolt on new service lines. The platform tracks performance across your provider relationships and flags opportunities to cut cost or improve quality.\n\nWe don't disappear after the match. Bloom stays in the middle as an operational layer between brand and provider. That's the whole point.",
+      "summary": "Bloom works in four steps: Join (share specs/needs), Match (curated provider shortlists based on capability, capacity, location, pricing), Launch (contract facilitation, onboarding, first orders), Scale (add providers, regions, service lines). Bloom stays involved as an ongoing operational layer."
+    },
+    {
+      "title": "Bloom for Brands",
+      "slug": "bloom-for-brands",
+      "categorySlug": "for-brands",
+      "audience": "brand",
+      "tags": ["brands", "overview", "membership"],
+      "body": "You're building a physical product and you need operational partners. Manufacturing, warehousing, shipping, repair. The usual playbook is hiring a head of ops, spending months sourcing vendors, negotiating individually, and managing a spreadsheet of contacts.\n\nBloom replaces that.\n\nYou get access to a vetted network of domestic service providers across the full product lifecycle. One relationship, one platform. You submit your requirements, we run the RFP, you get competitive quotes from qualified partners, and we help manage the relationship going forward.\n\nWhere this helps most:\n\n- Scaling from pilot to production and your current setup won't hold\n- Moving operations onshore from overseas\n- Replacing a provider that isn't performing\n- Entering a new region and need local partners\n- Running a lean team and can't afford to hire ops staff for every function\n\nMembership starts at $500/month for Seed tier, with Growth and Full Bloom tiers available as you scale.",
+      "summary": "Bloom gives hardware brands access to a vetted domestic provider network for build, deliver, and service operations. Replaces manual vendor sourcing with platform-managed RFPs, competitive bidding, and ongoing relationship management. Membership starts at $500/month."
+    },
+    {
+      "title": "Bloom for Providers",
+      "slug": "bloom-for-providers",
+      "categorySlug": "for-providers",
+      "audience": "provider",
+      "tags": ["providers", "overview", "joining"],
+      "body": "You run a warehouse, assembly line, delivery fleet, or repair shop. You're good at what you do but finding new clients is expensive and unpredictable.\n\nBloom sends you qualified work.\n\nWhen a hardware brand needs operational support, we match their requirements to providers in our network based on capability, capacity, location, and pricing. You get RFPs that actually fit your operation, not cold leads.\n\nWhat you get:\n\n- Brand clients you wouldn't find on your own, especially in emerging hardware verticals\n- Matched RFPs, not generic lead lists\n- Help with onboarding, contracting, and system integration\n- A growing pipeline as the network expands\n- Platform tools for managing brand relationships and orders\n\nThere's no upfront cost to join. Sign up at app.bloomnetwork.ai, go through our qualification process, and start receiving matched opportunities.\n\nBloom takes a service fee on transactions. You set your pricing. We bring you the clients.",
+      "summary": "Service providers join Bloom's network for free to receive qualified RFPs from hardware brands. Bloom matches based on capability, capacity, location, and pricing. Providers set their own rates. Bloom takes a service fee on transactions."
+    },
+    {
+      "title": "Manufacturing & Assembly",
+      "slug": "manufacturing-assembly",
+      "categorySlug": "build",
+      "audience": "brand",
+      "tags": ["build", "manufacturing", "assembly", "contract-manufacturing"],
+      "body": "Bloom's network includes contract manufacturers and assembly operations across the US. Most of them work with electric mobility products, energy systems, robotics, or drones, so they know the product categories.\n\nWhat's covered:\n\n- Full contract manufacturing from raw materials to finished goods\n- SKD and CKD assembly (importing components, assembling domestically)\n- Kitting and sub-assembly for complex products\n- In-line QC, functional testing, and pre-delivery inspection\n\nManufacturing capabilities in the network: metal fabrication, welding, CNC, laser cutting, electrical and wiring harness assembly, battery pack assembly, motor and drivetrain integration, plastics, composites, powder coating, packaging.\n\nWhen you submit manufacturing requirements, Bloom evaluates the RFP against provider capabilities, certifications (ISO, UL, etc.), capacity, location, and pricing. You get a shortlist of 2-4 qualified providers with competitive quotes.\n\nNot every provider does every capability. That's fine. Bloom can split a production program across multiple partners when it makes sense, with one coordinated relationship through the platform.",
+      "summary": "Bloom's network includes domestic contract manufacturers for electric mobility, energy, robotics, and drone hardware. Capabilities include full production runs, SKD/CKD assembly, kitting, QC, and PDI. Brands receive shortlists of 2-4 qualified providers with competitive quotes."
+    },
+    {
+      "title": "Warehousing & Fulfillment",
+      "slug": "warehousing-fulfillment",
+      "categorySlug": "deliver",
+      "audience": "brand",
+      "tags": ["deliver", "warehousing", "fulfillment", "inventory", "3PL"],
+      "body": "Bloom's warehouse partners are positioned across the continental US using a hub-and-spoke model. Primary hubs sit in the Great Lakes/Midwest, the Southeast, and the Mountain West, giving you two-day ground coverage to most of the country.\n\nWhat's covered:\n\n- Dedicated and shared warehousing (your own space or shared with other brands in the network)\n- Real-time inventory visibility through connected WMS platforms\n- Container receiving and cross-dock from East Coast ports\n- Seasonal flex capacity without long-term leases\n- Pre-delivery inspection before products ship to customers\n- Pick, pack, and ship for e-commerce and dealer orders\n\nThe model is built around flexibility. Scale up for a launch, scale down in winter, add a regional hub when you expand into a new market. No multi-year warehouse leases.\n\nIf you're currently running warehousing overseas or managing it yourself out of a garage (we've seen both), this is the step up that lets you focus on product instead of pallets.",
+      "summary": "Bloom offers warehousing through a hub-and-spoke network (Midwest, Southeast, Mountain West hubs) with two-day ground coverage to most of the US. Services include dedicated/shared space, WMS-connected inventory, cross-dock, seasonal flex capacity, PDI, and pick/pack/ship. No long-term leases required."
+    },
+    {
+      "title": "Freight & Shipping",
+      "slug": "freight-shipping",
+      "categorySlug": "deliver",
+      "audience": "brand",
+      "tags": ["deliver", "freight", "shipping", "LTL", "carriers"],
+      "body": "Shipping hardware products is harder than shipping t-shirts. These things are heavy, awkward, sometimes hazardous (hello, lithium batteries), and customers still expect them to show up in one piece.\n\nBloom manages freight across four channels:\n\n- Parcel — standard carrier shipping for parts, accessories, and lighter items\n- LTL (Less Than Truckload) — individual units or small batches\n- FTL (Full Truckload) — dedicated loads for big orders\n- Specialized freight — white glove, crated, palletized, and roll-on/roll-off for oversized vehicles and equipment\n\nRouting is automatic and rule-based. Shipments get classified by weight, dimensions, and product flags. If it's over 150 lbs or 108 inches in length, it bumps from parcel to LTL automatically. Products flagged as fragile, oversized, or hazmat route to specialized carriers. No manual guesswork, no billing disputes from wrong shipping classes.\n\nOn pricing: for small-format vehicles in loads of 5+, we've been hitting approximately $600/unit through volume consolidation and carrier optimization. Your numbers will vary depending on product and lanes.\n\nOur logistics partner runs a curated carrier network classified by insurance levels, equipment type (floor tie-down capability matters for vehicles), and performance history.",
+      "summary": "Bloom manages freight across parcel, LTL, FTL, and specialized channels with automatic rule-based routing by weight, dimensions, and product flags. Carrier network is curated by insurance, equipment, and performance. Target rate for small-format vehicles is ~$600/unit at 5+ loads."
+    },
+    {
+      "title": "Final Mile Delivery",
+      "slug": "final-mile-delivery",
+      "categorySlug": "deliver",
+      "audience": "brand",
+      "tags": ["deliver", "final-mile", "last-mile", "white-glove"],
+      "body": "Final mile is the last leg. Product goes from a regional hub or carrier terminal to the customer's door. It's usually the most expensive per-mile segment and where the most things go wrong.\n\nFour service levels:\n\nCurbside — dropped at the curb or driveway. Standard for most freight. Customer handles it from there.\n\nThreshold — brought inside the first door or into the garage. For heavier stuff the customer can't physically move.\n\nWhite glove — full setup, assembly, packaging removal, and a product walkthrough at the customer's location. Premium service for high-value products.\n\nRoom of choice — placed in the specific spot the customer wants.\n\nEach level is priced separately. Curbside is included in most standard freight rates. White glove can add $200-500+ depending on the product and location.\n\nCoverage is handled through a mix of national carriers with local delivery arms and regional last-mile specialists. Not every service level is available in every metro. We'll tell you upfront what's possible for your product and geography.\n\nOne thing specific to electric mobility: roll-on/roll-off delivery (sometimes called naked delivery or no-box). The vehicle ships fully assembled with no packaging. Driver rolls it off the truck. Lower shipping cost, lower waste, but requires carriers with the right equipment and insurance.",
+      "summary": "Bloom offers final mile delivery at four service levels: curbside, threshold, white glove, and room of choice. Each priced separately. Also supports roll-on/roll-off (no-box) delivery for electric vehicles. Coverage through national and regional carriers, varying by metro and service level."
+    },
+    {
+      "title": "After-Sales Service & Repair",
+      "slug": "after-sales-service-repair",
+      "categorySlug": "service",
+      "audience": "brand",
+      "tags": ["service", "repair", "field-service", "warranty", "after-sales"],
+      "body": "This is where most hardware brands get stuck. Your product is in a customer's hands. Something breaks. Now what?\n\nBuilding a national repair network from scratch takes years and serious money. Most startups just don't. They eat the return shipping costs, lose the customer, and hope it doesn't happen again.\n\nBloom's service provider network gives you access to qualified repair and maintenance partners without building it yourself.\n\nWhat's covered:\n\n- Field repair — technician goes to the customer. Good for larger vehicles, fixed installations, fleet equipment.\n- Depot repair — customer ships the product to a service center. Better for smaller items or when field service doesn't make sense geographically.\n- Preventive maintenance — scheduled service to catch issues early. Important for fleet customers and commercial buyers.\n- Parts stocking — getting the right parts to the right service locations so repairs happen in days, not weeks.\n\nHow it works: you tell us what needs to be covered, response time expectations, parts requirements, and escalation procedures. We match you with providers who have the technical capability and geographic reach. Service levels and pricing are locked in before work starts.\n\nThis part of the network is still growing, especially for electric mobility and energy products. If you're a service provider with technicians and coverage area, reach out.",
+      "summary": "Bloom connects brands with after-sales service providers for field repair, depot repair, preventive maintenance, and parts management. Brands define service requirements; Bloom matches based on capability and coverage. Network actively expanding for electric mobility and energy verticals."
+    },
+    {
+      "title": "The Bloom Platform",
+      "slug": "bloom-platform",
+      "categorySlug": "platform",
+      "audience": "both",
+      "tags": ["platform", "software", "app", "tools"],
+      "body": "The platform lives at app.bloomnetwork.ai. Both brands and providers use it.\n\nWhat it does right now:\n\n- Provider directory — search the network by capability, location, capacity, and certifications\n- RFP management — submit requirements, receive quotes, manage bidding in one place\n- Document storage — contracts, SOPs, spec sheets, compliance docs all in one spot\n- Order tracking — see where things stand across your provider relationships\n- Messaging — talk to your providers with context attached to specific orders or projects\n\nWhat's coming:\n\nWe're building an AI-powered intake agent that will speed up the whole RFP process. You describe what you need, the agent structures the request, identifies qualified providers, and kicks off bidding. The goal is cutting the matching timeline from weeks to days.\n\nThe platform runs on Convex with a Next.js frontend, WorkOS auth, and PostHog analytics. We're actively shipping features, so this list will look different in three months.",
+      "summary": "The Bloom platform (app.bloomnetwork.ai) is a portal for brands and providers to manage operations. Current features: provider directory, RFP management, document storage, order tracking, messaging. AI-powered intake agent for automated matching is in development."
+    }
+  ],
+  "faqs": [
+    { "question": "Does Bloom manufacture products?", "answer": "No. Bloom is a network, not a manufacturer. We connect brands with vetted manufacturing partners. We don't own factories or run production lines.", "categorySlug": "getting-started" },
+    { "question": "What industries does Bloom work with?", "answer": "Four main verticals: electric mobility (e-bikes, scooters, e-mopeds, light electric vehicles), energy (battery systems, solar, EV charging), robotics, and drones/UAVs. The common thread is hardware products that need domestic operational support.", "categorySlug": "getting-started" },
+    { "question": "How is Bloom different from a 3PL or a broker?", "answer": "A 3PL handles logistics. A broker makes an introduction and walks away. Bloom covers the full product lifecycle — build, deliver, and service — and stays involved as an operational layer. We vet providers, manage the matching, help with onboarding, and track performance over time.", "categorySlug": "getting-started" },
+    { "question": "What does ops-as-a-service mean?", "answer": "It means we handle the operational functions that hardware brands typically build internally: finding manufacturing partners, setting up warehousing, managing logistics, coordinating service networks. Brands plug into Bloom's network instead of doing all of that themselves.", "categorySlug": "getting-started" },
+    { "question": "Where are Bloom's providers located?", "answer": "Continental United States. Heaviest concentration in the Midwest/Great Lakes, Southeast, and Mountain West regions. Network is growing.", "categorySlug": "getting-started" },
+    { "question": "How long does matching take?", "answer": "Depends on complexity. Simple warehousing requests can get matched in under a week. Complex manufacturing RFPs with specific certifications and equipment requirements take 2-3 weeks. We're building AI tools to cut this down.", "categorySlug": "for-brands" },
+    { "question": "How do I join as a provider?", "answer": "Go to app.bloomnetwork.ai, select 'I am a Provider,' and go through our qualification process. We review your capabilities, capacity, certifications, and service areas. No cost to join. You start receiving matched RFPs once approved.", "categorySlug": "for-providers" },
+    { "question": "What does Bloom charge brands?", "answer": "Membership plus service fees. Membership starts at $500/month (Seed tier). Growth and Full Bloom tiers are available as you scale. Service fees vary by engagement type. Contact platform@bloomnetwork.ai for specifics.", "categorySlug": "for-brands" },
+    { "question": "What does Bloom charge providers?", "answer": "Nothing upfront. Bloom takes a percentage-based service fee on transactions. You set your own pricing and keep the relationship economics clear.", "categorySlug": "for-providers" },
+    { "question": "Can providers work with each other through Bloom?", "answer": "Yes. A contract manufacturer might need a 3PL partner for warehousing. A warehouse might need a last-mile delivery partner. The network supports provider-to-provider connections.", "categorySlug": "for-providers" },
+    { "question": "Does Bloom handle international shipping?", "answer": "Bloom's network is focused on domestic US operations. We do handle inbound container receiving at US ports (cross-dock from ocean freight to domestic distribution), but we don't manage international shipping lanes.", "categorySlug": "shipping-logistics" },
+    { "question": "What is no-box delivery?", "answer": "Also called roll-on/roll-off or naked delivery. The vehicle ships fully assembled, without packaging or palletization. A driver rolls it onto a flatbed or into a truck, straps it down, and rolls it off at the destination. Lower cost, lower waste. Requires carriers with the right equipment and insurance.", "categorySlug": "shipping-logistics" },
+    { "question": "What systems does Bloom integrate with?", "answer": "The platform connects with WMS (warehouse management systems), TMS (transportation management systems), and supports EDI for automated document exchange. Specific integrations depend on the provider's tech stack. We're adding more over time.", "categorySlug": "platform" }
+  ],
+  "glossary": [
+    { "term": "3PL (Third-Party Logistics)", "slug": "3pl", "definition": "A company that handles warehousing, fulfillment, and shipping for other businesses. Bloom's deliver pillar connects brands with 3PL partners across the US." },
+    { "term": "After-Sales Service", "slug": "after-sales-service", "definition": "Support provided after a customer buys a product: maintenance, repairs, warranty work. Bloom's service pillar." },
+    { "term": "Bill of Lading (BOL)", "slug": "bill-of-lading", "definition": "A document that tracks ownership of a shipment as it moves between facilities. Both the driver and a facility associate sign it at each handoff." },
+    { "term": "Bill of Materials (BOM)", "slug": "bill-of-materials", "definition": "The complete list of components, raw materials, and parts needed to manufacture a product. Critical for production planning, quoting, and inventory." },
+    { "term": "Build", "slug": "build", "definition": "Bloom's pillar covering everything in manufacturing and production: engineering support, contract manufacturing, assembly, component sourcing, quality control." },
+    { "term": "CKD (Complete-Knocked-Down)", "slug": "ckd", "definition": "Product shipped fully disassembled. All components imported separately for complete domestic assembly." },
+    { "term": "Contract Manufacturing", "slug": "contract-manufacturing", "definition": "A partner that manufactures products on behalf of a brand. Bloom connects brands with domestic contract manufacturers in our network." },
+    { "term": "Cross-Docking", "slug": "cross-docking", "definition": "Unloading product at a receiving facility and reloading it for transport to another facility with minimal storage in between. Common for breaking down ocean containers at port for redistribution." },
+    { "term": "Deliver", "slug": "deliver", "definition": "Bloom's pillar covering logistics: warehousing, fulfillment, freight, final mile delivery, reverse logistics." },
+    { "term": "DFM (Design for Manufacturing)", "slug": "dfm", "definition": "Reviewing and optimizing a product design to simplify production, reduce cost, and improve quality at scale." },
+    { "term": "EDI (Electronic Data Interchange)", "slug": "edi", "definition": "Automated electronic exchange of standardized business documents (purchase orders, invoices, shipping notices) between systems." },
+    { "term": "Final Mile", "slug": "final-mile", "definition": "The last leg of delivery from a hub or terminal to the customer's door. Often the most expensive and error-prone segment for hardware products." },
+    { "term": "FTL (Full Truckload)", "slug": "ftl", "definition": "A freight shipment that fills an entire truck. Usually dedicated to a single shipper and destination." },
+    { "term": "Hardware Brand (HB)", "slug": "hardware-brand", "definition": "A company that designs and sells physical products. In Bloom's world: electric mobility, energy, robotics, drones. Hardware brands are Bloom's primary customers." },
+    { "term": "Hub-and-Spoke", "slug": "hub-and-spoke", "definition": "A distribution model where inventory sits at a central hub and flows out to regional spokes for last-mile delivery. Bloom's logistics strategy." },
+    { "term": "Kitting", "slug": "kitting", "definition": "Sorting, grouping, and packaging separate components together so assembly workers get everything they need in one organized package." },
+    { "term": "LEV (Light Electric Vehicle)", "slug": "lev", "definition": "Electric-powered personal transportation: e-bikes, scooters, e-mopeds, cargo bikes, small utility vehicles. Bloom says light electric vehicle or electric mobility instead of micromobility." },
+    { "term": "LTL (Less Than Truckload)", "slug": "ltl", "definition": "Freight that doesn't fill a full truck. Individual units or small batches." },
+    { "term": "No-Box Delivery", "slug": "no-box-delivery", "definition": "Shipping a vehicle fully assembled without packaging. Also called roll-on/roll-off or naked delivery. Lower cost and waste, requires specialized carriers." },
+    { "term": "Ops-as-a-Service", "slug": "ops-as-a-service", "definition": "Bloom's model. Brands outsource operational functions (manufacturing, logistics, service) to Bloom's vetted provider network instead of building that infrastructure internally." },
+    { "term": "PDI (Pre-Delivery Inspection)", "slug": "pdi", "definition": "Quality check on a finished product before it ships. Visual inspection, functional testing, packaging verification." },
+    { "term": "RFP (Request for Proposal)", "slug": "rfp", "definition": "A document from a brand outlining what they need: specs, volumes, timelines, location requirements. Providers respond with quotes and capability statements." },
+    { "term": "Reverse Logistics", "slug": "reverse-logistics", "definition": "Managing product returns, repairs, and recycling. The flow of goods going backward from customer to brand or service center." },
+    { "term": "Service", "slug": "service-pillar", "definition": "Bloom's pillar covering after-sales: field repair, depot repair, warranty management, customer support operations." },
+    { "term": "Service Provider (SP)", "slug": "service-provider", "definition": "A company in Bloom's network that provides operational services: manufacturing, assembly, warehousing, shipping, repair. Providers join for free and receive matched RFPs." },
+    { "term": "SKD (Semi-Knocked-Down)", "slug": "skd", "definition": "Product partially assembled at origin, finished at a domestic facility. Common for brands importing from overseas who want US-based final assembly." },
+    { "term": "SKU (Stock Keeping Unit)", "slug": "sku", "definition": "The unique code assigned to each distinct product or variant in inventory." },
+    { "term": "SLA (Service Level Agreement)", "slug": "sla", "definition": "A contract defining expected service performance: response times, resolution times, uptime, quality standards." },
+    { "term": "SOP (Standard Operating Procedure)", "slug": "sop", "definition": "Step-by-step instructions for a specific process. Bloom establishes SOPs between brands and providers during onboarding." },
+    { "term": "Take Rate", "slug": "take-rate", "definition": "The percentage Bloom earns on transactions between brands and providers. Built into the pricing, not an add-on." },
+    { "term": "TMS (Transportation Management System)", "slug": "tms", "definition": "Software for planning, executing, and tracking shipments. Manages carrier selection, route optimization, and shipment visibility." },
+    { "term": "WMS (Warehouse Management System)", "slug": "wms", "definition": "Software for managing warehouse operations: inventory tracking, order fulfillment, picking, packing, receiving, and shipping." },
+    { "term": "Wire Harness", "slug": "wire-harness", "definition": "A bundled system of wires and cables that transmits electrical signals or power within a product. Wire harness assembly is a common capability in Bloom's manufacturing network." }
+  ]
+}

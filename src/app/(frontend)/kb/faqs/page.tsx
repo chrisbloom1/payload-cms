@@ -10,7 +10,8 @@ export const revalidate = 600
 
 export function generateMetadata(): Metadata {
   return {
-    title: 'FAQs | Bloom',
+    title: 'FAQs',
+    description: 'Common questions about accounts, deliverables, and the Bloom platform.',
   }
 }
 

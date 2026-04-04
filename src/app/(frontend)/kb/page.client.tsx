@@ -99,7 +99,7 @@ export const KBPageClient: React.FC = () => {
       <div className="container">
         <div className="mb-8">
           <h1 className="text-2xl font-bold mb-1">Knowledge Base</h1>
-          <p className="text-sm text-muted-foreground">Browse articles, guides, and documentation.</p>
+          <p className="text-sm text-muted-foreground">Articles and guides for Bloom brands and providers.</p>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">

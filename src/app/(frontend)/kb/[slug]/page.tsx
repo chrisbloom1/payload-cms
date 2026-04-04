@@ -110,7 +110,7 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const article = await queryArticleBySlug({ slug })
 
   return {
-    title: article ? `${article.title} | Bloom` : 'Article Not Found | Bloom',
+    title: article?.title || 'Article Not Found',
     description: article?.summary || undefined,
   }
 }

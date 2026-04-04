@@ -21,25 +21,26 @@ export const revalidate = 600
 export function generateMetadata(): Metadata {
   return {
     title: 'Bloom Knowledge Base',
+    description: 'Guides, articles, and answers for hardware brands and providers on the Bloom platform.',
   }
 }
 
 const PILLARS = [
   {
     name: 'Build',
-    description: 'Set up your account, manage your profile, and configure your workspace.',
+    description: 'Account setup, profiles, and workspace config.',
     color: '#FF9800',
     slug: 'build',
   },
   {
     name: 'Deliver',
-    description: 'Submit deliverables, track progress, and manage active campaigns.',
+    description: 'Deliverables, campaign tracking, and active orders.',
     color: '#F94D00',
     slug: 'deliver',
   },
   {
     name: 'Service',
-    description: 'Handle service requests, communications, and support workflows.',
+    description: 'Service requests, repairs, and support workflows.',
     color: '#F4364C',
     slug: 'service',
   },
@@ -73,7 +74,7 @@ export default async function HomePage() {
       <section className="flex flex-col items-center gap-6 px-4 pb-16 pt-20 text-center">
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Bloom Knowledge Base</h1>
         <p className="max-w-2xl text-lg text-muted-foreground">
-          Find answers, explore guides, and get the most out of the Bloom platform.
+          Guides, articles, and answers for the Bloom platform.
         </p>
         <form action="/kb" method="get" className="flex w-full max-w-md gap-2">
           <Input name="q" placeholder="Search articles..." className="flex-1" />

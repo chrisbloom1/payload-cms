@@ -101,7 +101,7 @@ export const FAQsPageClient: React.FC<{
         <div className="mb-8">
           <h1 className="text-2xl font-bold mb-1">Frequently Asked Questions</h1>
           <p className="text-sm text-muted-foreground">
-            Find answers to common questions about Bloom.
+            Common questions about accounts, deliverables, and the platform.
           </p>
         </div>
 

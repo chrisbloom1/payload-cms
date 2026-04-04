@@ -28,7 +28,7 @@ export default async function ChangelogPage() {
       <div className="container max-w-3xl">
         <div className="mb-8">
           <h1 className="text-2xl font-bold mb-1">Changelog</h1>
-          <p className="text-sm text-muted-foreground">Latest updates, features, and improvements.</p>
+          <p className="text-sm text-muted-foreground">What shipped and when.</p>
         </div>
 
         {entries.length === 0 ? (
@@ -87,6 +87,7 @@ export default async function ChangelogPage() {
 
 export function generateMetadata(): Metadata {
   return {
-    title: 'Changelog | Bloom',
+    title: 'Changelog',
+    description: 'Latest updates, fixes, and new features on the Bloom platform.',
   }
 }

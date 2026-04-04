@@ -3,14 +3,17 @@ import { getServerSideURL } from './getURL'
 
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
-  description: 'Bloom — Knowledge base and content platform.',
+  description: 'Guides, articles, and answers for hardware brands and providers on the Bloom platform.',
   images: [
     {
-      url: `${getServerSideURL()}/website-template-OG.webp`,
+      url: `${getServerSideURL()}/og`,
+      width: 1200,
+      height: 630,
+      alt: 'Bloom Knowledge Base',
     },
   ],
-  siteName: 'Bloom',
-  title: 'Bloom',
+  siteName: 'Bloom Knowledge Base',
+  title: 'Bloom Knowledge Base',
 }
 
 export const mergeOpenGraph = (og?: Metadata['openGraph']): Metadata['openGraph'] => {

@@ -9,6 +9,7 @@ export default function KBPage() {
 
 export function generateMetadata(): Metadata {
   return {
-    title: 'Knowledge Base | Bloom',
+    title: 'Knowledge Base',
+    description: 'Browse articles, guides, and documentation for Bloom hardware brands and providers.',
   }
 }
