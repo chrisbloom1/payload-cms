@@ -19,6 +19,10 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
         }
       }),
+      {
+        hostname: 'cdn.loom.com',
+        protocol: 'https',
+      },
     ],
   },
   sassOptions: {

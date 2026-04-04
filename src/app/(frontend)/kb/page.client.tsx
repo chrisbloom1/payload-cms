@@ -147,12 +147,30 @@ export const KBPageClient: React.FC = () => {
               ))}
             </nav>
 
-            <div className="mt-4 border-t border-border pt-4">
+            <div className="mt-4 border-t border-border pt-4 flex flex-col gap-0.5">
               <Link
                 href="/kb/faqs"
                 className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground"
               >
                 FAQs
+              </Link>
+              <Link
+                href="/guides"
+                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground"
+              >
+                Guides
+              </Link>
+              <Link
+                href="/kb/glossary"
+                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground"
+              >
+                Glossary
+              </Link>
+              <Link
+                href="/changelog"
+                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground"
+              >
+                Changelog
               </Link>
             </div>
           </div>

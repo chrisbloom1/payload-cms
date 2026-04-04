@@ -3,7 +3,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Search, BookOpen, FileText, HelpCircle } from 'lucide-react'
+import { Search, BookOpen, FileText, HelpCircle, BookA, Video } from 'lucide-react'
 
 import RichText from '@/components/RichText'
 import {
@@ -32,6 +32,8 @@ interface FAQ {
 const sidebarLinks = [
   { href: '/kb', label: 'Knowledge Base', icon: BookOpen },
   { href: '/kb/faqs', label: 'FAQs', icon: HelpCircle },
+  { href: '/guides', label: 'Guides', icon: Video },
+  { href: '/kb/glossary', label: 'Glossary', icon: BookA },
   { href: '/changelog', label: 'Changelog', icon: FileText },
 ]
 

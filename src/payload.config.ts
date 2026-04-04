@@ -16,6 +16,7 @@ import { KBCategories } from './collections/KnowledgeBase/KBCategories'
 import { Articles } from './collections/KnowledgeBase/Articles'
 import { FAQs } from './collections/KnowledgeBase/FAQs'
 import { Glossary } from './collections/KnowledgeBase/Glossary'
+import { Guides } from './collections/KnowledgeBase/Guides'
 import { ReleaseNotes } from './collections/KnowledgeBase/ReleaseNotes'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
@@ -73,6 +74,7 @@ export default buildConfig({
     Articles,
     FAQs,
     Glossary,
+    Guides,
     ReleaseNotes,
     KBCategories,
     // Site
