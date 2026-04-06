@@ -167,6 +167,12 @@ export const KBPageClient: React.FC = () => {
                 Glossary
               </Link>
               <Link
+                href="/roadmap"
+                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground"
+              >
+                Roadmap
+              </Link>
+              <Link
                 href="/changelog"
                 className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground"
               >

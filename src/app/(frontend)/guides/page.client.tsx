@@ -4,7 +4,7 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { BookOpen, FileText, HelpCircle, BookA, Play, Video } from 'lucide-react'
+import { BookOpen, FileText, HelpCircle, BookA, Play, Video, Lightbulb } from 'lucide-react'
 
 import { cn } from '@/utilities/cn'
 
@@ -38,6 +38,7 @@ const sidebarLinks = [
   { href: '/kb/faqs', label: 'FAQs', icon: HelpCircle },
   { href: '/guides', label: 'Guides', icon: Video },
   { href: '/kb/glossary', label: 'Glossary', icon: BookA },
+  { href: '/roadmap', label: 'Roadmap', icon: Lightbulb },
   { href: '/changelog', label: 'Changelog', icon: FileText },
 ]
 

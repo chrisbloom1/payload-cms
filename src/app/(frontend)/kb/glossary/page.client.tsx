@@ -3,7 +3,7 @@
 import React, { useMemo, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Search, BookOpen, FileText, HelpCircle, BookA, Video } from 'lucide-react'
+import { Search, BookOpen, FileText, HelpCircle, BookA, Video, Lightbulb } from 'lucide-react'
 
 import RichText from '@/components/RichText'
 import { Input } from '@/components/ui/input'
@@ -22,6 +22,7 @@ const sidebarLinks = [
   { href: '/kb/faqs', label: 'FAQs', icon: HelpCircle },
   { href: '/guides', label: 'Guides', icon: Video },
   { href: '/kb/glossary', label: 'Glossary', icon: BookA },
+  { href: '/roadmap', label: 'Roadmap', icon: Lightbulb },
   { href: '/changelog', label: 'Changelog', icon: FileText },
 ]
 
