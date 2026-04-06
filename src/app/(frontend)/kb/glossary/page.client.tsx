@@ -1,11 +1,10 @@
 'use client'
 
 import React, { useMemo, useState } from 'react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { Search, BookOpen, FileText, HelpCircle, BookA, Video, Lightbulb } from 'lucide-react'
+import { Search, BookA } from 'lucide-react'
 
 import RichText from '@/components/RichText'
+import { KBSidebar } from '@/components/KBSidebar'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/utilities/cn'
 
@@ -17,17 +16,11 @@ interface GlossaryTerm {
   relatedTerms?: GlossaryTerm[] | number[] | null
 }
 
-const sidebarLinks = [
-  { href: '/kb', label: 'Knowledge Base', icon: BookOpen },
-  { href: '/kb/faqs', label: 'FAQs', icon: HelpCircle },
-  { href: '/guides', label: 'Guides', icon: Video },
-  { href: '/kb/glossary', label: 'Glossary', icon: BookA },
-  { href: '/roadmap', label: 'Roadmap', icon: Lightbulb },
-  { href: '/changelog', label: 'Changelog', icon: FileText },
-]
+function termAnchor(term: GlossaryTerm): string {
+  return term.slug || term.term.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '')
+}
 
 export const GlossaryPageClient: React.FC<{ terms: GlossaryTerm[] }> = ({ terms }) => {
-  const pathname = usePathname()
   const [search, setSearch] = useState('')
 
   const filtered = useMemo(() => {
@@ -48,6 +41,9 @@ export const GlossaryPageClient: React.FC<{ terms: GlossaryTerm[] }> = ({ terms 
     return Array.from(map.entries()).sort(([a], [b]) => a.localeCompare(b))
   }, [filtered])
 
+  // Available letters for jump nav
+  const letters = useMemo(() => grouped.map(([letter]) => letter), [grouped])
+
   return (
     <div className="pt-8 pb-24">
       <div className="container">
@@ -59,8 +55,7 @@ export const GlossaryPageClient: React.FC<{ terms: GlossaryTerm[] }> = ({ terms 
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar */}
-          <div className="lg:w-56 shrink-0">
+          <KBSidebar>
             <div className="relative mb-4">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
@@ -70,31 +65,25 @@ export const GlossaryPageClient: React.FC<{ terms: GlossaryTerm[] }> = ({ terms 
                 className="pl-10 text-sm"
               />
             </div>
-
-            <nav className="flex flex-col gap-0.5">
-              {sidebarLinks.map(({ href, label, icon: Icon }) => {
-                const isActive = pathname === href
-                return (
-                  <Link
-                    key={href}
-                    href={href}
-                    className={cn(
-                      'flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-all',
-                      isActive
-                        ? 'bg-white text-foreground shadow-sm'
-                        : 'text-muted-foreground hover:text-foreground',
-                    )}
-                  >
-                    <Icon className="h-4 w-4" />
-                    {label}
-                  </Link>
-                )
-              })}
-            </nav>
-          </div>
+          </KBSidebar>
 
           {/* Terms */}
           <div className="flex-1 min-w-0 max-w-3xl">
+            {/* Alphabet jump nav */}
+            {letters.length > 1 && (
+              <div className="flex flex-wrap gap-1 mb-6">
+                {letters.map((letter) => (
+                  <a
+                    key={letter}
+                    href={`#letter-${letter}`}
+                    className="flex h-8 w-8 items-center justify-center rounded-md text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                  >
+                    {letter}
+                  </a>
+                ))}
+              </div>
+            )}
+
             {grouped.length === 0 ? (
               <div className="flex flex-col items-center gap-3 py-16 text-center text-muted-foreground">
                 <BookA className="h-10 w-10 opacity-40" />
@@ -103,7 +92,7 @@ export const GlossaryPageClient: React.FC<{ terms: GlossaryTerm[] }> = ({ terms 
             ) : (
               <div className="space-y-10">
                 {grouped.map(([letter, letterTerms]) => (
-                  <div key={letter}>
+                  <div key={letter} id={`letter-${letter}`}>
                     <h2 className="text-lg font-bold text-foreground border-b border-border pb-2 mb-4">
                       {letter}
                     </h2>
@@ -115,7 +104,7 @@ export const GlossaryPageClient: React.FC<{ terms: GlossaryTerm[] }> = ({ terms 
                           ) || []
 
                         return (
-                          <div key={term.id}>
+                          <div key={term.id} id={termAnchor(term)}>
                             <dt className="font-semibold text-foreground">{term.term}</dt>
                             <dd className="mt-1 text-sm text-muted-foreground">
                               <RichText
@@ -129,7 +118,12 @@ export const GlossaryPageClient: React.FC<{ terms: GlossaryTerm[] }> = ({ terms 
                                   {related.map((r, i) => (
                                     <span key={r.id}>
                                       {i > 0 && ', '}
-                                      <span className="text-foreground">{r.term}</span>
+                                      <a
+                                        href={`#${termAnchor(r)}`}
+                                        className="text-foreground underline underline-offset-2 hover:text-foreground/80"
+                                      >
+                                        {r.term}
+                                      </a>
                                     </span>
                                   ))}
                                 </p>

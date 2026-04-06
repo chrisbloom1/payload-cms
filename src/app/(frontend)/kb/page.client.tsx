@@ -1,10 +1,11 @@
 'use client'
 
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { FileText } from 'lucide-react'
 
+import { KBSidebar } from '@/components/KBSidebar'
 import { SearchInput } from '@/components/SearchInput'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { cn } from '@/utilities/cn'
@@ -45,39 +46,16 @@ function Badge({ children, className }: { children: React.ReactNode; className?:
   )
 }
 
-export const KBPageClient: React.FC = () => {
+export const KBPageClient: React.FC<{
+  articles: Article[]
+  categories: KBCategory[]
+}> = ({ articles, categories }) => {
   const searchParams = useSearchParams()
   const initialQuery = searchParams.get('q') || ''
   const initialCategory = searchParams.get('category') || 'all'
 
-  const [articles, setArticles] = useState<Article[]>([])
-  const [categories, setCategories] = useState<KBCategory[]>([])
-  const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState(initialQuery)
   const [activeCategory, setActiveCategory] = useState<string>(initialCategory)
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const [articlesRes, categoriesRes] = await Promise.all([
-          fetch('/api/articles?depth=1&limit=100&where[_status][equals]=published'),
-          fetch('/api/kb-categories?limit=100&sort=sortOrder'),
-        ])
-
-        const articlesData = await articlesRes.json()
-        const categoriesData = await categoriesRes.json()
-
-        setArticles(articlesData.docs || [])
-        setCategories(categoriesData.docs || [])
-      } catch (err) {
-        console.error('Failed to fetch KB data:', err)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchData()
-  }, [])
 
   const filtered = useMemo(() => {
     return articles.filter((article) => {
@@ -108,8 +86,8 @@ export const KBPageClient: React.FC = () => {
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Category sidebar */}
-          <div className="lg:w-56 shrink-0">
+          {/* Sidebar: category filters + shared nav */}
+          <KBSidebar>
             <div className="mb-4">
               <SearchInput
                 defaultValue={search}
@@ -119,7 +97,7 @@ export const KBPageClient: React.FC = () => {
               />
             </div>
 
-            <nav className="flex flex-col gap-0.5">
+            <nav className="flex flex-col gap-0.5 mb-4">
               <button
                 onClick={() => setActiveCategory('all')}
                 className={cn(
@@ -147,47 +125,14 @@ export const KBPageClient: React.FC = () => {
               ))}
             </nav>
 
-            <div className="mt-4 border-t border-border pt-4 flex flex-col gap-0.5">
-              <Link
-                href="/kb/faqs"
-                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground"
-              >
-                FAQs
-              </Link>
-              <Link
-                href="/guides"
-                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground"
-              >
-                Guides
-              </Link>
-              <Link
-                href="/kb/glossary"
-                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground"
-              >
-                Glossary
-              </Link>
-              <Link
-                href="/roadmap"
-                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground"
-              >
-                Roadmap
-              </Link>
-              <Link
-                href="/changelog"
-                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:text-foreground"
-              >
-                Changelog
-              </Link>
-            </div>
-          </div>
+            <div className="border-t border-border pt-4 mb-4" />
+          </KBSidebar>
 
           {/* Article list */}
           <div className="flex-1 min-w-0">
             <h2 className="text-lg font-bold mb-4">{activeCategoryName}</h2>
 
-            {loading ? (
-              <div className="text-muted-foreground py-12 text-center">Loading articles...</div>
-            ) : filtered.length === 0 ? (
+            {filtered.length === 0 ? (
               <div className="flex flex-col items-center gap-3 py-16 text-center text-muted-foreground">
                 <FileText className="h-10 w-10 opacity-40" />
                 <p>

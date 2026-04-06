@@ -1,19 +1,13 @@
 'use client'
 
 import React, { useMemo, useState } from 'react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import {
-  BookOpen,
-  FileText,
-  HelpCircle,
-  BookA,
-  Video,
   Lightbulb,
   ChevronUp,
   Check,
 } from 'lucide-react'
 
+import { KBSidebar } from '@/components/KBSidebar'
 import { cn } from '@/utilities/cn'
 
 interface FeatureRequest {
@@ -26,15 +20,6 @@ interface FeatureRequest {
   audience?: 'brand' | 'provider' | 'both' | null
   submitterName?: string | null
 }
-
-const sidebarLinks = [
-  { href: '/kb', label: 'Knowledge Base', icon: BookOpen },
-  { href: '/kb/faqs', label: 'FAQs', icon: HelpCircle },
-  { href: '/guides', label: 'Guides', icon: Video },
-  { href: '/kb/glossary', label: 'Glossary', icon: BookA },
-  { href: '/roadmap', label: 'Roadmap', icon: Lightbulb },
-  { href: '/changelog', label: 'Changelog', icon: FileText },
-]
 
 const statusFilters = [
   { label: 'All', value: 'all' },
@@ -75,7 +60,6 @@ function saveVotedSet(set: Set<string>) {
 export const RoadmapPageClient: React.FC<{ requests: FeatureRequest[] }> = ({
   requests: initialRequests,
 }) => {
-  const pathname = usePathname()
   const [requests, setRequests] = useState(initialRequests)
   const [activeFilter, setActiveFilter] = useState('all')
   const [votedIds, setVotedIds] = useState<Set<string>>(() => getVotedSet())
@@ -171,29 +155,7 @@ export const RoadmapPageClient: React.FC<{ requests: FeatureRequest[] }> = ({
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar */}
-          <div className="lg:w-56 shrink-0">
-            <nav className="flex flex-col gap-0.5">
-              {sidebarLinks.map(({ href, label, icon: Icon }) => {
-                const isActive = pathname === href
-                return (
-                  <Link
-                    key={href}
-                    href={href}
-                    className={cn(
-                      'flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-all',
-                      isActive
-                        ? 'bg-white text-foreground shadow-sm'
-                        : 'text-muted-foreground hover:text-foreground',
-                    )}
-                  >
-                    <Icon className="h-4 w-4" />
-                    {label}
-                  </Link>
-                )
-              })}
-            </nav>
-          </div>
+          <KBSidebar />
 
           {/* Main content */}
           <div className="flex-1 min-w-0">
