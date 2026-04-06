@@ -27,10 +27,10 @@ interface Guide {
 }
 
 const audienceBadge: Record<string, { label: string; className: string }> = {
-  brand: { label: 'For Brands', className: 'bg-[#36ED85]/15 text-[#1a8a4a]' },
-  provider: { label: 'For Providers', className: 'bg-[#FF9800]/15 text-[#b36b00]' },
-  ops: { label: 'For Ops', className: 'bg-[#2E1A47] text-white' },
-  both: { label: 'Everyone', className: 'bg-accent/10 text-accent' },
+  brand: { label: 'For Brands', className: 'bg-emerald-50 text-emerald-700' },
+  provider: { label: 'For Providers', className: 'bg-orange-50 text-orange-700' },
+  ops: { label: 'For Ops', className: 'bg-violet-50 text-violet-700' },
+  both: { label: 'Everyone', className: 'bg-gray-100 text-gray-600' },
 }
 
 export const GuidesPageClient: React.FC<{
@@ -65,19 +65,8 @@ export const GuidesPageClient: React.FC<{
                   return (
                     <div
                       key={guide.id}
-                      className="relative rounded-xl bg-white shadow-sm overflow-hidden"
+                      className="rounded-xl bg-white shadow-sm overflow-hidden"
                     >
-                      {badge && (
-                        <span
-                          className={cn(
-                            'absolute top-3 right-3 z-10 inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium',
-                            badge.className,
-                          )}
-                        >
-                          {badge.label}
-                        </span>
-                      )}
-
                       <Link
                         href={`/guides/${guide.slug}`}
                         className="block aspect-video relative bg-muted overflow-hidden group"
@@ -101,11 +90,23 @@ export const GuidesPageClient: React.FC<{
                       </Link>
 
                       <div className="p-4">
-                        <Link href={`/guides/${guide.slug}`}>
-                          <h3 className="font-medium text-foreground hover:underline">{guide.title}</h3>
-                        </Link>
+                        <div className="flex items-center gap-2 mb-1">
+                          <Link href={`/guides/${guide.slug}`} className="min-w-0">
+                            <h3 className="font-medium text-foreground hover:underline truncate">{guide.title}</h3>
+                          </Link>
+                          {badge && (
+                            <span
+                              className={cn(
+                                'inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium shrink-0',
+                                badge.className,
+                              )}
+                            >
+                              {badge.label}
+                            </span>
+                          )}
+                        </div>
                         {guide.description && (
-                          <p className="mt-1 text-sm text-muted-foreground">
+                          <p className="text-sm text-muted-foreground">
                             {guide.description}
                           </p>
                         )}
