@@ -1,0 +1,76 @@
+{
+  "featureRequests": [
+    {
+      "title": "Bulk upload deliverables via CSV",
+      "slug": "bulk-upload-deliverables-via-csv",
+      "description": "Allow brands to upload a CSV of deliverable briefs so they can spin up dozens of tasks at once instead of creating them one by one.",
+      "status": "planned",
+      "votes": 34,
+      "audience": "brand",
+      "submitterName": "Sarah K."
+    },
+    {
+      "title": "Provider availability calendar",
+      "slug": "provider-availability-calendar",
+      "description": "Let providers set their available hours and vacation days so brands can see who is free before assigning work.",
+      "status": "in-progress",
+      "votes": 28,
+      "audience": "both",
+      "submitterName": "Marcus T."
+    },
+    {
+      "title": "Automatic invoice generation",
+      "slug": "automatic-invoice-generation",
+      "description": "Generate invoices automatically when deliverables are marked as approved, pulling in the agreed rate and payment terms.",
+      "status": "under-review",
+      "votes": 22,
+      "audience": "provider",
+      "submitterName": "Ling W."
+    },
+    {
+      "title": "Dark mode for the dashboard",
+      "slug": "dark-mode-for-the-dashboard",
+      "description": "Add a dark color scheme option for the main dashboard to reduce eye strain during late-night work sessions.",
+      "status": "new",
+      "votes": 19,
+      "audience": "both",
+      "submitterName": "Jake R."
+    },
+    {
+      "title": "In-app messaging between brands and providers",
+      "slug": "in-app-messaging-between-brands-and-providers",
+      "description": "A simple chat feature so brands and providers can communicate inside the platform without switching to email or Slack.",
+      "status": "planned",
+      "votes": 41,
+      "audience": "both",
+      "submitterName": "Priya M."
+    },
+    {
+      "title": "Custom branded deliverable templates",
+      "slug": "custom-branded-deliverable-templates",
+      "description": "Let brands save reusable deliverable templates with pre-filled descriptions, tags, and requirements to speed up recurring tasks.",
+      "status": "shipped",
+      "votes": 53,
+      "audience": "brand",
+      "submitterName": "Daniel F."
+    },
+    {
+      "title": "Provider portfolio showcase page",
+      "slug": "provider-portfolio-showcase-page",
+      "description": "Give providers a public-facing portfolio page where they can display past work samples and testimonials.",
+      "status": "new",
+      "votes": 15,
+      "audience": "provider",
+      "submitterName": "Amy L."
+    },
+    {
+      "title": "Webhook notifications for deliverable status changes",
+      "slug": "webhook-notifications-for-deliverable-status-changes",
+      "description": "Fire webhooks when deliverables move between statuses so teams can integrate Bloom events into their own tooling and Slack channels.",
+      "status": "shipped",
+      "votes": 37,
+      "audience": "brand",
+      "submitterName": "Chris N."
+    }
+  ]
+}

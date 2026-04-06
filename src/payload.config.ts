@@ -18,6 +18,7 @@ import { FAQs } from './collections/KnowledgeBase/FAQs'
 import { Glossary } from './collections/KnowledgeBase/Glossary'
 import { Guides } from './collections/KnowledgeBase/Guides'
 import { ReleaseNotes } from './collections/KnowledgeBase/ReleaseNotes'
+import { FeatureRequests } from './collections/KnowledgeBase/FeatureRequests'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { plugins } from './plugins'
@@ -76,6 +77,7 @@ export default buildConfig({
     Glossary,
     Guides,
     ReleaseNotes,
+    FeatureRequests,
     KBCategories,
     // Site
     Pages,

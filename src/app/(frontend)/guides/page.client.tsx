@@ -1,11 +1,10 @@
 'use client'
 
 import React from 'react'
-import Link from 'next/link'
 import Image from 'next/image'
-import { usePathname } from 'next/navigation'
-import { BookOpen, FileText, HelpCircle, BookA, Play, Video } from 'lucide-react'
+import { Play } from 'lucide-react'
 
+import { KBSidebar } from '@/components/KBSidebar'
 import { cn } from '@/utilities/cn'
 
 interface KBCategory {
@@ -33,17 +32,7 @@ const audienceBadge: Record<string, { label: string; className: string }> = {
   both: { label: 'Everyone', className: 'bg-accent/10 text-accent' },
 }
 
-const sidebarLinks = [
-  { href: '/kb', label: 'Knowledge Base', icon: BookOpen },
-  { href: '/kb/faqs', label: 'FAQs', icon: HelpCircle },
-  { href: '/guides', label: 'Guides', icon: Video },
-  { href: '/kb/glossary', label: 'Glossary', icon: BookA },
-  { href: '/changelog', label: 'Changelog', icon: FileText },
-]
-
 export const GuidesPageClient: React.FC<{ guides: Guide[] }> = ({ guides }) => {
-  const pathname = usePathname()
-
   return (
     <div className="pt-8 pb-24">
       <div className="container">
@@ -55,29 +44,7 @@ export const GuidesPageClient: React.FC<{ guides: Guide[] }> = ({ guides }) => {
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar */}
-          <div className="lg:w-56 shrink-0">
-            <nav className="flex flex-col gap-0.5">
-              {sidebarLinks.map(({ href, label, icon: Icon }) => {
-                const isActive = pathname === href
-                return (
-                  <Link
-                    key={href}
-                    href={href}
-                    className={cn(
-                      'flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-all',
-                      isActive
-                        ? 'bg-white text-foreground shadow-sm'
-                        : 'text-muted-foreground hover:text-foreground',
-                    )}
-                  >
-                    <Icon className="h-4 w-4" />
-                    {label}
-                  </Link>
-                )
-              })}
-            </nav>
-          </div>
+          <KBSidebar />
 
           {/* Guides grid */}
           <div className="flex-1 min-w-0">
@@ -96,7 +63,6 @@ export const GuidesPageClient: React.FC<{ guides: Guide[] }> = ({ guides }) => {
                       key={guide.id}
                       className="relative rounded-xl bg-white shadow-sm overflow-hidden"
                     >
-                      {/* Audience badge */}
                       {badge && (
                         <span
                           className={cn(
@@ -108,7 +74,6 @@ export const GuidesPageClient: React.FC<{ guides: Guide[] }> = ({ guides }) => {
                         </span>
                       )}
 
-                      {/* Thumbnail — clickable, opens Loom in new tab */}
                       <a
                         href={guide.loomUrl}
                         target="_blank"
@@ -124,7 +89,6 @@ export const GuidesPageClient: React.FC<{ guides: Guide[] }> = ({ guides }) => {
                         />
                       </a>
 
-                      {/* Text content */}
                       <div className="p-4">
                         <h3 className="font-medium text-foreground">{guide.title}</h3>
                         {guide.description && (

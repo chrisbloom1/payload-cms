@@ -74,7 +74,7 @@ export default async function HomePage() {
       <section className="flex flex-col items-center gap-6 px-4 pb-16 pt-20 text-center">
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Bloom Knowledge Base</h1>
         <p className="max-w-2xl text-lg text-muted-foreground">
-          Guides, articles, and answers for the Bloom platform.
+          Guides, articles, and answers for hardware brands and providers on the Bloom platform.
         </p>
         <SearchInput className="w-full max-w-md" placeholder="Search articles..." />
         <div className="flex gap-3">

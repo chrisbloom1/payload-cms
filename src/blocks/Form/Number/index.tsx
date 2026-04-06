@@ -23,7 +23,7 @@ export const Number: React.FC<
       <Input
         defaultValue={defaultValue}
         id={name}
-        type="number"
+        type={name.toLowerCase().includes('phone') ? 'tel' : 'number'}
         {...register(name, { required: requiredFromProps })}
       />
       {requiredFromProps && errors[name] && <Error />}

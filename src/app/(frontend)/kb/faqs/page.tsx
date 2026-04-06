@@ -15,6 +15,20 @@ export function generateMetadata(): Metadata {
   }
 }
 
+function richTextToPlain(content: any): string {
+  if (!content?.root?.children) return ''
+  function extract(nodes: any[]): string {
+    return nodes
+      .map((n: any) => {
+        if (n.text) return n.text
+        if (n.children) return extract(n.children)
+        return ''
+      })
+      .join('')
+  }
+  return extract(content.root.children)
+}
+
 export default async function FAQsPage() {
   const payload = await getPayload({ config: configPromise })
 
@@ -32,10 +46,30 @@ export default async function FAQsPage() {
     }),
   ])
 
+  const faqs = faqsResult.docs as any[]
+  const categories = categoriesResult.docs as any[]
+
+  // FAQPage JSON-LD structured data
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: richTextToPlain(faq.answer),
+      },
+    })),
+  }
+
   return (
-    <FAQsPageClient
-      faqs={faqsResult.docs as any[]}
-      categories={categoriesResult.docs as any[]}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <FAQsPageClient faqs={faqs} categories={categories} />
+    </>
   )
 }

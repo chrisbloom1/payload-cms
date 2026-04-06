@@ -72,6 +72,7 @@ export interface Config {
     glossary: Glossary;
     guides: Guide;
     'release-notes': ReleaseNote;
+    'feature-requests': FeatureRequest;
     'kb-categories': KbCategory;
     pages: Page;
     media: Media;
@@ -95,6 +96,7 @@ export interface Config {
     glossary: GlossarySelect<false> | GlossarySelect<true>;
     guides: GuidesSelect<false> | GuidesSelect<true>;
     'release-notes': ReleaseNotesSelect<false> | ReleaseNotesSelect<true>;
+    'feature-requests': FeatureRequestsSelect<false> | FeatureRequestsSelect<true>;
     'kb-categories': KbCategoriesSelect<false> | KbCategoriesSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -326,6 +328,26 @@ export interface ReleaseNote {
   breakingChanges?: boolean | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "feature-requests".
+ */
+export interface FeatureRequest {
+  id: number;
+  title: string;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  description: string;
+  status?: ('new' | 'under-review' | 'planned' | 'in-progress' | 'shipped') | null;
+  votes?: number | null;
+  submitterName?: string | null;
+  submitterEmail?: string | null;
+  audience?: ('brand' | 'provider' | 'both') | null;
+  category?: (number | null) | KbCategory;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1035,6 +1057,10 @@ export interface PayloadLockedDocument {
         value: number | ReleaseNote;
       } | null)
     | ({
+        relationTo: 'feature-requests';
+        value: number | FeatureRequest;
+      } | null)
+    | ({
         relationTo: 'kb-categories';
         value: number | KbCategory;
       } | null)
@@ -1204,6 +1230,25 @@ export interface ReleaseNotesSelect<T extends boolean = true> {
   breakingChanges?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "feature-requests_select".
+ */
+export interface FeatureRequestsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  slugLock?: T;
+  description?: T;
+  status?: T;
+  votes?: T;
+  submitterName?: T;
+  submitterEmail?: T;
+  audience?: T;
+  category?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

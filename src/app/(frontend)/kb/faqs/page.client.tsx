@@ -1,11 +1,10 @@
 'use client'
 
 import React from 'react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { Search, BookOpen, FileText, HelpCircle, BookA, Video } from 'lucide-react'
+import { Search, HelpCircle } from 'lucide-react'
 
 import RichText from '@/components/RichText'
+import { KBSidebar } from '@/components/KBSidebar'
 import {
   Accordion,
   AccordionContent,
@@ -13,7 +12,6 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion'
 import { Input } from '@/components/ui/input'
-import { cn } from '@/utilities/cn'
 
 interface KBCategory {
   id: number
@@ -29,20 +27,14 @@ interface FAQ {
   sortOrder?: number
 }
 
-const sidebarLinks = [
-  { href: '/kb', label: 'Knowledge Base', icon: BookOpen },
-  { href: '/kb/faqs', label: 'FAQs', icon: HelpCircle },
-  { href: '/guides', label: 'Guides', icon: Video },
-  { href: '/kb/glossary', label: 'Glossary', icon: BookA },
-  { href: '/changelog', label: 'Changelog', icon: FileText },
-]
-
 export const FAQsPageClient: React.FC<{
   faqs: FAQ[]
   categories: KBCategory[]
 }> = ({ faqs, categories }) => {
-  const pathname = usePathname()
   const [search, setSearch] = React.useState('')
+
+  const totalCount = faqs.length
+  const categoryCount = categories.length
 
   // Group FAQs by category
   const grouped = React.useMemo(() => {
@@ -61,7 +53,6 @@ export const FAQsPageClient: React.FC<{
       if (cat && catMap.has(cat.id)) {
         catMap.get(cat.id)!.faqs.push(faq)
       } else if (cat) {
-        // Category from depth=1 but not in our categories list
         const existing = catMap.get(cat.id)
         if (existing) {
           existing.faqs.push(faq)
@@ -80,7 +71,6 @@ export const FAQsPageClient: React.FC<{
       }
     }
 
-    // Add any categories not in our main list
     for (const [id, entry] of catMap) {
       if (entry.faqs.length > 0 && !categories.find((c) => c.id === id)) {
         groups.push(entry)
@@ -103,13 +93,12 @@ export const FAQsPageClient: React.FC<{
         <div className="mb-8">
           <h1 className="text-2xl font-bold mb-1">Frequently Asked Questions</h1>
           <p className="text-sm text-muted-foreground">
-            Common questions about accounts, deliverables, and the platform.
+            {totalCount} questions across {categoryCount} categories.
           </p>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar */}
-          <div className="lg:w-56 shrink-0">
+          <KBSidebar>
             <div className="relative mb-4">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
@@ -119,28 +108,7 @@ export const FAQsPageClient: React.FC<{
                 className="pl-10 text-sm"
               />
             </div>
-
-            <nav className="flex flex-col gap-0.5">
-              {sidebarLinks.map(({ href, label, icon: Icon }) => {
-                const isActive = pathname === href
-                return (
-                  <Link
-                    key={href}
-                    href={href}
-                    className={cn(
-                      'flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-all',
-                      isActive
-                        ? 'bg-white text-foreground shadow-sm'
-                        : 'text-muted-foreground hover:text-foreground',
-                    )}
-                  >
-                    <Icon className="h-4 w-4" />
-                    {label}
-                  </Link>
-                )
-              })}
-            </nav>
-          </div>
+          </KBSidebar>
 
           {/* FAQ content */}
           <div className="flex-1 min-w-0 max-w-3xl">

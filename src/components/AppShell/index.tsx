@@ -10,9 +10,11 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/utilities/cn'
 
 const navLinks = [
-  { href: '/kb', label: 'Knowledge Base', exact: false },
+  { href: '/kb', label: 'Knowledge Base', exact: true },
   { href: '/kb/faqs', label: 'FAQs', exact: true },
-  { href: '/changelog', label: 'Changelog', exact: false },
+  { href: '/guides', label: 'Guides', exact: true },
+  { href: '/roadmap', label: 'Roadmap', exact: true },
+  { href: '/changelog', label: 'Changelog', exact: true },
 ]
 
 export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -148,10 +150,16 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
                   <Link href="/kb/faqs" className="hover:text-foreground">FAQs</Link>
                 </li>
                 <li>
-                  <Link href="/changelog" className="hover:text-foreground">Changelog</Link>
+                  <Link href="/guides" className="hover:text-foreground">Guides</Link>
                 </li>
                 <li>
                   <Link href="/kb/glossary" className="hover:text-foreground">Glossary</Link>
+                </li>
+                <li>
+                  <Link href="/roadmap" className="hover:text-foreground">Roadmap</Link>
+                </li>
+                <li>
+                  <Link href="/changelog" className="hover:text-foreground">Changelog</Link>
                 </li>
               </ul>
             </div>
@@ -166,9 +174,9 @@ export const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) 
                   </a>
                 </li>
                 <li>
-                  <a href="mailto:platform@bloomnetwork.ai" className="hover:text-foreground">
+                  <Link href="/contact" className="hover:text-foreground">
                     Contact
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a href="https://www.bloomnetwork.ai/careers" target="_blank" rel="noopener noreferrer" className="hover:text-foreground">

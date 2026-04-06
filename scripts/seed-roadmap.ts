@@ -1,7 +1,7 @@
 /**
- * Seed guides from guides-seed.json
+ * Seed feature requests from roadmap-seed.json
  *
- * Usage: npx tsx scripts/seed-guides.ts
+ * Usage: npx tsx scripts/seed-roadmap.ts
  *
  * Requires PAYLOAD_URL, PAYLOAD_ADMIN_EMAIL, PAYLOAD_ADMIN_PASSWORD in .env
  */
@@ -22,15 +22,14 @@ if (fs.existsSync(envPath)) {
   }
 }
 
-interface SeedGuide {
+interface SeedFeatureRequest {
   title: string
   slug: string
-  description?: string
-  loomUrl: string
-  loomEmbedId: string
-  audience?: 'brand' | 'provider' | 'ops' | 'both'
-  categorySlug?: string
-  sortOrder?: number
+  description: string
+  status: string
+  votes: number
+  audience?: string
+  submitterName?: string
 }
 
 const PAYLOAD_URL = process.env.PAYLOAD_URL || 'http://localhost:3000'
@@ -57,20 +56,9 @@ async function login(): Promise<string> {
   return data.token
 }
 
-async function getCategoryId(token: string, slug: string): Promise<number | null> {
+async function requestExists(token: string, slug: string): Promise<boolean> {
   const res = await fetch(
-    `${PAYLOAD_URL}/api/kb-categories?where[slug][equals]=${encodeURIComponent(slug)}&limit=1`,
-    { headers: { Authorization: `JWT ${token}` } },
-  )
-
-  if (!res.ok) return null
-  const data = await res.json()
-  return data.docs?.[0]?.id || null
-}
-
-async function guideExists(token: string, slug: string): Promise<boolean> {
-  const res = await fetch(
-    `${PAYLOAD_URL}/api/guides?where[slug][equals]=${encodeURIComponent(slug)}&limit=1`,
+    `${PAYLOAD_URL}/api/feature-requests?where[slug][equals]=${encodeURIComponent(slug)}&limit=1`,
     { headers: { Authorization: `JWT ${token}` } },
   )
 
@@ -80,15 +68,16 @@ async function guideExists(token: string, slug: string): Promise<boolean> {
 }
 
 async function main() {
-  const seedPath = path.resolve(__dirname, '..', 'guides-seed.json')
-  const guides: SeedGuide[] = JSON.parse(fs.readFileSync(seedPath, 'utf-8'))
+  const seedPath = path.resolve(__dirname, 'roadmap-seed.json')
+  const seed = JSON.parse(fs.readFileSync(seedPath, 'utf-8'))
+  const requests: SeedFeatureRequest[] = seed.featureRequests || []
 
-  if (guides.length === 0) {
-    console.log('No guides found in guides-seed.json.')
+  if (requests.length === 0) {
+    console.log('No feature requests found in roadmap-seed.json.')
     process.exit(0)
   }
 
-  console.log(`Found ${guides.length} guides to seed.`)
+  console.log(`Found ${requests.length} feature requests to seed.`)
 
   const token = await login()
   console.log('Authenticated.\n')
@@ -96,36 +85,25 @@ async function main() {
   let created = 0
   let skipped = 0
 
-  for (const guide of guides) {
-    // Skip if already exists
-    if (await guideExists(token, guide.slug)) {
-      console.log(`  skip: ${guide.title} (already exists)`)
+  for (const req of requests) {
+    if (await requestExists(token, req.slug)) {
+      console.log(`  skip: ${req.title} (already exists)`)
       skipped++
       continue
     }
 
-    // Look up category
-    let categoryId: number | null = null
-    if (guide.categorySlug) {
-      categoryId = await getCategoryId(token, guide.categorySlug)
-    }
-
     const body: Record<string, unknown> = {
-      title: guide.title,
-      slug: guide.slug,
-      description: guide.description || '',
-      loomUrl: guide.loomUrl,
-      loomEmbedId: guide.loomEmbedId,
-      audience: guide.audience || 'both',
-      sortOrder: guide.sortOrder || 0,
+      title: req.title,
+      slug: req.slug,
+      description: req.description,
+      status: req.status,
+      votes: req.votes,
+      audience: req.audience || 'both',
+      submitterName: req.submitterName || '',
       _status: 'published',
     }
 
-    if (categoryId) {
-      body.category = categoryId
-    }
-
-    const res = await fetch(`${PAYLOAD_URL}/api/guides`, {
+    const res = await fetch(`${PAYLOAD_URL}/api/feature-requests`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -135,11 +113,11 @@ async function main() {
     })
 
     if (res.ok) {
-      console.log(`  created: ${guide.title}`)
+      console.log(`  created: ${req.title}`)
       created++
     } else {
       const err = await res.text()
-      console.error(`  FAILED: ${guide.title} — ${res.status}: ${err}`)
+      console.error(`  FAILED: ${req.title} — ${res.status}: ${err}`)
     }
   }
 
