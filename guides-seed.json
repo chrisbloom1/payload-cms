@@ -1,0 +1,57 @@
+[
+  {
+    "title": "Brand Signup",
+    "slug": "brand-signup",
+    "description": "How to create a Bloom account as a hardware brand. Covers the signup form, company details, and account verification.",
+    "loomUrl": "https://www.loom.com/share/3ca87fbd7d5a4a0c9791de6e6baa7a29",
+    "loomEmbedId": "3ca87fbd7d5a4a0c9791de6e6baa7a29",
+    "audience": "brand",
+    "categorySlug": "getting-started",
+    "sortOrder": 1,
+    "_status": "published"
+  },
+  {
+    "title": "Submitting a Service Request",
+    "slug": "submitting-service-request",
+    "description": "Walk through the AI-powered service request chat. Describe what you need, provide product details, and get your request summarized into a structured RFP.",
+    "loomUrl": "https://www.loom.com/share/beab367c3d9c45b993a43712719ac9ba",
+    "loomEmbedId": "beab367c3d9c45b993a43712719ac9ba",
+    "audience": "brand",
+    "categorySlug": "for-brands",
+    "sortOrder": 2,
+    "_status": "published"
+  },
+  {
+    "title": "Brand Dashboard & Portal",
+    "slug": "brand-dashboard",
+    "description": "Tour of the brand dashboard: projects, requests, documents, invoices, company and contact pages. Everything you can do once you're logged in.",
+    "loomUrl": "https://www.loom.com/share/d4e18be42962454db19c5660c264c13c",
+    "loomEmbedId": "d4e18be42962454db19c5660c264c13c",
+    "audience": "brand",
+    "categorySlug": "platform",
+    "sortOrder": 3,
+    "_status": "published"
+  },
+  {
+    "title": "Provider Signup",
+    "slug": "provider-signup",
+    "description": "How to join the Bloom network as a service provider. Covers the signup form, capability documentation, file uploads, and submitting for qualification.",
+    "loomUrl": "https://www.loom.com/share/8b8b53e1201c4a45afcfcf6c0439b345",
+    "loomEmbedId": "8b8b53e1201c4a45afcfcf6c0439b345",
+    "audience": "provider",
+    "categorySlug": "for-providers",
+    "sortOrder": 4,
+    "_status": "published"
+  },
+  {
+    "title": "Ops Dashboard & Workflow",
+    "slug": "ops-dashboard",
+    "description": "How the Bloom operations team manages the network: company accounts, projects, conversations, onboarding requests, and notifications.",
+    "loomUrl": "https://www.loom.com/share/61fe269daf744c6782123d69c6db235a",
+    "loomEmbedId": "61fe269daf744c6782123d69c6db235a",
+    "audience": "ops",
+    "categorySlug": "platform",
+    "sortOrder": 5,
+    "_status": "published"
+  }
+]
