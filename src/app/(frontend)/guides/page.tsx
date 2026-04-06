@@ -9,6 +9,20 @@ import { GuidesPageClient } from './page.client'
 export const dynamic = 'force-static'
 export const revalidate = 600
 
+async function fetchLoomThumbnail(loomEmbedId: string): Promise<string | null> {
+  try {
+    const res = await fetch(
+      `https://www.loom.com/v1/oembed?url=https://www.loom.com/share/${loomEmbedId}`,
+      { next: { revalidate: 86400 } },
+    )
+    if (!res.ok) return null
+    const data = await res.json()
+    return data.thumbnail_url || null
+  } catch {
+    return null
+  }
+}
+
 export default async function GuidesPage() {
   let guides: any[] = []
 
@@ -26,7 +40,16 @@ export default async function GuidesPage() {
     // Table may not exist yet before migration runs
   }
 
-  return <GuidesPageClient guides={guides} />
+  // Fetch thumbnails from Loom oembed API in parallel
+  const thumbnails = await Promise.all(
+    guides.map((g) => fetchLoomThumbnail(g.loomEmbedId)),
+  )
+  const thumbnailMap: Record<string, string> = {}
+  guides.forEach((g, i) => {
+    if (thumbnails[i]) thumbnailMap[g.loomEmbedId] = thumbnails[i]!
+  })
+
+  return <GuidesPageClient guides={guides} thumbnails={thumbnailMap} />
 }
 
 export function generateMetadata(): Metadata {
