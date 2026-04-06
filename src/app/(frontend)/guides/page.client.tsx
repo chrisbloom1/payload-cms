@@ -77,20 +77,15 @@ export const GuidesPageClient: React.FC<{ guides: Guide[] }> = ({ guides }) => {
 
                       <Link
                         href={`/guides/${guide.slug}`}
-                        className="block aspect-video relative bg-muted overflow-hidden group"
+                        className="block aspect-video relative bg-muted overflow-hidden"
                       >
                         <Image
-                          src={`https://cdn.loom.com/sessions/thumbnails/${guide.loomEmbedId}-00001.jpg`}
+                          src={`https://cdn.loom.com/sessions/thumbnails/${guide.loomEmbedId}-with-play.gif`}
                           alt={guide.title}
                           fill
                           className="object-cover"
                           unoptimized
                         />
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/30 transition-colors">
-                          <div className="flex items-center justify-center w-14 h-14 rounded-full bg-white/90 shadow-lg">
-                            <Play className="h-6 w-6 text-foreground ml-0.5" fill="currentColor" />
-                          </div>
-                        </div>
                       </Link>
 
                       <div className="p-4">
