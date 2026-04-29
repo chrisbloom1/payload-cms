@@ -246,7 +246,10 @@
     --bloom-amber: #ff9800;
     --bloom-rose: #fe053e;
 
-    --background: 160 40% 97%;
+    /* bloom-cream (#f6f6f8) — was 160 40% 97% (mint) on the Payload template.
+       Aligned to the marketing-site palette so bloom-web pages render on
+       the same surface they had standalone. Help-center routes inherit. */
+    --background: 240 11% 97%;
     --foreground: 266.7 46.4% 19%;
 
     --card: 0 0% 100%;
