@@ -11,17 +11,18 @@ const FADE_MS = 140
  * Replaces the Proofly/Framer rotating-word column inside the home hero
  * navy pill with a clean React-driven word swap.
  *
- * The Framer DOM:
- *   .framer-175oaup (outer wrapper, border-radius only — no bg)
- *     .framer-2f8v2u (inner; HAS the navy backgroundColor; clipped to a
- *                     fixed 149×42 box; contains 4 absolute-positioned
- *                     word slots that originally translateY-cycled)
+ * Two behaviors that matter:
+ * 1. Fixed-width pill — all four words share one grid cell, so the pill
+ *    sizes to the WIDEST word ("Manufacturing") and stays at that width
+ *    regardless of which word is showing. No bouncing layout, just text
+ *    swapping inside a steady navy box.
+ * 2. Baseline alignment — the parent flex line (`We help make __ easier.`)
+ *    ships from Framer with `align-items: flex-start`, which sits the
+ *    taller pill above the surrounding text baseline. We override to
+ *    `baseline` so the pill text reads on the same line as the rest.
  *
- * Strategy: keep `.framer-2f8v2u` (so we keep the navy bg + rounded
- * corners that surround the word), hide its children (the buggy 4-slot
- * column), reset its sizing to auto, and portal a single React-managed
- * word into it. The pill now auto-sizes to whichever word is current,
- * crossfades in ~140ms, and never reveals a blank slot.
+ * The 4 original Framer slots inside `.framer-2f8v2u` are display:none'd
+ * on mount so they don't compete for layout.
  */
 export function HeroRotatingWord() {
   const [slotEl, setSlotEl] = useState<HTMLElement | null>(null)
@@ -32,8 +33,9 @@ export function HeroRotatingWord() {
     const slot = document.querySelector('.framer-2f8v2u') as HTMLElement | null
     if (!slot) return
 
-    // Snapshot original inline styles so we can restore on unmount
-    const originalStyles: Record<string, string> = {
+    const flexLine = slot.closest('.framer-1xlm2xu') as HTMLElement | null
+
+    const originalSlotStyles: Record<string, string> = {
       width: slot.style.width,
       minWidth: slot.style.minWidth,
       height: slot.style.height,
@@ -42,35 +44,42 @@ export function HeroRotatingWord() {
       justifyContent: slot.style.justifyContent,
       borderRadius: slot.style.borderRadius,
       animation: slot.style.animation,
+      display: slot.style.display,
     }
+    const originalFlexAlign = flexLine?.style.alignItems
 
-    // Hide each pre-existing 4-slot word (the buggy translateY column)
     const originalChildren = Array.from(slot.children) as HTMLElement[]
     const childOriginalDisplays = originalChildren.map((c) => c.style.display)
     originalChildren.forEach((c) => {
       c.style.display = 'none'
     })
 
-    // Let the slot auto-size to whichever word we render. Keep its navy bg
-    // (which is set inline via Framer's `style.backgroundColor`).
+    // Pill: auto-width via the grid-stacked words inside (the widest word
+    // sets the cell width). We keep some inline padding so the navy box
+    // still reads as a chip rather than a tight underline.
     slot.style.width = 'auto'
     slot.style.minWidth = '0'
     slot.style.height = 'auto'
-    slot.style.padding = '6px 12px'
+    slot.style.padding = '2px 10px'
     slot.style.alignItems = 'center'
     slot.style.justifyContent = 'center'
     slot.style.borderRadius = '6px'
     slot.style.animation = 'none'
+    slot.style.display = 'inline-flex'
+
+    // Pull the pill onto the surrounding text's baseline.
+    if (flexLine) flexLine.style.alignItems = 'baseline'
 
     setSlotEl(slot)
 
     return () => {
-      Object.entries(originalStyles).forEach(([key, value]) => {
+      Object.entries(originalSlotStyles).forEach(([key, value]) => {
         slot.style.setProperty(key.replace(/[A-Z]/g, '-$&').toLowerCase(), value)
       })
       originalChildren.forEach((c, i) => {
         c.style.display = childOriginalDisplays[i] || ''
       })
+      if (flexLine) flexLine.style.alignItems = originalFlexAlign || ''
     }
   }, [])
 
@@ -78,7 +87,6 @@ export function HeroRotatingWord() {
     if (!slotEl) return
 
     let cancelled = false
-
     const cycle = () => {
       if (cancelled) return
       setVisible(false)
@@ -98,21 +106,37 @@ export function HeroRotatingWord() {
 
   if (!slotEl) return null
 
+  // Grid-stack all four words in a single cell; only the active one has
+  // opacity 1. The cell auto-sizes to the widest word, so the navy box
+  // never resizes mid-cycle.
   return createPortal(
     <span
       style={{
-        display: 'inline-block',
-        color: '#ffffff',
-        fontFamily: 'Haffer, "Haffer Fallback", ui-sans-serif, system-ui, sans-serif',
-        fontWeight: 700,
-        fontSize: 'inherit',
-        lineHeight: 1.2,
+        display: 'grid',
+        gridTemplateColumns: '1fr',
+        gridTemplateRows: '1fr',
         whiteSpace: 'nowrap',
-        opacity: visible ? 1 : 0,
-        transition: `opacity ${FADE_MS}ms ease-out`,
+        lineHeight: 1.2,
       }}
     >
-      {WORDS[index]}
+      {WORDS.map((word, i) => (
+        <span
+          key={word}
+          style={{
+            gridColumn: 1,
+            gridRow: 1,
+            color: '#ffffff',
+            fontFamily: 'Haffer, "Haffer Fallback", ui-sans-serif, system-ui, sans-serif',
+            fontWeight: 700,
+            fontSize: 'inherit',
+            textAlign: 'center',
+            opacity: i === index && visible ? 1 : 0,
+            transition: `opacity ${FADE_MS}ms ease-out`,
+          }}
+        >
+          {word}
+        </span>
+      ))}
     </span>,
     slotEl,
   )

@@ -31,11 +31,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           />
           <LivePreviewListener />
 
-          {/* AppShell (help-center nav) is no longer applied at the root —
-              it now wraps only the help-center route sections via their
-              per-section layouts (`kb/layout.tsx`, `guides/layout.tsx`,
-              etc.). Marketing pages get a passthrough so they can render
-              their own FloatingNav + SiteFooter. */}
+          {/* Each section provides its own chrome via its per-section
+              layout: marketing pages render `FloatingNav` + `SiteFooter`
+              inline, help-center sections (kb/guides/changelog/roadmap)
+              wrap with `HelpHeader` + `UnifiedFooter`. The root just
+              passes children through. */}
           {children}
         </Providers>
       </body>
