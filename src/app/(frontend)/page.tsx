@@ -1,5 +1,6 @@
 import { FloatingNav } from "@/components/FloatingNav";
 import { SiteFooter } from "@/components/SiteFooter";
+import { HeroRotatingWord } from "@/components/HeroRotatingWord";
 // Proofly = direct Framer exports, pixel-perfect
 import SECTIONHERONEW from "@/components/proofly/SECTIONHERONEW.jsx";
 import Mockupterms from "@/components/proofly/Mockupterms.jsx";
@@ -21,6 +22,9 @@ export default function HomePage() {
         <div className="flex w-full justify-center overflow-hidden">
           <SECTIONHERONEW />
         </div>
+        {/* Replaces the Framer rotating-word column with a clean React swap
+            (mounts client-side via portal into `.framer-175oaup`). */}
+        <HeroRotatingWord />
 
         {/* Bloom platform app demo video, anchored by orange Bloom mark */}
         <HomeAppDemo />
