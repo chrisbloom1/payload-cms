@@ -1,0 +1,39 @@
+import { RevealOnScroll } from "@/components/RevealOnScroll";
+import { cn } from "@/lib/utils";
+
+/**
+ * HomeAppMockup — auto-playing demo video of the Bloom dashboard,
+ * shown between the LogoMarquee and the ServiceWheel section on the
+ * home page. Sized to mirror the live site's centered hero loop.
+ *
+ * The video is muted + autoplay + loop + playsInline so it behaves
+ * like an inline animated mockup across browsers (Safari requires
+ * playsInline + muted to autoplay on iOS).
+ */
+export function HomeAppMockup() {
+  return (
+    <RevealOnScroll
+      as="section"
+      className={cn(
+        "w-full bg-bloom-cream",
+        "py-12 md:py-16 lg:py-20",
+      )}
+    >
+      <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
+        <div className="relative overflow-hidden rounded-2xl shadow-bloom-card md:rounded-3xl">
+          <video
+            src="/videos/hero-loop.mp4"
+            poster="/videos/hero-loop-poster.webp"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label="Demo of the Bloom platform dashboard"
+            className="block h-auto w-full"
+          />
+        </div>
+      </div>
+    </RevealOnScroll>
+  );
+}

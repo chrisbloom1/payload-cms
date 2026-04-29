@@ -30,6 +30,135 @@
     0 0.6px 0.6px -1.25px rgba(0, 0, 0, 0.18),
     0 2.29px 2.29px -2.5px rgba(0, 0, 0, 0.16),
     0 10px 10px -3.75px rgba(0, 0, 0, 0.06);
+
+  --font-sans: 'Haffer', 'Haffer Fallback', ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-sans);
+}
+
+/*
+  Site-specific utilities ported from bloom-web's globals.css. These CSS
+  rules drive the home/brands/providers hero animations and Framer-class
+  overrides — without them, Proofly-exported components render with
+  half-broken visuals (rotating word stuck on one variant, blank tiles).
+*/
+@layer utilities {
+  .bg-bloom-cta {
+    background-image: radial-gradient(100% 100% at 100% 0%, #ff9800 0%, #fe053e 100%);
+  }
+  .bg-bloom-cta:hover {
+    background-image: radial-gradient(100% 100% at 100% 0%, #ffb340 0%, #fe2a5a 100%);
+  }
+
+  @keyframes bloom-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .animate-bloom-marquee { animation: bloom-marquee 40s linear infinite; }
+
+  @keyframes bloom-spin-slow {
+    from { transform: rotate(0); }
+    to   { transform: rotate(360deg); }
+  }
+  .animate-bloom-spin-slow { animation: bloom-spin-slow 60s linear infinite; }
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(8px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* Hero rotating word — Manufacturing → Warehousing → Assembly → Logistics.
+     Framer's variant auto-cycle isn't firing in the SECTIONHERONEW Proofly
+     export, so we drive it via CSS keyframes. Sped from 0.4s slide to a
+     tighter 0.18s window so the slot-padding gap doesn't read as a blank
+     slot mid-scroll. */
+  @keyframes bloom-word-cycle {
+    0%, 20%   { transform: translateY(0); }
+    25%, 45%  { transform: translateY(-52px); }
+    50%, 70%  { transform: translateY(-104px); }
+    75%, 95%  { transform: translateY(-156px); }
+    100%      { transform: translateY(-208px); }
+  }
+  .framer-2f8v2u {
+    animation: bloom-word-cycle 8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+    will-change: transform;
+    background: transparent !important;
+  }
+
+  /* FAQ accordion answer text on Proofly Faqbrands / Faqproviders ships
+     with a near-white preset color that vanishes on the mint card BG. */
+  .framer-styles-preset-k8yxrn {
+    color: #221742 !important;
+    opacity: 0.9;
+  }
+
+  /* Home hero h1 ("Hardware shouldn't be hard.") — Proofly preset ships
+     with --framer-font-weight: 400 on a Haffer Bold family. The result
+     reads as medium weight rather than the heavier display weight on the
+     live site. Force to extra-bold (800). */
+  .framer-styles-preset-xwk33z {
+    --framer-font-weight: 800 !important;
+    font-weight: 800 !important;
+  }
+
+  /* /brands hero "Turn on →" affordance — Brandsintroanimation widget
+     ships with the Bloom-mark wrapper (.framer-2szdxp) at opacity 0 in
+     the idle variant, which also hides the Turn on label
+     (.framer-1e1qvc8) inside. Force the wrapper visible. */
+  .framer-2szdxp {
+    opacity: 1 !important;
+  }
+  .framer-1e1qvc8 {
+    background: transparent !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    width: auto !important;
+    height: auto !important;
+    transform: scale(2) !important;
+    transform-origin: 100% 50% !important;
+    z-index: 5 !important;
+    cursor: pointer;
+    transition: opacity 150ms ease-out !important;
+  }
+  .framer-1e1qvc8:hover {
+    opacity: 0.75;
+  }
+  .framer-1e1qvc8 .framer-text {
+    color: var(--bloom-muted) !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+    white-space: nowrap;
+    line-height: 1 !important;
+  }
+
+  /* Home hero load-order stagger — fade + lift each element in with a
+     slight delay so the page reads top-down on first paint. Only runs on
+     first paint — no scroll trigger needed since the hero is above fold. */
+  @keyframes bloom-hero-rise {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .animate-bloom-hero-rise {
+      animation: bloom-hero-rise 700ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    }
+    .framer-1wcg1zx,
+    .framer-1crzua0,
+    .framer-108q8n3-container,
+    .framer-1pnfi5j {
+      animation: bloom-hero-rise 700ms cubic-bezier(0.22, 0.61, 0.36, 1) both !important;
+    }
+    .framer-1wcg1zx              { animation-delay: 100ms !important; }
+    .framer-1crzua0              { animation-delay: 280ms !important; }
+    .framer-108q8n3-container    { animation-delay: 460ms !important; }
+    .framer-1pnfi5j              { animation-delay: 640ms !important; }
+  }
 }
 
 /*
