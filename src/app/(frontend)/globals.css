@@ -3,6 +3,36 @@
 @config '../../../tailwind.config.mjs';
 
 /*
+  Bloom brand tokens, ported from bloom-web's globals.css. Exposed via
+  `@theme inline` so Tailwind v4 generates `bg-bloom-mint`, `text-bloom-navy`,
+  `shadow-bloom-card`, etc. as utility classes — needed when bloom-web's
+  marketing pages are pulled into `(frontend)/`.
+
+  The raw hex values land on `:root` further below alongside Payload's
+  existing shadcn HSL tokens; the two systems coexist (Bloom marketing
+  pages reference `var(--bloom-*)`, Payload template pages reference
+  `hsl(var(--background))` etc.).
+*/
+@theme inline {
+  --color-bloom-navy: var(--bloom-navy);
+  --color-bloom-navy-deep: var(--bloom-navy-deep);
+  --color-bloom-mint: var(--bloom-mint);
+  --color-bloom-mint-soft: var(--bloom-mint-soft);
+  --color-bloom-cream: var(--bloom-cream);
+  --color-bloom-grey: var(--bloom-grey);
+  --color-bloom-muted: var(--bloom-muted);
+  --color-bloom-orange: var(--bloom-orange);
+  --color-bloom-orange-deep: var(--bloom-orange-deep);
+  --color-bloom-amber: var(--bloom-amber);
+  --color-bloom-rose: var(--bloom-rose);
+
+  --shadow-bloom-card:
+    0 0.6px 0.6px -1.25px rgba(0, 0, 0, 0.18),
+    0 2.29px 2.29px -2.5px rgba(0, 0, 0, 0.16),
+    0 10px 10px -3.75px rgba(0, 0, 0, 0.06);
+}
+
+/*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
   looks the same as it did with Tailwind CSS v3.
@@ -74,6 +104,19 @@
   }
 
   :root {
+    /* Bloom raw palette (hex) — referenced by `--color-bloom-*` aliases above */
+    --bloom-navy: #221742;
+    --bloom-navy-deep: #372f4f;
+    --bloom-mint: #dcebec;
+    --bloom-mint-soft: #ebebf0;
+    --bloom-cream: #f6f6f8;
+    --bloom-grey: #eaeaeb;
+    --bloom-muted: #776f8f;
+    --bloom-orange: #fe570b;
+    --bloom-orange-deep: #fc4c01;
+    --bloom-amber: #ff9800;
+    --bloom-rose: #fe053e;
+
     --background: 160 40% 97%;
     --foreground: 266.7 46.4% 19%;
 
