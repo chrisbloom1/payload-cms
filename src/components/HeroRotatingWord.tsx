@@ -9,57 +9,73 @@ const FADE_MS = 140
 
 /**
  * Replaces the Proofly/Framer rotating-word column inside the home hero
- * navy pill (`.framer-175oaup`) with a clean React-driven word swap.
+ * navy pill with a clean React-driven word swap.
  *
- * Why a portal-injection rather than editing the Framer JSX:
- * the export is a 4000-line generated file with internal layout
- * dependencies. Rather than fork it, we keep its layout intact
- * (the navy pill provides position + bg + the surrounding "We help
- * make ___ easier." flex line) and replace only the word-cycling
- * contents. That gets us:
- *   - Pill auto-sizes to the current word (no awkward right-side gap
- *     when the word is shorter than "Manufacturing")
- *   - Tight ~140ms crossfade between words (vs. the original 400ms
- *     translateY scrub through stacked slots)
- *   - No invisible 5th-slot sliding past the bottom on each loop
+ * The Framer DOM:
+ *   .framer-175oaup (outer wrapper, border-radius only — no bg)
+ *     .framer-2f8v2u (inner; HAS the navy backgroundColor; clipped to a
+ *                     fixed 149×42 box; contains 4 absolute-positioned
+ *                     word slots that originally translateY-cycled)
  *
- * The original Framer rotating column (`.framer-2f8v2u`) is hidden via
- * `display:none` once we mount, so it doesn't compete for layout.
+ * Strategy: keep `.framer-2f8v2u` (so we keep the navy bg + rounded
+ * corners that surround the word), hide its children (the buggy 4-slot
+ * column), reset its sizing to auto, and portal a single React-managed
+ * word into it. The pill now auto-sizes to whichever word is current,
+ * crossfades in ~140ms, and never reveals a blank slot.
  */
 export function HeroRotatingWord() {
-  const [pillEl, setPillEl] = useState<HTMLElement | null>(null)
+  const [slotEl, setSlotEl] = useState<HTMLElement | null>(null)
   const [index, setIndex] = useState(0)
   const [visible, setVisible] = useState(true)
 
   useEffect(() => {
-    const pill = document.querySelector('.framer-175oaup') as HTMLElement | null
-    if (!pill) return
+    const slot = document.querySelector('.framer-2f8v2u') as HTMLElement | null
+    if (!slot) return
 
-    const innerSlot = pill.querySelector('.framer-2f8v2u') as HTMLElement | null
-    if (innerSlot) innerSlot.style.display = 'none'
+    // Snapshot original inline styles so we can restore on unmount
+    const originalStyles: Record<string, string> = {
+      width: slot.style.width,
+      minWidth: slot.style.minWidth,
+      height: slot.style.height,
+      padding: slot.style.padding,
+      alignItems: slot.style.alignItems,
+      justifyContent: slot.style.justifyContent,
+      borderRadius: slot.style.borderRadius,
+      animation: slot.style.animation,
+    }
 
-    pill.style.width = 'auto'
-    pill.style.minWidth = '0'
-    pill.style.height = 'auto'
-    pill.style.padding = '6px 12px'
-    pill.style.alignItems = 'center'
-    pill.style.justifyContent = 'center'
+    // Hide each pre-existing 4-slot word (the buggy translateY column)
+    const originalChildren = Array.from(slot.children) as HTMLElement[]
+    const childOriginalDisplays = originalChildren.map((c) => c.style.display)
+    originalChildren.forEach((c) => {
+      c.style.display = 'none'
+    })
 
-    setPillEl(pill)
+    // Let the slot auto-size to whichever word we render. Keep its navy bg
+    // (which is set inline via Framer's `style.backgroundColor`).
+    slot.style.width = 'auto'
+    slot.style.minWidth = '0'
+    slot.style.height = 'auto'
+    slot.style.padding = '6px 12px'
+    slot.style.alignItems = 'center'
+    slot.style.justifyContent = 'center'
+    slot.style.borderRadius = '6px'
+    slot.style.animation = 'none'
+
+    setSlotEl(slot)
 
     return () => {
-      if (innerSlot) innerSlot.style.display = ''
-      pill.style.width = ''
-      pill.style.minWidth = ''
-      pill.style.height = ''
-      pill.style.padding = ''
-      pill.style.alignItems = ''
-      pill.style.justifyContent = ''
+      Object.entries(originalStyles).forEach(([key, value]) => {
+        slot.style.setProperty(key.replace(/[A-Z]/g, '-$&').toLowerCase(), value)
+      })
+      originalChildren.forEach((c, i) => {
+        c.style.display = childOriginalDisplays[i] || ''
+      })
     }
   }, [])
 
   useEffect(() => {
-    if (!pillEl) return
+    if (!slotEl) return
 
     let cancelled = false
 
@@ -78,9 +94,9 @@ export function HeroRotatingWord() {
       cancelled = true
       window.clearInterval(interval)
     }
-  }, [pillEl])
+  }, [slotEl])
 
-  if (!pillEl) return null
+  if (!slotEl) return null
 
   return createPortal(
     <span
@@ -98,6 +114,6 @@ export function HeroRotatingWord() {
     >
       {WORDS[index]}
     </span>,
-    pillEl,
+    slotEl,
   )
 }
