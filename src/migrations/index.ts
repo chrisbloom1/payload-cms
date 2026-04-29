@@ -3,7 +3,6 @@ import * as migration_20241214_124128 from './20241214_124128';
 import * as migration_20260222_003500_payload_3_77_compat from './20260222_003500_payload_3_77_compat';
 import * as migration_20260403_173231 from './20260403_173231';
 import * as migration_20260404_012349_add_guides_collection from './20260404_012349_add_guides_collection';
-import * as migration_20260404_014640_feature_requests from './20260404_014640_feature_requests';
 
 export const migrations = [
   {
@@ -32,8 +31,5 @@ export const migrations = [
     name: '20260404_012349_add_guides_collection',
   },
   {
-    up: migration_20260404_014640_feature_requests.up,
-    down: migration_20260404_014640_feature_requests.down,
-    name: '20260404_014640_feature_requests'
   },
 ];

@@ -18,7 +18,7 @@ import { FAQs } from './collections/KnowledgeBase/FAQs'
 import { Glossary } from './collections/KnowledgeBase/Glossary'
 import { Guides } from './collections/KnowledgeBase/Guides'
 import { ReleaseNotes } from './collections/KnowledgeBase/ReleaseNotes'
-import { FeatureRequests } from './collections/KnowledgeBase/FeatureRequests'
+// import { FeatureRequests } from './collections/KnowledgeBase/FeatureRequests' // disabled in bloom-merge — see config.collections comment
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { plugins } from './plugins'
@@ -77,7 +77,12 @@ export default buildConfig({
     Glossary,
     Guides,
     ReleaseNotes,
-    FeatureRequests,
+    // FeatureRequests is disabled in the bloom-merge branch — the in-flight
+    // migration `20260404_014640_feature_requests.ts` has an enum collision
+    // (user-defined `status` and Payload's `_status` share the same enum
+    // type, which breaks on a fresh DB). Re-enable once the WIP migration
+    // is regenerated with separate enum names.
+    // FeatureRequests,
     KBCategories,
     // Site
     Pages,
