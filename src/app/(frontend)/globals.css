@@ -72,19 +72,27 @@
 
   /* Hero rotating word — Manufacturing → Warehousing → Assembly → Logistics.
      Framer's variant auto-cycle isn't firing in the SECTIONHERONEW Proofly
-     export, so we drive it via CSS keyframes. Sped from 0.4s slide to a
-     tighter 0.18s window so the slot-padding gap doesn't read as a blank
-     slot mid-scroll. */
+     export, so we drive it via CSS keyframes.
+
+     Why the fade-and-snap at the loop boundary: there are only 4 word slots
+     (top 0, 52, 104, 156). Animating to a 5th slot at -208 reveals empty
+     space; animating back from -156 → 0 in-band would scrub through the
+     middle words backwards. Instead: hold on Logistics, fade to opacity 0,
+     instant-jump back to slot 0 while invisible (steps(1) timing function
+     on that segment), then fade Manufacturing back in. User never sees a
+     blank slot or a reverse scrub. */
   @keyframes bloom-word-cycle {
-    0%, 20%   { transform: translateY(0); }
-    25%, 45%  { transform: translateY(-52px); }
-    50%, 70%  { transform: translateY(-104px); }
-    75%, 95%  { transform: translateY(-156px); }
-    100%      { transform: translateY(-208px); }
+    0%, 20%   { transform: translateY(0);      opacity: 1; }
+    25%, 45%  { transform: translateY(-52px);  opacity: 1; }
+    50%, 70%  { transform: translateY(-104px); opacity: 1; }
+    75%, 92%  { transform: translateY(-156px); opacity: 1; }
+    96%       { transform: translateY(-156px); opacity: 0; animation-timing-function: steps(1, end); }
+    99%       { transform: translateY(0);      opacity: 0; }
+    100%      { transform: translateY(0);      opacity: 1; }
   }
   .framer-2f8v2u {
     animation: bloom-word-cycle 8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
-    will-change: transform;
+    will-change: transform, opacity;
     background: transparent !important;
   }
 
