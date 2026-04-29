@@ -1,42 +1,66 @@
-@font-face {
-  font-family: 'Haffer';
-  src: url('/fonts/HafferRegular.woff2') format('woff2'),
-       url('/fonts/HafferRegular.woff') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+@import 'tailwindcss';
+
+@config '../../../tailwind.config.mjs';
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
 }
 
-@font-face {
-  font-family: 'Haffer';
-  src: url('/fonts/HafferRegularItalic.woff2') format('woff2'),
-       url('/fonts/HafferRegularItalic.woff') format('woff');
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
+@layer base {
+  @font-face {
+    font-family: 'Haffer';
+    src:
+      url('/fonts/HafferRegular.woff2') format('woff2'),
+      url('/fonts/HafferRegular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
 
-@font-face {
-  font-family: 'Haffer';
-  src: url('/fonts/HafferBold.woff2') format('woff2'),
-       url('/fonts/HafferBold.woff') format('woff');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
+  @font-face {
+    font-family: 'Haffer';
+    src:
+      url('/fonts/HafferRegularItalic.woff2') format('woff2'),
+      url('/fonts/HafferRegularItalic.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
 
-@font-face {
-  font-family: 'Haffer';
-  src: url('/fonts/HafferBoldItalic.woff2') format('woff2'),
-       url('/fonts/HafferBoldItalic.woff') format('woff');
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-}
+  @font-face {
+    font-family: 'Haffer';
+    src:
+      url('/fonts/HafferBold.woff2') format('woff2'),
+      url('/fonts/HafferBold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+  @font-face {
+    font-family: 'Haffer';
+    src:
+      url('/fonts/HafferBoldItalic.woff2') format('woff2'),
+      url('/fonts/HafferBoldItalic.woff') format('woff');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+  }
+}
 
 @layer base {
   h1,

@@ -55,7 +55,7 @@ export const SidebarNav: React.FC = () => {
                       className={cn(
                         'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all',
                         isActive
-                          ? 'bg-card shadow-sm text-foreground'
+                          ? 'bg-card shadow-xs text-foreground'
                           : 'text-muted-foreground hover:bg-card/50 hover:text-foreground',
                       )}
                     >

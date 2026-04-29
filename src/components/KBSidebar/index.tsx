@@ -40,7 +40,7 @@ export const KBSidebar: React.FC<{ children?: React.ReactNode }> = ({ children }
               className={cn(
                 'flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-all',
                 isActive
-                  ? 'bg-white text-foreground shadow-sm'
+                  ? 'bg-white text-foreground shadow-xs'
                   : 'text-muted-foreground hover:text-foreground',
               )}
             >

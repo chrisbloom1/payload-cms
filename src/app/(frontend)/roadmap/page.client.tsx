@@ -168,7 +168,7 @@ export const RoadmapPageClient: React.FC<{ requests: FeatureRequest[] }> = ({
                   className={cn(
                     'rounded-full px-3.5 py-1.5 text-sm font-medium transition-all',
                     activeFilter === value
-                      ? 'bg-foreground text-background shadow-sm'
+                      ? 'bg-foreground text-background shadow-xs'
                       : 'bg-muted text-muted-foreground hover:text-foreground',
                   )}
                 >
@@ -193,7 +193,7 @@ export const RoadmapPageClient: React.FC<{ requests: FeatureRequest[] }> = ({
                   return (
                     <div
                       key={req.id}
-                      className="flex gap-4 rounded-xl bg-white p-4 shadow-sm"
+                      className="flex gap-4 rounded-xl bg-white p-4 shadow-xs"
                     >
                       {/* Vote column */}
                       <div className="flex flex-col items-center shrink-0">
@@ -250,7 +250,7 @@ export const RoadmapPageClient: React.FC<{ requests: FeatureRequest[] }> = ({
             )}
 
             {/* Submit form */}
-            <div className="mt-12 rounded-xl bg-white p-6 shadow-sm">
+            <div className="mt-12 rounded-xl bg-white p-6 shadow-xs">
               <h2 className="text-lg font-bold mb-1">Submit a Feature Request</h2>
               <p className="text-sm text-muted-foreground mb-6">
                 Got an idea? Let us know what you&apos;d like to see built.
@@ -280,7 +280,7 @@ export const RoadmapPageClient: React.FC<{ requests: FeatureRequest[] }> = ({
                     minLength={5}
                     value={formTitle}
                     onChange={(e) => setFormTitle(e.target.value)}
-                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-foreground/20"
+                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-hidden focus:ring-2 focus:ring-foreground/20"
                     placeholder="Short, descriptive title"
                   />
                 </div>
@@ -296,7 +296,7 @@ export const RoadmapPageClient: React.FC<{ requests: FeatureRequest[] }> = ({
                     rows={3}
                     value={formDescription}
                     onChange={(e) => setFormDescription(e.target.value)}
-                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-foreground/20 resize-none"
+                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-hidden focus:ring-2 focus:ring-foreground/20 resize-none"
                     placeholder="Describe the feature and why it would be useful"
                   />
                 </div>
@@ -311,7 +311,7 @@ export const RoadmapPageClient: React.FC<{ requests: FeatureRequest[] }> = ({
                       type="text"
                       value={formName}
                       onChange={(e) => setFormName(e.target.value)}
-                      className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-foreground/20"
+                      className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-hidden focus:ring-2 focus:ring-foreground/20"
                       placeholder="Optional"
                     />
                   </div>
@@ -324,7 +324,7 @@ export const RoadmapPageClient: React.FC<{ requests: FeatureRequest[] }> = ({
                       type="email"
                       value={formEmail}
                       onChange={(e) => setFormEmail(e.target.value)}
-                      className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-foreground/20"
+                      className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-hidden focus:ring-2 focus:ring-foreground/20"
                       placeholder="Optional"
                     />
                   </div>

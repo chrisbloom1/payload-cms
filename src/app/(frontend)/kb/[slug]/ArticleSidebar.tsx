@@ -49,7 +49,7 @@ export const ArticleSidebar: React.FC<{ body: Record<string, unknown> }> = ({ bo
   if (headings.length === 0) return null
 
   return (
-    <aside className="hidden lg:block lg:w-64 lg:flex-shrink-0">
+    <aside className="hidden lg:block lg:w-64 lg:shrink-0">
       <div className="sticky top-8">
         <h4 className="text-sm font-semibold mb-3 text-muted-foreground">On this page</h4>
         <ScrollArea className="max-h-[calc(100vh-8rem)]">

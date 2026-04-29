@@ -139,7 +139,7 @@ export default async function GuidePage({ params: paramsPromise }: Args) {
                       className={cn(
                         'flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all',
                         isActive
-                          ? 'bg-white font-medium text-foreground shadow-sm'
+                          ? 'bg-white font-medium text-foreground shadow-xs'
                           : 'text-muted-foreground hover:text-foreground',
                       )}
                     >
