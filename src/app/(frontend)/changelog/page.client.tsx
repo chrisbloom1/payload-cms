@@ -3,7 +3,6 @@
 import React from 'react'
 import { FileText } from 'lucide-react'
 
-import { KBSidebar } from '@/components/KBSidebar'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 
@@ -25,9 +24,7 @@ export const ChangelogPageClient: React.FC<{ entries: ReleaseNote[] }> = ({ entr
           <p className="text-sm text-muted-foreground">What shipped and when.</p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8">
-          <KBSidebar />
-
+        <div className="flex flex-col gap-8">
           <div className="flex-1 min-w-0 max-w-3xl">
             {entries.length === 0 ? (
               <div className="flex flex-col items-center gap-3 py-16 text-center text-muted-foreground">

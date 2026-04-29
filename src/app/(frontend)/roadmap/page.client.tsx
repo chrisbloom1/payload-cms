@@ -7,7 +7,6 @@ import {
   Check,
 } from 'lucide-react'
 
-import { KBSidebar } from '@/components/KBSidebar'
 import { cn } from '@/utilities/cn'
 
 interface FeatureRequest {
@@ -154,9 +153,7 @@ export const RoadmapPageClient: React.FC<{ requests: FeatureRequest[] }> = ({
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8">
-          <KBSidebar />
-
+        <div className="flex flex-col gap-8">
           {/* Main content */}
           <div className="flex-1 min-w-0">
             {/* Status filter pills */}

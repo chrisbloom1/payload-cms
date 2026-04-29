@@ -5,7 +5,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Play } from 'lucide-react'
 
-import { KBSidebar } from '@/components/KBSidebar'
 import { cn } from '@/utilities/cn'
 
 interface KBCategory {
@@ -47,9 +46,7 @@ export const GuidesPageClient: React.FC<{
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8">
-          <KBSidebar />
-
+        <div className="flex flex-col gap-8">
           {/* Guides grid */}
           <div className="flex-1 min-w-0">
             {guides.length === 0 ? (
