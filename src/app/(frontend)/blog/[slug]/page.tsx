@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FloatingNav } from "@/components/FloatingNav";
-import { SiteFooter } from "@/components/SiteFooter";
+import { UnifiedFooter } from "@/components/UnifiedFooter";
 import { ArrowRightIcon } from "@/components/icons";
 import { BLOG_POSTS, getPostBySlug } from "@/lib/blog-posts";
 
@@ -157,7 +157,7 @@ export default async function BlogPostPage(
           </section>
         </article>
       </main>
-      <SiteFooter />
+      <UnifiedFooter />
     </>
   );
 }

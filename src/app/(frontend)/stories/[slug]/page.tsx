@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FloatingNav } from "@/components/FloatingNav";
-import { SiteFooter } from "@/components/SiteFooter";
+import { UnifiedFooter } from "@/components/UnifiedFooter";
 import { ArrowRightIcon } from "@/components/icons";
 import { BrandLogo } from "@/components/BrandLogo";
 import { HeroImage } from "@/components/HeroImage";
@@ -215,7 +215,7 @@ export default async function StoryPage(
           </div>
         </section>
       </main>
-      <SiteFooter />
+      <UnifiedFooter />
     </>
   );
 }

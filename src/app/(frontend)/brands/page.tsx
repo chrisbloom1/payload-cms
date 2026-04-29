@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { FloatingNav } from "@/components/FloatingNav";
-import { SiteFooter } from "@/components/SiteFooter";
+import { UnifiedFooter } from "@/components/UnifiedFooter";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { ArrowRightIcon } from "@/components/icons";
 import { BloomPayLockup } from "@/components/BloomLogo";
@@ -321,7 +321,7 @@ export default function BrandsPage() {
           </div>
         </section>
       </main>
-      <SiteFooter />
+      <UnifiedFooter />
     </>
   );
 }

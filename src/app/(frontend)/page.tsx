@@ -1,5 +1,5 @@
 import { FloatingNav } from "@/components/FloatingNav";
-import { SiteFooter } from "@/components/SiteFooter";
+import { UnifiedFooter } from "@/components/UnifiedFooter";
 import { HeroRotatingWord } from "@/components/HeroRotatingWord";
 // Proofly = direct Framer exports, pixel-perfect
 import SECTIONHERONEW from "@/components/proofly/SECTIONHERONEW.jsx";
@@ -67,7 +67,7 @@ export default function HomePage() {
             peeks on each side, matching the live carousel layout. */}
         <MembersTestimonials />
       </main>
-      <SiteFooter />
+      <UnifiedFooter />
     </>
   );
 }

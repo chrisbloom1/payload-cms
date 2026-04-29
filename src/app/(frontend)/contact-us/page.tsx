@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FloatingNav } from "@/components/FloatingNav";
-import { SiteFooter } from "@/components/SiteFooter";
+import { UnifiedFooter } from "@/components/UnifiedFooter";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { LinkedInIcon, ArrowRightIcon } from "@/components/icons";
@@ -187,7 +187,7 @@ export default function ContactUsPage() {
         <ContactPaths />
         <ContactFormSection />
       </main>
-      <SiteFooter />
+      <UnifiedFooter />
     </>
   );
 }

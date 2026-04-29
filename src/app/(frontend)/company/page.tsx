@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { FloatingNav } from "@/components/FloatingNav";
-import { SiteFooter } from "@/components/SiteFooter";
+import { UnifiedFooter } from "@/components/UnifiedFooter";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { ArrowRightIcon } from "@/components/icons";
 import { TeamGrid } from "@/components/company/TeamGrid";
@@ -165,7 +165,7 @@ export default function CompanyPage() {
           </RevealOnScroll>
         </div>
       </main>
-      <SiteFooter />
+      <UnifiedFooter />
     </>
   );
 }

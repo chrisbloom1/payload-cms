@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { FloatingNav } from "@/components/FloatingNav";
-import { SiteFooter } from "@/components/SiteFooter";
+import { UnifiedFooter } from "@/components/UnifiedFooter";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | Bloom",
@@ -931,7 +931,7 @@ export default function PrivacyPage() {
         </div>
       </main>
 
-      <SiteFooter />
+      <UnifiedFooter />
     </>
   );
 }

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FloatingNav } from "@/components/FloatingNav";
-import { SiteFooter } from "@/components/SiteFooter";
+import { UnifiedFooter } from "@/components/UnifiedFooter";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { BLOG_POSTS, type BlogPost } from "@/lib/blog-posts";
 
@@ -65,7 +65,7 @@ export default function BlogIndexPage() {
           </section>
         </div>
       </main>
-      <SiteFooter />
+      <UnifiedFooter />
     </>
   );
 }

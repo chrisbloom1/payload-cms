@@ -32,7 +32,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <LivePreviewListener />
 
           {/* Each section provides its own chrome via its per-section
-              layout: marketing pages render `FloatingNav` + `SiteFooter`
+              layout: marketing pages render `FloatingNav` + `UnifiedFooter`
               inline, help-center sections (kb/guides/changelog/roadmap)
               wrap with `HelpHeader` + `UnifiedFooter`. The root just
               passes children through. */}
