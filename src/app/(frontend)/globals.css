@@ -72,11 +72,10 @@
 
   /* Hero rotating word — driven by `<HeroRotatingWord />` (a portal-mounted
      React component) instead of the original Framer translateY column.
-     The Framer column at `.framer-2f8v2u` is hidden by the component once
-     it mounts; we suppress its bg here to avoid a flash before hydration. */
-  .framer-2f8v2u {
-    background: transparent !important;
-  }
+     The Framer-applied inline `background-color` (navy) on `.framer-2f8v2u`
+     is what makes the persistent pill — do NOT override it from CSS. The
+     component hides the buggy 4-slot children on mount and renders a
+     single React-managed word inside. */
 
   /* FAQ accordion answer text on Proofly Faqbrands / Faqproviders ships
      with a near-white preset color that vanishes on the mint card BG. */
