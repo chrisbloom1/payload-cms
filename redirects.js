@@ -12,7 +12,16 @@ const redirects = async () => {
     source: '/:path((?!ie-incompatible.html$).*)', // all pages except the incompatibility page
   }
 
-  const redirects = [internetExplorerRedirect]
+  // Live bloomnetwork.ai exposed /newsroom; both the bloom-web clone and the
+  // merged site consolidate news under /blog. Keep the alias so external links
+  // (e.g. company-page CTA, old emails) don't 404.
+  const newsroomRedirect = {
+    source: '/newsroom',
+    destination: '/blog',
+    permanent: true,
+  }
+
+  const redirects = [internetExplorerRedirect, newsroomRedirect]
 
   return redirects
 }
