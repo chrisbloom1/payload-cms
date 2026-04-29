@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
-import { AppShell } from '@/components/AppShell'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
@@ -32,9 +31,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           />
           <LivePreviewListener />
 
-          <AppShell>
-            {children}
-          </AppShell>
+          {/* AppShell (help-center nav) is no longer applied at the root —
+              it now wraps only the help-center route sections via their
+              per-section layouts (`kb/layout.tsx`, `guides/layout.tsx`,
+              etc.). Marketing pages get a passthrough so they can render
+              their own FloatingNav + SiteFooter. */}
+          {children}
         </Providers>
       </body>
     </html>

@@ -1,0 +1,193 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { FloatingNav } from "@/components/FloatingNav";
+import { SiteFooter } from "@/components/SiteFooter";
+import { RevealOnScroll } from "@/components/RevealOnScroll";
+import { ContactForm } from "@/components/forms/ContactForm";
+import { LinkedInIcon, ArrowRightIcon } from "@/components/icons";
+import { BloomMarkGradient } from "@/components/BloomLogo";
+import { cn } from "@/lib/utils";
+
+export const metadata: Metadata = {
+  title: "Contact us | Bloom",
+  description:
+    "If you're a hardware brand or service provider interested in joining our platform, or if you just have questions, we'd love to hear from you!",
+};
+
+const PATHS = [
+  {
+    eyebrow: "FOR BRANDS",
+    heading: "Looking for a partner?",
+    body: "Get matched with vetted manufacturers, warehouses, assembly partners, and logistics providers across North America.",
+    href: "/brands",
+    cta: "Explore for brands",
+  },
+  {
+    eyebrow: "FOR PROVIDERS",
+    heading: "Want to win better jobs?",
+    body: "Apply to join the Bloom network and get connected to qualified, fast-growing hardware brands ready to ship.",
+    href: "/providers",
+    cta: "Apply to providers",
+  },
+] as const;
+
+const ADDRESSES = [
+  { city: "Detroit, MI", line1: "2050 15th St", line2: "Detroit, MI 48216" },
+  { city: "Brooklyn, NY", line1: "19 Morris Ave", line2: "Brooklyn, NY 10019" },
+] as const;
+
+function ContactHero() {
+  return (
+    <RevealOnScroll
+      as="section"
+      className="relative w-full overflow-hidden bg-bloom-cream pt-32 pb-12 sm:pt-36 sm:pb-16 lg:pt-40 lg:pb-20"
+    >
+      <div className="mx-auto w-full max-w-[820px] px-6 text-center">
+        <div
+          aria-hidden="true"
+          className="bg-bloom-cta mx-auto mb-7 flex h-[44px] w-[44px] items-center justify-center rounded-[8px] shadow-[0_8px_24px_rgba(254,5,62,0.25)]"
+        >
+          <BloomMarkGradient
+            className="h-6 w-auto"
+            preserveAspectRatio="xMidYMid meet"
+            style={{ filter: "brightness(0) invert(1)" }}
+          />
+        </div>
+        <h1
+          className={cn(
+            "font-extrabold text-bloom-navy",
+            "text-[36px] leading-[40px]",
+            "sm:text-[44px] sm:leading-[48px]",
+            "lg:text-[56px] lg:leading-[60px]",
+          )}
+        >
+          Let&apos;s build hardware, together.
+        </h1>
+        <p className="mx-auto mt-6 max-w-[620px] text-[16px] leading-[26px] text-bloom-navy sm:text-[18px]">
+          Whether you&apos;re a hardware brand, a service provider, or just have a
+          question — drop us a line and the right person at Bloom will get back to
+          you.
+        </p>
+      </div>
+    </RevealOnScroll>
+  );
+}
+
+function ContactPaths() {
+  return (
+    <RevealOnScroll
+      as="section"
+      className="w-full bg-bloom-cream py-12 sm:py-16"
+    >
+      <div className="mx-auto w-full max-w-[1080px] px-4 sm:px-6">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
+          {PATHS.map((path) => (
+            <Link
+              key={path.heading}
+              href={path.href}
+              className="group flex flex-col gap-4 rounded-2xl bg-white p-7 shadow-bloom-card transition-transform duration-200 hover:-translate-y-0.5 sm:p-8"
+            >
+              <p className="text-[12px] font-bold uppercase tracking-[0.18em] text-bloom-orange">
+                {path.eyebrow}
+              </p>
+              <h3 className="text-[22px] font-bold leading-[28px] text-bloom-navy sm:text-[26px] sm:leading-[32px]">
+                {path.heading}
+              </h3>
+              <p className="text-[15px] leading-[24px] text-bloom-navy">
+                {path.body}
+              </p>
+              <span className="mt-2 inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-[0.14em] text-bloom-navy">
+                {path.cta}
+                <ArrowRightIcon className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+              </span>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </RevealOnScroll>
+  );
+}
+
+function ContactFormSection() {
+  return (
+    <RevealOnScroll
+      as="section"
+      className="w-full bg-bloom-cream py-16 sm:py-20 lg:py-[120px]"
+    >
+      <div className="mx-auto w-full max-w-[1080px] px-4 sm:px-6">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-16">
+          {/* Left column: contact channels */}
+          <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-3">
+              <p className="text-[12px] font-bold uppercase tracking-[0.18em] text-bloom-orange">
+                Get in touch
+              </p>
+              <h2 className="text-[28px] font-bold leading-[34px] text-bloom-navy sm:text-[32px] sm:leading-[38px]">
+                Send us a message
+              </h2>
+              <p className="text-[16px] leading-[26px] text-bloom-navy">
+                Fill out the form and we&rsquo;ll route your message to the right
+                team — usually a same-day response on weekdays.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <h3 className="text-[14px] font-bold uppercase tracking-[0.14em] text-bloom-navy">
+                Offices
+              </h3>
+              <div className="flex flex-col gap-3">
+                {ADDRESSES.map((addr) => (
+                  <address
+                    key={addr.city}
+                    className="not-italic text-[14px] leading-[20px] text-bloom-navy"
+                  >
+                    <span className="font-bold">{addr.city}</span>
+                    <br />
+                    {addr.line1}
+                    <br />
+                    {addr.line2}
+                  </address>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <h3 className="text-[14px] font-bold uppercase tracking-[0.14em] text-bloom-navy">
+                Connect
+              </h3>
+              <a
+                href="https://www.linkedin.com/company/bloomus"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-[14px] text-bloom-navy hover:underline"
+                aria-label="Bloom on LinkedIn"
+              >
+                <LinkedInIcon className="h-5 w-5" />
+                LinkedIn
+              </a>
+            </div>
+          </div>
+
+          {/* Right column: form */}
+          <div className="rounded-2xl bg-white p-6 shadow-bloom-card sm:p-8 lg:p-10">
+            <ContactForm />
+          </div>
+        </div>
+      </div>
+    </RevealOnScroll>
+  );
+}
+
+export default function ContactUsPage() {
+  return (
+    <>
+      <FloatingNav />
+      <main className="bg-bloom-cream">
+        <ContactHero />
+        <ContactPaths />
+        <ContactFormSection />
+      </main>
+      <SiteFooter />
+    </>
+  );
+}
