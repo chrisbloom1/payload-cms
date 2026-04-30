@@ -307,7 +307,7 @@ function ProvidersCTA() {
         <Link
           href="/contact-us"
           className={cn(
-            "inline-flex items-center gap-2 rounded-full",
+            "inline-flex items-center gap-2 rounded-md",
             "bg-bloom-navy text-white",
             "px-7 py-3.5 text-[14px] font-bold uppercase tracking-[0.08em]",
             "transition-transform duration-200 hover:scale-[1.02]",

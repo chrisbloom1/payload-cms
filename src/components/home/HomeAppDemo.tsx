@@ -35,7 +35,7 @@ export function HomeAppDemo() {
           </div>
 
           {/* Video / poster */}
-          <div className="relative w-full overflow-hidden rounded-2xl shadow-bloom-card ring-1 ring-bloom-navy/10">
+          <div className="relative w-full overflow-hidden rounded-md shadow-bloom-card ring-1 ring-bloom-navy/10">
             <video
               autoPlay
               muted

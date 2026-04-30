@@ -165,7 +165,7 @@ function TeamCard({ member, onOpenBio }: { member: TeamMember; onOpenBio: (m: Te
             <button
               type="button"
               onClick={() => onOpenBio(member)}
-              className="rounded-full border border-bloom-navy/20 px-3 py-1 text-[12px] font-bold uppercase tracking-[0.08em] text-bloom-navy transition-colors duration-150 hover:bg-bloom-navy hover:text-bloom-cream focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bloom-orange focus-visible:ring-offset-2 focus-visible:ring-offset-bloom-cream"
+              className="rounded-md border border-bloom-navy/20 px-3 py-1 text-[12px] font-bold uppercase tracking-[0.08em] text-bloom-navy transition-colors duration-150 hover:bg-bloom-navy hover:text-bloom-cream focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bloom-orange focus-visible:ring-offset-2 focus-visible:ring-offset-bloom-cream"
             >
               Bio
             </button>
@@ -216,7 +216,7 @@ function BioModal({ member, onClose }: { member: TeamMember; onClose: () => void
         className="absolute inset-0 cursor-default bg-bloom-navy/60 backdrop-blur-sm transition-opacity duration-200 motion-safe:animate-[fade-in_180ms_ease-out]"
       />
       {/* Dialog */}
-      <div className="relative flex max-h-[90vh] w-full max-w-[720px] flex-col overflow-hidden rounded-2xl bg-bloom-cream shadow-2xl ring-1 ring-bloom-navy/10 motion-safe:animate-[fade-in-up_220ms_ease-out]">
+      <div className="relative flex max-h-[90vh] w-full max-w-[720px] flex-col overflow-hidden rounded-md bg-bloom-cream shadow-2xl ring-1 ring-bloom-navy/10 motion-safe:animate-[fade-in-up_220ms_ease-out]">
         {/* Header */}
         <div className="flex items-start gap-5 border-b border-bloom-navy/10 bg-white p-6 sm:p-8">
           <div className="relative h-[88px] w-[88px] flex-none overflow-hidden border-2 border-white shadow-bloom-card sm:h-[120px] sm:w-[120px]">

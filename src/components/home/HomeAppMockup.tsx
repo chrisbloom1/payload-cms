@@ -20,7 +20,7 @@ export function HomeAppMockup() {
       )}
     >
       <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
-        <div className="relative overflow-hidden rounded-2xl shadow-bloom-card md:rounded-3xl">
+        <div className="relative overflow-hidden rounded-md shadow-bloom-card md:rounded-md">
           <video
             src="/videos/hero-loop.mp4"
             poster="/videos/hero-loop-poster.webp"

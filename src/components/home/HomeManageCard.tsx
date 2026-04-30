@@ -15,7 +15,7 @@ export function HomeManageCard() {
       className="w-full bg-bloom-cream py-20 sm:py-24 lg:py-[120px]"
     >
       <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
-        <div className="overflow-hidden rounded-3xl bg-gradient-to-bl from-white via-white to-bloom-cream p-8 shadow-bloom-card ring-1 ring-bloom-navy/5 sm:p-10 lg:p-16">
+        <div className="overflow-hidden rounded-md bg-gradient-to-bl from-white via-white to-bloom-cream p-8 shadow-bloom-card ring-1 ring-bloom-navy/5 sm:p-10 lg:p-16">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
             <div className="flex w-full justify-center lg:justify-start">
               <Animationtree />

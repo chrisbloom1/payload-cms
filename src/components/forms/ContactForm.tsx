@@ -210,7 +210,7 @@ export function ContactForm() {
         <button
           type="submit"
           className={cn(
-            "inline-flex w-fit items-center justify-center rounded-full",
+            "inline-flex w-fit items-center justify-center rounded-md",
             "bg-bloom-navy text-white uppercase tracking-[0.08em]",
             "px-8 py-3.5 text-[14px] font-bold leading-none",
             "transition-transform duration-200 hover:scale-[1.02]",

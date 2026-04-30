@@ -40,9 +40,9 @@ export default async function StoryPage(
       <FloatingNav />
       <main className="bg-bloom-cream">
         {/* Hero: title left, hero image right + key benefits + nodes panel */}
-        <section className="pt-28 pb-16 sm:pt-32 lg:pt-36">
+        <section className="pt-28 pb-12 sm:pt-32 lg:pt-36">
           <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
-            <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)] lg:items-end lg:gap-12">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:items-end lg:gap-12">
               <div className="flex flex-col gap-4">
                 <Link
                   href="/customer-stories"
@@ -64,7 +64,7 @@ export default async function StoryPage(
                   {story.title}
                 </h1>
               </div>
-              <div className="overflow-hidden rounded-2xl shadow-bloom-card ring-1 ring-bloom-navy/10">
+              <div className="overflow-hidden rounded-md shadow-bloom-card ring-1 ring-bloom-navy/10">
                 <HeroImage
                   src={story.hero}
                   alt=""
@@ -77,7 +77,7 @@ export default async function StoryPage(
             </div>
 
             {/* Top benefits + nodes band */}
-            <div className="mt-12 grid grid-cols-1 gap-6 rounded-2xl bg-bloom-navy p-6 text-bloom-cream lg:grid-cols-[minmax(0,3fr)_minmax(0,1fr)] lg:gap-10 lg:p-10">
+            <div className="mt-10 grid grid-cols-1 gap-6 rounded-md bg-bloom-navy p-6 text-bloom-cream lg:grid-cols-[minmax(0,3fr)_minmax(0,1fr)] lg:gap-10 lg:p-10">
               <div>
                 <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-bloom-orange">
                   Key Benefits of Operating with Bloom
@@ -101,7 +101,7 @@ export default async function StoryPage(
                   {story.nodes.map((n) => (
                     <li
                       key={n}
-                      className="rounded-full bg-bloom-cream/10 px-4 py-1.5 text-[12px] font-bold uppercase tracking-[0.14em] text-bloom-cream"
+                      className="rounded-md bg-bloom-cream/10 px-4 py-1.5 text-[12px] font-bold uppercase tracking-[0.14em] text-bloom-cream"
                     >
                       {n}
                     </li>
@@ -133,7 +133,7 @@ export default async function StoryPage(
             ))}
 
             {/* Quote */}
-            <figure className="mt-12 rounded-2xl bg-bloom-navy px-7 py-8 text-bloom-cream md:px-10 md:py-10">
+            <figure className="mt-10 rounded-md bg-bloom-navy px-7 py-8 text-bloom-cream md:px-10 md:py-10">
               <blockquote className="text-[16px] leading-[26px] md:text-[18px] md:leading-[28px]">
                 “{story.quote.text}”
               </blockquote>
@@ -154,7 +154,7 @@ export default async function StoryPage(
         </section>
 
         {/* Detail benefits */}
-        <section className="pb-16 lg:pb-24">
+        <section className="pb-12 lg:pb-20">
           <div className="mx-auto w-full max-w-[1100px] px-4 sm:px-6">
             <h2 className="text-[24px] font-bold leading-tight text-bloom-navy md:text-[28px]">
               Key Benefits of Operating with Bloom
@@ -163,7 +163,7 @@ export default async function StoryPage(
               {story.benefits.map((b) => (
                 <li
                   key={b.title}
-                  className="rounded-2xl bg-white p-6 shadow-bloom-card"
+                  className="rounded-md bg-white p-6 shadow-bloom-card"
                 >
                   <h3 className="text-[18px] font-bold leading-snug text-bloom-navy">
                     {b.title}
@@ -203,7 +203,7 @@ export default async function StoryPage(
               target="_blank"
               rel="noreferrer"
               className={cn(
-                "inline-flex items-center gap-2 rounded-full",
+                "inline-flex items-center gap-2 rounded-md",
                 "bg-bloom-navy text-white",
                 "px-7 py-3.5 text-[14px] font-bold uppercase tracking-[0.08em]",
                 "transition-transform duration-200 hover:scale-[1.02]",

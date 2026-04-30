@@ -163,7 +163,7 @@ export const RoadmapPageClient: React.FC<{ requests: FeatureRequest[] }> = ({
                   key={value}
                   onClick={() => setActiveFilter(value)}
                   className={cn(
-                    'rounded-full px-3.5 py-1.5 text-sm font-medium transition-all',
+                    'rounded-md px-3.5 py-1.5 text-sm font-medium transition-all',
                     activeFilter === value
                       ? 'bg-foreground text-background shadow-xs'
                       : 'bg-muted text-muted-foreground hover:text-foreground',
@@ -221,7 +221,7 @@ export const RoadmapPageClient: React.FC<{ requests: FeatureRequest[] }> = ({
                           {badge && (
                             <span
                               className={cn(
-                                'inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium',
+                                'inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-medium',
                                 badge.className,
                               )}
                             >

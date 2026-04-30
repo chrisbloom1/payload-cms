@@ -95,7 +95,7 @@ export const HelpHeader: React.FC = () => {
             <button
               type="button"
               className={cn(
-                'inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[14px] font-medium text-bloom-navy transition-colors hover:bg-bloom-mint/60',
+                'inline-flex items-center gap-1.5 rounded-md px-4 py-2 text-[14px] font-medium text-bloom-navy transition-colors hover:bg-bloom-mint/60',
                 resourcesOpen && 'bg-bloom-mint/60',
               )}
               aria-haspopup="menu"
@@ -113,7 +113,7 @@ export const HelpHeader: React.FC = () => {
 
             {resourcesOpen && (
               <div
-                className="absolute left-1/2 top-[calc(100%+8px)] z-50 w-[640px] -translate-x-1/2 rounded-2xl border border-bloom-navy/10 bg-white p-6 shadow-bloom-card"
+                className="absolute left-1/2 top-[calc(100%+8px)] z-50 w-[640px] -translate-x-1/2 rounded-md border border-bloom-navy/10 bg-white p-6 shadow-bloom-card"
                 role="menu"
                 onMouseEnter={openResources}
                 onMouseLeave={scheduleCloseResources}
@@ -158,7 +158,7 @@ export const HelpHeader: React.FC = () => {
                 key={href}
                 href={href}
                 className={cn(
-                  'rounded-full px-4 py-2 text-[14px] font-medium transition-colors hover:bg-bloom-mint/60',
+                  'rounded-md px-4 py-2 text-[14px] font-medium transition-colors hover:bg-bloom-mint/60',
                   isActive ? 'text-bloom-navy' : 'text-bloom-navy/80',
                 )}
               >
@@ -174,7 +174,7 @@ export const HelpHeader: React.FC = () => {
             href="https://app.bloomnetwork.ai"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-full bg-bloom-navy px-5 py-2 text-[13px] font-semibold tracking-wide text-white transition-opacity hover:opacity-90"
+            className="inline-flex items-center gap-1.5 rounded-md bg-bloom-navy px-5 py-2 text-[13px] font-semibold tracking-wide text-white transition-opacity hover:opacity-90"
           >
             Open App
             <ArrowUpRight className="h-3.5 w-3.5" />
@@ -233,7 +233,7 @@ export const HelpHeader: React.FC = () => {
               href="https://app.bloomnetwork.ai"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-1.5 rounded-full bg-bloom-navy px-5 py-3 text-[14px] font-semibold tracking-wide text-white"
+              className="inline-flex items-center justify-center gap-1.5 rounded-md bg-bloom-navy px-5 py-3 text-[14px] font-semibold tracking-wide text-white"
             >
               Open App
               <ArrowUpRight className="h-3.5 w-3.5" />

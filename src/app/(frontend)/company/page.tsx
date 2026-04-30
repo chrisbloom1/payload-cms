@@ -176,7 +176,7 @@ export default function CompanyPage() {
 
 function ResourceTile({ card }: { card: ResourceCard }) {
   const cardChrome =
-    "flex h-full flex-col justify-between rounded-2xl bg-white p-6 shadow-bloom-card";
+    "flex h-full flex-col justify-between rounded-md bg-white p-6 shadow-bloom-card";
 
   if (card.href) {
     return (
@@ -213,7 +213,7 @@ function ResourceTile({ card }: { card: ResourceCard }) {
           {card.body}
         </p>
       </div>
-      <span className="mt-6 inline-flex items-center self-start rounded-full border border-bloom-grey px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-bloom-muted">
+      <span className="mt-6 inline-flex items-center self-start rounded-md border border-bloom-grey px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-bloom-muted">
         Coming soon
       </span>
     </div>

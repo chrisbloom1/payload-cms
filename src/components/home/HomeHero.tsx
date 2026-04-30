@@ -125,7 +125,7 @@ export function HomeHero() {
           <span
             className={cn(
               "pointer-events-none absolute left-1/2 -bottom-[15px] -translate-x-1/2",
-              "rounded-full bg-bloom-navy-deep px-4 py-2",
+              "rounded-md bg-bloom-navy-deep px-4 py-2",
               "text-[12px] leading-[14.4px] font-extrabold text-bloom-cream",
               "whitespace-nowrap",
             )}

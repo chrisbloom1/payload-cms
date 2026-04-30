@@ -91,7 +91,7 @@ export function BloomPayWidget({ className, initialIndex = 1 }: BloomPayWidgetPr
   return (
     <div
       className={cn(
-        "bloompay-widget w-full max-w-[480px] overflow-hidden rounded-2xl bg-white shadow-bloom-card",
+        "bloompay-widget w-full max-w-[480px] overflow-hidden rounded-md bg-white shadow-bloom-card",
         className,
       )}
     >

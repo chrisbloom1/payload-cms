@@ -94,7 +94,7 @@ export const GuidesPageClient: React.FC<{
                           {badge && (
                             <span
                               className={cn(
-                                'inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium shrink-0',
+                                'inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-medium shrink-0',
                                 badge.className,
                               )}
                             >

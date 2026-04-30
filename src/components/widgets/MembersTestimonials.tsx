@@ -172,7 +172,7 @@ export function MembersTestimonials({
                     aria-label={`${i + 1} of ${total}`}
                   >
                     <article
-                      className="flex h-full flex-col gap-6 rounded-3xl bg-white p-7 text-left shadow-bloom-card sm:gap-8 sm:p-10 lg:p-12"
+                      className="flex h-full flex-col gap-6 rounded-md bg-white p-7 text-left shadow-bloom-card sm:gap-8 sm:p-10 lg:p-12"
                     >
                       <blockquote className="grow">
                         <p className="text-[18px] leading-[1.4] text-bloom-navy sm:text-[22px] sm:leading-[1.35] lg:text-[26px]">

@@ -33,7 +33,7 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
         return (
           <li
             key={item.question}
-            className="overflow-hidden rounded-2xl bg-bloom-mint/40"
+            className="overflow-hidden rounded-md bg-bloom-mint/40"
           >
             <button
               type="button"

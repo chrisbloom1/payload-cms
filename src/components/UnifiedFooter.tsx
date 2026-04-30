@@ -75,9 +75,9 @@ export function UnifiedFooter({ className }: { className?: string }) {
     <footer className={cn('w-full bg-bloom-mint text-bloom-navy', className)}>
       <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-12 px-4 py-14 sm:px-6 md:py-16">
         {/* Top: brand block + 4 link columns */}
-        <div className="grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-6 md:gap-x-12">
-          {/* Brand block */}
-          <div className="col-span-2 flex flex-col gap-5">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-5 md:gap-x-10">
+          {/* Brand block — single-column width so logo aligns with the first link column */}
+          <div className="col-span-2 flex flex-col gap-5 md:col-span-1">
             <BloomWordmark className="h-[36px] w-auto" />
             <div className="flex flex-col gap-3">
               {ADDRESSES.map((addr) => (

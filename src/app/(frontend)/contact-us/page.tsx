@@ -85,7 +85,7 @@ function ContactPaths() {
             <Link
               key={path.heading}
               href={path.href}
-              className="group flex flex-col gap-4 rounded-2xl bg-white p-7 shadow-bloom-card transition-transform duration-200 hover:-translate-y-0.5 sm:p-8"
+              className="group flex flex-col gap-4 rounded-md bg-white p-7 shadow-bloom-card transition-transform duration-200 hover:-translate-y-0.5 sm:p-8"
             >
               <p className="text-[12px] font-bold uppercase tracking-[0.18em] text-bloom-orange">
                 {path.eyebrow}
@@ -169,7 +169,7 @@ function ContactFormSection() {
           </div>
 
           {/* Right column: form */}
-          <div className="rounded-2xl bg-white p-6 shadow-bloom-card sm:p-8 lg:p-10">
+          <div className="rounded-md bg-white p-6 shadow-bloom-card sm:p-8 lg:p-10">
             <ContactForm />
           </div>
         </div>
