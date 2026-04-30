@@ -113,7 +113,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
       </form>
 
       {open && results.length > 0 && (
-        <div className="absolute top-full left-0 right-0 z-50 mt-1 rounded-lg border border-border bg-white shadow-lg">
+        <div className="absolute top-full left-0 right-0 z-50 mt-1 rounded-md border border-border bg-white shadow-lg">
           <ul className="py-1">
             {results.map((result) => (
               <li key={result.id}>
@@ -148,7 +148,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
       )}
 
       {open && query.length >= 2 && results.length === 0 && !loading && (
-        <div className="absolute top-full left-0 right-0 z-50 mt-1 rounded-lg border border-border bg-white shadow-lg">
+        <div className="absolute top-full left-0 right-0 z-50 mt-1 rounded-md border border-border bg-white shadow-lg">
           <p className="px-4 py-3 text-sm text-muted-foreground">No articles found.</p>
         </div>
       )}

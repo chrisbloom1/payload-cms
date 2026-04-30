@@ -20,7 +20,7 @@ export function HomeAppDemo() {
           <div className="relative flex h-[120px] w-12 flex-col items-center">
             <div
               aria-hidden="true"
-              className="bg-bloom-cta absolute top-0 flex h-[44px] w-[44px] items-center justify-center rounded-[8px] shadow-[0_8px_24px_rgba(254,5,62,0.25)]"
+              className="bg-bloom-cta absolute top-0 flex h-[44px] w-[44px] items-center justify-center rounded-md"
             >
               <BloomMarkGradient
                 className="h-6 w-auto"
@@ -35,7 +35,7 @@ export function HomeAppDemo() {
           </div>
 
           {/* Video / poster */}
-          <div className="relative w-full overflow-hidden rounded-md shadow-bloom-card ring-1 ring-bloom-navy/10">
+          <div className="relative w-full overflow-hidden rounded-md ring-1 ring-bloom-navy/10">
             <video
               autoPlay
               muted

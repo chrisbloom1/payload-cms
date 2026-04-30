@@ -12,16 +12,14 @@ interface HeroImageProps {
   fixedHeightClass?: string;
   className?: string;
   priority?: boolean;
-  rounded?: "none" | "lg" | "xl" | "2xl" | "3xl";
+  rounded?: "none" | "sm" | "md";
   sizes?: string;
 }
 
 const ROUNDED: Record<NonNullable<HeroImageProps["rounded"]>, string> = {
   none: "",
-  lg: "rounded-lg",
-  xl: "rounded-xl",
-  "2xl": "rounded-md",
-  "3xl": "rounded-md",
+  sm: "rounded-sm",
+  md: "rounded-md",
 };
 
 /**

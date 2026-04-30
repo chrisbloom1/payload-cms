@@ -285,7 +285,7 @@ export default function CustomerStoriesPage() {
   return (
     <>
       <FloatingNav />
-      <main className="flex-1 bg-bloom-cream pb-24 pt-32">
+      <main className="flex-1 bg-bloom-cream pb-16 pt-24">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
           <RevealOnScroll
             as="section"

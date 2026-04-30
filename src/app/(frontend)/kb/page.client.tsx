@@ -101,7 +101,7 @@ export const KBPageClient: React.FC<{
               <button
                 onClick={() => setActiveCategory('all')}
                 className={cn(
-                  'flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-left transition-all',
+                  'flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-left transition-all',
                   activeCategory === 'all'
                     ? 'bg-white text-foreground shadow-xs'
                     : 'text-muted-foreground hover:text-foreground',
@@ -114,7 +114,7 @@ export const KBPageClient: React.FC<{
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.slug)}
                   className={cn(
-                    'flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-left transition-all',
+                    'flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-left transition-all',
                     activeCategory === cat.slug
                       ? 'bg-white text-foreground shadow-xs'
                       : 'text-muted-foreground hover:text-foreground',

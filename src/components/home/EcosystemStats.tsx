@@ -67,7 +67,7 @@ interface StatCardProps {
 
 function StatCard({ target, suffix, label, description, labelColor }: StatCardProps) {
   return (
-    <li className="flex flex-col items-start justify-between gap-3 rounded-lg bg-bloom-mint p-6 min-h-[200px]">
+    <li className="flex flex-col items-start justify-between gap-3 rounded-md bg-bloom-mint p-6 min-h-[200px]">
       <div className="text-[64px] font-bold leading-none tracking-[-0.02em] text-bloom-navy md:text-[92px]">
         <AnimatedStat target={target} suffix={suffix} />
       </div>

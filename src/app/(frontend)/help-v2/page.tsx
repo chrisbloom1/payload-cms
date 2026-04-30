@@ -81,7 +81,7 @@ export default async function HelpV2Page() {
               <Link
                 key={href}
                 href={href}
-                className="group flex items-start gap-3 rounded-md border border-bloom-navy/10 bg-white p-5 shadow-bloom-card transition-all hover:border-bloom-navy/20 hover:shadow-md"
+                className="group flex items-start gap-3 rounded-md border border-bloom-navy/10 bg-white p-5 transition-colors duration-200 hover:border-bloom-navy/30"
               >
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-bloom-mint text-bloom-navy">
                   <Icon className="h-5 w-5" />

@@ -81,7 +81,7 @@ export default function CompanyPage() {
   return (
     <>
       <FloatingNav />
-      <main className="flex-1 bg-bloom-cream pb-24 pt-32">
+      <main className="flex-1 bg-bloom-cream pb-16 pt-24">
         <div className="mx-auto max-w-7xl px-6">
           {/* Hero -------------------------------------------------------- */}
           <RevealOnScroll as="section" className="mb-20 max-w-4xl">
@@ -176,7 +176,7 @@ export default function CompanyPage() {
 
 function ResourceTile({ card }: { card: ResourceCard }) {
   const cardChrome =
-    "flex h-full flex-col justify-between rounded-md bg-white p-6 shadow-bloom-card";
+    "flex h-full flex-col justify-between rounded-md border border-bloom-navy/10 bg-white p-6";
 
   if (card.href) {
     return (
@@ -184,7 +184,7 @@ function ResourceTile({ card }: { card: ResourceCard }) {
         href={card.href}
         className={cn(
           cardChrome,
-          "group transition-transform duration-200 ease-out hover:scale-[1.01] focus-visible:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bloom-orange focus-visible:ring-offset-2 focus-visible:ring-offset-bloom-cream",
+          "group transition-colors duration-200 ease-out hover:border-bloom-navy/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bloom-orange focus-visible:ring-offset-2 focus-visible:ring-offset-bloom-cream",
         )}
       >
         <div>

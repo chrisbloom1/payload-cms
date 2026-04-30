@@ -79,7 +79,7 @@ export default async function GuidePage({ params: paramsPromise }: Args) {
               )}
             </div>
 
-            <div className="aspect-video rounded-xl overflow-hidden bg-muted">
+            <div className="aspect-video rounded-md overflow-hidden bg-muted">
               <iframe
                 src={`https://www.loom.com/embed/${guide.loomEmbedId}`}
                 allowFullScreen
@@ -94,7 +94,7 @@ export default async function GuidePage({ params: paramsPromise }: Args) {
                 {prevGuide ? (
                   <Link
                     href={`/guides/${prevGuide.slug}`}
-                    className="flex-1 flex items-center gap-3 rounded-lg border p-4 text-sm hover:bg-muted/50 transition-colors"
+                    className="flex-1 flex items-center gap-3 rounded-md border p-4 text-sm hover:bg-muted/50 transition-colors"
                   >
                     <ArrowLeft className="h-4 w-4 shrink-0 text-muted-foreground" />
                     <div className="min-w-0">
@@ -108,7 +108,7 @@ export default async function GuidePage({ params: paramsPromise }: Args) {
                 {nextGuide ? (
                   <Link
                     href={`/guides/${nextGuide.slug}`}
-                    className="flex-1 flex items-center justify-end gap-3 rounded-lg border p-4 text-sm text-right hover:bg-muted/50 transition-colors"
+                    className="flex-1 flex items-center justify-end gap-3 rounded-md border p-4 text-sm text-right hover:bg-muted/50 transition-colors"
                   >
                     <div className="min-w-0">
                       <div className="text-xs text-muted-foreground">Next</div>
@@ -137,7 +137,7 @@ export default async function GuidePage({ params: paramsPromise }: Args) {
                       key={g.id}
                       href={`/guides/${g.slug}`}
                       className={cn(
-                        'flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition-all',
+                        'flex items-center gap-2 rounded-md px-3 py-2 text-sm transition-all',
                         isActive
                           ? 'bg-white font-medium text-foreground shadow-xs'
                           : 'text-muted-foreground hover:text-foreground',

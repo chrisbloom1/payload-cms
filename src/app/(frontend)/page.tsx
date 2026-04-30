@@ -38,7 +38,7 @@ export default function HomePage() {
         {/* "Simplify and expand payment options" + the cycling Mockupterms widget */}
         <section className="w-full py-16 md:py-24">
           <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
-            <div className="overflow-hidden rounded-md bg-gradient-to-br from-white via-white to-bloom-cream p-8 shadow-bloom-card ring-1 ring-bloom-navy/5 sm:p-10 lg:p-16">
+            <div className="overflow-hidden rounded-md bg-gradient-to-br from-white via-white to-bloom-cream p-8 ring-1 ring-bloom-navy/10 sm:p-10 lg:p-16">
               <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
                 <div className="flex flex-col gap-5">
                   <h2 className="max-w-[480px] text-[32px] font-bold leading-[36px] text-bloom-navy sm:text-[36px] sm:leading-[40px]">

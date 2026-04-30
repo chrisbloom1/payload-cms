@@ -87,7 +87,7 @@ function HeroIconTiles() {
       {HERO_ICONS.map((icon, i) => (
         <div
           key={icon.src}
-          className="animate-bloom-hero-rise group flex aspect-square items-center justify-center rounded-lg bg-bloom-mint p-6 text-bloom-navy transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-bloom-card sm:p-7 lg:p-8"
+          className="animate-bloom-hero-rise group flex aspect-square items-center justify-center rounded-md bg-bloom-mint p-6 text-bloom-navy transition-colors duration-300 hover:bg-bloom-mint/80 sm:p-7 lg:p-8"
           style={{ animationDelay: `${120 + i * 90}ms` }}
         >
           <Image
@@ -95,7 +95,7 @@ function HeroIconTiles() {
             alt={icon.alt}
             width={150}
             height={120}
-            className="h-full w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+            className="h-full w-full object-contain"
             unoptimized
           />
         </div>
@@ -146,7 +146,7 @@ function ProvidersBenefits() {
   return (
     <RevealOnScroll
       as="section"
-      className="w-full bg-bloom-cream py-20 sm:py-24 lg:py-[120px]"
+      className="w-full bg-bloom-cream py-16 sm:py-20 lg:py-24"
     >
       <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-20 px-4 sm:px-6 lg:gap-28">
         {/* Targeted inbound — show the in-platform brand-profile screen so
@@ -213,7 +213,7 @@ function ProvidersCriteria() {
   return (
     <RevealOnScroll
       as="section"
-      className="w-full bg-bloom-cream py-20 sm:py-24 lg:py-[120px]"
+      className="w-full bg-bloom-cream py-16 sm:py-20 lg:py-24"
     >
       <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
         <header className="mx-auto max-w-[820px] text-center">
@@ -254,7 +254,7 @@ function ProvidersFramework() {
   return (
     <RevealOnScroll
       as="section"
-      className="w-full bg-bloom-cream py-20 sm:py-24 lg:py-[120px]"
+      className="w-full bg-bloom-cream py-16 sm:py-20 lg:py-24"
     >
       <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
         <header className="mx-auto max-w-[820px] text-center">
@@ -283,12 +283,12 @@ function ProvidersCTA() {
   return (
     <RevealOnScroll
       as="section"
-      className="w-full bg-bloom-cream py-20 sm:py-24 lg:py-[120px]"
+      className="w-full bg-bloom-cream py-16 sm:py-20 lg:py-24"
     >
       <div className="mx-auto flex w-full max-w-[960px] flex-col items-center gap-7 px-6 text-center">
         <div
           aria-hidden="true"
-          className="bg-bloom-cta flex h-[44px] w-[44px] items-center justify-center rounded-[8px] shadow-[0_8px_24px_rgba(254,5,62,0.25)]"
+          className="bg-bloom-cta flex h-[44px] w-[44px] items-center justify-center rounded-md"
         >
           <BloomMarkGradient
             className="h-6 w-auto"
@@ -308,9 +308,9 @@ function ProvidersCTA() {
           href="/contact-us"
           className={cn(
             "inline-flex items-center gap-2 rounded-md",
-            "bg-bloom-navy text-white",
+            "bg-bloom-navy text-white hover:opacity-90",
             "px-7 py-3.5 text-[14px] font-bold uppercase tracking-[0.08em]",
-            "transition-transform duration-200 hover:scale-[1.02]",
+            "transition-opacity duration-200",
           )}
         >
           APPLY NOW
@@ -331,7 +331,7 @@ export default function ProvidersPage() {
         <ProvidersCriteria />
         <ProvidersFramework />
         <ProvidersCTA />
-        <section className="w-full bg-bloom-cream py-20 sm:py-24 lg:py-32">
+        <section className="w-full bg-bloom-cream py-16 sm:py-20 lg:py-24">
           <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-16">
               <h1 className="text-[36px] font-bold leading-[1.1] tracking-tight text-bloom-navy md:text-[48px]">

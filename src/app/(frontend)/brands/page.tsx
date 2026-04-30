@@ -54,7 +54,7 @@ function VerticalsCollage() {
       {tiles.map((tile) => (
         <div
           key={tile.label}
-          className="group relative aspect-square overflow-hidden rounded-md bg-bloom-navy/5"
+          className="relative aspect-square overflow-hidden rounded-md bg-bloom-navy/5"
         >
           <HeroImage
             src={tile.src}
@@ -62,7 +62,7 @@ function VerticalsCollage() {
             width={600}
             height={600}
             fixedHeightClass="h-full"
-            className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+            className="absolute inset-0"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-bloom-navy/70 via-bloom-navy/15 to-transparent" />
           <span className="absolute bottom-3 left-3 text-[12px] font-bold uppercase tracking-[0.14em] text-white sm:text-[13px]">
@@ -117,7 +117,7 @@ function BrandsBuiltForCoast() {
   return (
     <RevealOnScroll
       as="section"
-      className="w-full bg-bloom-cream py-20 sm:py-24 lg:py-[120px]"
+      className="w-full bg-bloom-cream py-16 sm:py-20 lg:py-24"
     >
       <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-20 px-4 sm:px-6 lg:gap-28">
         <BenefitRow
@@ -153,7 +153,7 @@ function BrandsFramework() {
   return (
     <RevealOnScroll
       as="section"
-      className="w-full bg-bloom-cream py-20 sm:py-24 lg:py-[120px]"
+      className="w-full bg-bloom-cream py-16 sm:py-20 lg:py-24"
     >
       <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
         <header className="mx-auto max-w-[820px] text-center">
@@ -182,7 +182,7 @@ function BrandsPricing() {
   return (
     <RevealOnScroll
       as="section"
-      className="w-full bg-bloom-cream py-20 sm:py-24 lg:py-[120px]"
+      className="w-full bg-bloom-cream py-16 sm:py-20 lg:py-24"
     >
       <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
         <header className="mx-auto max-w-[820px] text-center">
@@ -228,7 +228,7 @@ function BrandsBloomPay() {
     <RevealOnScroll
       as="section"
       delay={120}
-      className="w-full bg-bloom-cream py-20 sm:py-24 lg:py-[120px]"
+      className="w-full bg-bloom-cream py-16 sm:py-20 lg:py-24"
     >
       <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
         <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
@@ -255,13 +255,13 @@ function BrandsCTA() {
   return (
     <RevealOnScroll
       as="section"
-      className="w-full bg-bloom-cream py-20 sm:py-24 lg:py-[120px]"
+      className="w-full bg-bloom-cream py-16 sm:py-20 lg:py-24"
     >
       <div className="mx-auto flex w-full max-w-[960px] flex-col items-center gap-7 px-6 text-center">
         {/* Small orange Bloom mark anchored above the heading per live design */}
         <div
           aria-hidden="true"
-          className="bg-bloom-cta flex h-[44px] w-[44px] items-center justify-center rounded-[8px] shadow-[0_8px_24px_rgba(254,5,62,0.25)]"
+          className="bg-bloom-cta flex h-[44px] w-[44px] items-center justify-center rounded-md"
         >
           <BloomMarkGradient
             className="h-6 w-auto"
@@ -283,9 +283,9 @@ function BrandsCTA() {
           rel="noreferrer"
           className={cn(
             "inline-flex items-center gap-2 rounded-md",
-            "bg-bloom-navy text-white",
+            "bg-bloom-navy text-white hover:opacity-90",
             "px-7 py-3.5 text-[14px] font-bold uppercase tracking-[0.08em]",
-            "transition-transform duration-200 hover:scale-[1.02]",
+            "transition-opacity duration-200",
           )}
         >
           UNLOCK YOUR POTENTIAL
@@ -308,7 +308,7 @@ export default function BrandsPage() {
         <BrandsBloomPay />
         <MembersTestimonials />
         <BrandsCTA />
-        <section className="w-full bg-bloom-cream py-20 sm:py-24 lg:py-32">
+        <section className="w-full bg-bloom-cream py-16 sm:py-20 lg:py-24">
           <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-16">
               <h1 className="text-[36px] font-bold leading-[1.1] tracking-tight text-bloom-navy md:text-[48px]">

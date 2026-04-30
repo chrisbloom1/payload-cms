@@ -34,7 +34,7 @@ export default async function BlogPostPage(
   return (
     <>
       <FloatingNav />
-      <main className="flex-1 bg-bloom-cream pb-24 pt-32">
+      <main className="flex-1 bg-bloom-cream pb-16 pt-24">
         <article className="mx-auto w-full max-w-[1100px] px-4 sm:px-6">
           {/* Hero: image right, headline left */}
           <header className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:gap-16">
@@ -53,7 +53,7 @@ export default async function BlogPostPage(
                 <span>By {post.author}</span>
               </div>
             </div>
-            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-md shadow-bloom-card ring-1 ring-bloom-navy/10">
+            <div className="relative aspect-[16/9] w-full overflow-hidden rounded-md ring-1 ring-bloom-navy/10">
               <Image
                 src={post.hero}
                 alt=""
@@ -110,7 +110,7 @@ export default async function BlogPostPage(
                       href={block.href}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-2 rounded-md bg-bloom-orange px-7 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-bloom-cream transition-transform duration-200 hover:scale-[1.02] focus-visible:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bloom-orange focus-visible:ring-offset-2 focus-visible:ring-offset-bloom-cream"
+                      className="inline-flex items-center gap-2 rounded-md bg-bloom-orange px-7 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-bloom-cream transition-opacity duration-200 hover:opacity-90 focus-visible:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bloom-orange focus-visible:ring-offset-2 focus-visible:ring-offset-bloom-cream"
                     >
                       {block.text}
                       <ArrowRightIcon className="h-4 w-4" />
@@ -132,7 +132,7 @@ export default async function BlogPostPage(
                 <Link
                   key={r.slug}
                   href={`/blog/${r.slug}`}
-                  className="group flex flex-col overflow-hidden rounded-md bg-white shadow-bloom-card transition-transform duration-300 hover:-translate-y-1"
+                  className="group flex flex-col overflow-hidden rounded-md border border-bloom-navy/10 bg-white transition-colors duration-200 hover:border-bloom-navy/30"
                 >
                   <div className="relative aspect-[16/9] w-full overflow-hidden bg-bloom-cream">
                     <Image

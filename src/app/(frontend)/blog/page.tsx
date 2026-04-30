@@ -15,7 +15,7 @@ function PostCard({ post }: { post: BlogPost }) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className="group flex flex-col overflow-hidden rounded-md bg-white shadow-bloom-card transition-transform duration-300 ease-out hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bloom-orange focus-visible:ring-offset-2 focus-visible:ring-offset-bloom-cream"
+      className="group flex flex-col overflow-hidden rounded-md border border-bloom-navy/10 bg-white transition-colors duration-200 hover:border-bloom-navy/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bloom-orange focus-visible:ring-offset-2 focus-visible:ring-offset-bloom-cream"
     >
       <div className="relative aspect-[16/9] w-full overflow-hidden bg-bloom-cream">
         <Image
@@ -40,7 +40,7 @@ export default function BlogIndexPage() {
   return (
     <>
       <FloatingNav />
-      <main className="flex-1 bg-bloom-cream pb-24 pt-32">
+      <main className="flex-1 bg-bloom-cream pb-16 pt-24">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
           <RevealOnScroll
             as="section"

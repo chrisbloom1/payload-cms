@@ -113,7 +113,7 @@ export function CriteriaCarousel({
             {items.map((item, i) => (
               <article
                 key={`${item.label}-${i}`}
-                className="flex shrink-0 snap-start flex-col gap-4 rounded-md bg-white p-7 shadow-bloom-card"
+                className="flex shrink-0 snap-start flex-col gap-4 rounded-md border border-bloom-navy/10 bg-white p-7"
                 style={{ width: `${cardWidth}px` }}
               >
                 <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-bloom-cta">

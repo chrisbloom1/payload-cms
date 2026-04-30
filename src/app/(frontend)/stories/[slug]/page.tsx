@@ -64,7 +64,7 @@ export default async function StoryPage(
                   {story.title}
                 </h1>
               </div>
-              <div className="overflow-hidden rounded-md shadow-bloom-card ring-1 ring-bloom-navy/10">
+              <div className="overflow-hidden rounded-md ring-1 ring-bloom-navy/10">
                 <HeroImage
                   src={story.hero}
                   alt=""
@@ -75,9 +75,13 @@ export default async function StoryPage(
                 />
               </div>
             </div>
+          </div>
+        </section>
 
-            {/* Top benefits + nodes band */}
-            <div className="mt-10 grid grid-cols-1 gap-6 rounded-md bg-bloom-navy p-6 text-bloom-cream lg:grid-cols-[minmax(0,3fr)_minmax(0,1fr)] lg:gap-10 lg:p-10">
+        {/* Top benefits + nodes band — full-bleed for impact */}
+        <section className="pb-12">
+          <div className="bg-bloom-navy text-bloom-cream">
+            <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-6 px-4 py-10 sm:px-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,1fr)] lg:gap-10 lg:py-14">
               <div>
                 <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-bloom-orange">
                   Key Benefits of Operating with Bloom
@@ -132,15 +136,15 @@ export default async function StoryPage(
               </p>
             ))}
 
-            {/* Quote */}
-            <figure className="mt-10 rounded-md bg-bloom-navy px-7 py-8 text-bloom-cream md:px-10 md:py-10">
-              <blockquote className="text-[16px] leading-[26px] md:text-[18px] md:leading-[28px]">
+            {/* Quote — editorial left-rule treatment */}
+            <figure className="mt-12 border-l-4 border-bloom-orange pl-6 md:mt-14 md:pl-8">
+              <blockquote className="text-[20px] font-medium leading-[30px] text-bloom-navy md:text-[24px] md:leading-[34px]">
                 “{story.quote.text}”
               </blockquote>
-              <figcaption className="mt-6 text-[13px] uppercase tracking-[0.12em] text-bloom-cream">
-                <span className="font-bold">{story.quote.author}</span>
+              <figcaption className="mt-5 text-[12px] uppercase tracking-[0.14em] text-bloom-navy/70">
+                <span className="font-bold text-bloom-navy">{story.quote.author}</span>
                 {story.quote.role ? (
-                  <span className="text-bloom-cream/70"> — {story.quote.role}</span>
+                  <span> — {story.quote.role}</span>
                 ) : null}
               </figcaption>
             </figure>
@@ -163,7 +167,7 @@ export default async function StoryPage(
               {story.benefits.map((b) => (
                 <li
                   key={b.title}
-                  className="rounded-md bg-white p-6 shadow-bloom-card"
+                  className="rounded-md border border-bloom-navy/10 bg-white p-6"
                 >
                   <h3 className="text-[18px] font-bold leading-snug text-bloom-navy">
                     {b.title}
@@ -187,7 +191,7 @@ export default async function StoryPage(
           <div className="mx-auto flex w-full max-w-[820px] flex-col items-center gap-7 px-4 text-center sm:px-6">
             <div
               aria-hidden="true"
-              className="bg-bloom-cta flex h-[44px] w-[44px] items-center justify-center rounded-[8px] shadow-[0_8px_24px_rgba(254,5,62,0.25)]"
+              className="bg-bloom-cta flex h-[44px] w-[44px] items-center justify-center rounded-md"
             >
               <BloomMarkGradient
                 className="h-6 w-auto"
@@ -204,9 +208,9 @@ export default async function StoryPage(
               rel="noreferrer"
               className={cn(
                 "inline-flex items-center gap-2 rounded-md",
-                "bg-bloom-navy text-white",
+                "bg-bloom-navy text-white hover:opacity-90",
                 "px-7 py-3.5 text-[14px] font-bold uppercase tracking-[0.08em]",
-                "transition-transform duration-200 hover:scale-[1.02]",
+                "transition-opacity duration-200",
               )}
             >
               Get Started

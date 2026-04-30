@@ -45,7 +45,7 @@ function ContactHero() {
       <div className="mx-auto w-full max-w-[820px] px-6 text-center">
         <div
           aria-hidden="true"
-          className="bg-bloom-cta mx-auto mb-7 flex h-[44px] w-[44px] items-center justify-center rounded-[8px] shadow-[0_8px_24px_rgba(254,5,62,0.25)]"
+          className="bg-bloom-cta mx-auto mb-7 flex h-[44px] w-[44px] items-center justify-center rounded-md"
         >
           <BloomMarkGradient
             className="h-6 w-auto"
@@ -85,7 +85,7 @@ function ContactPaths() {
             <Link
               key={path.heading}
               href={path.href}
-              className="group flex flex-col gap-4 rounded-md bg-white p-7 shadow-bloom-card transition-transform duration-200 hover:-translate-y-0.5 sm:p-8"
+              className="group flex flex-col gap-4 rounded-md border border-bloom-navy/10 bg-white p-7 transition-colors duration-200 hover:border-bloom-navy/30 sm:p-8"
             >
               <p className="text-[12px] font-bold uppercase tracking-[0.18em] text-bloom-orange">
                 {path.eyebrow}
@@ -112,7 +112,7 @@ function ContactFormSection() {
   return (
     <RevealOnScroll
       as="section"
-      className="w-full bg-bloom-cream py-16 sm:py-20 lg:py-[120px]"
+      className="w-full bg-bloom-cream py-16 sm:py-20 lg:py-24"
     >
       <div className="mx-auto w-full max-w-[1080px] px-4 sm:px-6">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-16">
@@ -169,7 +169,7 @@ function ContactFormSection() {
           </div>
 
           {/* Right column: form */}
-          <div className="rounded-md bg-white p-6 shadow-bloom-card sm:p-8 lg:p-10">
+          <div className="rounded-md border border-bloom-navy/10 bg-white p-6 sm:p-8 lg:p-10">
             <ContactForm />
           </div>
         </div>

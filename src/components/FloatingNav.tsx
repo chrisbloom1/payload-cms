@@ -60,7 +60,7 @@ export function FloatingNav() {
       <nav
         aria-label="Primary"
         className={cn(
-          "flex h-[72px] w-full items-center justify-between rounded-lg",
+          "flex h-[72px] w-full items-center justify-between rounded-md",
           "bg-[rgba(235,235,240,0.65)] backdrop-blur-[10px]",
           "py-3 pr-3 pl-6",
           "max-w-[1280px]",
@@ -100,10 +100,10 @@ export function FloatingNav() {
             target="_blank"
             rel="noreferrer"
             className={cn(
-              "inline-flex items-center justify-center rounded-[6px] px-5 py-2.5",
-              "bg-bloom-cta text-white",
+              "inline-flex items-center justify-center rounded-md px-5 py-2.5",
+              "bg-bloom-cta text-white hover:opacity-90",
               "text-[12px] font-bold uppercase tracking-[0.08em]",
-              "transition-transform duration-150 hover:scale-[1.02]",
+              "transition-opacity duration-150",
             )}
           >
             GET STARTED

@@ -129,7 +129,7 @@ export const HelpHeader: React.FC = () => {
                           <li key={link.href}>
                             <Link
                               href={link.href}
-                              className="-mx-2 flex flex-col gap-0.5 rounded-lg px-2 py-2 transition-colors hover:bg-bloom-mint/50"
+                              className="-mx-2 flex flex-col gap-0.5 rounded-md px-2 py-2 transition-colors hover:bg-bloom-mint/50"
                               role="menuitem"
                             >
                               <span className="text-[14px] font-semibold text-bloom-navy">

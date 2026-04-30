@@ -13,7 +13,7 @@ export function HomePayCard() {
     <RevealOnScroll
       as="section"
       delay={120}
-      className={cn("w-full", "py-20 sm:py-24 lg:py-[120px]")}
+      className={cn("w-full", "py-16 sm:py-20 lg:py-24")}
     >
       <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
         <div

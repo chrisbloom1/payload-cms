@@ -62,7 +62,7 @@ export const GuidesPageClient: React.FC<{
                   return (
                     <div
                       key={guide.id}
-                      className="rounded-xl bg-white shadow-xs overflow-hidden"
+                      className="rounded-md bg-white shadow-xs overflow-hidden"
                     >
                       <Link
                         href={`/guides/${guide.slug}`}

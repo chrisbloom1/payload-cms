@@ -89,7 +89,7 @@ export function ServiceWheel({
             {MARQUEE_ITEMS.map(({ id, label }) => (
               <span
                 key={id}
-                className="text-bloom-navy shadow-bloom-card inline-flex shrink-0 items-center justify-center whitespace-pre-line rounded-md bg-white px-4 py-2 text-center text-sm font-bold leading-tight md:px-6 md:py-3 md:text-[18px]"
+                className="text-bloom-navy inline-flex shrink-0 items-center justify-center whitespace-pre-line rounded-md border border-bloom-navy/10 bg-white px-4 py-2 text-center text-sm font-bold leading-tight md:px-6 md:py-3 md:text-[18px]"
               >
                 {label}
               </span>
