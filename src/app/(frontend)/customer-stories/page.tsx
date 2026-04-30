@@ -298,15 +298,15 @@ export default function CustomerStoriesPage() {
               Bloom supports hardware brands, no matter their stage or size.
             </p>
           </RevealOnScroll>
-
-          <section className="flex flex-col gap-12 sm:gap-16">
-            {STORIES.map((story) => (
-              <RevealOnScroll key={story.slug}>
-                <StoryRow story={story} />
-              </RevealOnScroll>
-            ))}
-          </section>
         </div>
+
+        <section className="flex flex-col">
+          {STORIES.map((story) => (
+            <RevealOnScroll key={story.slug}>
+              <StoryRow story={story} />
+            </RevealOnScroll>
+          ))}
+        </section>
       </main>
       <UnifiedFooter />
     </>
