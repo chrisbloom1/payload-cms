@@ -321,37 +321,90 @@
 .framer-Fdb0A.framer-1i6qdja,
 .framer-Fdb0A .framer-1i6qdja { display: block; }
 
+/*
+  Hero structural rules. Dimensions live inside media queries so
+  mobile users don't see the 1200x720 desktop hero overflowing the
+  viewport before Framer's variant logic kicks in. Breakpoints
+  mirror Framer's three native variants:
+    - desktop (default)   ≥ 1200px
+    - tablet (qsh69u)     745–1199px
+    - mobile (t1haav)     ≤ 744px
+*/
 .framer-Fdb0A.framer-1lbjmms {
   align-content: center;
   align-items: center;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
-  gap: 36px;
-  height: 720px;
   justify-content: center;
-  max-height: 720px;
-  min-height: 550px;
   overflow: visible;
-  padding: 36px 36px 0 36px;
   position: relative;
-  width: 1200px;
+  /* Defaults — overridden by the breakpoint blocks below. */
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  min-height: 550px;
+  gap: 24px;
+  padding: 96px 16px 0 16px;
+}
+@media (min-width: 1200px) {
+  .framer-Fdb0A.framer-1lbjmms {
+    width: 1200px;
+    max-width: 1200px;
+    height: 720px;
+    max-height: 720px;
+    gap: 36px;
+    padding: 36px 36px 0 36px;
+  }
+}
+@media (min-width: 745px) and (max-width: 1199px) {
+  .framer-Fdb0A.framer-1lbjmms {
+    width: 724px;
+    max-width: 724px;
+    height: 628px;
+    max-height: 628px;
+    gap: 32px;
+    padding: 32px 32px 0 32px;
+  }
+}
+@media (max-width: 744px) {
+  .framer-Fdb0A.framer-1lbjmms {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: unset;
+    min-height: unset;
+    gap: 32px;
+    padding: 80px 16px 0 16px;
+  }
 }
 .framer-Fdb0A .framer-10huhvw {
   align-content: flex-start;
   align-items: flex-start;
   display: flex;
-  flex: 1 0 0px;
   flex-direction: column;
   flex-wrap: nowrap;
   gap: 32px;
-  height: 1px;
   justify-content: flex-end;
-  max-width: 1280px;
   overflow: visible;
-  padding: 96px 0 24px 0;
   position: relative;
   width: 100%;
+}
+@media (min-width: 1200px) {
+  .framer-Fdb0A .framer-10huhvw {
+    flex: 1 0 0px;
+    height: 1px;
+    max-width: 1280px;
+    padding: 96px 0 24px 0;
+  }
+}
+@media (max-width: 1199px) {
+  .framer-Fdb0A .framer-10huhvw {
+    flex: none;
+    height: min-content;
+    max-width: 100%;
+    padding: 0;
+  }
 }
 .framer-Fdb0A .framer-ee5uq1 {
   align-content: flex-start;
@@ -450,8 +503,16 @@
   flex: none;
   height: auto;
   position: relative;
-  width: 830px;
   z-index: 1;
+}
+@media (min-width: 1200px) {
+  .framer-Fdb0A .framer-1pnfi5j { width: 830px; }
+}
+@media (min-width: 745px) and (max-width: 1199px) {
+  .framer-Fdb0A .framer-1pnfi5j { width: 608px; max-width: 100%; }
+}
+@media (max-width: 744px) {
+  .framer-Fdb0A .framer-1pnfi5j { width: 100%; }
 }
 .framer-Fdb0A .framer-1rd6a1i-container {
   flex: none;

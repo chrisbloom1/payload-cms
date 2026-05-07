@@ -33,21 +33,12 @@ export default function HomePage() {
       />
       <FloatingNav />
       <main className="flex flex-col">
-        {/* Full hero — heading + rotating word + chat + subhead + logo marquee bundled.
-            SECTIONHERONEW is a Proofly export with fixed width:1200,height:720;
-            we lazy-load it (ssr:false) and fall back to a static H1 +
-            subhead via <HeroFallback /> so first paint has an LCP-
-            eligible candidate. The wrapper reserves 720px so the page
-            below doesn't shift when Framer mounts and replaces the
-            fallback. */}
-        <div
-          className="flex w-full justify-center overflow-hidden"
-          style={{ minHeight: 720 }}
-        >
-          {/* LazySectionHero's `loading` fallback (HeroFallback) shows
-              during SSR + initial paint, providing an LCP-eligible H1
-              and subhead. The real Framer hero loads after first paint
-              and replaces the fallback. */}
+        {/* Hero region. SECTIONHERONEW is dynamic({ssr:false}) and
+            wrapped in DelayedMount; HeroFallback covers first paint
+            with the H1 + subhead. The min-height is responsive so
+            mobile users don't get a 720px empty band — that's the
+            mobile variant's natural height. */}
+        <div className="flex min-h-[480px] w-full justify-center overflow-hidden sm:min-h-[600px] lg:min-h-[720px]">
           <LazySectionHero />
         </div>
         {/* Replaces the Framer rotating-word column with a clean React swap

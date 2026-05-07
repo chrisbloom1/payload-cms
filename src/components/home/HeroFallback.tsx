@@ -6,19 +6,16 @@
  * the H1 text as a stable LCP candidate so first paint shows the
  * hero copy immediately, well before the Framer runtime hydrates.
  *
- * The wrapper keeps the same min-height as the live hero
- * (configured in (frontend)/page.tsx) so layout doesn't shift when
- * the real hero swaps in.
+ * Sized responsively (no fixed width/height) so mobile users see
+ * properly wrapped copy — the parent wrapper sets the matching
+ * responsive min-height to keep layout stable.
  */
 export function HeroFallback() {
   return (
-    <div
-      className="relative flex w-full flex-col items-center justify-center overflow-hidden px-4 text-center"
-      style={{ minHeight: 720 }}
-    >
+    <div className="relative flex min-h-[480px] w-full flex-col items-center justify-center overflow-hidden px-4 py-16 text-center sm:min-h-[600px] sm:py-20 lg:min-h-[720px]">
       <div className="flex w-full max-w-[1128px] flex-col items-center gap-6">
         <h1
-          className="text-balance text-[36px] font-bold leading-tight text-bloom-navy sm:text-[40px] lg:text-[48px]"
+          className="text-balance text-[32px] font-bold leading-tight text-bloom-navy sm:text-[40px] lg:text-[48px]"
           style={{
             fontFamily:
               '"Haffer Bold", "Haffer Bold Placeholder", "Haffer Fallback", sans-serif',
@@ -28,7 +25,7 @@ export function HeroFallback() {
           Hardware shouldn&rsquo;t be hard.
         </h1>
         <p
-          className="max-w-[830px] text-[18px] leading-[26px] text-bloom-navy/80 sm:text-[20px]"
+          className="max-w-[830px] text-[16px] leading-[24px] text-bloom-navy/80 sm:text-[18px] sm:leading-[26px] lg:text-[20px]"
           style={{
             fontFamily: '"Haffer Regular", "Haffer Fallback", sans-serif',
           }}
