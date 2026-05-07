@@ -36,6 +36,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           crossOrigin="anonymous"
         />
       </head>
+      {/* Note: per-page LCP image preloads live in the page itself
+          (e.g. `(frontend)/page.tsx`) so they only run for the route
+          that actually shows that image. */}
       <body>
         <Providers>
           <AdminBar
