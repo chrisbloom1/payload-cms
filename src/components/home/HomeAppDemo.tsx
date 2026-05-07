@@ -35,13 +35,19 @@ export function HomeAppDemo() {
           </div>
 
           {/* Video / poster */}
-          <div className="relative w-full overflow-hidden rounded-md ring-1 ring-bloom-navy/10">
+          <div
+            className="relative w-full overflow-hidden rounded-md ring-1 ring-bloom-navy/10"
+            style={{ aspectRatio: "1440 / 992" }}
+          >
             <video
               autoPlay
               muted
               loop
               playsInline
+              preload="metadata"
               poster="/videos/bloom-app-demo-poster.webp"
+              // @ts-expect-error -- fetchPriority is a valid HTML attribute supported by React 19 / Next 16.
+              fetchPriority="high"
               className="block h-auto w-full"
             >
               <source src="/videos/bloom-app-demo.mp4" type="video/mp4" />
@@ -51,6 +57,9 @@ export function HomeAppDemo() {
                 alt="Bloom platform interface"
                 width={1440}
                 height={992}
+                priority
+                fetchPriority="high"
+                sizes="(min-width: 960px) 960px, 100vw"
                 className="block h-auto w-full"
               />
             </video>

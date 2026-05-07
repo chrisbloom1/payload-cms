@@ -208,6 +208,19 @@
     font-style: italic;
     font-display: swap;
   }
+
+  /* Metric-adjusted system fallback used while Haffer loads. The override
+     values are tuned so that Arial (the local fallback source) renders at
+     approximately the same x-height, ascent, and descent as Haffer, which
+     keeps cumulative layout shift near zero when the swap occurs. */
+  @font-face {
+    font-family: 'Haffer Fallback';
+    src: local('Arial');
+    size-adjust: 100.5%;
+    ascent-override: 93%;
+    descent-override: 24%;
+    line-gap-override: 0%;
+  }
 }
 
 @layer base {
