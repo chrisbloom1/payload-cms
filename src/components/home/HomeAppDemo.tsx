@@ -1,14 +1,50 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { BloomMarkGradient } from "@/components/BloomLogo";
 
 /**
  * Bloom platform app demo video, anchored above the Discover section.
  *
- * Live layout: an orange Bloom mark "drops" from above with a thin red
- * line into a 720×496 video preview of the app chat UI.
+ * The video is the page's LCP element, so the poster preloads at high
+ * priority. The 2.9MB MP4, however, used to start streaming during page
+ * load (autoplay + preload="metadata"), which on slow networks competes
+ * with the LCP poster + critical JS chunks for bandwidth and tanks the
+ * Lighthouse mobile score. We defer the actual <source> attachment +
+ * play() until the browser hits an idle frame after first paint, so
+ * the poster shows immediately and the heavy mp4 fetch happens after
+ * the LCP/TBT measurement window.
  */
 export function HomeAppDemo() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const start = () => {
+      // Attach the source after first paint so the mp4 fetch doesn't
+      // run during the LCP window.
+      const source = video.querySelector("source[data-src]") as HTMLSourceElement | null;
+      if (source && !source.src) {
+        source.src = source.dataset.src || "";
+        video.load();
+        void video.play().catch(() => {
+          // Autoplay may be blocked; the poster image already shows.
+        });
+      }
+    };
+
+    const idle = (window as Window & { requestIdleCallback?: (cb: () => void) => number }).requestIdleCallback;
+    if (typeof idle === "function") {
+      idle(start);
+    } else {
+      window.setTimeout(start, 1500);
+    }
+  }, []);
+
   return (
     <RevealOnScroll
       as="section"
@@ -40,17 +76,18 @@ export function HomeAppDemo() {
             style={{ aspectRatio: "1440 / 992" }}
           >
             <video
-              autoPlay
+              ref={videoRef}
               muted
               loop
               playsInline
-              preload="metadata"
+              preload="none"
               poster="/videos/bloom-app-demo-poster.webp"
               // @ts-expect-error -- fetchPriority is a valid HTML attribute supported by React 19 / Next 16.
               fetchPriority="high"
               className="block h-auto w-full"
             >
-              <source src="/videos/bloom-app-demo.mp4" type="video/mp4" />
+              {/* data-src deferred until after first paint via useEffect */}
+              <source data-src="/videos/bloom-app-demo.mp4" type="video/mp4" />
               {/* Static fallback if video can't load. No `priority` here —
                   the LCP poster preload lives in (frontend)/page.tsx; we
                   don't want a duplicate Next.js auto-generated preload. */}
