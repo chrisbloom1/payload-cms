@@ -221,6 +221,66 @@
     descent-override: 24%;
     line-gap-override: 0%;
   }
+
+  /*
+    Framer/Proofly-exported components reference "Haffer Bold" and
+    "Haffer Regular" as separate font families (those are the canvas-
+    component family names Framer uses). Without explicit @font-face
+    rules under those exact names, Framer's runtime fontStore loads
+    them client-side, so the home hero H1 renders in system sans-serif
+    until that load completes — which jumps the H1's pixel size and
+    re-fires LCP at the post-swap point (~700ms later than first paint
+    on desktop). Aliasing these names to the same woff2 files we
+    already preload in <head> means SSR resolves them on the very
+    first paint and there's no swap.
+  */
+  @font-face {
+    font-family: 'Haffer Bold';
+    src: url('/fonts/HafferBold.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Haffer Bold';
+    src: url('/fonts/HafferBoldItalic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Haffer Regular';
+    src: url('/fonts/HafferRegular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Haffer Regular';
+    src: url('/fonts/HafferRegularItalic.woff2') format('woff2');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  /* Sibling fallbacks so Framer's "X Placeholder" lookups land on
+     metric-adjusted Arial too. */
+  @font-face {
+    font-family: 'Haffer Bold Placeholder';
+    src: local('Arial Bold'), local('Arial');
+    size-adjust: 100.5%;
+    ascent-override: 93%;
+    descent-override: 24%;
+    line-gap-override: 0%;
+  }
+  @font-face {
+    font-family: 'Haffer Regular Placeholder';
+    src: local('Arial');
+    size-adjust: 100.5%;
+    ascent-override: 93%;
+    descent-override: 24%;
+    line-gap-override: 0%;
+  }
 }
 
 /*
