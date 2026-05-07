@@ -52,17 +52,17 @@ export default function HomePage() {
             stable. */}
 
         {/* "Discover and access" — radial diagram of 6 services (Animationtree) */}
-        <div className="cv-auto-section">
+        <div className="cv-auto-section cv-h-820">
           <HomeDiscover />
         </div>
 
         {/* "Easily manage partners" — Bloom platform mockup card */}
-        <div className="cv-auto-section">
+        <div className="cv-auto-section cv-h-820">
           <HomeManageCard />
         </div>
 
         {/* "Simplify and expand payment options" + the cycling Mockupterms widget */}
-        <section className="cv-auto-section w-full py-16 md:py-24">
+        <section className="cv-auto-section cv-h-920 w-full py-16 md:py-24">
           <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
             <div className="overflow-hidden rounded-md bg-gradient-to-br from-white via-white to-bloom-cream p-8 ring-1 ring-bloom-navy/10 sm:p-10 lg:p-16">
               <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
@@ -84,7 +84,7 @@ export default function HomePage() {
         </section>
 
         {/* For Brands / For Providers small navy pills */}
-        <div className="cv-auto-section">
+        <div className="cv-auto-section cv-h-560">
           <RolesSplit />
         </div>
 
@@ -95,7 +95,7 @@ export default function HomePage() {
 
         {/* Testimonials — custom widget with active card at 70% width and ~15%
             peeks on each side, matching the live carousel layout. */}
-        <div className="cv-auto-section">
+        <div className="cv-auto-section cv-h-820">
           <MembersTestimonials />
         </div>
       </main>

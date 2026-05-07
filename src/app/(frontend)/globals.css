@@ -290,10 +290,18 @@
   the section reserves space before the user scrolls to it.
 */
 @layer utilities {
+  /*
+    Default reservation. Each .cv-auto-section can opt into a more
+    accurate intrinsic size via the .cv-h-* modifiers below; otherwise
+    we reserve a generous 720px so any first-render skip fits.
+  */
   .cv-auto-section {
     content-visibility: auto;
     contain-intrinsic-size: auto 720px;
   }
+  .cv-h-820 { contain-intrinsic-size: auto 820px; }
+  .cv-h-920 { contain-intrinsic-size: auto 920px; }
+  .cv-h-560 { contain-intrinsic-size: auto 560px; }
 }
 
 /*
