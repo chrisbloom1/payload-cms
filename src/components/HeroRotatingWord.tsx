@@ -30,9 +30,36 @@ export function HeroRotatingWord() {
   const [visible, setVisible] = useState(true)
 
   useEffect(() => {
-    const slot = document.querySelector('.framer-2f8v2u') as HTMLElement | null
-    if (!slot) return
+    let cleanup: (() => void) | undefined
 
+    const attach = (slot: HTMLElement) => {
+      cleanup = applyToSlot(slot)
+    }
+
+    // SECTIONHERONEW now lazy-loads (dynamic ssr:false), so the Framer
+    // slot we want to portal into may not be in the DOM yet on first
+    // render. Try once synchronously, otherwise watch the document for
+    // it to appear and attach as soon as Framer mounts the hero.
+    const initial = document.querySelector('.framer-2f8v2u') as HTMLElement | null
+    if (initial) {
+      attach(initial)
+    } else {
+      const observer = new MutationObserver(() => {
+        const found = document.querySelector('.framer-2f8v2u') as HTMLElement | null
+        if (found) {
+          observer.disconnect()
+          attach(found)
+        }
+      })
+      observer.observe(document.body, { childList: true, subtree: true })
+      cleanup = () => observer.disconnect()
+    }
+
+    return () => {
+      cleanup?.()
+    }
+
+    function applyToSlot(slot: HTMLElement) {
     const flexLine = slot.closest('.framer-1xlm2xu') as HTMLElement | null
 
     const originalSlotStyles: Record<string, string> = {
@@ -72,14 +99,15 @@ export function HeroRotatingWord() {
 
     setSlotEl(slot)
 
-    return () => {
-      Object.entries(originalSlotStyles).forEach(([key, value]) => {
-        slot.style.setProperty(key.replace(/[A-Z]/g, '-$&').toLowerCase(), value)
-      })
-      originalChildren.forEach((c, i) => {
-        c.style.display = childOriginalDisplays[i] || ''
-      })
-      if (flexLine) flexLine.style.alignItems = originalFlexAlign || ''
+      return () => {
+        Object.entries(originalSlotStyles).forEach(([key, value]) => {
+          slot.style.setProperty(key.replace(/[A-Z]/g, '-$&').toLowerCase(), value)
+        })
+        originalChildren.forEach((c, i) => {
+          c.style.display = childOriginalDisplays[i] || ''
+        })
+        if (flexLine) flexLine.style.alignItems = originalFlexAlign || ''
+      }
     }
   }, [])
 
