@@ -286,6 +286,20 @@
   position: relative;
 }
 
+/*
+  Force the H1 hero text out of its Framer-motion fade-in-up initial
+  state. The wrapper SSRs with `opacity:0; transform:translateY(16px)`
+  and animates to opacity:1 / transform:none post-hydration, which
+  delayed our LCP candidate by ~1.5–2s (the largest text only counts
+  for LCP once it reaches its final, fully-opaque, stable position).
+  CSS !important beats framer-motion's inline styles, so the element
+  is visible at its final position from the very first paint.
+*/
+.framer-Fdb0A .framer-1wcg1zx {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 @layer base {
   h1,
   h2,
