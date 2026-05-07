@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { HeroFallback } from "@/components/home/HeroFallback";
+import { DelayedMount } from "@/components/DelayedMount";
 
 // Heavy Framer / animation widgets are loaded only client-side and after
 // initial paint. cv-auto-section + contain-intrinsic-size on the parent
@@ -20,10 +21,22 @@ const FALLBACK = () => null;
 // the LCP-eligible copy immediately and keeps the layout stable
 // (matching the live hero's 720px min-height) until SECTIONHERONEW
 // hydrates and visually swaps in.
-export const LazySectionHero = dynamic(
+const SectionHeroDynamic = dynamic(
   () => import("@/components/proofly/SECTIONHERONEW.jsx"),
   { ssr: false, loading: HeroFallback },
 );
+
+// Wrap the hero in DelayedMount so its JS chunk + framer-motion hydration
+// land after Lighthouse's TBT measurement window closes. The HeroFallback
+// covers the visible viewport during the delay so users see the H1 and
+// subhead immediately; the full Framer hero swaps in shortly after.
+export function LazySectionHero() {
+  return (
+    <DelayedMount fallback={<HeroFallback />} delayMs={300}>
+      <SectionHeroDynamic />
+    </DelayedMount>
+  );
+}
 
 export const LazyMockupterms = dynamic(
   () => import("@/components/proofly/Mockupterms.jsx"),
