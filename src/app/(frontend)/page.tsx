@@ -45,14 +45,24 @@ export default function HomePage() {
         {/* Bloom platform app demo video, anchored by orange Bloom mark */}
         <HomeAppDemo />
 
+        {/* All sections below the hero+video opt into content-visibility:auto
+            so the browser defers their style/layout/paint work until the
+            user scrolls them into view. cv-auto-section reserves a 720px
+            intrinsic size on each so the page's scroll height stays
+            stable. */}
+
         {/* "Discover and access" — radial diagram of 6 services (Animationtree) */}
-        <HomeDiscover />
+        <div className="cv-auto-section">
+          <HomeDiscover />
+        </div>
 
         {/* "Easily manage partners" — Bloom platform mockup card */}
-        <HomeManageCard />
+        <div className="cv-auto-section">
+          <HomeManageCard />
+        </div>
 
         {/* "Simplify and expand payment options" + the cycling Mockupterms widget */}
-        <section className="w-full py-16 md:py-24">
+        <section className="cv-auto-section w-full py-16 md:py-24">
           <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
             <div className="overflow-hidden rounded-md bg-gradient-to-br from-white via-white to-bloom-cream p-8 ring-1 ring-bloom-navy/10 sm:p-10 lg:p-16">
               <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
@@ -74,14 +84,20 @@ export default function HomePage() {
         </section>
 
         {/* For Brands / For Providers small navy pills */}
-        <RolesSplit />
+        <div className="cv-auto-section">
+          <RolesSplit />
+        </div>
 
         {/* Cultivating an ecosystem stats */}
-        <EcosystemStats />
+        <div className="cv-auto-section">
+          <EcosystemStats />
+        </div>
 
         {/* Testimonials — custom widget with active card at 70% width and ~15%
             peeks on each side, matching the live carousel layout. */}
-        <MembersTestimonials />
+        <div className="cv-auto-section">
+          <MembersTestimonials />
+        </div>
       </main>
       <UnifiedFooter />
     </>

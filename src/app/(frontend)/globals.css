@@ -223,6 +223,19 @@
   }
 }
 
+/*
+  content-visibility:auto skips rendering, layout, and paint for off-screen
+  sections, which materially reduces the homepage's initial style/layout
+  cost. contain-intrinsic-size keeps the page's scroll height stable so
+  the section reserves space before the user scrolls to it.
+*/
+@layer utilities {
+  .cv-auto-section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 720px;
+  }
+}
+
 @layer base {
   h1,
   h2,
