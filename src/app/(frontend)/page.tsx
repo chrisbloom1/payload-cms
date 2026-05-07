@@ -1,14 +1,13 @@
 import { FloatingNav } from "@/components/FloatingNav";
 import { UnifiedFooter } from "@/components/UnifiedFooter";
 import { HeroRotatingWord } from "@/components/HeroRotatingWord";
-// Hero stays eager-rendered for SEO and to put content on first paint.
-import SECTIONHERONEW from "@/components/proofly/SECTIONHERONEW.jsx";
 import { HomeAppDemo } from "@/components/home/HomeAppDemo";
-// Below-the-fold sections are pulled in via next/dynamic with ssr:false
-// so their JS chunks (and the framer/usercontent preloads they emit)
-// don't bloat the initial HTML or block hydration. cv-auto-section on the
-// parent reserves the right intrinsic size, so ssr:false doesn't trigger
-// a layout shift when each chunk lands.
+// SECTIONHERONEW + everything else is pulled in via next/dynamic with
+// ssr:false so the heaviest JS chunks (and the 25+ framer/usercontent
+// preloads SECTIONHERONEW emits) don't bloat the initial HTML or block
+// hydration. The hero ships with a static <HeroFallback> H1 so first
+// paint still has an LCP-eligible candidate; SECTIONHERONEW visually
+// replaces the fallback once its chunk lands.
 import {
   LazyEcosystemStats,
   LazyHomeDiscover,
@@ -16,6 +15,7 @@ import {
   LazyMembersTestimonials,
   LazyMockupterms,
   LazyRolesSplit,
+  LazySectionHero,
 } from "@/components/home/LazyHomeSections";
 
 export default function HomePage() {
@@ -35,14 +35,20 @@ export default function HomePage() {
       <main className="flex flex-col">
         {/* Full hero — heading + rotating word + chat + subhead + logo marquee bundled.
             SECTIONHERONEW is a Proofly export with fixed width:1200,height:720;
-            flex-centers it in the viewport. The wrapper reserves the hero's
-            post-hydration height so the page below doesn't shift down 550px
-            (CLS 0.37) when Framer-motion finishes laying out. */}
+            we lazy-load it (ssr:false) and fall back to a static H1 +
+            subhead via <HeroFallback /> so first paint has an LCP-
+            eligible candidate. The wrapper reserves 720px so the page
+            below doesn't shift when Framer mounts and replaces the
+            fallback. */}
         <div
           className="flex w-full justify-center overflow-hidden"
           style={{ minHeight: 720 }}
         >
-          <SECTIONHERONEW />
+          {/* LazySectionHero's `loading` fallback (HeroFallback) shows
+              during SSR + initial paint, providing an LCP-eligible H1
+              and subhead. The real Framer hero loads after first paint
+              and replaces the fallback. */}
+          <LazySectionHero />
         </div>
         {/* Replaces the Framer rotating-word column with a clean React swap
             (mounts client-side via portal into `.framer-175oaup`). */}

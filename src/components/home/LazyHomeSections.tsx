@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { HeroFallback } from "@/components/home/HeroFallback";
 
 // Heavy Framer / animation widgets are loaded only client-side and after
 // initial paint. cv-auto-section + contain-intrinsic-size on the parent
@@ -11,6 +12,18 @@ import dynamic from "next/dynamic";
 // performance score on this homepage.
 
 const FALLBACK = () => null;
+
+// SECTIONHERONEW is the Proofly hero export — the largest single client
+// chunk on the page (~519KB w/ @proofly-framer/runtime + framer-motion).
+// Dynamic-import with ssr:false so its JS is fetched after first paint.
+// HeroFallback is a tiny, statically-rendered H1 + subhead that shows
+// the LCP-eligible copy immediately and keeps the layout stable
+// (matching the live hero's 720px min-height) until SECTIONHERONEW
+// hydrates and visually swaps in.
+export const LazySectionHero = dynamic(
+  () => import("@/components/proofly/SECTIONHERONEW.jsx"),
+  { ssr: false, loading: HeroFallback },
+);
 
 export const LazyMockupterms = dynamic(
   () => import("@/components/proofly/Mockupterms.jsx"),
