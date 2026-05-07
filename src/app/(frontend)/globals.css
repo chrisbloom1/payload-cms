@@ -176,7 +176,7 @@
       url('/fonts/HafferRegular.woff') format('woff');
     font-weight: 400;
     font-style: normal;
-    font-display: swap;
+    font-display: optional;
   }
 
   @font-face {
@@ -186,7 +186,7 @@
       url('/fonts/HafferRegularItalic.woff') format('woff');
     font-weight: 400;
     font-style: italic;
-    font-display: swap;
+    font-display: optional;
   }
 
   @font-face {
@@ -196,7 +196,7 @@
       url('/fonts/HafferBold.woff') format('woff');
     font-weight: 700;
     font-style: normal;
-    font-display: swap;
+    font-display: optional;
   }
 
   @font-face {
@@ -206,7 +206,7 @@
       url('/fonts/HafferBoldItalic.woff') format('woff');
     font-weight: 700;
     font-style: italic;
-    font-display: swap;
+    font-display: optional;
   }
 
   /* Metric-adjusted system fallback used while Haffer loads. The override
@@ -239,28 +239,28 @@
     src: url('/fonts/HafferBold.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
-    font-display: swap;
+    font-display: optional;
   }
   @font-face {
     font-family: 'Haffer Bold';
     src: url('/fonts/HafferBoldItalic.woff2') format('woff2');
     font-weight: normal;
     font-style: italic;
-    font-display: swap;
+    font-display: optional;
   }
   @font-face {
     font-family: 'Haffer Regular';
     src: url('/fonts/HafferRegular.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
-    font-display: swap;
+    font-display: optional;
   }
   @font-face {
     font-family: 'Haffer Regular';
     src: url('/fonts/HafferRegularItalic.woff2') format('woff2');
     font-weight: normal;
     font-style: italic;
-    font-display: swap;
+    font-display: optional;
   }
 
   /* Sibling fallbacks so Framer's "X Placeholder" lookups land on
