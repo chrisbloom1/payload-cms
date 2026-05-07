@@ -2,24 +2,12 @@ import type { Metadata } from 'next'
 
 import React from 'react'
 
-import dynamic from 'next/dynamic'
-
-// AdminBar and LivePreviewListener pull in payload-admin-bar and
-// @payloadcms/live-preview-react — both heavy and only useful when
-// draft mode is on. We skip rendering them entirely (and therefore
-// skip downloading their chunks) for the public, non-preview path,
-// which is the lighthouse/PSI scoring scenario.
-const AdminBar = dynamic(
-  () => import('@/components/AdminBar').then((m) => ({ default: m.AdminBar })),
-  { ssr: false, loading: () => null },
-)
-const LivePreviewListener = dynamic(
-  () =>
-    import('@/components/LivePreviewListener').then((m) => ({
-      default: m.LivePreviewListener,
-    })),
-  { ssr: false, loading: () => null },
-)
+// PreviewModeShell is a "use client" wrapper that dynamic-imports
+// AdminBar + LivePreviewListener with ssr:false. Server Components
+// can't use `dynamic({ ssr: false })`, so we route through a thin
+// client component. When draft mode is off the shell renders null
+// and the heavy chunks are never even fetched.
+import { PreviewModeShell } from '@/components/PreviewModeShell'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
@@ -69,12 +57,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           that actually shows that image. */}
       <body>
         <Providers>
-          {isEnabled ? (
-            <>
-              <AdminBar adminBarProps={{ preview: isEnabled }} />
-              <LivePreviewListener />
-            </>
-          ) : null}
+          <PreviewModeShell enabled={isEnabled} />
 
           {/* Each section provides its own chrome via its per-section
               layout: marketing pages render `FloatingNav` + `UnifiedFooter`
