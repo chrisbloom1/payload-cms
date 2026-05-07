@@ -236,6 +236,24 @@
   }
 }
 
+/*
+  SSR pre-paint for the Proofly/Framer home hero. Framer's runtime
+  injects the hero's width/height into the document via a JS-managed
+  <style> tag during hydration, so until that JS runs the hero element
+  has no intrinsic dimensions and the H1 LCP element paints at a
+  smaller-than-final size — we previously saw a 1.44s LCP render delay
+  and a 0.17 CLS as the hero "grew" from ~788×720 to 1200×720.
+
+  Apply the same dimensions statically so the H1 paints at its final
+  size on first frame and Framer's later style injection is a no-op.
+*/
+.framer-Fdb0A.framer-1lbjmms {
+  width: 1200px;
+  height: 720px;
+  max-height: 720px;
+  min-height: 550px;
+}
+
 @layer base {
   h1,
   h2,
