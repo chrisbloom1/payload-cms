@@ -51,14 +51,14 @@ export function HomeAppDemo() {
               className="block h-auto w-full"
             >
               <source src="/videos/bloom-app-demo.mp4" type="video/mp4" />
-              {/* Static fallback if video can't load */}
+              {/* Static fallback if video can't load. No `priority` here —
+                  the LCP poster preload lives in (frontend)/page.tsx; we
+                  don't want a duplicate Next.js auto-generated preload. */}
               <Image
                 src="/videos/bloom-app-demo-poster.webp"
                 alt="Bloom platform interface"
                 width={1440}
                 height={992}
-                priority
-                fetchPriority="high"
                 sizes="(min-width: 960px) 960px, 100vw"
                 className="block h-auto w-full"
               />
