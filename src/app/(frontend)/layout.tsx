@@ -37,6 +37,18 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <head>
         <InitTheme />
         <link href="/logos/bloom-symbol.svg" rel="icon" type="image/svg+xml" />
+        {/* Open the TCP+TLS connection to Framer's CDN before the 20+
+            hero image preloads fire so they don't all eat the
+            handshake on slow networks. */}
+        <link
+          rel="preconnect"
+          href="https://framerusercontent.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="dns-prefetch"
+          href="https://framerusercontent.com"
+        />
         <link
           rel="preload"
           href="/fonts/HafferRegular.woff2"
