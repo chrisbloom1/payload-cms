@@ -28,8 +28,14 @@ export default function HomePage() {
       <FloatingNav />
       <main className="flex flex-col">
         {/* Full hero — heading + rotating word + chat + subhead + logo marquee bundled.
-            SECTIONHERONEW is a Proofly export with fixed width:1200; flex-centers it in the viewport. */}
-        <div className="flex w-full justify-center overflow-hidden">
+            SECTIONHERONEW is a Proofly export with fixed width:1200,height:720;
+            flex-centers it in the viewport. The wrapper reserves the hero's
+            post-hydration height so the page below doesn't shift down 550px
+            (CLS 0.37) when Framer-motion finishes laying out. */}
+        <div
+          className="flex w-full justify-center overflow-hidden"
+          style={{ minHeight: 720 }}
+        >
           <SECTIONHERONEW />
         </div>
         {/* Replaces the Framer rotating-word column with a clean React swap
