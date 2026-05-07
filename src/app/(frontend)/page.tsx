@@ -1,16 +1,22 @@
 import { FloatingNav } from "@/components/FloatingNav";
 import { UnifiedFooter } from "@/components/UnifiedFooter";
 import { HeroRotatingWord } from "@/components/HeroRotatingWord";
-// Proofly = direct Framer exports, pixel-perfect
+// Hero stays eager-rendered for SEO and to put content on first paint.
 import SECTIONHERONEW from "@/components/proofly/SECTIONHERONEW.jsx";
-import Mockupterms from "@/components/proofly/Mockupterms.jsx";
-import { MembersTestimonials } from "@/components/widgets/MembersTestimonials";
-// Hand-rolled fallbacks for sections without Proofly equivalents
 import { HomeAppDemo } from "@/components/home/HomeAppDemo";
-import { HomeDiscover } from "@/components/home/HomeDiscover";
-import { HomeManageCard } from "@/components/home/HomeManageCard";
-import { RolesSplit } from "@/components/home/RolesSplit";
-import { EcosystemStats } from "@/components/home/EcosystemStats";
+// Below-the-fold sections are pulled in via next/dynamic with ssr:false
+// so their JS chunks (and the framer/usercontent preloads they emit)
+// don't bloat the initial HTML or block hydration. cv-auto-section on the
+// parent reserves the right intrinsic size, so ssr:false doesn't trigger
+// a layout shift when each chunk lands.
+import {
+  LazyEcosystemStats,
+  LazyHomeDiscover,
+  LazyHomeManageCard,
+  LazyMembersTestimonials,
+  LazyMockupterms,
+  LazyRolesSplit,
+} from "@/components/home/LazyHomeSections";
 
 export default function HomePage() {
   return (
@@ -53,15 +59,17 @@ export default function HomePage() {
 
         {/* "Discover and access" — radial diagram of 6 services (Animationtree) */}
         <div className="cv-auto-section cv-h-820">
-          <HomeDiscover />
+          <LazyHomeDiscover />
         </div>
 
         {/* "Easily manage partners" — Bloom platform mockup card */}
         <div className="cv-auto-section cv-h-820">
-          <HomeManageCard />
+          <LazyHomeManageCard />
         </div>
 
-        {/* "Simplify and expand payment options" + the cycling Mockupterms widget */}
+        {/* "Simplify and expand payment options" + the cycling Mockupterms widget.
+            The static heading + copy SSRs (so the section has content for SEO);
+            only the heavy cycling Framer mockup defers via dynamic. */}
         <section className="cv-auto-section cv-h-920 w-full py-16 md:py-24">
           <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
             <div className="overflow-hidden rounded-md bg-gradient-to-br from-white via-white to-bloom-cream p-8 ring-1 ring-bloom-navy/10 sm:p-10 lg:p-16">
@@ -76,7 +84,7 @@ export default function HomePage() {
                   </p>
                 </div>
                 <div className="flex w-full justify-center lg:justify-end">
-                  <Mockupterms />
+                  <LazyMockupterms />
                 </div>
               </div>
             </div>
@@ -85,18 +93,18 @@ export default function HomePage() {
 
         {/* For Brands / For Providers small navy pills */}
         <div className="cv-auto-section cv-h-560">
-          <RolesSplit />
+          <LazyRolesSplit />
         </div>
 
         {/* Cultivating an ecosystem stats */}
         <div className="cv-auto-section">
-          <EcosystemStats />
+          <LazyEcosystemStats />
         </div>
 
         {/* Testimonials — custom widget with active card at 70% width and ~15%
             peeks on each side, matching the live carousel layout. */}
         <div className="cv-auto-section cv-h-820">
-          <MembersTestimonials />
+          <LazyMembersTestimonials />
         </div>
       </main>
       <UnifiedFooter />
