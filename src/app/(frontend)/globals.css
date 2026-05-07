@@ -238,64 +238,212 @@
 
 /*
   SSR pre-paint for the Proofly/Framer home hero. Framer's runtime
-  injects the hero's width/height into the document via a JS-managed
-  <style> tag during hydration, so until that JS runs the hero element
-  has no intrinsic dimensions and the H1 LCP element paints at a
-  smaller-than-final size — we previously saw a 1.44s LCP render delay
-  and a 0.17 CLS as the hero "grew" from ~788×720 to 1200×720.
+  (`@proofly-framer/runtime`'s `withCSS3` wrapper) injects the hero's
+  per-element layout CSS via a JS-managed <style> tag during
+  hydration, so until that JS runs every hero child has no intrinsic
+  width/height/flex setup. The H1 then paints at a smaller-than-final
+  size and the page below shifts down as the hero "grows" — we saw
+  1.4s LCP render delay and 0.17 CLS from this.
 
-  Apply the same dimensions statically so the H1 paints at its final
-  size on first frame and Framer's later style injection is a no-op.
+  Mirror the runtime's css7 ruleset (extracted from
+  src/components/proofly/SECTIONHERONEW.jsx) so SSR ships the final
+  dimensions for the entire hero subtree. Framer's later <style>
+  injection becomes a no-op since the rules match exactly.
 */
+.framer-Fdb0A.framer-1i6qdja,
+.framer-Fdb0A .framer-1i6qdja { display: block; }
+
 .framer-Fdb0A.framer-1lbjmms {
-  width: 1200px;
+  align-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 36px;
   height: 720px;
+  justify-content: center;
   max-height: 720px;
   min-height: 550px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-content: center;
-  flex-wrap: nowrap;
-  justify-content: center;
-  gap: 36px;
+  overflow: visible;
   padding: 36px 36px 0 36px;
   position: relative;
-  overflow: visible;
+  width: 1200px;
 }
 .framer-Fdb0A .framer-10huhvw {
+  align-content: flex-start;
+  align-items: flex-start;
   display: flex;
-  flex: 1 0 0;
+  flex: 1 0 0px;
   flex-direction: column;
   flex-wrap: nowrap;
-  align-items: flex-start;
-  align-content: flex-start;
-  justify-content: flex-end;
   gap: 32px;
   height: 1px;
+  justify-content: flex-end;
   max-width: 1280px;
-  width: 100%;
+  overflow: visible;
   padding: 96px 0 24px 0;
   position: relative;
+  width: 100%;
+}
+.framer-Fdb0A .framer-ee5uq1 {
+  align-content: flex-start;
+  align-items: flex-start;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 10px;
+  height: min-content;
+  justify-content: center;
   overflow: visible;
+  padding: 0;
+  position: relative;
+  width: 100%;
+}
+.framer-Fdb0A .framer-1wcg1zx {
+  --framer-text-wrap-override: balance;
+  flex: none;
+  height: auto;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+.framer-Fdb0A .framer-v1f4x3-container {
+  flex: none;
+  height: auto;
+  position: relative;
+  width: 100%;
+}
+.framer-Fdb0A .framer-cbaoxw {
+  align-content: center;
+  align-items: center;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 10px;
+  height: min-content;
+  justify-content: flex-start;
+  overflow: visible;
+  padding: 0 16px 24px 16px;
+  position: relative;
+  width: 100%;
+}
+.framer-Fdb0A .framer-2io5a1 {
+  align-content: center;
+  align-items: center;
+  display: flex;
+  flex: none;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 10px;
+  height: min-content;
+  justify-content: center;
+  left: 50%;
+  overflow: visible;
+  padding: 8px 16px;
+  position: absolute;
+  top: 105px;
+  width: min-content;
+  z-index: 1;
+}
+.framer-Fdb0A .framer-1wvga33 {
+  flex: none;
+  height: auto;
+  position: relative;
+  white-space: pre;
+  width: auto;
+  z-index: 1;
+}
+.framer-Fdb0A .framer-108q8n3-container {
+  flex: none;
+  height: 120px;
+  max-width: 600px;
+  position: relative;
+  width: 100%;
+}
+.framer-Fdb0A .framer-1n7l07v {
+  align-content: center;
+  align-items: center;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0;
+  height: min-content;
+  justify-content: center;
+  overflow: visible;
+  padding: 0;
+  position: relative;
+  width: 100%;
 }
 .framer-Fdb0A .framer-1pnfi5j {
-  width: 830px;
-  height: auto;
+  --framer-text-wrap-override: balance;
   flex: none;
+  height: auto;
   position: relative;
+  width: 830px;
+  z-index: 1;
 }
+.framer-Fdb0A .framer-1rd6a1i-container {
+  flex: none;
+  height: auto;
+  max-width: 1920px;
+  position: relative;
+  width: 100%;
+}
+
+/* Tablet variant (.framer-v-qsh69u) overrides */
+.framer-Fdb0A.framer-v-qsh69u.framer-1lbjmms {
+  height: 628px;
+  padding: 32px 32px 0 32px;
+  width: 724px;
+}
+.framer-Fdb0A.framer-v-qsh69u .framer-1wcg1zx { width: 647px; }
+.framer-Fdb0A.framer-v-qsh69u .framer-1pnfi5j { width: 608px; }
+
+/* Mobile variant (.framer-v-t1haav) overrides */
+.framer-Fdb0A.framer-v-t1haav.framer-1lbjmms {
+  gap: 45px;
+  height: min-content;
+  max-height: unset;
+  min-height: unset;
+  padding: 144px 16px 0 16px;
+  width: 374px;
+}
+.framer-Fdb0A.framer-v-t1haav .framer-10huhvw {
+  flex: none;
+  gap: 16px;
+  height: min-content;
+  justify-content: flex-start;
+  max-width: unset;
+  order: 0;
+  padding: 102px 0 0 0;
+  z-index: 1;
+}
+.framer-Fdb0A.framer-v-t1haav .framer-ee5uq1 { gap: 24px; }
+.framer-Fdb0A.framer-v-t1haav .framer-cbaoxw { order: 1; padding: 0; }
+.framer-Fdb0A.framer-v-t1haav .framer-2io5a1 { left: 22%; top: 103px; }
+.framer-Fdb0A.framer-v-t1haav .framer-1n7l07v { order: 2; }
+.framer-Fdb0A.framer-v-t1haav .framer-1pnfi5j { width: 100%; }
+.framer-Fdb0A.framer-v-t1haav .framer-1rd6a1i-container { width: 145%; }
 
 /*
   Force the H1 hero text out of its Framer-motion fade-in-up initial
-  state. The wrapper SSRs with `opacity:0; transform:translateY(16px)`
-  and animates to opacity:1 / transform:none post-hydration, which
-  delayed our LCP candidate by ~1.5–2s (the largest text only counts
-  for LCP once it reaches its final, fully-opaque, stable position).
-  CSS !important beats framer-motion's inline styles, so the element
-  is visible at its final position from the very first paint.
+  state. The .framer-1wcg1zx wrapper SSRs with
+  `opacity:0; transform:translateY(16px)` and animates in after
+  hydration; that delayed our LCP candidate by ~1.5–2s. CSS !important
+  beats framer-motion's inline styles, so the element is visible at
+  its final position from the very first paint.
+
+  Same treatment for the subhead column (.framer-1n7l07v) and chat
+  card column (.framer-cbaoxw) which also start at opacity:0;
+  translateY in SSR — those drove the residual 0.11 CLS.
 */
-.framer-Fdb0A .framer-1wcg1zx {
+.framer-Fdb0A .framer-1wcg1zx,
+.framer-Fdb0A .framer-1n7l07v,
+.framer-Fdb0A .framer-cbaoxw,
+.framer-Fdb0A .framer-2io5a1 {
   opacity: 1 !important;
   transform: none !important;
 }
