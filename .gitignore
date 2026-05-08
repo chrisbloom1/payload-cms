@@ -11,3 +11,4 @@ test-results
 
 # Payload default media upload directory
 public/media/
+.tmp-admin-login.png

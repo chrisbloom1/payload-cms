@@ -42,6 +42,11 @@ export default buildConfig({
     meta: {
       titleSuffix: ' | Bloom',
     },
+    // Force light theme — the Bloom brand is built around the cream
+    // surface, navy text, orange accent palette, which is light-only.
+    // Locking the theme also prevents Payload's auto-detection from
+    // flipping mid-session if the OS toggles dark mode.
+    theme: 'light',
     components: {
       beforeLogin: ['@/components/BeforeLogin'],
       beforeDashboard: ['@/components/BeforeDashboard'],

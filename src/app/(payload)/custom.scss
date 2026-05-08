@@ -80,10 +80,37 @@
   background: var(--bloom-orange) !important;
 }
 
-/* Login screen tweaks — the BeforeLogin "Welcome to Bloom" copy
-   reads better with a touch more space and centered alignment. */
-.template-default .login__brand {
-  margin-bottom: 24px;
+/* Login screen tweaks ----------------------------------------------
+   The BeforeLogin copy + form reads better with more breathing room
+   above and around the Bloom wordmark. Center the lockup explicitly
+   so the small flower mark in the top-right of the SVG isn't pushed
+   off-axis by Payload's default .graphic-logo container. */
+.login .graphic-logo,
+.template-default .graphic-logo {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.login .graphic-logo svg,
+.template-default .graphic-logo svg {
+  height: 44px !important;
+  width: auto !important;
+}
+
+/* Nav header — keep the small flower mark crisp + center it. */
+.nav .graphic-icon,
+.app-header .graphic-icon {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav .graphic-icon svg,
+.app-header .graphic-icon svg {
+  height: 22px !important;
+  width: auto !important;
 }
 
 /* Dashboard quick-edit cards (BeforeDashboard component) — give
