@@ -149,6 +149,12 @@ const BeforeDashboard: React.FC = () => {
         />
         <QuickCard
           label="Marketing"
+          title="Contact page"
+          body="Hero, the 2-up brand/provider path cards, offices, and LinkedIn link."
+          href="/admin/globals/contact-page"
+        />
+        <QuickCard
+          label="Marketing"
           title="Media library"
           body="Upload hero images and logos here so other forms can pick them via the upload field."
           href="/admin/collections/media"

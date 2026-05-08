@@ -29,6 +29,7 @@ import { HomePage } from './Globals/HomePage/config'
 import { BrandsPage } from './Globals/BrandsPage/config'
 import { ProvidersPage } from './Globals/ProvidersPage/config'
 import { CompanyPage } from './Globals/CompanyPage/config'
+import { ContactPage } from './Globals/ContactPage/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
@@ -116,6 +117,7 @@ export default buildConfig({
     BrandsPage, // /brands    — for-brands marketing copy + framework + pricing
     ProvidersPage, // /providers — for-providers marketing copy + criteria
     CompanyPage, // /company  — hero, mission 2-up, ecosystem, resources, team eyebrow
+    ContactPage, // /contact-us — hero, path cards, offices, LinkedIn
     Header, // top-nav links across the marketing site
     Footer, // bottom-nav links across the marketing site
   ],

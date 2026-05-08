@@ -7,6 +7,10 @@ import { ContactForm } from "@/components/forms/ContactForm";
 import { LinkedInIcon, ArrowRightIcon } from "@/components/icons";
 import { BloomMarkGradient } from "@/components/BloomLogo";
 import { cn } from "@/lib/utils";
+import {
+  loadContactPage,
+  type ContactContent,
+} from "@/lib/contact-page-resolver";
 
 export const metadata: Metadata = {
   title: "Contact us | Bloom",
@@ -14,29 +18,7 @@ export const metadata: Metadata = {
     "If you're a hardware brand or service provider interested in joining our platform, or if you just have questions, we'd love to hear from you!",
 };
 
-const PATHS = [
-  {
-    eyebrow: "FOR BRANDS",
-    heading: "Looking for a partner?",
-    body: "Get matched with vetted manufacturers, warehouses, assembly partners, and logistics providers across North America.",
-    href: "/brands",
-    cta: "Explore for brands",
-  },
-  {
-    eyebrow: "FOR PROVIDERS",
-    heading: "Want to win better jobs?",
-    body: "Apply to join the Bloom network and get connected to qualified, fast-growing hardware brands ready to ship.",
-    href: "/providers",
-    cta: "Apply to providers",
-  },
-] as const;
-
-const ADDRESSES = [
-  { city: "Detroit, MI", line1: "2050 15th St", line2: "Detroit, MI 48216" },
-  { city: "Brooklyn, NY", line1: "19 Morris Ave", line2: "Brooklyn, NY 10019" },
-] as const;
-
-function ContactHero() {
+function ContactHero({ hero }: { hero: ContactContent["hero"] }) {
   return (
     <RevealOnScroll
       as="section"
@@ -61,19 +43,17 @@ function ContactHero() {
             "lg:text-[56px] lg:leading-[60px]",
           )}
         >
-          Let&apos;s build hardware, together.
+          {hero.headline}
         </h1>
         <p className="mx-auto mt-6 max-w-[620px] text-[16px] leading-[26px] text-bloom-navy sm:text-[18px]">
-          Whether you&apos;re a hardware brand, a service provider, or just have a
-          question — drop us a line and the right person at Bloom will get back to
-          you.
+          {hero.body}
         </p>
       </div>
     </RevealOnScroll>
   );
 }
 
-function ContactPaths() {
+function ContactPaths({ paths }: { paths: ContactContent["paths"] }) {
   return (
     <RevealOnScroll
       as="section"
@@ -81,7 +61,7 @@ function ContactPaths() {
     >
       <div className="mx-auto w-full max-w-[1080px] px-4 sm:px-6">
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
-          {PATHS.map((path) => (
+          {paths.map((path) => (
             <Link
               key={path.heading}
               href={path.href}
@@ -108,7 +88,7 @@ function ContactPaths() {
   );
 }
 
-function ContactFormSection() {
+function ContactFormSection({ content }: { content: ContactContent }) {
   return (
     <RevealOnScroll
       as="section"
@@ -120,23 +100,22 @@ function ContactFormSection() {
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-3">
               <p className="text-[12px] font-bold uppercase tracking-[0.18em] text-bloom-orange">
-                Get in touch
+                {content.formSection.eyebrow}
               </p>
               <h2 className="text-[28px] font-bold leading-[34px] text-bloom-navy sm:text-[32px] sm:leading-[38px]">
-                Send us a message
+                {content.formSection.heading}
               </h2>
               <p className="text-[16px] leading-[26px] text-bloom-navy">
-                Fill out the form and we&rsquo;ll route your message to the right
-                team — usually a same-day response on weekdays.
+                {content.formSection.body}
               </p>
             </div>
 
             <div className="flex flex-col gap-3">
               <h3 className="text-[14px] font-bold uppercase tracking-[0.14em] text-bloom-navy">
-                Offices
+                {content.officesHeading}
               </h3>
               <div className="flex flex-col gap-3">
-                {ADDRESSES.map((addr) => (
+                {content.offices.map((addr) => (
                   <address
                     key={addr.city}
                     className="not-italic text-[14px] leading-[20px] text-bloom-navy"
@@ -151,21 +130,23 @@ function ContactFormSection() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-3">
-              <h3 className="text-[14px] font-bold uppercase tracking-[0.14em] text-bloom-navy">
-                Connect
-              </h3>
-              <a
-                href="https://www.linkedin.com/company/bloomus"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 text-[14px] text-bloom-navy hover:underline"
-                aria-label="Bloom on LinkedIn"
-              >
-                <LinkedInIcon className="h-5 w-5" />
-                LinkedIn
-              </a>
-            </div>
+            {content.linkedinUrl ? (
+              <div className="flex flex-col gap-3">
+                <h3 className="text-[14px] font-bold uppercase tracking-[0.14em] text-bloom-navy">
+                  {content.connectHeading}
+                </h3>
+                <a
+                  href={content.linkedinUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 text-[14px] text-bloom-navy hover:underline"
+                  aria-label="Bloom on LinkedIn"
+                >
+                  <LinkedInIcon className="h-5 w-5" />
+                  LinkedIn
+                </a>
+              </div>
+            ) : null}
           </div>
 
           {/* Right column: form */}
@@ -178,14 +159,16 @@ function ContactFormSection() {
   );
 }
 
-export default function ContactUsPage() {
+export default async function ContactUsPage() {
+  const content = await loadContactPage();
+
   return (
     <>
       <FloatingNav />
       <main className="bg-bloom-cream">
-        <ContactHero />
-        <ContactPaths />
-        <ContactFormSection />
+        <ContactHero hero={content.hero} />
+        <ContactPaths paths={content.paths} />
+        <ContactFormSection content={content} />
       </main>
       <UnifiedFooter />
     </>
