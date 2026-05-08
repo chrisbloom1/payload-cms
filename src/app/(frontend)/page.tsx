@@ -33,12 +33,12 @@ export default function HomePage() {
       />
       <FloatingNav />
       <main className="flex flex-col">
-        {/* Hero region. SECTIONHERONEW is dynamic({ssr:false}) and
-            wrapped in DelayedMount; HeroFallback covers first paint
-            with the H1 + subhead. The min-height is responsive so
-            mobile users don't get a 720px empty band — that's the
-            mobile variant's natural height. */}
-        <div className="flex min-h-[480px] w-full justify-center overflow-hidden sm:min-h-[600px] lg:min-h-[720px]">
+        {/* Hero region. min-height matches the live Framer hero's
+            measured per-breakpoint height so the page below doesn't
+            shift when SECTIONHERONEW lazy-mounts and replaces the
+            HeroFallback. Mobile = 712px (measured), tablet ~628,
+            desktop = 720. */}
+        <div className="flex min-h-[712px] w-full justify-center overflow-hidden sm:min-h-[640px] lg:min-h-[720px]">
           <LazySectionHero />
         </div>
         {/* Replaces the Framer rotating-word column with a clean React swap
