@@ -30,42 +30,41 @@ const FADE_MS = 140;
 
 // Two rows of brand logos, matching the live bloomnetwork.ai layout
 // exactly: row 1 scrolls left, row 2 scrolls right, both at ~20px/s.
-// URLs come straight from Framer's CDN (already cached, preconnected
-// in the root layout). Marked `loading="lazy"` so React doesn't emit
-// a preload <link> for each one.
-// Defaults below match what the live site has shipped. They're used
-// when no HomePage global props are passed (e.g. /admin/preview without
-// hydrated data). The page server component normally fetches the
-// global and passes resolved logos in.
+// Logos are self-hosted under /public/images/marquee-logos/ so the
+// homepage no longer depends on framerusercontent.com — they're
+// served from the same Vercel edge as the rest of the site. Marked
+// `loading="lazy"` so React doesn't emit a preload <link> for each.
+// Defaults below mirror the HomePage global so SSR + admin-empty
+// fallback render the same set even before any Payload write.
 type Logo = HomeLogo;
 
 const LOGOS_ROW_1: ReadonlyArray<Logo> = [
-  { src: "https://framerusercontent.com/images/zOU0s3HDH3nSML4Xy125bAqSgY.svg?width=216&height=16", alt: "Boaz Bikes", width: 216, height: 16 },
-  { src: "https://framerusercontent.com/images/5zu3Iz824S6q6ht47TTJPbJljZc.svg?width=202&height=64", alt: "DUST", width: 202, height: 64 },
-  { src: "https://framerusercontent.com/images/v0EIHszp30eu4nqYKuVlDvy32no.svg?width=136&height=42", alt: "tokyobike", width: 136, height: 42 },
-  { src: "https://framerusercontent.com/images/92Gt2GLdGujypVTujIOUe3uSdwY.svg?width=80&height=57", alt: "Civilized Cycles", width: 80, height: 57 },
-  { src: "https://framerusercontent.com/images/67rBqwLG8X5Rf2B3EcMbwq8sSzU.svg?width=183&height=36", alt: "Electric Plant Co", width: 183, height: 36 },
-  { src: "https://framerusercontent.com/images/nquQYqc6S2OZaM9ZkqAv6YWVWA.svg?width=207&height=55", alt: "Toyota", width: 207, height: 55 },
-  { src: "https://framerusercontent.com/images/7rx8tX8GFdgtExQizpPxn8X9vLM.svg?width=127&height=91", alt: "Forecast Sardinia", width: 127, height: 91 },
-  { src: "https://framerusercontent.com/images/DgMiPYDc7FGjihJbZGcGw7rKZ0s.svg?width=376&height=91", alt: "cake", width: 376, height: 91 },
-  { src: "https://framerusercontent.com/images/gpFud7o1WyPiR2bfQcWgsw4GySU.png?width=200&height=41", alt: "CLIP", width: 200, height: 41 },
+  { src: "/images/marquee-logos/boaz-bikes.svg", alt: "Boaz Bikes", width: 216, height: 16 },
+  { src: "/images/marquee-logos/dust.svg", alt: "DUST", width: 202, height: 64 },
+  { src: "/images/marquee-logos/tokyobike.svg", alt: "tokyobike", width: 136, height: 42 },
+  { src: "/images/marquee-logos/civilized-cycles.svg", alt: "Civilized Cycles", width: 80, height: 57 },
+  { src: "/images/marquee-logos/electric-plant-co.svg", alt: "Electric Plant Co", width: 183, height: 36 },
+  { src: "/images/marquee-logos/toyota.svg", alt: "Toyota", width: 207, height: 55 },
+  { src: "/images/marquee-logos/forecast-sardinia.svg", alt: "Forecast Sardinia", width: 127, height: 91 },
+  { src: "/images/marquee-logos/cake.svg", alt: "cake", width: 376, height: 91 },
+  { src: "/images/marquee-logos/clip.png", alt: "CLIP", width: 200, height: 41 },
 ];
 
 const LOGOS_ROW_2: ReadonlyArray<Logo> = [
-  { src: "https://framerusercontent.com/images/JFCMKhQY1cM88fhddb3nkOKY.svg?width=246&height=41", alt: "Forward X Robotics", width: 246, height: 41 },
-  { src: "https://framerusercontent.com/images/lDgBE3TMybzd3s0Fb6Sukn7c4zw.png?width=220&height=81", alt: "TIME", width: 220, height: 81 },
-  { src: "https://framerusercontent.com/images/2Qe4cxisK4TvuGAOlzUR9xynuXQ.svg?width=185&height=33", alt: "emoto Supply Co", width: 185, height: 33 },
-  { src: "https://framerusercontent.com/images/n696g0ZwfNyZ2Sonp7GZkfeYdg.svg?width=152&height=25", alt: "GROUNDED", width: 152, height: 25 },
-  { src: "https://framerusercontent.com/images/4Tn3Wd1Y3B29DLkui0cm775VRIk.svg?width=444&height=501", alt: "Brand", width: 444, height: 501 },
-  { src: "https://framerusercontent.com/images/8SVNnZsZJzlex74wHBUCGfl4t6s.png?width=500&height=106", alt: "MOONBIKES", width: 500, height: 106 },
-  { src: "https://framerusercontent.com/images/roMWh32P8PO0Laeve9lz5ESnWnc.svg?width=363&height=100", alt: "GLĪD", width: 363, height: 100 },
-  { src: "https://framerusercontent.com/images/i1nNnbxIqz7kxapTHKxQckMx5A.svg?width=870&height=600", alt: "Brand", width: 870, height: 600 },
-  { src: "https://framerusercontent.com/images/q1E5JJeezbHty7QWcG2KAtq6s.png?width=218&height=41", alt: "LAND", width: 218, height: 41 },
-  { src: "https://framerusercontent.com/images/aAfjWgYyKluPFIZWkD5Ze3CGDk.svg?width=117&height=27", alt: "Vela", width: 117, height: 27 },
-  { src: "https://framerusercontent.com/images/NQ4fKEZ3mTgsFC4kUoIKAWWkTA.png?width=130&height=46", alt: "It's Electric", width: 130, height: 46 },
-  { src: "https://framerusercontent.com/images/msfZWsUknmu6ZDVetqXa6UtkKRw.svg?width=110&height=22", alt: "tubular.network", width: 110, height: 22 },
-  { src: "https://framerusercontent.com/images/mFPc2jSqPh5spd5K19UjxTat7vI.png?width=268&height=199", alt: "Brand", width: 268, height: 199 },
-  { src: "https://framerusercontent.com/images/1ZJXbZsqCC7R5tIIfzBW0cYYoI.png?width=120&height=17", alt: "ENVO", width: 120, height: 17 },
+  { src: "/images/marquee-logos/forward-x-robotics.svg", alt: "Forward X Robotics", width: 246, height: 41 },
+  { src: "/images/marquee-logos/time.png", alt: "TIME", width: 220, height: 81 },
+  { src: "/images/marquee-logos/emoto-supply-co.svg", alt: "emoto Supply Co", width: 185, height: 33 },
+  { src: "/images/marquee-logos/grounded.svg", alt: "GROUNDED", width: 152, height: 25 },
+  { src: "/images/marquee-logos/brand-1.svg", alt: "Brand", width: 444, height: 501 },
+  { src: "/images/marquee-logos/moonbikes.png", alt: "MOONBIKES", width: 500, height: 106 },
+  { src: "/images/marquee-logos/glid.svg", alt: "GLĪD", width: 363, height: 100 },
+  { src: "/images/marquee-logos/brand-2.svg", alt: "Brand", width: 870, height: 600 },
+  { src: "/images/marquee-logos/land.png", alt: "LAND", width: 218, height: 41 },
+  { src: "/images/marquee-logos/vela.svg", alt: "Vela", width: 117, height: 27 },
+  { src: "/images/marquee-logos/its-electric.png", alt: "It's Electric", width: 130, height: 46 },
+  { src: "/images/marquee-logos/tubular-network.svg", alt: "tubular.network", width: 110, height: 22 },
+  { src: "/images/marquee-logos/brand-3.png", alt: "Brand", width: 268, height: 199 },
+  { src: "/images/marquee-logos/envo.png", alt: "ENVO", width: 120, height: 17 },
 ];
 
 export interface HomeHeroNativeProps {
