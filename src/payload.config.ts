@@ -22,6 +22,7 @@ import { ReleaseNotes } from './collections/KnowledgeBase/ReleaseNotes'
 // import { FeatureRequests } from './collections/KnowledgeBase/FeatureRequests' // disabled in bloom-merge — see config.collections comment
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
+import { HomePage } from './Globals/HomePage/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
@@ -36,6 +37,7 @@ export default buildConfig({
     },
     components: {
       beforeLogin: ['@/components/BeforeLogin'],
+      beforeDashboard: ['@/components/BeforeDashboard'],
     },
     importMap: {
       baseDir: path.resolve(dirname),
@@ -72,7 +74,12 @@ export default buildConfig({
     },
   }),
   collections: [
-    // Knowledge Base
+    // === Marketing (the team's primary editing surface) ===
+    Posts, // /blog and /blog/[slug]
+    CustomerStories, // /customer-stories and /customer-stories/[slug]
+    Media, // shared upload library used by everything above
+
+    // === Knowledge Base (help-center workflow) ===
     Articles,
     FAQs,
     Glossary,
@@ -85,19 +92,21 @@ export default buildConfig({
     // is regenerated with separate enum names.
     // FeatureRequests,
     KBCategories,
-    // Site
-    Pages,
-    Posts,
-    CustomerStories,
-    Media,
-    // Users
+
+    // === System (rare admin tasks) ===
+    Pages, // generic block-based one-off pages
     Users,
-    // Hidden (legacy)
-    Categories,
-    Comments,
+
+    // === Hidden / legacy (kept for FK integrity) ===
+    Categories, // hidden — replaced by displayCategory string field
+    Comments, // hidden — not exposed publicly
   ],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [Header, Footer],
+  globals: [
+    HomePage, // editable home page content (hero, marquee, sections, stats)
+    Header, // top-nav links across the marketing site
+    Footer, // bottom-nav links across the marketing site
+  ],
   plugins: [
     ...plugins,
     // storage-adapter-placeholder

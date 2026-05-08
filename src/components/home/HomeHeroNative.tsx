@@ -2,12 +2,13 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
+import { HOME_DEFAULTS, type HomeLogo } from "@/lib/home-page-resolver";
 
 // Where the chat card sends users when they submit their prompt.
 // Mirrors the original Proofly hero's handleSend behavior — opens
 // `?prefill=<encoded>` on the marketplace request flow in a new tab.
 // Override at runtime by appending ?vchaturl=<...> to the page URL.
-const DEFAULT_CHAT_URL = "https://app.bloomnetwork.ai/marketplace/request/new";
+const DEFAULT_CHAT_URL = HOME_DEFAULTS.hero.chatPrefillUrl;
 
 /**
  * Hand-rolled hero, replacing the Proofly/Framer SECTIONHERONEW export.
@@ -24,12 +25,6 @@ const DEFAULT_CHAT_URL = "https://app.bloomnetwork.ai/marketplace/request/new";
  * element through the full page lifecycle.
  */
 
-const ROTATING_WORDS = [
-  "Manufacturing",
-  "Warehousing",
-  "Assembly",
-  "Logistics",
-] as const;
 const HOLD_MS = 1600;
 const FADE_MS = 140;
 
@@ -38,7 +33,11 @@ const FADE_MS = 140;
 // URLs come straight from Framer's CDN (already cached, preconnected
 // in the root layout). Marked `loading="lazy"` so React doesn't emit
 // a preload <link> for each one.
-type Logo = { src: string; alt: string; width: number; height: number };
+// Defaults below match what the live site has shipped. They're used
+// when no HomePage global props are passed (e.g. /admin/preview without
+// hydrated data). The page server component normally fetches the
+// global and passes resolved logos in.
+type Logo = HomeLogo;
 
 const LOGOS_ROW_1: ReadonlyArray<Logo> = [
   { src: "https://framerusercontent.com/images/zOU0s3HDH3nSML4Xy125bAqSgY.svg?width=216&height=16", alt: "Boaz Bikes", width: 216, height: 16 },
@@ -69,7 +68,39 @@ const LOGOS_ROW_2: ReadonlyArray<Logo> = [
   { src: "https://framerusercontent.com/images/1ZJXbZsqCC7R5tIIfzBW0cYYoI.png?width=120&height=17", alt: "ENVO", width: 120, height: 17 },
 ];
 
-export function HomeHeroNative() {
+export interface HomeHeroNativeProps {
+  headline?: string;
+  subheadingPrefix?: string;
+  rotatingWords?: readonly string[];
+  subheadingSuffix?: string;
+  chatPlaceholder?: string;
+  chatButtonLabel?: string;
+  chatPrefillUrl?: string;
+  badgeText?: string;
+  tagline?: string;
+  logoMarqueeRow1?: readonly Logo[];
+  logoMarqueeRow2?: readonly Logo[];
+}
+
+export function HomeHeroNative({
+  headline = HOME_DEFAULTS.hero.headline,
+  subheadingPrefix = HOME_DEFAULTS.hero.subheadingPrefix,
+  rotatingWords: rotatingWordsProp,
+  subheadingSuffix = HOME_DEFAULTS.hero.subheadingSuffix,
+  chatPlaceholder = HOME_DEFAULTS.hero.chatPlaceholder,
+  chatButtonLabel = HOME_DEFAULTS.hero.chatButtonLabel,
+  chatPrefillUrl = HOME_DEFAULTS.hero.chatPrefillUrl,
+  badgeText = HOME_DEFAULTS.hero.badgeText,
+  tagline = HOME_DEFAULTS.hero.tagline,
+  logoMarqueeRow1: row1Prop,
+  logoMarqueeRow2: row2Prop,
+}: HomeHeroNativeProps = {}) {
+  const rotatingWords =
+    rotatingWordsProp && rotatingWordsProp.length > 0
+      ? rotatingWordsProp
+      : (HOME_DEFAULTS.hero.rotatingWords as readonly string[]);
+  const row1 = row1Prop && row1Prop.length > 0 ? row1Prop : LOGOS_ROW_1;
+  const row2 = row2Prop && row2Prop.length > 0 ? row2Prop : LOGOS_ROW_2;
   const [wordIndex, setWordIndex] = useState(0);
   const [visible, setVisible] = useState(true);
   const [chatValue, setChatValue] = useState("");
@@ -77,7 +108,7 @@ export function HomeHeroNative() {
   const handleChatSend = useCallback(() => {
     const value = chatValue.trim();
     if (!value) return;
-    let baseUrl = DEFAULT_CHAT_URL;
+    let baseUrl = chatPrefillUrl || DEFAULT_CHAT_URL;
     try {
       if (typeof window !== "undefined" && typeof URLSearchParams !== "undefined") {
         const urlParams = new URLSearchParams(window.location.search);
@@ -109,7 +140,7 @@ export function HomeHeroNative() {
       setVisible(false);
       window.setTimeout(() => {
         if (cancelled) return;
-        setWordIndex((i) => (i + 1) % ROTATING_WORDS.length);
+        setWordIndex((i) => (i + 1) % rotatingWords.length);
         setVisible(true);
       }, FADE_MS);
     }, HOLD_MS + FADE_MS);
@@ -117,7 +148,7 @@ export function HomeHeroNative() {
       cancelled = true;
       window.clearInterval(interval);
     };
-  }, []);
+  }, [rotatingWords.length]);
 
   return (
     <section
@@ -134,7 +165,7 @@ export function HomeHeroNative() {
               fontWeight: 800,
             }}
           >
-            Hardware shouldn&rsquo;t be hard.
+            {headline}
           </h1>
 
           <p
@@ -145,7 +176,7 @@ export function HomeHeroNative() {
               animationDelay: "60ms",
             }}
           >
-            <span>We help make</span>
+            <span>{subheadingPrefix}</span>
             <span
               className="relative inline-grid items-center rounded-md bg-bloom-navy px-2.5 py-0.5 text-bloom-cream"
               style={{
@@ -155,9 +186,9 @@ export function HomeHeroNative() {
                 gridTemplateColumns: "1fr",
               }}
             >
-              {/* All four words live in the same grid cell so the pill
-                  sizes to the widest ("Manufacturing") and never bounces. */}
-              {ROTATING_WORDS.map((w, i) => (
+              {/* All words live in the same grid cell so the pill
+                  sizes to the widest one and never bounces. */}
+              {rotatingWords.map((w, i) => (
                 <span
                   key={w}
                   aria-hidden={i !== wordIndex}
@@ -173,7 +204,7 @@ export function HomeHeroNative() {
                 </span>
               ))}
             </span>
-            <span>easier.</span>
+            <span>{subheadingSuffix}</span>
           </p>
         </div>
 
@@ -197,7 +228,7 @@ export function HomeHeroNative() {
               value={chatValue}
               onChange={(e) => setChatValue(e.target.value)}
               onKeyDown={handleChatKeyDown}
-              placeholder="Describe your product's supply chain needs"
+              placeholder={chatPlaceholder}
               rows={3}
               className="block w-full resize-none rounded-md bg-transparent px-4 pt-4 pb-14 text-left text-[15px] leading-[1.45] text-bloom-navy outline-none placeholder:text-bloom-navy/55 sm:px-5 sm:pt-5 sm:pb-16 sm:text-[16px]"
               style={{
@@ -208,7 +239,7 @@ export function HomeHeroNative() {
             <button
               type="submit"
               disabled={!chatValue.trim()}
-              aria-label="Chat now"
+              aria-label={chatButtonLabel}
               className="bg-bloom-cta absolute right-3 bottom-3 inline-flex items-center justify-center rounded-md px-4 py-2 text-[14px] font-semibold text-white shadow-sm transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 sm:right-4 sm:bottom-4 sm:text-[15px]"
               style={{
                 fontFamily:
@@ -216,7 +247,7 @@ export function HomeHeroNative() {
                 fontWeight: 700,
               }}
             >
-              Chat now
+              {chatButtonLabel}
             </button>
           </div>
           {/* Badge is absolute-positioned with z-index above the card so
@@ -230,7 +261,7 @@ export function HomeHeroNative() {
                 '"Haffer Bold", "Haffer Bold Placeholder", "Haffer Fallback", sans-serif',
             }}
           >
-            Start for free now!
+            {badgeText}
           </span>
         </form>
 
@@ -241,9 +272,7 @@ export function HomeHeroNative() {
             animationDelay: "180ms",
           }}
         >
-          Bloom helps leading{" "}
-          <strong className="font-bold">mobility, energy, robotics</strong>{" "}
-          brands scale faster through our vetted network
+          {tagline}
         </p>
       </div>
 
@@ -258,7 +287,7 @@ export function HomeHeroNative() {
         aria-label="Bloom partner brands"
       >
         <div className="hero-marquee-left flex w-max items-center gap-12 px-4">
-          {[...LOGOS_ROW_1, ...LOGOS_ROW_1].map((logo, idx) => (
+          {[...row1, ...row1].map((logo, idx) => (
             <Image
               key={`r1-${logo.src}-${idx}`}
               src={logo.src}
@@ -274,7 +303,7 @@ export function HomeHeroNative() {
           ))}
         </div>
         <div className="hero-marquee-right flex w-max items-center gap-12 px-4">
-          {[...LOGOS_ROW_2, ...LOGOS_ROW_2].map((logo, idx) => (
+          {[...row2, ...row2].map((logo, idx) => (
             <Image
               key={`r2-${logo.src}-${idx}`}
               src={logo.src}

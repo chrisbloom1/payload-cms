@@ -57,7 +57,9 @@ export const CustomerStories: CollectionConfig = {
     logoMonoColor: true,
   },
   admin: {
-    group: 'Site',
+    group: 'Marketing',
+    description:
+      'Case studies shown at /customer-stories and /customer-stories/[slug]. The Card tab controls the index-page presentation (theme, alignment, ordering); Branding sets the hero/logo assets; Article holds the long-form story.',
     defaultColumns: ['title', 'slug', 'sortOrder', 'updatedAt'],
     livePreview: {
       url: ({ data }) => {

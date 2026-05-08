@@ -1,6 +1,7 @@
 "use client";
 
 import { LazyOnDemand } from "@/components/LazyOnDemand";
+import type { HomeStat } from "@/lib/home-page-resolver";
 
 // Below-the-fold sections use LazyOnDemand (true on-demand import)
 // rather than next/dynamic. next/dynamic registers the chunk with
@@ -11,7 +12,10 @@ import { LazyOnDemand } from "@/components/LazyOnDemand";
 // 5500ms timer or once the placeholder enters the viewport — so the
 // chunk truly does not load until needed.
 
-export function LazyHomeDiscover() {
+export function LazyHomeDiscover({
+  heading,
+  body,
+}: { heading?: string; body?: string } = {}) {
   return (
     <LazyOnDemand
       load={() =>
@@ -19,11 +23,15 @@ export function LazyHomeDiscover() {
           default: m.HomeDiscover,
         }))
       }
+      props={{ heading, body }}
     />
   );
 }
 
-export function LazyHomeManageCard() {
+export function LazyHomeManageCard({
+  heading,
+  body,
+}: { heading?: string; body?: string } = {}) {
   return (
     <LazyOnDemand
       load={() =>
@@ -31,6 +39,7 @@ export function LazyHomeManageCard() {
           default: m.HomeManageCard,
         }))
       }
+      props={{ heading, body }}
     />
   );
 }
@@ -51,7 +60,15 @@ export function LazyRolesSplit() {
   );
 }
 
-export function LazyEcosystemStats() {
+export function LazyEcosystemStats({
+  heading,
+  body,
+  stats,
+}: {
+  heading?: string;
+  body?: string;
+  stats?: readonly HomeStat[];
+} = {}) {
   return (
     <LazyOnDemand
       load={() =>
@@ -59,6 +76,7 @@ export function LazyEcosystemStats() {
           default: m.EcosystemStats,
         }))
       }
+      props={{ heading, body, stats }}
     />
   );
 }

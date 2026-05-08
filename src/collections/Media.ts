@@ -23,7 +23,9 @@ export const Media: CollectionConfig = {
     update: authenticated,
   },
   admin: {
-    group: 'Site',
+    group: 'Marketing',
+    description:
+      'Uploaded images for the site (hero photos, logos, etc.). Reference these from Blog Posts, Customer Stories, or Home Page logos via the upload fields.',
   },
   fields: [
     {

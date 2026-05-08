@@ -22,6 +22,7 @@
     "seed:changelog": "npx tsx scripts/seed-changelog.ts",
     "seed:blog-posts": "npx tsx scripts/seed-blog-posts.ts",
     "seed:customer-stories": "npx tsx scripts/seed-customer-stories.ts",
+    "seed:home-page": "npx tsx scripts/seed-home-page.ts",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
     "test:e2e": "playwright test",
     "test:e2e:headed": "playwright test --headed",

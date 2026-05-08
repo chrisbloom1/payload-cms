@@ -38,7 +38,9 @@ export const Pages: CollectionConfig<'pages'> = {
     slug: true,
   },
   admin: {
-    group: 'Site',
+    group: 'System',
+    description:
+      'Generic block-based pages served at /[slug]. Most marketing pages are coded directly; use this only for one-off CMS-driven landing pages.',
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
       url: ({ data }) => {

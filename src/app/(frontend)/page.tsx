@@ -13,8 +13,11 @@ import {
   LazyMockupterms,
   LazyRolesSplit,
 } from "@/components/home/LazyHomeSections";
+import { loadHomePage } from "@/lib/home-page-resolver";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const home = await loadHomePage();
+
   return (
     <>
       {/* Per-page LCP preload — fetchpriority=high makes the browser
@@ -33,8 +36,22 @@ export default function HomePage() {
             Proofly/Framer SECTIONHERONEW export. Drops the
             @proofly-framer/runtime + framer-motion dependency
             (~519KB of client JS) plus all the runtime-injected
-            framerusercontent.com image preloads. */}
-        <HomeHeroNative />
+            framerusercontent.com image preloads. Content is wired to
+            the HomePage global so the team can edit copy + logos via
+            the Payload admin. */}
+        <HomeHeroNative
+          headline={home.hero.headline}
+          subheadingPrefix={home.hero.subheadingPrefix}
+          rotatingWords={home.hero.rotatingWords}
+          subheadingSuffix={home.hero.subheadingSuffix}
+          chatPlaceholder={home.hero.chatPlaceholder}
+          chatButtonLabel={home.hero.chatButtonLabel}
+          chatPrefillUrl={home.hero.chatPrefillUrl}
+          badgeText={home.hero.badgeText}
+          tagline={home.hero.tagline}
+          logoMarqueeRow1={home.logoMarqueeRow1}
+          logoMarqueeRow2={home.logoMarqueeRow2}
+        />
 
         {/* Bloom platform app demo video, anchored by orange Bloom mark */}
         <HomeAppDemo />
@@ -45,30 +62,26 @@ export default function HomePage() {
             intrinsic size on each so the page's scroll height stays
             stable. */}
 
-        {/* "Discover and access" — radial diagram of 6 services (Animationtree) */}
         <div className="cv-auto-section cv-h-820">
-          <LazyHomeDiscover />
+          <LazyHomeDiscover heading={home.discover.heading} body={home.discover.body} />
         </div>
 
-        {/* "Easily manage partners" — Bloom platform mockup card */}
         <div className="cv-auto-section cv-h-820">
-          <LazyHomeManageCard />
+          <LazyHomeManageCard heading={home.manage.heading} body={home.manage.body} />
         </div>
 
-        {/* "Simplify and expand payment options" + the cycling Mockupterms widget.
-            The static heading + copy SSRs (so the section has content for SEO);
-            only the heavy cycling Framer mockup defers via dynamic. */}
+        {/* Pay section — heading + copy SSR (so SEO sees them);
+            only the cycling Mockupterms widget defers via Lazy. */}
         <section className="cv-auto-section cv-h-920 w-full py-16 md:py-24">
           <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
             <div className="overflow-hidden rounded-md bg-gradient-to-br from-white via-white to-bloom-cream p-8 ring-1 ring-bloom-navy/10 sm:p-10 lg:p-16">
               <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
                 <div className="flex flex-col gap-5">
                   <h2 className="max-w-[480px] text-[32px] font-bold leading-[36px] text-bloom-navy sm:text-[36px] sm:leading-[40px]">
-                    Simplify and expand payment options
+                    {home.pay.heading}
                   </h2>
                   <p className="max-w-[480px] text-[18px] leading-[26px] text-bloom-navy">
-                    Leverage BloomPay to pay all your vendors in one place and
-                    access extended payment terms up to 120 days.
+                    {home.pay.body}
                   </p>
                 </div>
                 <div className="flex w-full justify-center lg:justify-end">
@@ -86,7 +99,11 @@ export default function HomePage() {
 
         {/* Cultivating an ecosystem stats */}
         <div className="cv-auto-section">
-          <LazyEcosystemStats />
+          <LazyEcosystemStats
+            heading={home.ecosystem.heading}
+            body={home.ecosystem.body}
+            stats={home.ecosystem.stats}
+          />
         </div>
 
         {/* Testimonials — custom widget with active card at 70% width and ~15%

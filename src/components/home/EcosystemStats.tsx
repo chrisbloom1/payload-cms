@@ -2,55 +2,53 @@
 
 import { useEffect, useRef, useState } from "react";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
+import {
+  HOME_DEFAULTS,
+  type HomeStat,
+  type StatLabelColor,
+} from "@/lib/home-page-resolver";
 
-/**
- * "Cultivating an ecosystem" section.
- *
- * Heading + lede centered above three mint-bg stat cards in a
- * row. Each card animates its number from 0 to its target value
- * when the section enters the viewport.
- *
- * Live-site reference: cards are #DCEBEC mint, 8px radius, 24px padding,
- * arranged in a 3-up grid below a centered heading.
- */
-export function EcosystemStats() {
+const LABEL_COLOR_CLASS: Record<StatLabelColor, string> = {
+  orange: "text-[#FF9800]",
+  coral: "text-[#FC4C01]",
+  red: "text-[#FE053E]",
+  navy: "text-bloom-navy",
+};
+
+export interface EcosystemStatsProps {
+  heading?: string;
+  body?: string;
+  stats?: readonly HomeStat[];
+}
+
+export function EcosystemStats({
+  heading = HOME_DEFAULTS.ecosystem.heading,
+  body = HOME_DEFAULTS.ecosystem.body,
+  stats = HOME_DEFAULTS.ecosystem.stats,
+}: EcosystemStatsProps = {}) {
   return (
     <section className="w-full px-4 py-16 md:py-24">
       <div className="mx-auto w-full max-w-[1280px]">
         <RevealOnScroll className="mx-auto flex max-w-[720px] flex-col items-center gap-5 text-center">
           <h2 className="text-[36px] font-bold leading-[40px] tracking-[-0.01em] text-bloom-navy md:text-[44px] md:leading-[48px]">
-            Cultivating an ecosystem
+            {heading}
           </h2>
           <p className="text-[16px] leading-[24px] text-bloom-navy/80 md:text-[18px] md:leading-[26px]">
-            With deep roots in the hardware industry, we provide the support
-            and connections you need to flourish, ensuring your business
-            blossoms in an ever-evolving landscape.
+            {body}
           </p>
         </RevealOnScroll>
 
-        {/* Target values verified from live site (animated to 40 / 25 / 80) */}
         <ul className="mt-12 grid grid-cols-1 gap-6 md:mt-16 md:grid-cols-3">
-          <StatCard
-            target={40}
-            suffix="%"
-            label="Reduction"
-            description="in lead times"
-            labelColor="text-[#FF9800]"
-          />
-          <StatCard
-            target={25}
-            suffix="%"
-            label="Lower"
-            description="fulfillment costs"
-            labelColor="text-[#FC4C01]"
-          />
-          <StatCard
-            target={80}
-            suffix="%"
-            label="Faster"
-            description="supplier on-boarding"
-            labelColor="text-[#FE053E]"
-          />
+          {stats.map((stat, i) => (
+            <StatCard
+              key={`${stat.label}-${i}`}
+              target={stat.value}
+              suffix={stat.suffix}
+              label={stat.label}
+              description={stat.description}
+              labelColor={LABEL_COLOR_CLASS[stat.labelColor] ?? LABEL_COLOR_CLASS.orange}
+            />
+          ))}
         </ul>
       </div>
     </section>

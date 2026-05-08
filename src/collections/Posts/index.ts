@@ -53,7 +53,9 @@ export const Posts: CollectionConfig<'posts'> = {
     plural: 'Blog Posts',
   },
   admin: {
-    group: 'Site',
+    group: 'Marketing',
+    description:
+      "Articles published at /blog. Use displayCategory + displayAuthor for the marketing card; the SEO tab handles meta tags. Live Preview is enabled — open /blog/[slug] in another tab to see edits in real time.",
     defaultColumns: ['title', 'displayCategory', 'publishedAt', 'updatedAt'],
     livePreview: {
       url: ({ data }) => {

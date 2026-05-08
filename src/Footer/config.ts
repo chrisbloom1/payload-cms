@@ -9,7 +9,8 @@ export const Footer: GlobalConfig = {
     read: () => true,
   },
   admin: {
-    group: 'Site',
+    group: 'Marketing',
+    description: 'Footer navigation links shown across the marketing site.',
   },
   fields: [
     {

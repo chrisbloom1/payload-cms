@@ -6,6 +6,7 @@ import * as migration_20260404_012349_add_guides_collection from './20260404_012
 import * as migration_20260508_120000_blog_posts_editable from './20260508_120000_blog_posts_editable';
 import * as migration_20260508_120100_blog_hero_image_upload from './20260508_120100_blog_hero_image_upload';
 import * as migration_20260508_130000_customer_stories from './20260508_130000_customer_stories';
+import * as migration_20260508_140000_home_page_global from './20260508_140000_home_page_global';
 
 export const migrations = [
   {
@@ -47,5 +48,10 @@ export const migrations = [
     up: migration_20260508_130000_customer_stories.up,
     down: migration_20260508_130000_customer_stories.down,
     name: '20260508_130000_customer_stories',
+  },
+  {
+    up: migration_20260508_140000_home_page_global.up,
+    down: migration_20260508_140000_home_page_global.down,
+    name: '20260508_140000_home_page_global',
   },
 ];
