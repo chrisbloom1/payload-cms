@@ -6,155 +6,11 @@ import { ArrowRightIcon } from "@/components/icons";
 import { BrandLogo } from "@/components/BrandLogo";
 import { HeroImage } from "@/components/HeroImage";
 import { cn } from "@/lib/utils";
-
-type CardTheme =
-  | "navy"
-  | "navyDeep"
-  | "teal"
-  | "mint"
-  | "cream"
-  | "lavender"
-  | "amber";
-
-interface Story {
-  slug: string;
-  title: string;
-  hero: string;
-  logo: string;
-  /** Use the white-version logo on dark themes when one exists. */
-  logoDark?: string;
-  logoAlt: string;
-  logoType: "monochrome" | "color";
-  /**
-   * Source color of the mono asset. White-fill SVGs need a `brightness(0)`
-   * filter when shown on a light card so they're not invisible. Defaults
-   * to "black" (no filter on light bg).
-   */
-  logoMonoColor?: "white" | "black";
-  theme: CardTheme;
-  /** Which side the overlapping info card sits on. Alternates per story. */
-  align: "left" | "right";
-}
-
-const STORIES: readonly Story[] = [
-  {
-    slug: "infinite-machine",
-    title:
-      "Bloom supports Infinite Machine’s launch with roll-on/roll-off delivery and global logistics network",
-    hero: "/images/stories/infinite-machine-hero.jpg",
-    logo: "/images/stories/infinite-machine-logo.png",
-    logoAlt: "Infinite Machine",
-    logoType: "monochrome",
-    theme: "cream",
-    align: "left",
-  },
-  {
-    slug: "grounded",
-    title:
-      "Bloom amplifies Grounded's production capabilities and nationwide delivery",
-    hero: "/images/stories/grounded-hero.jpg",
-    logo: "/images/stories/grounded-logo.svg",
-    logoAlt: "Grounded",
-    logoType: "monochrome",
-    logoMonoColor: "white",
-    theme: "navyDeep",
-    align: "right",
-  },
-  {
-    slug: "birdstop",
-    title:
-      "Bloom supports and accelerates Birdstop's domestic production, flight testing, and scaling",
-    hero: "/images/stories/birdstop-hero.jpg",
-    logo: "/images/stories/birdstop-logo.svg",
-    logoAlt: "Birdstop",
-    logoType: "monochrome",
-    logoMonoColor: "white",
-    theme: "navyDeep",
-    align: "left",
-  },
-  {
-    slug: "wheel-me",
-    title:
-      "wheel.me scales their industrial robotics business with Bloom’s network of flexible manufacturing and logistics partners.",
-    hero: "/images/stories/wheel-me-hero.jpg",
-    logo: "/images/stories/wheel-me-logo.svg",
-    logoAlt: "wheel.me",
-    logoType: "monochrome",
-    logoMonoColor: "white",
-    theme: "teal",
-    align: "right",
-  },
-  {
-    slug: "maeving",
-    title:
-      "When Maeving needed immediate support Bloom mobilized its network to receive shipments and ensure seamless customer handoffs.",
-    hero: "/images/stories/maeving-hero.webp",
-    logo: "/images/stories/maeving-logo.webp",
-    logoAlt: "Maeving",
-    logoType: "monochrome",
-    logoMonoColor: "white",
-    theme: "amber",
-    align: "left",
-  },
-  {
-    slug: "electric-outdoors",
-    title:
-      "Electric Outdoors scales with Bloom’s network of flexible manufacturing and logistics partners.",
-    hero: "/images/stories/electric-outdoors-hero.jpg",
-    logo: "/images/stories/electric-outdoors-logo.svg",
-    logoAlt: "Electric Outdoors",
-    logoType: "monochrome",
-    logoMonoColor: "white",
-    theme: "navyDeep",
-    align: "right",
-  },
-  {
-    slug: "moonbikes",
-    title:
-      "Bloom's platform matched Moonbikes with the best partner network to relaunch into the North American markets efficiently.",
-    hero: "/images/stories/moonbikes-hero.jpg",
-    logo: "/images/stories/moonbikes-logo.svg",
-    logoAlt: "Moonbikes",
-    logoType: "monochrome",
-    logoMonoColor: "white",
-    theme: "amber",
-    align: "left",
-  },
-  {
-    slug: "dust-moto",
-    title:
-      "Dust Moto leverages Bloom’s extensive network in assembly, warehousing, and shipping.",
-    hero: "/images/stories/dust-moto-hero.jpg",
-    logo: "/images/stories/dust-moto-logo.png",
-    logoAlt: "Dust Moto",
-    logoType: "monochrome",
-    theme: "mint",
-    align: "right",
-  },
-  {
-    slug: "cake",
-    title:
-      "Bloom onboarded Cake quickly to assist with warehousing, re-work, inventory inspection and cataloging of the inventory.",
-    hero: "/images/stories/cake-hero.webp",
-    logo: "/images/stories/cake-logo.svg",
-    logoAlt: "Cake",
-    logoType: "monochrome",
-    logoMonoColor: "white",
-    theme: "navy",
-    align: "left",
-  },
-  {
-    slug: "tokyobike",
-    title:
-      "Tokyobike US leverages Bloom to efficiently manage their warehouses and shipments on a single consolidated platform.",
-    hero: "/images/stories/tokyobike-hero.webp",
-    logo: "/images/stories/tokyobike-logo.svg",
-    logoAlt: "Tokyobike US",
-    logoType: "monochrome",
-    theme: "lavender",
-    align: "right",
-  },
-];
+import {
+  loadStoryCards,
+  type CardTheme,
+  type ResolvedStoryCard,
+} from "@/lib/customer-story-resolver";
 
 const THEME_STYLES: Record<
   CardTheme,
@@ -172,9 +28,6 @@ const THEME_STYLES: Record<
     arrow: "text-bloom-cream",
     logoTheme: "dark",
   },
-  // Live site uses a deep teal/blue-green for wheel.me — distinct from
-  // navy. Keep the value local rather than promoting a token until we
-  // see it reused on more cards.
   teal: {
     bg: "bg-[#1E4D55]",
     text: "text-white",
@@ -207,8 +60,8 @@ const THEME_STYLES: Record<
   },
 };
 
-function StoryRow({ story }: { story: Story }) {
-  const t = THEME_STYLES[story.theme];
+function StoryRow({ story }: { story: ResolvedStoryCard }) {
+  const t = THEME_STYLES[story.cardTheme];
   const logoSrc =
     t.logoTheme === "dark" && story.logoDark ? story.logoDark : story.logo;
   // White-source mono logos need `darken` (brightness(0)) on light cards
@@ -222,11 +75,11 @@ function StoryRow({ story }: { story: Story }) {
       : story.logoMonoColor === "white"
         ? "darken"
         : "light";
-  const isRight = story.align === "right";
+  const isRight = story.cardAlign === "right";
 
   return (
     <Link
-      href={`/stories/${story.slug}`}
+      href={`/customer-stories/${story.slug}`}
       aria-label={story.title}
       className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bloom-orange focus-visible:ring-offset-4 focus-visible:ring-offset-bloom-cream"
     >
@@ -281,7 +134,9 @@ function StoryRow({ story }: { story: Story }) {
   );
 }
 
-export default function CustomerStoriesPage() {
+export default async function CustomerStoriesPage() {
+  const stories = await loadStoryCards();
+
   return (
     <>
       <FloatingNav />
@@ -301,7 +156,7 @@ export default function CustomerStoriesPage() {
         </div>
 
         <section className="flex flex-col">
-          {STORIES.map((story) => (
+          {stories.map((story) => (
             <RevealOnScroll key={story.slug}>
               <StoryRow story={story} />
             </RevealOnScroll>

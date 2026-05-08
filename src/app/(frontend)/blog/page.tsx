@@ -29,6 +29,20 @@ function indexCardFromBlogPost(post: BlogPost): IndexCard {
   };
 }
 
+/**
+ * Pick the best hero image source from a Payload Post document.
+ * Priority: uploaded Media (heroImage relationship) → legacy URL string.
+ */
+function resolveHero(d: Record<string, unknown>): string | null {
+  const hi = d.heroImage;
+  if (hi && typeof hi === "object" && hi !== null) {
+    const url = (hi as Record<string, unknown>).url;
+    if (typeof url === "string" && url) return url;
+  }
+  if (typeof d.heroUrl === "string" && d.heroUrl) return d.heroUrl;
+  return null;
+}
+
 function dateLabelFromIso(iso: string | null | undefined): string {
   if (!iso) return "";
   const d = new Date(iso);
@@ -58,18 +72,18 @@ async function loadIndexCards(): Promise<IndexCard[]> {
 
     return result.docs
       .map<IndexCard | null>((doc) => {
-        // Cast to a loose record because the new fields (heroUrl, excerpt,
-        // displayCategory, displayAuthor) won't appear in payload-types.ts
-        // until `payload generate:types` runs against the migrated DB.
+        // Cast to a loose record because the new fields (heroImage,
+        // heroUrl, excerpt, displayCategory, displayAuthor) won't appear
+        // in payload-types.ts until `payload generate:types` runs
+        // against the migrated DB.
         const d = doc as unknown as Record<string, unknown>;
         const slug = typeof d.slug === "string" ? d.slug : null;
         const title = typeof d.title === "string" ? d.title : null;
-        const hero = typeof d.heroUrl === "string" ? d.heroUrl : null;
         if (!slug || !title) return null;
         return {
           slug,
           title,
-          hero: hero ?? "/images/blog/placeholder.jpg",
+          hero: resolveHero(d) ?? "/images/blog/placeholder.jpg",
           dateLabel: dateLabelFromIso(
             typeof d.publishedAt === "string" ? d.publishedAt : null,
           ),

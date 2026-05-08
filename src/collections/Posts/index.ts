@@ -91,11 +91,20 @@ export const Posts: CollectionConfig<'posts'> = {
       },
     },
     {
+      name: 'heroImage',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        description:
+          'Hero image for this post (top of article and /blog index card). Upload here for the best result.',
+      },
+    },
+    {
       name: 'heroUrl',
       type: 'text',
       admin: {
         description:
-          'URL or path to the hero image (e.g. /images/blog/foo.jpg). Used at the top of the post and the index card. A future revision will swap this for a Media upload.',
+          'Fallback hero image URL or path (e.g. /images/blog/foo.jpg). Used only when no Hero Image is uploaded. Existing legacy posts use this; new posts should use Hero Image instead.',
       },
     },
     {

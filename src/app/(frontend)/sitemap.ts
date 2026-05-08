@@ -51,21 +51,40 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: post.date ? new Date(post.date) : now,
     })
   }
-  for (const story of CUSTOMER_STORIES) {
+  // Customer story slugs: prefer Payload (the new source of truth);
+  // fall back to the in-repo CUSTOMER_STORIES list if the DB query
+  // fails so we never drop URLs from the sitemap.
+  let storySlugs: string[] = []
+  try {
+    const payload = await getPayload({ config: configPromise })
+    const stories = await payload.find({
+      // See customer-story-resolver.ts re: this cast — types are
+      // regenerated post-migration.
+      collection: 'customer-stories' as never,
+      limit: 500,
+      where: { _status: { equals: 'published' } },
+    })
+    storySlugs = stories.docs
+      .map((d) => {
+        const slug = (d as unknown as { slug?: unknown }).slug
+        return typeof slug === 'string' ? slug : null
+      })
+      .filter((s): s is string => Boolean(s))
+  } catch (err) {
+    console.warn('[sitemap] customer-stories query failed:', err)
+  }
+  if (storySlugs.length === 0) {
+    storySlugs = CUSTOMER_STORIES.map((s) => s.slug)
+  }
+  for (const slug of storySlugs) {
     staticRoutes.push({
-      url: `${baseUrl}/customer-stories/${story.slug}`,
+      url: `${baseUrl}/customer-stories/${slug}`,
       changeFrequency: 'monthly',
       priority: 0.75,
       lastModified: now,
     })
-    // Legacy `/stories/[slug]` route still exists; include both so
-    // we don't drop indexed URLs.
-    staticRoutes.push({
-      url: `${baseUrl}/stories/${story.slug}`,
-      changeFrequency: 'monthly',
-      priority: 0.5,
-      lastModified: now,
-    })
+    // /stories/[slug] is now a 308 permanent redirect to
+    // /customer-stories/[slug] — don't list it as its own URL.
   }
 
   // 3) CMS-backed routes (Payload). Wrapped so a DB blip doesn't

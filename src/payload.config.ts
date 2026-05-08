@@ -8,6 +8,7 @@ import { fileURLToPath } from 'url'
 
 import { Categories } from './collections/Categories'
 import { Comments } from './collections/Comments'
+import { CustomerStories } from './collections/CustomerStories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
@@ -86,11 +87,12 @@ export default buildConfig({
     KBCategories,
     // Site
     Pages,
+    Posts,
+    CustomerStories,
     Media,
     // Users
     Users,
     // Hidden (legacy)
-    Posts,
     Categories,
     Comments,
   ],

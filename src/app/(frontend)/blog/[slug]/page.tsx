@@ -77,7 +77,16 @@ async function findInPayload(slug: string): Promise<ResolvedPost | null> {
     const d = doc as unknown as Record<string, unknown>;
     const title = typeof d.title === "string" ? d.title : "";
     const slugVal = typeof d.slug === "string" ? d.slug : slug;
-    const heroUrl = typeof d.heroUrl === "string" ? d.heroUrl : "";
+
+    // Hero priority: uploaded heroImage (Media relationship) → legacy heroUrl.
+    let resolvedHero = "";
+    const hi = d.heroImage;
+    if (hi && typeof hi === "object" && hi !== null) {
+      const url = (hi as Record<string, unknown>).url;
+      if (typeof url === "string" && url) resolvedHero = url;
+    }
+    if (!resolvedHero && typeof d.heroUrl === "string") resolvedHero = d.heroUrl;
+
     const excerpt = typeof d.excerpt === "string" ? d.excerpt : "";
     const displayCategory =
       typeof d.displayCategory === "string" ? d.displayCategory : "";
@@ -102,7 +111,7 @@ async function findInPayload(slug: string): Promise<ResolvedPost | null> {
       source: "payload",
       slug: slugVal,
       title,
-      hero: heroUrl || "/images/blog/placeholder.jpg",
+      hero: resolvedHero || "/images/blog/placeholder.jpg",
       excerpt,
       dateLabel: dateLabelFromIso(
         typeof d.publishedAt === "string" ? d.publishedAt : null,
