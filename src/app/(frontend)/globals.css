@@ -327,18 +327,26 @@
   /* Logo marquees — two rows, opposite directions. Each track holds
      two copies of its logo list end-to-end so translating by 50%
      produces a seamless loop. Speed is tuned to the live
-     bloomnetwork.ai (~20px/s) — measured by sampling img position. */
+     bloomnetwork.ai (~20px/s) — measured by sampling img position.
+
+     translate3d (rather than translateX) + backface-visibility +
+     contain:layout promotes the track to its own GPU compositor
+     layer, which removes the sub-pixel jitter you can see at long
+     animation durations. */
   @keyframes hero-marquee-left {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-50%, 0, 0); }
   }
   @keyframes hero-marquee-right {
-    from { transform: translateX(-50%); }
-    to   { transform: translateX(0); }
+    from { transform: translate3d(-50%, 0, 0); }
+    to   { transform: translate3d(0, 0, 0); }
   }
   .hero-marquee-left,
   .hero-marquee-right {
     will-change: transform;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    contain: layout paint;
   }
   /* Durations chosen so the measured screen-space speed lands at
      ~20px/s on a 1440 viewport — same as the live site. Row 2 has

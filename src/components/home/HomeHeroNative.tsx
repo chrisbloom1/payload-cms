@@ -181,16 +181,14 @@ export function HomeHeroNative() {
             (button click or Enter without Shift) opens the marketplace
             request flow with the prompt prefilled, in a new tab. */}
         <form
-          className="hero-fade-in mt-10 w-full max-w-[600px] sm:mt-12 lg:mt-14"
+          className="hero-fade-in relative mt-10 w-full max-w-[600px] sm:mt-12 lg:mt-14"
           style={{ animationDelay: "120ms" }}
           onSubmit={(e) => {
             e.preventDefault();
             handleChatSend();
           }}
         >
-          <div
-            className="relative rounded-md bg-bloom-mint-soft ring-1 ring-bloom-navy/10 focus-within:ring-bloom-navy/30 transition-shadow"
-          >
+          <div className="relative rounded-md bg-bloom-mint-soft ring-1 ring-bloom-navy/10 transition-shadow focus-within:ring-bloom-navy/30">
             <label htmlFor="hero-chat" className="sr-only">
               Describe your product&rsquo;s supply chain needs
             </label>
@@ -221,18 +219,19 @@ export function HomeHeroNative() {
               Chat now
             </button>
           </div>
-          <div className="-mt-3 flex justify-center">
-            <span
-              aria-hidden="true"
-              className="inline-flex items-center justify-center rounded-full bg-bloom-navy px-3.5 py-1 text-[12px] font-semibold text-bloom-cream sm:text-[13px]"
-              style={{
-                fontFamily:
-                  '"Haffer Bold", "Haffer Bold Placeholder", "Haffer Fallback", sans-serif',
-              }}
-            >
-              Start for free now!
-            </span>
-          </div>
+          {/* Badge is absolute-positioned with z-index above the card so
+              it sits *over* the bottom edge instead of being clipped by
+              flex layout — matches the live bloomnetwork.ai pattern. */}
+          <span
+            aria-hidden="true"
+            className="absolute -bottom-3 left-1/2 z-10 -translate-x-1/2 inline-flex items-center justify-center rounded-full bg-bloom-navy px-3.5 py-1 text-[12px] font-semibold text-bloom-cream sm:text-[13px]"
+            style={{
+              fontFamily:
+                '"Haffer Bold", "Haffer Bold Placeholder", "Haffer Fallback", sans-serif',
+            }}
+          >
+            Start for free now!
+          </span>
         </form>
 
         <p
@@ -269,7 +268,7 @@ export function HomeHeroNative() {
               loading="lazy"
               decoding="async"
               unoptimized
-              className="h-12 w-auto opacity-80 sm:h-14"
+              className="h-9 w-auto opacity-80 sm:h-10 lg:h-11"
               draggable={false}
             />
           ))}
@@ -285,7 +284,7 @@ export function HomeHeroNative() {
               loading="lazy"
               decoding="async"
               unoptimized
-              className="h-12 w-auto opacity-80 sm:h-14"
+              className="h-9 w-auto opacity-80 sm:h-10 lg:h-11"
               draggable={false}
             />
           ))}
