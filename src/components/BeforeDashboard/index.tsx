@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 
 /**
@@ -6,6 +8,11 @@ import React from 'react'
  *
  * Cards link directly to the highest-traffic editing surfaces; the
  * surrounding nav still gives access to everything else.
+ *
+ * Marked "use client" because the cards use onMouseEnter/onMouseLeave
+ * for the hover border highlight — event handlers aren't allowed in
+ * React Server Components and that mismatch was causing a runtime
+ * crash (ERROR 110... reference) when the admin tried to render.
  */
 const cardStyle: React.CSSProperties = {
   display: 'flex',
