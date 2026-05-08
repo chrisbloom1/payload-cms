@@ -1,4 +1,3 @@
-import 'server-only'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { CUSTOMER_STORIES, type CustomerStory } from './customer-stories'

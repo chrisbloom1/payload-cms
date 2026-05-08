@@ -1,4 +1,3 @@
-import 'server-only'
 import type { Payload } from 'payload'
 import { BLOG_POSTS, type BlogBlock } from '@/lib/blog-posts'
 import { CUSTOMER_STORIES, type CustomerStory } from '@/lib/customer-stories'

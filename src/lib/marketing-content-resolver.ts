@@ -1,4 +1,3 @@
-import 'server-only'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 // Import data from the pure data files (NOT the "use client" widgets,

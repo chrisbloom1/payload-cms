@@ -1,4 +1,3 @@
-import 'server-only'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 // Import TEAM from the data file (NOT TeamGrid.tsx, which is
