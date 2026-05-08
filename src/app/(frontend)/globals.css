@@ -340,8 +340,11 @@
   .hero-marquee-right {
     will-change: transform;
   }
-  .hero-marquee-left { animation: hero-marquee-left 90s linear infinite; }
-  .hero-marquee-right { animation: hero-marquee-right 120s linear infinite; }
+  /* Durations chosen so the measured screen-space speed lands at
+     ~20px/s on a 1440 viewport — same as the live site. Row 2 has
+     more logos (longer track), hence the longer cycle. */
+  .hero-marquee-left { animation: hero-marquee-left 135s linear infinite; }
+  .hero-marquee-right { animation: hero-marquee-right 200s linear infinite; }
   @media (prefers-reduced-motion: reduce) {
     .hero-marquee-left,
     .hero-marquee-right { animation: none; }
