@@ -376,7 +376,9 @@
     max-height: unset !important;
     min-height: unset !important;
     gap: 32px !important;
-    padding: 80px 16px 0 16px !important;
+    /* 112px = 96px FloatingNav fixed-bar height + 16px breathing room
+       so the H1 clears the nav rather than rendering underneath it. */
+    padding: 112px 16px 24px 16px !important;
   }
   /* Subhead grows to viewport width on mobile so it doesn't clip. */
   .framer-Fdb0A .framer-1pnfi5j {

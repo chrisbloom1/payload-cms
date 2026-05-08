@@ -14,7 +14,7 @@
  */
 export function HeroFallback() {
   return (
-    <div className="relative flex min-h-[480px] w-full flex-col items-center justify-center overflow-hidden px-4 py-16 text-center sm:min-h-[600px] sm:py-20 lg:min-h-[720px]">
+    <div className="relative flex min-h-[480px] w-full flex-col items-center justify-center overflow-hidden px-4 pt-28 pb-16 text-center sm:min-h-[600px] sm:pt-32 sm:py-20 lg:min-h-[720px] lg:py-24">
       <div className="flex w-full max-w-[1128px] flex-col items-center gap-8 sm:gap-10 lg:gap-12">
         <div className="flex w-full flex-col items-center gap-4 sm:gap-6">
           <h1
