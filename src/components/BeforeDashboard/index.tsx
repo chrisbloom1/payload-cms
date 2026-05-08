@@ -137,6 +137,18 @@ const BeforeDashboard: React.FC = () => {
         />
         <QuickCard
           label="Marketing"
+          title="Company page"
+          body="Hero, mission 2-up, ecosystem statement, resource cards, team eyebrow — everything on /company."
+          href="/admin/globals/company-page"
+        />
+        <QuickCard
+          label="Marketing"
+          title="Team members"
+          body="The team grid on /company. Photos, titles, LinkedIn links, and rich-text bios."
+          href="/admin/collections/team-members"
+        />
+        <QuickCard
+          label="Marketing"
           title="Media library"
           body="Upload hero images and logos here so other forms can pick them via the upload field."
           href="/admin/collections/media"

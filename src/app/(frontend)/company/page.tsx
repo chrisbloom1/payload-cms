@@ -5,6 +5,10 @@ import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { ArrowRightIcon } from "@/components/icons";
 import { TeamGrid } from "@/components/company/TeamGrid";
 import { cn } from "@/lib/utils";
+import {
+  loadCompanyPage,
+  type ResourceCard,
+} from "@/lib/company-page-resolver";
 
 // ---------------------------------------------------------------------------
 // Static metadata
@@ -15,40 +19,6 @@ export const metadata = {
   description:
     "Bloom brings hard tech brands into an operations ecosystem that nurtures every stage of their product's growth.",
 };
-
-// ---------------------------------------------------------------------------
-// Resource cards data
-// ---------------------------------------------------------------------------
-
-interface ResourceCard {
-  title: string;
-  body: string;
-  href?: string;
-  comingSoon?: boolean;
-}
-
-const RESOURCES: readonly ResourceCard[] = [
-  {
-    title: "Newsroom",
-    body: "We power innovation across the hardware industry.",
-    href: "/newsroom",
-  },
-  {
-    title: "Customer Stories",
-    body: "We support hardware brands, no matter their stage or size.",
-    href: "/customer-stories",
-  },
-  {
-    title: "Social Impact",
-    body: "We are committed to exploring the full potential of hardware products.",
-    comingSoon: true,
-  },
-  {
-    title: "Sustainability",
-    body: "We decarbonize hard tech by optimizing the services it needs to thrive.",
-    comingSoon: true,
-  },
-] as const;
 
 // ---------------------------------------------------------------------------
 // Local atoms
@@ -77,7 +47,9 @@ function Eyebrow({
 // Page
 // ---------------------------------------------------------------------------
 
-export default function CompanyPage() {
+export default async function CompanyPage() {
+  const content = await loadCompanyPage();
+
   return (
     <>
       <FloatingNav />
@@ -86,11 +58,10 @@ export default function CompanyPage() {
           {/* Hero -------------------------------------------------------- */}
           <RevealOnScroll as="section" className="mb-20 max-w-4xl">
             <h1 className="text-[56px] font-bold leading-[1.05] tracking-tight text-bloom-navy md:text-[72px]">
-              Hi. We&apos;re Bloom.
+              {content.hero.headline}
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-bloom-muted">
-              Bloom brings hard tech brands into an operations ecosystem that
-              nurtures every stage of their product&apos;s growth.
+              {content.hero.body}
             </p>
           </RevealOnScroll>
 
@@ -100,29 +71,21 @@ export default function CompanyPage() {
             className="mb-24 grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16"
           >
             <div>
-              <Eyebrow>What We Do</Eyebrow>
+              <Eyebrow>{content.whatWeDo.eyebrow}</Eyebrow>
               <h2 className="mt-4 text-[32px] font-bold leading-tight tracking-tight text-bloom-navy md:text-[40px]">
-                We provide the support and connections you need to flourish.
+                {content.whatWeDo.heading}
               </h2>
               <p className="mt-5 text-base leading-relaxed text-bloom-muted">
-                Just as a thriving natural ecosystem relies on interconnected
-                relationships and balanced processes to flourish, Bloom&apos;s
-                operations ecosystem is built on a foundation of collaboration
-                and resilience. By nurturing a network that thrives on the
-                diverse capabilities of our partners, we ensure that the hard
-                tech industry can thrive, adapt, and grow.
+                {content.whatWeDo.body}
               </p>
             </div>
             <div>
-              <Eyebrow>Who We Are</Eyebrow>
+              <Eyebrow>{content.whoWeAre.eyebrow}</Eyebrow>
               <h2 className="mt-4 text-[32px] font-bold leading-tight tracking-tight text-bloom-navy md:text-[40px]">
-                We are committed to exploring the full potential of hardware.
+                {content.whoWeAre.heading}
               </h2>
               <p className="mt-5 text-base leading-relaxed text-bloom-muted">
-                We are a global team of builders and connectors with deep roots
-                in the hardware industry. Together, we are exploring the full
-                potential of hard tech products, optimizing their places within
-                our daily lives.
+                {content.whoWeAre.body}
               </p>
             </div>
           </RevealOnScroll>
@@ -130,19 +93,12 @@ export default function CompanyPage() {
           {/* Ecosystem statement ---------------------------------------- */}
           <RevealOnScroll as="section" className="mb-20 max-w-4xl">
             <h1 className="text-[44px] font-bold leading-[1.08] tracking-tight text-bloom-navy md:text-[56px]">
-              Bloom is an ecosystem of operations services
+              {content.ecosystem.heading}
             </h1>
             <div className="mt-6 space-y-5 text-lg leading-relaxed text-bloom-muted">
-              <p>
-                We equip hard tech brands to build, deliver, and service their
-                products using a high-quality network of service providers, no
-                matter their stage or size.
-              </p>
-              <p>
-                Bloom is a technology company operating globally. We deliver
-                services to customers across hardware, third-party logistics,
-                contract manufacturing, and after-sales service.
-              </p>
+              {content.ecosystem.paragraphs.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
             </div>
           </RevealOnScroll>
 
@@ -151,17 +107,16 @@ export default function CompanyPage() {
             as="section"
             className="mb-28 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
           >
-            {RESOURCES.map((card) => (
+            {content.resources.map((card) => (
               <ResourceTile key={card.title} card={card} />
             ))}
           </RevealOnScroll>
 
-          {/* Team — full grid of 13 members with verbatim bios from live site */}
           <RevealOnScroll as="section">
             <div className="mb-10 text-center">
-              <Eyebrow>Meet the Bloom Team</Eyebrow>
+              <Eyebrow>{content.teamEyebrow}</Eyebrow>
             </div>
-            <TeamGrid />
+            <TeamGrid members={content.team} />
           </RevealOnScroll>
         </div>
       </main>

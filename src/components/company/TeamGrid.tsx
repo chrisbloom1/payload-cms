@@ -278,14 +278,15 @@ function BioModal({ member, onClose }: { member: TeamMember; onClose: () => void
   );
 }
 
-export function TeamGrid() {
+export function TeamGrid({ members }: { members?: readonly TeamMember[] } = {}) {
+  const list = members && members.length > 0 ? members : TEAM;
   const [active, setActive] = useState<TeamMember | null>(null);
   const close = useCallback(() => setActive(null), []);
 
   return (
     <>
       <div className="flex flex-wrap justify-center gap-6">
-        {TEAM.map((member) => (
+        {list.map((member) => (
           <TeamCard
             key={member.name}
             member={member}

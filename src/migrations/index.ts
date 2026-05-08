@@ -9,6 +9,7 @@ import * as migration_20260508_130000_customer_stories from './20260508_130000_c
 import * as migration_20260508_140000_home_page_global from './20260508_140000_home_page_global';
 import * as migration_20260508_150000_brands_providers_globals from './20260508_150000_brands_providers_globals';
 import * as migration_20260508_160000_testimonials_and_faqs from './20260508_160000_testimonials_and_faqs';
+import * as migration_20260508_170000_company_team from './20260508_170000_company_team';
 
 export const migrations = [
   {
@@ -65,5 +66,10 @@ export const migrations = [
     up: migration_20260508_160000_testimonials_and_faqs.up,
     down: migration_20260508_160000_testimonials_and_faqs.down,
     name: '20260508_160000_testimonials_and_faqs',
+  },
+  {
+    up: migration_20260508_170000_company_team.up,
+    down: migration_20260508_170000_company_team.down,
+    name: '20260508_170000_company_team',
   },
 ];

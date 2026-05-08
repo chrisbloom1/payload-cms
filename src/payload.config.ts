@@ -13,6 +13,7 @@ import { MarketingFaqs } from './collections/MarketingFaqs'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
+import { TeamMembers } from './collections/TeamMembers'
 import { Testimonials } from './collections/Testimonials'
 import { Users } from './collections/Users'
 import { KBCategories } from './collections/KnowledgeBase/KBCategories'
@@ -27,6 +28,7 @@ import { Header } from './Header/config'
 import { HomePage } from './Globals/HomePage/config'
 import { BrandsPage } from './Globals/BrandsPage/config'
 import { ProvidersPage } from './Globals/ProvidersPage/config'
+import { CompanyPage } from './Globals/CompanyPage/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
@@ -83,6 +85,7 @@ export default buildConfig({
     CustomerStories, // /customer-stories and /customer-stories/[slug]
     Testimonials, // carousel on home / brands / providers
     MarketingFaqs, // FAQ accordion on /brands and /providers
+    TeamMembers, // grid on /company
     Media, // shared upload library used by everything above
 
     // === Knowledge Base (help-center workflow) ===
@@ -112,6 +115,7 @@ export default buildConfig({
     HomePage, // /            — hero, marquee, sections, stats
     BrandsPage, // /brands    — for-brands marketing copy + framework + pricing
     ProvidersPage, // /providers — for-providers marketing copy + criteria
+    CompanyPage, // /company  — hero, mission 2-up, ecosystem, resources, team eyebrow
     Header, // top-nav links across the marketing site
     Footer, // bottom-nav links across the marketing site
   ],
