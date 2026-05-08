@@ -16,26 +16,34 @@ import { getCachedRedirects } from '@/utilities/getRedirects'
 import PageClient from './page.client'
 
 export async function generateStaticParams() {
-  const payload = await getPayload({ config: configPromise })
-  const pages = await payload.find({
-    collection: 'pages',
-    draft: false,
-    limit: 1000,
-    overrideAccess: false,
-    select: {
-      slug: true,
-    },
-  })
-
-  const params = pages.docs
-    ?.filter((doc) => {
-      return doc.slug !== 'home'
-    })
-    .map(({ slug }) => {
-      return { slug }
+  // Resilient to transient DB/control-plane outages at build time:
+  // skip pre-rendering rather than fail the entire deploy. Pages
+  // still SSR on demand for any slug.
+  try {
+    const payload = await getPayload({ config: configPromise })
+    const pages = await payload.find({
+      collection: 'pages',
+      draft: false,
+      limit: 1000,
+      overrideAccess: false,
+      select: {
+        slug: true,
+      },
     })
 
-  return params
+    const params = pages.docs
+      ?.filter((doc) => {
+        return doc.slug !== 'home'
+      })
+      .map(({ slug }) => {
+        return { slug }
+      })
+
+    return params
+  } catch (err) {
+    console.warn('[[slug]] generateStaticParams skipped:', err)
+    return []
+  }
 }
 
 type Args = {

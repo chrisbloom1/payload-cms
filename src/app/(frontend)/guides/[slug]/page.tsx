@@ -27,17 +27,25 @@ type Args = {
 }
 
 export async function generateStaticParams() {
-  const payload = await getPayload({ config: configPromise })
-  const guides = await payload.find({
-    collection: 'guides',
-    draft: false,
-    limit: 1000,
-    overrideAccess: false,
-    select: { slug: true },
-    where: { _status: { equals: 'published' } },
-  })
+  // Resilient to transient DB/control-plane outages at build time:
+  // skip pre-rendering rather than fail the deploy. Pages still SSR
+  // on demand for any slug.
+  try {
+    const payload = await getPayload({ config: configPromise })
+    const guides = await payload.find({
+      collection: 'guides',
+      draft: false,
+      limit: 1000,
+      overrideAccess: false,
+      select: { slug: true },
+      where: { _status: { equals: 'published' } },
+    })
 
-  return guides.docs.map(({ slug }) => ({ slug }))
+    return guides.docs.map(({ slug }) => ({ slug }))
+  } catch (err) {
+    console.warn('[guides/[slug]] generateStaticParams skipped:', err)
+    return []
+  }
 }
 
 export default async function GuidePage({ params: paramsPromise }: Args) {
