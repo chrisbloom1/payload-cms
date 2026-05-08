@@ -9,9 +9,11 @@ import { fileURLToPath } from 'url'
 import { Categories } from './collections/Categories'
 import { Comments } from './collections/Comments'
 import { CustomerStories } from './collections/CustomerStories'
+import { MarketingFaqs } from './collections/MarketingFaqs'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
+import { Testimonials } from './collections/Testimonials'
 import { Users } from './collections/Users'
 import { KBCategories } from './collections/KnowledgeBase/KBCategories'
 import { Articles } from './collections/KnowledgeBase/Articles'
@@ -79,6 +81,8 @@ export default buildConfig({
     // === Marketing (the team's primary editing surface) ===
     Posts, // /blog and /blog/[slug]
     CustomerStories, // /customer-stories and /customer-stories/[slug]
+    Testimonials, // carousel on home / brands / providers
+    MarketingFaqs, // FAQ accordion on /brands and /providers
     Media, // shared upload library used by everything above
 
     // === Knowledge Base (help-center workflow) ===

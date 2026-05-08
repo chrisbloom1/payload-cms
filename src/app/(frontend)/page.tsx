@@ -14,9 +14,13 @@ import {
   LazyRolesSplit,
 } from "@/components/home/LazyHomeSections";
 import { loadHomePage } from "@/lib/home-page-resolver";
+import { loadTestimonials } from "@/lib/marketing-content-resolver";
 
 export default async function HomePage() {
-  const home = await loadHomePage();
+  const [home, testimonials] = await Promise.all([
+    loadHomePage(),
+    loadTestimonials(),
+  ]);
 
   return (
     <>
@@ -109,7 +113,7 @@ export default async function HomePage() {
         {/* Testimonials — custom widget with active card at 70% width and ~15%
             peeks on each side, matching the live carousel layout. */}
         <div className="cv-auto-section cv-h-820">
-          <LazyMembersTestimonials />
+          <LazyMembersTestimonials testimonials={testimonials} />
         </div>
       </main>
       <UnifiedFooter />

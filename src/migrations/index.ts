@@ -8,6 +8,7 @@ import * as migration_20260508_120100_blog_hero_image_upload from './20260508_12
 import * as migration_20260508_130000_customer_stories from './20260508_130000_customer_stories';
 import * as migration_20260508_140000_home_page_global from './20260508_140000_home_page_global';
 import * as migration_20260508_150000_brands_providers_globals from './20260508_150000_brands_providers_globals';
+import * as migration_20260508_160000_testimonials_and_faqs from './20260508_160000_testimonials_and_faqs';
 
 export const migrations = [
   {
@@ -59,5 +60,10 @@ export const migrations = [
     up: migration_20260508_150000_brands_providers_globals.up,
     down: migration_20260508_150000_brands_providers_globals.down,
     name: '20260508_150000_brands_providers_globals',
+  },
+  {
+    up: migration_20260508_160000_testimonials_and_faqs.up,
+    down: migration_20260508_160000_testimonials_and_faqs.down,
+    name: '20260508_160000_testimonials_and_faqs',
   },
 ];

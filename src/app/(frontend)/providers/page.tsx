@@ -10,12 +10,12 @@ import { FrameworkChevrons } from "@/components/FrameworkChevrons";
 import { BenefitRow } from "@/components/BenefitRow";
 import { cn } from "@/lib/utils";
 import { FaqAccordion } from "@/components/widgets/FaqAccordion";
-import { BLOOM_FAQ } from "@/data/faq";
 import { CriteriaCarousel } from "@/components/widgets/CriteriaCarousel";
 import {
   loadProvidersPage,
   type ProvidersContent,
 } from "@/lib/providers-page-resolver";
+import { loadMarketingFaqs } from "@/lib/marketing-content-resolver";
 
 function HeroIconTiles({ tiles }: { tiles: ProvidersContent["hero"]["iconTiles"] }) {
   return (
@@ -207,7 +207,10 @@ function ProvidersCTA({ cta }: { cta: ProvidersContent["cta"] }) {
 }
 
 export default async function ProvidersPage() {
-  const content = await loadProvidersPage();
+  const [content, faqs] = await Promise.all([
+    loadProvidersPage(),
+    loadMarketingFaqs("providers"),
+  ]);
 
   return (
     <>
@@ -225,7 +228,7 @@ export default async function ProvidersPage() {
                 {content.faqHeading}
               </h1>
               <div className="w-full">
-                <FaqAccordion items={BLOOM_FAQ} />
+                <FaqAccordion items={faqs} />
               </div>
             </div>
           </div>

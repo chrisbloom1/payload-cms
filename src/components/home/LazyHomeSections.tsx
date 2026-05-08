@@ -2,6 +2,7 @@
 
 import { LazyOnDemand } from "@/components/LazyOnDemand";
 import type { HomeStat } from "@/lib/home-page-resolver";
+import type { Testimonial } from "@/types/bloom";
 
 // Below-the-fold sections use LazyOnDemand (true on-demand import)
 // rather than next/dynamic. next/dynamic registers the chunk with
@@ -81,7 +82,9 @@ export function LazyEcosystemStats({
   );
 }
 
-export function LazyMembersTestimonials() {
+export function LazyMembersTestimonials({
+  testimonials,
+}: { testimonials?: Testimonial[] } = {}) {
   return (
     <LazyOnDemand
       load={() =>
@@ -89,6 +92,7 @@ export function LazyMembersTestimonials() {
           default: m.MembersTestimonials,
         }))
       }
+      props={{ testimonials }}
     />
   );
 }

@@ -125,6 +125,18 @@ const BeforeDashboard: React.FC = () => {
         />
         <QuickCard
           label="Marketing"
+          title="Testimonials"
+          body="Quotes shown by the carousel on home, brands, and providers. Avatar uploads + sort order."
+          href="/admin/collections/testimonials"
+        />
+        <QuickCard
+          label="Marketing"
+          title="Marketing FAQs"
+          body="FAQ entries on /brands and /providers. Use Surfaces to control where each question shows up."
+          href="/admin/collections/marketing-faqs"
+        />
+        <QuickCard
+          label="Marketing"
           title="Media library"
           body="Upload hero images and logos here so other forms can pick them via the upload field."
           href="/admin/collections/media"

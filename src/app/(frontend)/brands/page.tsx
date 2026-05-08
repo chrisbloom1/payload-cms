@@ -14,11 +14,14 @@ import Pricingmatrix from "@/components/proofly/Pricingmatrix.jsx";
 import Mockupterms from "@/components/proofly/Mockupterms.jsx";
 import { MembersTestimonials } from "@/components/widgets/MembersTestimonials";
 import { FaqAccordion } from "@/components/widgets/FaqAccordion";
-import { BLOOM_FAQ } from "@/data/faq";
 import { FrameworkChevrons } from "@/components/FrameworkChevrons";
 import { BloomMarkGradient } from "@/components/BloomLogo";
 import RichText from "@/components/RichText";
 import { loadBrandsPage, type BrandsContent } from "@/lib/brands-page-resolver";
+import {
+  loadMarketingFaqs,
+  loadTestimonials,
+} from "@/lib/marketing-content-resolver";
 
 // ---------------------------------------------------------------------------
 // Section components
@@ -293,7 +296,13 @@ function BrandsCTA({ cta }: { cta: BrandsContent["cta"] }) {
 }
 
 export default async function BrandsPage() {
-  const content = await loadBrandsPage();
+  // Fetch all editable content in parallel — brand-page global +
+  // shared testimonials + brand-surface FAQ entries.
+  const [content, testimonials, faqs] = await Promise.all([
+    loadBrandsPage(),
+    loadTestimonials(),
+    loadMarketingFaqs("brands"),
+  ]);
 
   return (
     <>
@@ -308,7 +317,7 @@ export default async function BrandsPage() {
         <BrandsFramework framework={content.framework} />
         <BrandsPricing pricing={content.pricing} />
         <BrandsBloomPay bloomPay={content.bloomPay} />
-        <MembersTestimonials />
+        <MembersTestimonials testimonials={testimonials} />
         <BrandsCTA cta={content.cta} />
         <section className="w-full bg-bloom-cream py-16 sm:py-20 lg:py-24">
           <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
@@ -317,7 +326,7 @@ export default async function BrandsPage() {
                 {content.faqHeading}
               </h1>
               <div className="w-full">
-                <FaqAccordion items={BLOOM_FAQ} />
+                <FaqAccordion items={faqs} />
               </div>
             </div>
           </div>
