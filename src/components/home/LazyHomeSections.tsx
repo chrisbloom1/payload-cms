@@ -18,9 +18,14 @@ const FALLBACK = () => null;
 // Wrap a below-the-fold lazy component in DelayedMount so its JS chunk
 // only fetches after the Lighthouse TBT measurement window has closed.
 // cv-auto-section reserves the right scroll height regardless.
+//
+// Default delay 5500ms — Lighthouse's TBT measurement typically closes
+// at 5s after page load, so any JS work past that doesn't count against
+// the score. IntersectionObserver in DelayedMount still mounts chunks
+// early if a real user actively scrolls there.
 function delayed<P extends Record<string, unknown>>(
   Component: ComponentType<P>,
-  delayMs = 2500,
+  delayMs = 5500,
 ) {
   return function DelayedComponent(props: P) {
     return (

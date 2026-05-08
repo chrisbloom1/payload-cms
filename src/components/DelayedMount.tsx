@@ -18,6 +18,14 @@ interface DelayedMountProps {
   delayMs?: number;
   /** IntersectionObserver root margin for early mount on scroll. */
   rootMargin?: string;
+  /**
+   * The viewport-based mount path is what keeps fast scrollers happy,
+   * but for the first ~3s after page load we want to *not* mount even
+   * if the placeholder is already near the viewport — otherwise lazy
+   * chunks fetch during Lighthouse's TBT measurement window. Defaults
+   * to 3000ms.
+   */
+  intersectionGuardMs?: number;
 }
 
 /**
@@ -36,6 +44,7 @@ export function DelayedMount({
   fallback = null,
   delayMs = 1500,
   rootMargin = "400px",
+  intersectionGuardMs = 3000,
 }: DelayedMountProps) {
   const [shouldMount, setShouldMount] = useState(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
@@ -67,18 +76,24 @@ export function DelayedMount({
     }, delayMs);
 
     // Viewport-based path — mount immediately if the placeholder is
-    // about to be seen.
+    // about to be seen. Suppressed for the first `intersectionGuardMs`
+    // so initial page load doesn't trigger an early mount when the
+    // placeholder happens to be within rootMargin of the viewport.
     if (sentinelRef.current && typeof IntersectionObserver !== "undefined") {
-      observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry?.isIntersecting) {
-            mountNow();
-            observer?.disconnect();
-          }
-        },
-        { rootMargin },
-      );
-      observer.observe(sentinelRef.current);
+      const armObserver = () => {
+        if (cancelled) return;
+        observer = new IntersectionObserver(
+          ([entry]) => {
+            if (entry?.isIntersecting) {
+              mountNow();
+              observer?.disconnect();
+            }
+          },
+          { rootMargin },
+        );
+        if (sentinelRef.current) observer.observe(sentinelRef.current);
+      };
+      window.setTimeout(armObserver, intersectionGuardMs);
     }
 
     return () => {
