@@ -74,13 +74,58 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 export const metadata: Metadata = {
   metadataBase: new URL(getServerSideURL()),
   title: {
-    default: 'Bloom',
+    default: "Bloom — Hardware shouldn't be hard.",
     template: '%s | Bloom',
   },
   description:
-    'Bloom is an intelligent supply chain and operations platform designed for hardware companies of all sizes to build, deliver and service more efficiently.',
+    'Bloom is the supply chain platform for hardware companies. Discover, bid, book, and pay a vetted network of manufacturing, warehousing, assembly, and logistics partners — all in one place.',
+  applicationName: 'Bloom',
+  authors: [{ name: 'Bloom Inc.', url: 'https://www.bloomnetwork.ai' }],
+  generator: 'Next.js',
+  keywords: [
+    'supply chain platform',
+    'hardware manufacturing',
+    'logistics network',
+    'warehousing',
+    'assembly partners',
+    'BloomPay',
+    'mobility hardware',
+    'energy hardware',
+    'robotics hardware',
+  ],
+  referrer: 'origin-when-cross-origin',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
+    title: "Bloom — Hardware shouldn't be hard.",
+    description:
+      'The supply chain platform for hardware companies. Discover vetted partners, manage operations, and access flexible payment terms — all in one place.',
+    images: [`${getServerSideURL()}/og`],
+  },
+  alternates: {
+    canonical: '/',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
+  icons: {
+    icon: [
+      { url: '/logos/bloom-symbol.svg', type: 'image/svg+xml' },
+    ],
+    shortcut: '/logos/bloom-symbol.svg',
+    apple: '/logos/bloom-symbol.svg',
   },
 }
