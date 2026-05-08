@@ -1,13 +1,10 @@
 import { FloatingNav } from "@/components/FloatingNav";
 import { UnifiedFooter } from "@/components/UnifiedFooter";
-import { HeroRotatingWord } from "@/components/HeroRotatingWord";
 import { HomeAppDemo } from "@/components/home/HomeAppDemo";
-// SECTIONHERONEW + everything else is pulled in via next/dynamic with
-// ssr:false so the heaviest JS chunks (and the 25+ framer/usercontent
-// preloads SECTIONHERONEW emits) don't bloat the initial HTML or block
-// hydration. The hero ships with a static <HeroFallback> H1 so first
-// paint still has an LCP-eligible candidate; SECTIONHERONEW visually
-// replaces the fallback once its chunk lands.
+import { HomeHeroNative } from "@/components/home/HomeHeroNative";
+// Below-fold sections are lazy + delayed so their JS chunks don't
+// bloat the initial HTML or block hydration. cv-auto-section reserves
+// the right scroll height so the swap-in is CLS-neutral.
 import {
   LazyEcosystemStats,
   LazyHomeDiscover,
@@ -15,7 +12,6 @@ import {
   LazyMembersTestimonials,
   LazyMockupterms,
   LazyRolesSplit,
-  LazySectionHero,
 } from "@/components/home/LazyHomeSections";
 
 export default function HomePage() {
@@ -33,17 +29,12 @@ export default function HomePage() {
       />
       <FloatingNav />
       <main className="flex flex-col">
-        {/* Hero region. min-height matches the live Framer hero's
-            measured per-breakpoint height so the page below doesn't
-            shift when SECTIONHERONEW lazy-mounts and replaces the
-            HeroFallback. Mobile = 712px (measured), tablet ~628,
-            desktop = 720. */}
-        <div className="flex min-h-[712px] w-full justify-center overflow-hidden sm:min-h-[640px] lg:min-h-[720px]">
-          <LazySectionHero />
-        </div>
-        {/* Replaces the Framer rotating-word column with a clean React swap
-            (mounts client-side via portal into `.framer-175oaup`). */}
-        <HeroRotatingWord />
+        {/* Hero — hand-rolled HTML/CSS replacement for the original
+            Proofly/Framer SECTIONHERONEW export. Drops the
+            @proofly-framer/runtime + framer-motion dependency
+            (~519KB of client JS) plus all the runtime-injected
+            framerusercontent.com image preloads. */}
+        <HomeHeroNative />
 
         {/* Bloom platform app demo video, anchored by orange Bloom mark */}
         <HomeAppDemo />
