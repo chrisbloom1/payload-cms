@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import configPromise from "@payload-config";
+import { getPayload } from "payload";
 import { FloatingNav } from "@/components/FloatingNav";
 import { UnifiedFooter } from "@/components/UnifiedFooter";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
@@ -11,7 +13,76 @@ export const metadata = {
     "The latest developments at Bloom. From new partnerships to industry insights, this is your go-to source for all things Bloom.",
 };
 
-function PostCard({ post }: { post: BlogPost }) {
+interface IndexCard {
+  slug: string;
+  title: string;
+  hero: string;
+  dateLabel: string;
+}
+
+function indexCardFromBlogPost(post: BlogPost): IndexCard {
+  return {
+    slug: post.slug,
+    title: post.title,
+    hero: post.hero,
+    dateLabel: post.dateLabel,
+  };
+}
+
+function dateLabelFromIso(iso: string | null | undefined): string {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "";
+  return d.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+async function loadIndexCards(): Promise<IndexCard[]> {
+  // Try Payload first; fall back to the in-repo BLOG_POSTS list if the
+  // DB is unreachable so /blog never goes blank.
+  try {
+    const payload = await getPayload({ config: configPromise });
+    const result = await payload.find({
+      collection: "posts",
+      limit: 100,
+      sort: "-publishedAt",
+      where: { _status: { equals: "published" } },
+    });
+
+    if (result.docs.length === 0) {
+      return BLOG_POSTS.map(indexCardFromBlogPost);
+    }
+
+    return result.docs
+      .map<IndexCard | null>((doc) => {
+        // Cast to a loose record because the new fields (heroUrl, excerpt,
+        // displayCategory, displayAuthor) won't appear in payload-types.ts
+        // until `payload generate:types` runs against the migrated DB.
+        const d = doc as unknown as Record<string, unknown>;
+        const slug = typeof d.slug === "string" ? d.slug : null;
+        const title = typeof d.title === "string" ? d.title : null;
+        const hero = typeof d.heroUrl === "string" ? d.heroUrl : null;
+        if (!slug || !title) return null;
+        return {
+          slug,
+          title,
+          hero: hero ?? "/images/blog/placeholder.jpg",
+          dateLabel: dateLabelFromIso(
+            typeof d.publishedAt === "string" ? d.publishedAt : null,
+          ),
+        };
+      })
+      .filter((card): card is IndexCard => card !== null);
+  } catch (err) {
+    console.warn("[/blog] Payload query failed, falling back to lib:", err);
+    return BLOG_POSTS.map(indexCardFromBlogPost);
+  }
+}
+
+function PostCard({ post }: { post: IndexCard }) {
   return (
     <Link
       href={`/blog/${post.slug}`}
@@ -36,7 +107,9 @@ function PostCard({ post }: { post: BlogPost }) {
   );
 }
 
-export default function BlogIndexPage() {
+export default async function BlogIndexPage() {
+  const cards = await loadIndexCards();
+
   return (
     <>
       <FloatingNav />
@@ -57,7 +130,7 @@ export default function BlogIndexPage() {
           </RevealOnScroll>
 
           <section className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {BLOG_POSTS.map((post) => (
+            {cards.map((post) => (
               <RevealOnScroll key={post.slug}>
                 <PostCard post={post} />
               </RevealOnScroll>

@@ -48,9 +48,13 @@ export const Posts: CollectionConfig<'posts'> = {
       description: true,
     },
   },
+  labels: {
+    singular: 'Blog Post',
+    plural: 'Blog Posts',
+  },
   admin: {
-    hidden: true,
-    defaultColumns: ['title', 'slug', 'updatedAt'],
+    group: 'Site',
+    defaultColumns: ['title', 'displayCategory', 'publishedAt', 'updatedAt'],
     livePreview: {
       url: ({ data }) => {
         const path = generatePreviewPath({
@@ -76,6 +80,41 @@ export const Posts: CollectionConfig<'posts'> = {
       name: 'title',
       type: 'text',
       required: true,
+    },
+    {
+      name: 'excerpt',
+      type: 'textarea',
+      required: false,
+      admin: {
+        description:
+          'Short summary shown on the /blog index card and at the top of the article. Aim for 1–2 sentences.',
+      },
+    },
+    {
+      name: 'heroUrl',
+      type: 'text',
+      admin: {
+        description:
+          'URL or path to the hero image (e.g. /images/blog/foo.jpg). Used at the top of the post and the index card. A future revision will swap this for a Media upload.',
+      },
+    },
+    {
+      name: 'displayCategory',
+      type: 'text',
+      admin: {
+        position: 'sidebar',
+        description:
+          'Short tag shown above the headline (e.g. "UPDATES", "INSIGHTS"). Falls back to the first related Category if blank.',
+      },
+    },
+    {
+      name: 'displayAuthor',
+      type: 'text',
+      admin: {
+        position: 'sidebar',
+        description:
+          'Byline name shown on the article (e.g. "Chris Nolte"). Use this for guest authors who don\'t have a Payload login.',
+      },
     },
     {
       type: 'tabs',

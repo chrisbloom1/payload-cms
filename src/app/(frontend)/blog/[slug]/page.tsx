@@ -1,20 +1,168 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import configPromise from "@payload-config";
+import { getPayload } from "payload";
 import { FloatingNav } from "@/components/FloatingNav";
 import { UnifiedFooter } from "@/components/UnifiedFooter";
 import { ArrowRightIcon } from "@/components/icons";
-import { BLOG_POSTS, getPostBySlug } from "@/lib/blog-posts";
+import RichText from "@/components/RichText";
+import {
+  BLOG_POSTS,
+  getPostBySlug,
+  type BlogPost,
+} from "@/lib/blog-posts";
 
-export function generateStaticParams() {
-  return BLOG_POSTS.map((p) => ({ slug: p.slug }));
+/**
+ * Blog post detail. Source of truth is the Payload `posts` collection;
+ * the in-repo BLOG_POSTS list is kept as a fallback so a transient DB
+ * outage doesn't 404 every article.
+ */
+
+interface ResolvedPost {
+  source: "payload" | "lib";
+  slug: string;
+  title: string;
+  hero: string;
+  excerpt: string;
+  dateLabel: string;
+  category: string;
+  author: string;
+  // Lexical content for Payload posts; legacy block array for lib posts.
+  content:
+    | { kind: "lexical"; data: Record<string, unknown> }
+    | { kind: "lib"; data: BlogPost["body"] };
+}
+
+function dateLabelFromIso(iso: string | null | undefined): string {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "";
+  return d.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+function fromLib(post: BlogPost): ResolvedPost {
+  return {
+    source: "lib",
+    slug: post.slug,
+    title: post.title,
+    hero: post.hero,
+    excerpt: post.excerpt,
+    dateLabel: post.dateLabel,
+    category: post.category,
+    author: post.author,
+    content: { kind: "lib", data: post.body },
+  };
+}
+
+async function findInPayload(slug: string): Promise<ResolvedPost | null> {
+  try {
+    const payload = await getPayload({ config: configPromise });
+    const result = await payload.find({
+      collection: "posts",
+      where: { slug: { equals: slug }, _status: { equals: "published" } },
+      limit: 1,
+    });
+
+    const doc = result.docs[0];
+    if (!doc) return null;
+
+    // The new fields (heroUrl, excerpt, displayCategory, displayAuthor)
+    // won't appear in payload-types.ts until generate:types runs against
+    // the migrated DB, so we read off a loose record cast.
+    const d = doc as unknown as Record<string, unknown>;
+    const title = typeof d.title === "string" ? d.title : "";
+    const slugVal = typeof d.slug === "string" ? d.slug : slug;
+    const heroUrl = typeof d.heroUrl === "string" ? d.heroUrl : "";
+    const excerpt = typeof d.excerpt === "string" ? d.excerpt : "";
+    const displayCategory =
+      typeof d.displayCategory === "string" ? d.displayCategory : "";
+    const displayAuthor =
+      typeof d.displayAuthor === "string" ? d.displayAuthor : "";
+
+    const relatedCategory = Array.isArray(d.categories)
+      ? (d.categories as Array<Record<string, unknown>>).find(
+          (c) => typeof c === "object" && c !== null && typeof c.title === "string",
+        )
+      : null;
+    const populatedAuthor = Array.isArray(d.populatedAuthors)
+      ? (d.populatedAuthors[0] as Record<string, unknown> | undefined)
+      : null;
+
+    const lexicalContent =
+      d.content && typeof d.content === "object"
+        ? (d.content as Record<string, unknown>)
+        : { root: { children: [] } };
+
+    return {
+      source: "payload",
+      slug: slugVal,
+      title,
+      hero: heroUrl || "/images/blog/placeholder.jpg",
+      excerpt,
+      dateLabel: dateLabelFromIso(
+        typeof d.publishedAt === "string" ? d.publishedAt : null,
+      ),
+      category:
+        displayCategory ||
+        (relatedCategory && typeof relatedCategory.title === "string"
+          ? relatedCategory.title
+          : ""),
+      author:
+        displayAuthor ||
+        (populatedAuthor && typeof populatedAuthor.name === "string"
+          ? populatedAuthor.name
+          : ""),
+      content: { kind: "lexical", data: lexicalContent },
+    };
+  } catch (err) {
+    console.warn(`[/blog/${slug}] Payload query failed:`, err);
+    return null;
+  }
+}
+
+async function resolvePost(slug: string): Promise<ResolvedPost | null> {
+  const fromDb = await findInPayload(slug);
+  if (fromDb) return fromDb;
+  const legacy = getPostBySlug(slug);
+  return legacy ? fromLib(legacy) : null;
+}
+
+export async function generateStaticParams() {
+  // Union slug list: Payload (if reachable) ∪ BLOG_POSTS (legacy).
+  // Wrapped so a Neon outage at build time doesn't fail the entire build.
+  let payloadSlugs: string[] = [];
+  try {
+    const payload = await getPayload({ config: configPromise });
+    const result = await payload.find({
+      collection: "posts",
+      limit: 1000,
+      select: { slug: true },
+      where: { _status: { equals: "published" } },
+    });
+    payloadSlugs = result.docs
+      .map((d) => (typeof d.slug === "string" ? d.slug : null))
+      .filter((s): s is string => Boolean(s));
+  } catch (err) {
+    console.warn("[/blog/[slug]] generateStaticParams Payload query failed:", err);
+  }
+
+  const set = new Set<string>([
+    ...payloadSlugs,
+    ...BLOG_POSTS.map((p) => p.slug),
+  ]);
+  return Array.from(set).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> },
 ) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await resolvePost(slug);
   if (!post) return { title: "Post Not Found - Bloom" };
   return {
     title: `${post.title} - Bloom`,
@@ -26,7 +174,7 @@ export default async function BlogPostPage(
   { params }: { params: Promise<{ slug: string }> },
 ) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await resolvePost(slug);
   if (!post) notFound();
 
   const related = BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 3);
@@ -39,18 +187,22 @@ export default async function BlogPostPage(
           {/* Hero: image right, headline left */}
           <header className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:gap-16">
             <div className="flex flex-col gap-5">
-              <span className="text-[12px] font-bold uppercase tracking-[0.18em] text-bloom-orange">
-                {post.category}
-              </span>
+              {post.category ? (
+                <span className="text-[12px] font-bold uppercase tracking-[0.18em] text-bloom-orange">
+                  {post.category}
+                </span>
+              ) : null}
               <h1 className="text-[32px] font-bold leading-[1.15] tracking-tight text-bloom-navy md:text-[44px] md:leading-[1.1]">
                 {post.title}
               </h1>
-              <p className="text-[16px] leading-[24px] text-bloom-navy md:text-[18px] md:leading-[28px]">
-                {post.excerpt}
-              </p>
+              {post.excerpt ? (
+                <p className="text-[16px] leading-[24px] text-bloom-navy md:text-[18px] md:leading-[28px]">
+                  {post.excerpt}
+                </p>
+              ) : null}
               <div className="flex flex-col gap-1 text-[14px] text-bloom-muted">
-                <span>{post.dateLabel}</span>
-                <span>By {post.author}</span>
+                {post.dateLabel ? <span>{post.dateLabel}</span> : null}
+                {post.author ? <span>By {post.author}</span> : null}
               </div>
             </div>
             <div className="relative aspect-[16/9] w-full overflow-hidden rounded-md ring-1 ring-bloom-navy/10">
@@ -66,61 +218,72 @@ export default async function BlogPostPage(
           </header>
 
           {/* Body */}
-          <div className="mx-auto mt-16 max-w-[720px]">
-            {post.body.map((block, i) => {
-              if (block.type === "h3") {
-                return (
-                  <h3
-                    key={i}
-                    className="mt-12 mb-4 text-[24px] font-bold leading-[30px] text-bloom-navy"
-                  >
-                    {block.text}
-                  </h3>
-                );
-              }
-              if (block.type === "p") {
-                return (
-                  <p
-                    key={i}
-                    className="mt-4 text-[16px] leading-[26px] text-bloom-navy md:text-[17px] md:leading-[28px]"
-                  >
-                    {block.text}
-                  </p>
-                );
-              }
-              if (block.type === "ul") {
-                return (
-                  <ul key={i} className="mt-4 space-y-2">
-                    {block.items.map((item, j) => (
-                      <li
-                        key={j}
-                        className="relative pl-6 text-[16px] leading-[26px] text-bloom-navy md:text-[17px] md:leading-[28px]"
-                      >
-                        <span className="absolute left-0 top-[10px] h-1.5 w-1.5 rounded-full bg-bloom-orange" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                );
-              }
-              if (block.type === "linkButton") {
-                return (
-                  <div key={i} className="mt-10 flex justify-center">
-                    <Link
-                      href={block.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-2 rounded-md bg-bloom-orange px-7 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-bloom-cream transition-opacity duration-200 hover:opacity-90 focus-visible:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bloom-orange focus-visible:ring-offset-2 focus-visible:ring-offset-bloom-cream"
+          {post.content.kind === "lexical" ? (
+            <div className="mx-auto mt-16 max-w-[720px]">
+              <RichText
+                content={post.content.data}
+                enableGutter={false}
+                enableProse
+                className="prose-headings:text-bloom-navy prose-p:text-bloom-navy prose-li:text-bloom-navy prose-strong:text-bloom-navy prose-a:text-bloom-orange"
+              />
+            </div>
+          ) : (
+            <div className="mx-auto mt-16 max-w-[720px]">
+              {post.content.data.map((block, i) => {
+                if (block.type === "h3") {
+                  return (
+                    <h3
+                      key={i}
+                      className="mt-12 mb-4 text-[24px] font-bold leading-[30px] text-bloom-navy"
                     >
                       {block.text}
-                      <ArrowRightIcon className="h-4 w-4" />
-                    </Link>
-                  </div>
-                );
-              }
-              return null;
-            })}
-          </div>
+                    </h3>
+                  );
+                }
+                if (block.type === "p") {
+                  return (
+                    <p
+                      key={i}
+                      className="mt-4 text-[16px] leading-[26px] text-bloom-navy md:text-[17px] md:leading-[28px]"
+                    >
+                      {block.text}
+                    </p>
+                  );
+                }
+                if (block.type === "ul") {
+                  return (
+                    <ul key={i} className="mt-4 space-y-2">
+                      {block.items.map((item, j) => (
+                        <li
+                          key={j}
+                          className="relative pl-6 text-[16px] leading-[26px] text-bloom-navy md:text-[17px] md:leading-[28px]"
+                        >
+                          <span className="absolute left-0 top-[10px] h-1.5 w-1.5 rounded-full bg-bloom-orange" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  );
+                }
+                if (block.type === "linkButton") {
+                  return (
+                    <div key={i} className="mt-10 flex justify-center">
+                      <Link
+                        href={block.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2 rounded-md bg-bloom-orange px-7 py-3 text-[13px] font-bold uppercase tracking-[0.12em] text-bloom-cream transition-opacity duration-200 hover:opacity-90 focus-visible:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bloom-orange focus-visible:ring-offset-2 focus-visible:ring-offset-bloom-cream"
+                      >
+                        {block.text}
+                        <ArrowRightIcon className="h-4 w-4" />
+                      </Link>
+                    </div>
+                  );
+                }
+                return null;
+              })}
+            </div>
+          )}
 
           {/* Related */}
           <section className="mt-24">

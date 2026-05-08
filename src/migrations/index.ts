@@ -3,6 +3,7 @@ import * as migration_20241214_124128 from './20241214_124128';
 import * as migration_20260222_003500_payload_3_77_compat from './20260222_003500_payload_3_77_compat';
 import * as migration_20260403_173231 from './20260403_173231';
 import * as migration_20260404_012349_add_guides_collection from './20260404_012349_add_guides_collection';
+import * as migration_20260508_120000_blog_posts_editable from './20260508_120000_blog_posts_editable';
 
 export const migrations = [
   {
@@ -31,5 +32,8 @@ export const migrations = [
     name: '20260404_012349_add_guides_collection',
   },
   {
+    up: migration_20260508_120000_blog_posts_editable.up,
+    down: migration_20260508_120000_blog_posts_editable.down,
+    name: '20260508_120000_blog_posts_editable',
   },
 ];
