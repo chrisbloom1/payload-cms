@@ -324,20 +324,27 @@
     .hero-fade-in { animation: none; }
   }
 
-  /* Logo marquee — infinite horizontal scroll. The track contains two
-     copies of the logo list end-to-end, so animating translateX from
-     0 to -50% produces a seamless loop. Slow enough to feel ambient
-     (~40s for one cycle). */
-  @keyframes hero-marquee {
+  /* Logo marquees — two rows, opposite directions. Each track holds
+     two copies of its logo list end-to-end so translating by 50%
+     produces a seamless loop. Speed is tuned to the live
+     bloomnetwork.ai (~20px/s) — measured by sampling img position. */
+  @keyframes hero-marquee-left {
     from { transform: translateX(0); }
     to   { transform: translateX(-50%); }
   }
-  .hero-marquee {
-    animation: hero-marquee 45s linear infinite;
+  @keyframes hero-marquee-right {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+  }
+  .hero-marquee-left,
+  .hero-marquee-right {
     will-change: transform;
   }
+  .hero-marquee-left { animation: hero-marquee-left 90s linear infinite; }
+  .hero-marquee-right { animation: hero-marquee-right 120s linear infinite; }
   @media (prefers-reduced-motion: reduce) {
-    .hero-marquee { animation: none; }
+    .hero-marquee-left,
+    .hero-marquee-right { animation: none; }
   }
 }
 
