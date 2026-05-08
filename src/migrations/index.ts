@@ -11,6 +11,7 @@ import * as migration_20260508_150000_brands_providers_globals from './20260508_
 import * as migration_20260508_160000_testimonials_and_faqs from './20260508_160000_testimonials_and_faqs';
 import * as migration_20260508_170000_company_team from './20260508_170000_company_team';
 import * as migration_20260508_180000_contact_page from './20260508_180000_contact_page';
+import * as migration_20260508_190000_fix_marketing_faqs_surfaces from './20260508_190000_fix_marketing_faqs_surfaces';
 
 export const migrations = [
   {
@@ -77,5 +78,10 @@ export const migrations = [
     up: migration_20260508_180000_contact_page.up,
     down: migration_20260508_180000_contact_page.down,
     name: '20260508_180000_contact_page',
+  },
+  {
+    up: migration_20260508_190000_fix_marketing_faqs_surfaces.up,
+    down: migration_20260508_190000_fix_marketing_faqs_surfaces.down,
+    name: '20260508_190000_fix_marketing_faqs_surfaces',
   },
 ];
