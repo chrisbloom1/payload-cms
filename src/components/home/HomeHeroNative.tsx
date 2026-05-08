@@ -268,7 +268,7 @@ export function HomeHeroNative() {
               loading="lazy"
               decoding="async"
               unoptimized
-              className="h-9 w-auto opacity-80 sm:h-10 lg:h-11"
+              className="h-12 max-w-[100px] flex-shrink-0 object-contain opacity-80 sm:h-14 sm:max-w-[110px]"
               draggable={false}
             />
           ))}
@@ -284,7 +284,7 @@ export function HomeHeroNative() {
               loading="lazy"
               decoding="async"
               unoptimized
-              className="h-9 w-auto opacity-80 sm:h-10 lg:h-11"
+              className="h-12 max-w-[100px] flex-shrink-0 object-contain opacity-80 sm:h-14 sm:max-w-[110px]"
               draggable={false}
             />
           ))}
