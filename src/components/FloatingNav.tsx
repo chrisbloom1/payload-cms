@@ -70,17 +70,22 @@ export function FloatingNav() {
         <Link
           href="/"
           aria-label="Bloom — home"
+          prefetch={false}
           className="flex items-center"
         >
           <BloomWordmark className="h-7 w-auto" />
         </Link>
 
-        {/* Desktop nav links */}
+        {/* Desktop nav links — prefetch=false because Next.js otherwise
+            fires an RSC prefetch for every visible Link, which adds
+            several wasted requests during page load (and counts against
+            Lighthouse's TBT). Hover-prefetch still works. */}
         <ul className="hidden items-center gap-4 min-[724px]:flex">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
               <Link
                 href={link.href}
+                prefetch={false}
                 className={cn(
                   "block px-2 py-1 text-[18px] font-extrabold leading-[1.2]",
                   "tracking-[0.01em] text-bloom-navy whitespace-pre",
@@ -157,6 +162,7 @@ export function FloatingNav() {
             <Link
               href="/"
               aria-label="Bloom — home"
+              prefetch={false}
               className="flex items-center"
               onClick={closeMobile}
             >
@@ -182,6 +188,7 @@ export function FloatingNav() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
+                    prefetch={false}
                     onClick={closeMobile}
                     className={cn(
                       "block text-[24px] font-extrabold leading-[1.2]",

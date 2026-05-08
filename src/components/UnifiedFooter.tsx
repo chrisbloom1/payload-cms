@@ -56,6 +56,7 @@ function FooterLinkGroup({ heading, links }: { heading: string; links: readonly 
             ) : (
               <Link
                 href={link.href}
+                prefetch={false}
                 className="text-[14px] text-bloom-navy/80 transition-colors hover:text-bloom-navy"
               >
                 {link.label}
@@ -114,6 +115,7 @@ export function UnifiedFooter({ className }: { className?: string }) {
           <div className="flex items-center gap-6">
             <Link
               href="/privacy"
+              prefetch={false}
               className="text-[12px] text-bloom-navy/70 transition-colors hover:text-bloom-navy"
             >
               Privacy
