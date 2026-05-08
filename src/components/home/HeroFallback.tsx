@@ -18,7 +18,7 @@ export function HeroFallback() {
       <div className="flex w-full max-w-[1128px] flex-col items-center gap-8 sm:gap-10 lg:gap-12">
         <div className="flex w-full flex-col items-center gap-4 sm:gap-6">
           <h1
-            className="text-balance text-[32px] font-bold leading-tight text-bloom-navy sm:text-[40px] lg:text-[48px]"
+            className="text-balance text-[36px] font-bold leading-tight text-bloom-navy sm:text-[44px] lg:text-[48px]"
             style={{
               fontFamily:
                 '"Haffer Bold", "Haffer Bold Placeholder", "Haffer Fallback", sans-serif',
