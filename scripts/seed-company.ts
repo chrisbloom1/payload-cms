@@ -8,7 +8,7 @@
  */
 import { getPayload } from 'payload'
 import config from '../src/payload.config'
-import { TEAM } from '../src/components/company/TeamGrid'
+import { TEAM } from '../src/data/team'
 import { COMPANY_DEFAULTS } from '../src/lib/company-page-resolver'
 
 type LexicalNode = Record<string, unknown>

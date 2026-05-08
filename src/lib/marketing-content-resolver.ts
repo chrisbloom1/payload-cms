@@ -1,6 +1,10 @@
+import 'server-only'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import { TESTIMONIALS } from '@/components/widgets/TestimonialCarousel'
+// Import data from the pure data files (NOT the "use client" widgets,
+// which Turbopack tree-shakes out of the server bundle, leaving the
+// imports as undefined at runtime).
+import { TESTIMONIALS } from '@/data/testimonials'
 import { BLOOM_FAQ } from '@/data/faq'
 import type { Testimonial } from '@/types/bloom'
 import type { FaqItem } from '@/components/widgets/FaqAccordion'

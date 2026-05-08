@@ -1,6 +1,10 @@
+import 'server-only'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import { TEAM, type TeamMember } from '@/components/company/TeamGrid'
+// Import TEAM from the data file (NOT TeamGrid.tsx, which is
+// "use client" — Turbopack tree-shakes the const out of the server
+// chunk and the import resolves to undefined at runtime).
+import { TEAM, type TeamMember } from '@/data/team'
 
 export interface ResourceCard {
   title: string

@@ -9,7 +9,7 @@
  */
 import { getPayload } from 'payload'
 import config from '../src/payload.config'
-import { TESTIMONIALS } from '../src/components/widgets/TestimonialCarousel'
+import { TESTIMONIALS } from '../src/data/testimonials'
 import { BLOOM_FAQ } from '../src/data/faq'
 
 type LexicalNode = Record<string, unknown>
