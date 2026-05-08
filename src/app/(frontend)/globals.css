@@ -505,13 +505,26 @@ html[data-theme='light'] {
 
 /* ----- Framer-widget accessibility overrides --------------------------- */
 /* Mockupterms is the cycling payment-terms widget (.framer-iRkKX) used in
-   the Pay section on / and /brands. Its source paints muted "Delivery"
-   labels via the Framer Light Grey token rgb(119, 111, 143), which
-   Lighthouse measures at ~3.27:1 contrast on the white card background
-   (fails WCAG AA 4.5:1). The widget is a Framer export so we can't change
-   the source directly; redefine the token at the widget root so the cascade
-   substitutes a darker value. rgb(60, 52, 80) keeps the muted feel and
-   clears 4.5:1 even after any inherited opacity. */
+   the Pay section on / and /brands. The Framer source has two contrast
+   problems on the white card background:
+
+   1. Muted "Delivery / Net X" labels paint via the Framer Light Grey
+      token rgb(119, 111, 143) (~3.27:1 on white, fails 4.5:1). Token
+      override below substitutes a darker shade.
+   2. Inactive rows in the cycling animation get inline `opacity: 0.5`
+      from the runtime, which blends ANY foreground color halfway to
+      white — making 4.5:1 mathematically impossible regardless of the
+      source color. Bumping the opacity to 0.7 still reads as
+      "inactive / dimmed" visually but lets dark navy text clear ~5:1
+      on the blend.
+
+   The widget is a Framer export so we can't change the source
+   directly; everything below uses high-specificity overrides. */
 .framer-iRkKX {
   --token-6fd3de1e-1b13-4bd5-b721-6a4a53348221: rgb(60, 52, 80);
+}
+/* Targets only the inactive cycling rows (the runtime sets inline
+   opacity: 0.5 on those). Active row keeps its inherent opacity 1. */
+.framer-iRkKX [style*="opacity: 0.5"] {
+  opacity: 0.7 !important;
 }
