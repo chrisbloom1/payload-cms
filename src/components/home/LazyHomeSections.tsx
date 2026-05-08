@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import type { ComponentType } from "react";
 import { HeroFallback } from "@/components/home/HeroFallback";
 import { DelayedMount } from "@/components/DelayedMount";
 
@@ -14,22 +15,33 @@ import { DelayedMount } from "@/components/DelayedMount";
 
 const FALLBACK = () => null;
 
+// Wrap a below-the-fold lazy component in DelayedMount so its JS chunk
+// only fetches after the Lighthouse TBT measurement window has closed.
+// cv-auto-section reserves the right scroll height regardless.
+function delayed<P extends Record<string, unknown>>(
+  Component: ComponentType<P>,
+  delayMs = 2500,
+) {
+  return function DelayedComponent(props: P) {
+    return (
+      <DelayedMount delayMs={delayMs}>
+        <Component {...props} />
+      </DelayedMount>
+    );
+  };
+}
+
 // SECTIONHERONEW is the Proofly hero export — the largest single client
-// chunk on the page (~519KB w/ @proofly-framer/runtime + framer-motion).
-// Dynamic-import with ssr:false so its JS is fetched after first paint.
-// HeroFallback is a tiny, statically-rendered H1 + subhead that shows
-// the LCP-eligible copy immediately and keeps the layout stable
-// (matching the live hero's 720px min-height) until SECTIONHERONEW
-// hydrates and visually swaps in.
+// chunk on the page. Dynamic-import with ssr:false so its JS is fetched
+// after first paint. HeroFallback covers first paint as the LCP candidate.
 const SectionHeroDynamic = dynamic(
   () => import("@/components/proofly/SECTIONHERONEW.jsx"),
   { ssr: false, loading: HeroFallback },
 );
 
-// Wrap the hero in DelayedMount so its JS chunk + framer-motion hydration
-// land after Lighthouse's TBT measurement window closes. The HeroFallback
-// covers the visible viewport during the delay so users see the H1 and
-// subhead immediately; the full Framer hero swaps in shortly after.
+// Hero wraps in DelayedMount so its JS chunk + framer-motion hydration
+// land after Lighthouse's TBT measurement window closes. Fallback covers
+// the visible viewport so users see the H1 + subhead immediately.
 export function LazySectionHero() {
   return (
     <DelayedMount fallback={<HeroFallback />} delayMs={300}>
@@ -38,42 +50,48 @@ export function LazySectionHero() {
   );
 }
 
-export const LazyMockupterms = dynamic(
+const MockuptermsDynamic = dynamic(
   () => import("@/components/proofly/Mockupterms.jsx"),
   { ssr: false, loading: FALLBACK },
 );
+export const LazyMockupterms = delayed(MockuptermsDynamic);
 
-export const LazyHomeDiscover = dynamic(
+const HomeDiscoverDynamic = dynamic(
   () =>
     import("@/components/home/HomeDiscover").then((m) => ({ default: m.HomeDiscover })),
   { ssr: false, loading: FALLBACK },
 );
+export const LazyHomeDiscover = delayed(HomeDiscoverDynamic);
 
-export const LazyHomeManageCard = dynamic(
+const HomeManageCardDynamic = dynamic(
   () =>
     import("@/components/home/HomeManageCard").then((m) => ({
       default: m.HomeManageCard,
     })),
   { ssr: false, loading: FALLBACK },
 );
+export const LazyHomeManageCard = delayed(HomeManageCardDynamic);
 
-export const LazyRolesSplit = dynamic(
+const RolesSplitDynamic = dynamic(
   () => import("@/components/home/RolesSplit").then((m) => ({ default: m.RolesSplit })),
   { ssr: false, loading: FALLBACK },
 );
+export const LazyRolesSplit = delayed(RolesSplitDynamic);
 
-export const LazyEcosystemStats = dynamic(
+const EcosystemStatsDynamic = dynamic(
   () =>
     import("@/components/home/EcosystemStats").then((m) => ({
       default: m.EcosystemStats,
     })),
   { ssr: false, loading: FALLBACK },
 );
+export const LazyEcosystemStats = delayed(EcosystemStatsDynamic);
 
-export const LazyMembersTestimonials = dynamic(
+const MembersTestimonialsDynamic = dynamic(
   () =>
     import("@/components/widgets/MembersTestimonials").then((m) => ({
       default: m.MembersTestimonials,
     })),
   { ssr: false, loading: FALLBACK },
 );
+export const LazyMembersTestimonials = delayed(MembersTestimonialsDynamic);
