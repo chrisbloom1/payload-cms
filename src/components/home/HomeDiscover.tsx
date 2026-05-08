@@ -1,6 +1,6 @@
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import Animationweb from "@/components/proofly/Animationweb.jsx";
-import { HOME_DEFAULTS } from "@/lib/home-page-resolver";
+import { HOME_DEFAULTS } from "@/lib/home-page-defaults";
 
 export interface HomeDiscoverProps {
   heading?: string;

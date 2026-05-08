@@ -1,7 +1,7 @@
 "use client";
 
 import { LazyOnDemand } from "@/components/LazyOnDemand";
-import type { HomeStat } from "@/lib/home-page-resolver";
+import type { HomeStat } from "@/lib/home-page-defaults";
 import type { Testimonial } from "@/types/bloom";
 
 // Below-the-fold sections use LazyOnDemand (true on-demand import)

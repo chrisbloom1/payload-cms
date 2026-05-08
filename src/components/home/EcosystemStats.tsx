@@ -6,7 +6,7 @@ import {
   HOME_DEFAULTS,
   type HomeStat,
   type StatLabelColor,
-} from "@/lib/home-page-resolver";
+} from "@/lib/home-page-defaults";
 
 const LABEL_COLOR_CLASS: Record<StatLabelColor, string> = {
   orange: "text-[#FF9800]",

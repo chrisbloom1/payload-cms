@@ -1,6 +1,6 @@
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import Animationtree from "@/components/proofly/Animationtree.jsx";
-import { HOME_DEFAULTS } from "@/lib/home-page-resolver";
+import { HOME_DEFAULTS } from "@/lib/home-page-defaults";
 
 export interface HomeManageCardProps {
   heading?: string;

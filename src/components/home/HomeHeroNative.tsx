@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import { HOME_DEFAULTS, type HomeLogo } from "@/lib/home-page-resolver";
+import { HOME_DEFAULTS, type HomeLogo } from "@/lib/home-page-defaults";
 
 // Where the chat card sends users when they submit their prompt.
 // Mirrors the original Proofly hero's handleSend behavior — opens
