@@ -18,6 +18,7 @@ export const metadata = {
   title: "Company — Bloom",
   description:
     "Bloom brings hard tech brands into an operations ecosystem that nurtures every stage of their product's growth.",
+  alternates: { canonical: "/company" },
 };
 
 // ---------------------------------------------------------------------------
@@ -92,9 +93,9 @@ export default async function CompanyPage() {
 
           {/* Ecosystem statement ---------------------------------------- */}
           <RevealOnScroll as="section" className="mb-20 max-w-4xl">
-            <h1 className="text-[44px] font-bold leading-[1.08] tracking-tight text-bloom-navy md:text-[56px]">
+            <h2 className="text-[44px] font-bold leading-[1.08] tracking-tight text-bloom-navy md:text-[56px]">
               {content.ecosystem.heading}
-            </h1>
+            </h2>
             <div className="mt-6 space-y-5 text-lg leading-relaxed text-bloom-muted">
               {content.ecosystem.paragraphs.map((p, i) => (
                 <p key={i}>{p}</p>

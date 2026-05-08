@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { FloatingNav } from "@/components/FloatingNav";
 import { UnifiedFooter } from "@/components/UnifiedFooter";
@@ -22,6 +23,13 @@ import {
   loadMarketingFaqs,
   loadTestimonials,
 } from "@/lib/marketing-content-resolver";
+
+export const metadata: Metadata = {
+  title: "For Brands — Bloom",
+  description:
+    "The supply chain platform purpose-built for hardware brands. Get matched with vetted manufacturing, warehousing, assembly, and logistics partners across North America.",
+  alternates: { canonical: "/brands" },
+};
 
 // ---------------------------------------------------------------------------
 // Section components
@@ -149,14 +157,14 @@ function BrandsFramework({ framework }: { framework: BrandsContent["framework"] 
     >
       <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
         <header className="mx-auto max-w-[820px] text-center">
-          <h1
+          <h2
             className={cn(
               "font-bold text-bloom-navy",
               "text-[32px] leading-[36px] sm:text-[40px] sm:leading-[44px] lg:text-[48px] lg:leading-[52px]",
             )}
           >
             {framework.heading}
-          </h1>
+          </h2>
           <p className="mt-5 text-[16px] leading-[26px] text-bloom-navy sm:text-[18px]">
             {framework.body}
           </p>
@@ -176,14 +184,14 @@ function BrandsPricing({ pricing }: { pricing: BrandsContent["pricing"] }) {
     >
       <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
         <header className="mx-auto max-w-[820px] text-center">
-          <h1
+          <h2
             className={cn(
               "font-bold text-bloom-navy",
-              "text-[32px] leading-[36px] sm:text-[40px] sm:leading-[44px] lg:text-[48px] lg:leading-[52px],",
+              "text-[32px] leading-[36px] sm:text-[40px] sm:leading-[44px] lg:text-[48px] lg:leading-[52px]",
             )}
           >
             {pricing.heading}
-          </h1>
+          </h2>
           {pricing.body ? (
             <RichText
               content={pricing.body}
@@ -322,9 +330,9 @@ export default async function BrandsPage() {
         <section className="w-full bg-bloom-cream py-16 sm:py-20 lg:py-24">
           <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-16">
-              <h1 className="text-[36px] font-bold leading-[1.1] tracking-tight text-bloom-navy md:text-[48px]">
+              <h2 className="text-[36px] font-bold leading-[1.1] tracking-tight text-bloom-navy md:text-[48px]">
                 {content.faqHeading}
-              </h1>
+              </h2>
               <div className="w-full">
                 <FaqAccordion items={faqs} />
               </div>

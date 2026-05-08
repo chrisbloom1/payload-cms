@@ -11,6 +11,7 @@ export const metadata = {
   title: "News - Bloom",
   description:
     "The latest developments at Bloom. From new partnerships to industry insights, this is your go-to source for all things Bloom.",
+  alternates: { canonical: "/blog" },
 };
 
 interface IndexCard {

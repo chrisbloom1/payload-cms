@@ -12,6 +12,13 @@ import {
   type ResolvedStoryCard,
 } from "@/lib/customer-story-resolver";
 
+export const metadata = {
+  title: "Customer Stories — Bloom",
+  description:
+    "How hardware brands like Infinite Machine, Grounded, Birdstop, Maeving, and more scaled with Bloom's network of vetted manufacturing, warehousing, and logistics partners.",
+  alternates: { canonical: "/customer-stories" },
+};
+
 const THEME_STYLES: Record<
   CardTheme,
   { bg: string; text: string; arrow: string; logoTheme: "light" | "dark" }

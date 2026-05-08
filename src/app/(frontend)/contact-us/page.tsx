@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   title: "Contact us | Bloom",
   description:
     "If you're a hardware brand or service provider interested in joining our platform, or if you just have questions, we'd love to hear from you!",
+  alternates: { canonical: "/contact-us" },
 };
 
 function ContactHero({ hero }: { hero: ContactContent["hero"] }) {
