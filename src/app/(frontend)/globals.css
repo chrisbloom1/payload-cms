@@ -502,3 +502,16 @@ html[data-theme='dark'],
 html[data-theme='light'] {
   opacity: initial;
 }
+
+/* ----- Framer-widget accessibility overrides --------------------------- */
+/* Mockupterms is the cycling payment-terms widget (.framer-iRkKX) used in
+   the Pay section on / and /brands. Its source paints muted "Delivery"
+   labels via the Framer Light Grey token rgb(119, 111, 143), which
+   Lighthouse measures at ~3.27:1 contrast on the white card background
+   (fails WCAG AA 4.5:1). The widget is a Framer export so we can't change
+   the source directly; redefine the token at the widget root so the cascade
+   substitutes a darker value. rgb(60, 52, 80) keeps the muted feel and
+   clears 4.5:1 even after any inherited opacity. */
+.framer-iRkKX {
+  --token-6fd3de1e-1b13-4bd5-b721-6a4a53348221: rgb(60, 52, 80);
+}
