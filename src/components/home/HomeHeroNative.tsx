@@ -1,7 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
+
+// Where the chat card sends users when they submit their prompt.
+// Mirrors the original Proofly hero's handleSend behavior — opens
+// `?prefill=<encoded>` on the marketplace request flow in a new tab.
+// Override at runtime by appending ?vchaturl=<...> to the page URL.
+const DEFAULT_CHAT_URL = "https://app.bloomnetwork.ai/marketplace/request/new";
 
 /**
  * Hand-rolled hero, replacing the Proofly/Framer SECTIONHERONEW export.
@@ -62,6 +68,35 @@ const LOGOS: ReadonlyArray<{
 export function HomeHeroNative() {
   const [wordIndex, setWordIndex] = useState(0);
   const [visible, setVisible] = useState(true);
+  const [chatValue, setChatValue] = useState("");
+
+  const handleChatSend = useCallback(() => {
+    const value = chatValue.trim();
+    if (!value) return;
+    let baseUrl = DEFAULT_CHAT_URL;
+    try {
+      if (typeof window !== "undefined" && typeof URLSearchParams !== "undefined") {
+        const urlParams = new URLSearchParams(window.location.search);
+        const override = urlParams.get("vchaturl");
+        if (override) baseUrl = override;
+      }
+    } catch {
+      // Fallback to default base URL if URL param parsing fails.
+    }
+    const sep = baseUrl.includes("?") ? "&" : "?";
+    const finalUrl = `${baseUrl}${sep}prefill=${encodeURIComponent(value)}`;
+    if (typeof window !== "undefined") window.open(finalUrl, "_blank");
+  }, [chatValue]);
+
+  const handleChatKeyDown = useCallback(
+    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        handleChatSend();
+      }
+    },
+    [handleChatSend],
+  );
 
   useEffect(() => {
     let cancelled = false;
@@ -138,23 +173,41 @@ export function HomeHeroNative() {
           </p>
         </div>
 
-        {/* Chat card mockup */}
-        <div className="hero-fade-in mt-10 w-full max-w-[600px] sm:mt-12 lg:mt-14" style={{ animationDelay: "120ms" }}>
+        {/* Chat card — interactive textarea + Chat now CTA. Submit
+            (button click or Enter without Shift) opens the marketplace
+            request flow with the prompt prefilled, in a new tab. */}
+        <form
+          className="hero-fade-in mt-10 w-full max-w-[600px] sm:mt-12 lg:mt-14"
+          style={{ animationDelay: "120ms" }}
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleChatSend();
+          }}
+        >
           <div
-            className="relative rounded-md bg-bloom-mint-soft px-4 pt-4 pb-14 text-left text-bloom-navy/60 ring-1 ring-bloom-navy/10 sm:px-5 sm:pt-5 sm:pb-16"
-            style={{
-              fontFamily:
-                '"Haffer Regular", "Haffer Fallback", sans-serif',
-            }}
+            className="relative rounded-md bg-bloom-mint-soft ring-1 ring-bloom-navy/10 focus-within:ring-bloom-navy/30 transition-shadow"
           >
-            <span className="block text-[15px] sm:text-[16px]">
+            <label htmlFor="hero-chat" className="sr-only">
               Describe your product&rsquo;s supply chain needs
-            </span>
+            </label>
+            <textarea
+              id="hero-chat"
+              value={chatValue}
+              onChange={(e) => setChatValue(e.target.value)}
+              onKeyDown={handleChatKeyDown}
+              placeholder="Describe your product's supply chain needs"
+              rows={3}
+              className="block w-full resize-none rounded-md bg-transparent px-4 pt-4 pb-14 text-left text-[15px] leading-[1.45] text-bloom-navy outline-none placeholder:text-bloom-navy/55 sm:px-5 sm:pt-5 sm:pb-16 sm:text-[16px]"
+              style={{
+                fontFamily:
+                  '"Haffer Regular", "Haffer Fallback", sans-serif',
+              }}
+            />
             <button
-              type="button"
-              disabled
-              aria-label="Chat now (preview)"
-              className="bg-bloom-cta absolute right-3 bottom-3 inline-flex items-center justify-center rounded-md px-4 py-2 text-[14px] font-semibold text-white sm:right-4 sm:bottom-4 sm:text-[15px]"
+              type="submit"
+              disabled={!chatValue.trim()}
+              aria-label="Send chat prompt"
+              className="bg-bloom-cta absolute right-3 bottom-3 inline-flex items-center justify-center rounded-md px-4 py-2 text-[14px] font-semibold text-white shadow-sm transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 sm:right-4 sm:bottom-4 sm:text-[15px]"
               style={{
                 fontFamily:
                   '"Haffer Bold", "Haffer Bold Placeholder", "Haffer Fallback", sans-serif',
@@ -166,6 +219,7 @@ export function HomeHeroNative() {
           </div>
           <div className="-mt-3 flex justify-center">
             <span
+              aria-hidden="true"
               className="inline-flex items-center justify-center rounded-full bg-bloom-navy px-3.5 py-1 text-[12px] font-semibold text-bloom-cream sm:text-[13px]"
               style={{
                 fontFamily:
@@ -175,7 +229,7 @@ export function HomeHeroNative() {
               Start for free now!
             </span>
           </div>
-        </div>
+        </form>
 
         <p
           className="hero-fade-in mt-10 max-w-[920px] text-balance text-[17px] leading-[1.45] text-bloom-navy/85 sm:mt-14 sm:text-[20px] lg:text-[22px]"
