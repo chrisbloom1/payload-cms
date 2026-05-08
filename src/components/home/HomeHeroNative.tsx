@@ -208,7 +208,7 @@ export function HomeHeroNative() {
             <button
               type="submit"
               disabled={!chatValue.trim()}
-              aria-label="Send chat prompt"
+              aria-label="Chat now"
               className="bg-bloom-cta absolute right-3 bottom-3 inline-flex items-center justify-center rounded-md px-4 py-2 text-[14px] font-semibold text-white shadow-sm transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 sm:right-4 sm:bottom-4 sm:text-[15px]"
               style={{
                 fontFamily:
