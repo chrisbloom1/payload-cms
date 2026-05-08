@@ -1,0 +1,36 @@
+# Bloom
+
+> Bloom is the supply-chain platform for hardware companies. We connect brands building physical products (mobility, energy, robotics, electronics) with a vetted network of manufacturing, warehousing, assembly, and logistics providers — and let them discover, bid, book, pay, and manage all of it from one place.
+
+## What Bloom does
+
+- **Marketplace** — brands describe a product's supply-chain needs once and Bloom matches them with operations partners (manufacturing, assembly, warehousing, after-sales, component sourcing, delivery) that have been pre-vetted for fit.
+- **BloomPay** — pay vendors from a single account with extended payment terms (Net 15 → Net 120). Brands can change payment terms per invoice and get visibility on cashflow impact before committing.
+- **Operations platform** — message partners, manage RFQs, track shipments, and oversee fulfillment across multiple providers in one workspace.
+
+## Audience
+
+- **For Brands** — hardware companies in mobility, energy, robotics, and adjacent industries that want to scale faster, reduce lead times, and lower fulfillment costs.
+- **For Providers** — manufacturers, warehouses, and logistics operators who want a steady stream of pre-qualified RFQs from vetted brand customers.
+
+## Key URLs
+
+- Home: https://www.bloomnetwork.ai/
+- For Brands: https://www.bloomnetwork.ai/brands
+- For Providers: https://www.bloomnetwork.ai/providers
+- Customer Stories: https://www.bloomnetwork.ai/customer-stories
+- Knowledge Base: https://www.bloomnetwork.ai/kb
+- Guides: https://www.bloomnetwork.ai/guides
+- Blog: https://www.bloomnetwork.ai/blog
+- Roadmap: https://www.bloomnetwork.ai/roadmap
+- Changelog: https://www.bloomnetwork.ai/changelog
+- Contact: https://www.bloomnetwork.ai/contact-us
+- Privacy: https://www.bloomnetwork.ai/privacy
+- Sign in: https://app.bloomnetwork.ai/sign-in
+- Get started: https://welcome.bloomnetwork.ai/
+
+## Company
+
+Bloom Inc., founded 2024.
+Offices: Detroit, MI (2050 15th St, 48216) and Brooklyn, NY (19 Morris Ave, 10019).
+LinkedIn: https://www.linkedin.com/company/bloomus

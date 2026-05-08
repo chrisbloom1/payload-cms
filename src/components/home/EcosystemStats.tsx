@@ -72,9 +72,9 @@ function StatCard({ target, suffix, label, description, labelColor }: StatCardPr
         <AnimatedStat target={target} suffix={suffix} />
       </div>
       <div className="flex flex-col gap-1">
-        <h5 className={`text-[20px] font-normal capitalize leading-tight md:text-[24px] ${labelColor}`}>
+        <h3 className={`text-[20px] font-normal capitalize leading-tight md:text-[24px] ${labelColor}`}>
           {label}
-        </h5>
+        </h3>
         <span className="text-[14px] leading-[20px] text-bloom-navy/70 md:text-[16px] md:leading-[22px]">
           {description}
         </span>

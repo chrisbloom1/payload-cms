@@ -38,9 +38,9 @@ type LinkItem = { href: string; label: string; external?: boolean }
 function FooterLinkGroup({ heading, links }: { heading: string; links: readonly LinkItem[] }) {
   return (
     <div className="flex flex-col gap-3">
-      <h5 className="text-[12px] font-bold uppercase tracking-[0.08em] text-bloom-navy">
+      <h3 className="text-[12px] font-bold uppercase tracking-[0.08em] text-bloom-navy">
         {heading}
-      </h5>
+      </h3>
       <ul className="flex flex-col gap-2">
         {links.map((link) => (
           <li key={link.href}>
