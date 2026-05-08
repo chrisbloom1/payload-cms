@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 
 /**
  * Lands at the top of /admin. Designed as a "what do I want to edit
@@ -81,33 +81,6 @@ function QuickCard({ label, title, body, href }: QuickCardProps) {
 }
 
 const BeforeDashboard: React.FC = () => {
-  const [seedState, setSeedState] = useState<
-    | { kind: 'idle' }
-    | { kind: 'running' }
-    | { kind: 'done'; created: number; updated: number; errors: number }
-    | { kind: 'error'; message: string }
-  >({ kind: 'idle' })
-
-  async function runSeed() {
-    setSeedState({ kind: 'running' })
-    try {
-      const res = await fetch('/api/seed-content', { method: 'POST' })
-      const data = await res.json()
-      if (data?.summary) {
-        setSeedState({
-          kind: 'done',
-          created: data.summary.created ?? 0,
-          updated: data.summary.updated ?? 0,
-          errors: data.summary.errors ?? 0,
-        })
-      } else {
-        setSeedState({ kind: 'error', message: data?.error ?? 'Unknown error' })
-      }
-    } catch (err: any) {
-      setSeedState({ kind: 'error', message: err?.message ?? String(err) })
-    }
-  }
-
   return (
     <div style={{ marginBottom: '40px' }}>
       <div style={{ marginBottom: '16px' }}>
@@ -119,78 +92,6 @@ const BeforeDashboard: React.FC = () => {
           everything below — open the live page in another tab and your edits
           show up as you type.
         </p>
-
-        {/* One-shot seed action — pulls every editable surface from the
-            in-repo defaults into Payload so the team starts with the
-            current live content already populated. Idempotent: re-running
-            converges back to defaults rather than duplicating. */}
-        <div
-          style={{
-            marginTop: '20px',
-            padding: '16px 18px',
-            border: '1px solid var(--theme-elevation-100)',
-            borderRadius: '8px',
-            background: 'var(--theme-elevation-0)',
-            display: 'flex',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: '14px',
-          }}
-        >
-          <div style={{ flex: '1 1 280px', minWidth: 0 }}>
-            <strong style={{ display: 'block', fontSize: '14px' }}>
-              Populate Payload with live site content
-            </strong>
-            <span style={{ fontSize: '13px', color: 'var(--theme-elevation-600)' }}>
-              Imports every blog post, customer story, testimonial, FAQ,
-              team bio, and page global from what's currently live. Safe
-              to re-run.
-            </span>
-          </div>
-          <button
-            type="button"
-            onClick={runSeed}
-            disabled={seedState.kind === 'running'}
-            style={{
-              flex: '0 0 auto',
-              padding: '8px 16px',
-              borderRadius: '6px',
-              border: 'none',
-              cursor: seedState.kind === 'running' ? 'wait' : 'pointer',
-              background: 'var(--bloom-orange, #ee2737)',
-              color: 'white',
-              fontSize: '13px',
-              fontWeight: 600,
-              letterSpacing: '0.04em',
-              textTransform: 'uppercase',
-              opacity: seedState.kind === 'running' ? 0.7 : 1,
-            }}
-          >
-            {seedState.kind === 'running' ? 'Seeding…' : 'Seed Content'}
-          </button>
-          {seedState.kind === 'done' ? (
-            <div
-              style={{
-                flex: '1 1 100%',
-                fontSize: '13px',
-                color:
-                  seedState.errors > 0
-                    ? 'var(--theme-error-500, #c92a2a)'
-                    : 'var(--theme-success-500, #2b8a3e)',
-              }}
-            >
-              {seedState.errors > 0
-                ? `Done with ${seedState.errors} error(s) — ${seedState.created} created, ${seedState.updated} updated. Check the server logs.`
-                : `✓ ${seedState.created} created, ${seedState.updated} updated. Reload the collection nav to see.`}
-            </div>
-          ) : null}
-          {seedState.kind === 'error' ? (
-            <div style={{ flex: '1 1 100%', fontSize: '13px', color: 'var(--theme-error-500, #c92a2a)' }}>
-              Seed failed: {seedState.message}
-            </div>
-          ) : null}
-        </div>
       </div>
       <div
         style={{

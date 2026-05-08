@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "payload generate:importmap && (npx tsx scripts/payload-pre-migrate.ts && payload migrate --force-accept-warning || echo 'WARN: payload migrate skipped (DB unreachable at build time)') && cross-env NODE_OPTIONS=--no-deprecation next build",
+    "build": "payload generate:importmap && (npx tsx scripts/payload-pre-migrate.ts && payload migrate --force-accept-warning || echo 'WARN: payload migrate skipped (DB unreachable at build time)') && (npx tsx scripts/seed-all-build.ts || echo 'WARN: seed-all skipped (non-fatal)') && cross-env NODE_OPTIONS=--no-deprecation next build",
     "deps:native": "corepack pnpm rebuild sharp esbuild",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
     "dev:prod": "cross-env NODE_OPTIONS=--no-deprecation rm -rf .next && pnpm build && pnpm start",
