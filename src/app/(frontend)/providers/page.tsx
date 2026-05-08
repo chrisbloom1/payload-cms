@@ -12,86 +12,22 @@ import { cn } from "@/lib/utils";
 import { FaqAccordion } from "@/components/widgets/FaqAccordion";
 import { BLOOM_FAQ } from "@/data/faq";
 import { CriteriaCarousel } from "@/components/widgets/CriteriaCarousel";
+import {
+  loadProvidersPage,
+  type ProvidersContent,
+} from "@/lib/providers-page-resolver";
 
-// 8 qualifying criteria pulled from the Stepsslider Framer export so we can
-// render them with the same arrow + faded-edge pattern as MembersTestimonials
-// instead of the variant-driven Framer slider, which had no visible controls.
-const QUALIFYING_CRITERIA = [
-  {
-    label: "Service 01",
-    title: "Core Capabilities",
-    description:
-      "Review of services offered (e.g., warehousing, delivery, assembly) and alignment with Bloom categories.",
-  },
-  {
-    label: "Service 02",
-    title: "Facility & Systems",
-    description:
-      "Assessment of physical site readiness, cleanliness, and use of digital or manual tracking systems.",
-  },
-  {
-    label: "Service 03",
-    title: "Certifications & Compliance",
-    description:
-      "Review of licenses, insurance, safety protocols, and relevant certifications for regulatory alignment.",
-  },
-  {
-    label: "Service 04",
-    title: "Capacity & Lead Times",
-    description:
-      "Evaluation of available capacity, response times, and ability to meet SLAs.",
-  },
-  {
-    label: "Service 05",
-    title: "Customer Experience",
-    description:
-      "Review of responsiveness, communication practices, and service-level consistency.",
-  },
-  {
-    label: "Service 06",
-    title: "Technical Fit",
-    description:
-      "Evaluation of ability to follow work instructions, handle specialized products, and perform QC checks.",
-  },
-  {
-    label: "Service 07",
-    title: "Track Record",
-    description:
-      "Review of previous customer types, volume handled, and relevant industry experience.",
-  },
-  {
-    label: "Service 08",
-    title: "Onboarding & Collaboration",
-    description:
-      "Assessment of willingness to align with SOPs and participate in pilot programs.",
-  },
-];
-
-// Five line-art delivery icons pulled from the live providers hero —
-// (street sweeper, EV charging, cargo van, drone, scooter). Rendered with
-// `currentColor` so the stroke inherits text-bloom-navy from the parent.
-const HERO_ICONS = [
-  { src: "/images/providers/icons/icon-1.svg", alt: "Industrial vehicle" },
-  { src: "/images/providers/icons/icon-2.svg", alt: "EV charging" },
-  { src: "/images/providers/icons/icon-3.svg", alt: "Cargo bike van" },
-  { src: "/images/providers/icons/icon-4.svg", alt: "Drone" },
-  { src: "/images/providers/icons/icon-5.svg", alt: "Electric scooter" },
-] as const;
-
-function HeroIconTiles() {
-  // Each tile gets a staggered entrance via inline animation-delay so the
-  // row reads left-to-right on first paint — same `bloom-hero-rise`
-  // keyframe used on the home page so the timing feels native.
+function HeroIconTiles({ tiles }: { tiles: ProvidersContent["hero"]["iconTiles"] }) {
   return (
     <div className="grid w-full grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5 lg:gap-5">
-      {HERO_ICONS.map((icon, i) => (
+      {tiles.map((icon, i) => (
         <div
-          key={icon.src}
+          key={`${icon.imageUrl}-${i}`}
           className="animate-bloom-hero-rise group flex aspect-square items-center justify-center rounded-md bg-bloom-mint p-6 text-bloom-navy transition-colors duration-300 hover:bg-bloom-mint/80 sm:p-7 lg:p-8"
           style={{ animationDelay: `${120 + i * 90}ms` }}
         >
           <Image
-            src={icon.src}
+            src={icon.imageUrl}
             alt={icon.alt}
             width={150}
             height={120}
@@ -108,7 +44,7 @@ function HeroIconTiles() {
 // Section components
 // ---------------------------------------------------------------------------
 
-function ProvidersHero() {
+function ProvidersHero({ hero }: { hero: ProvidersContent["hero"] }) {
   return (
     <RevealOnScroll
       as="section"
@@ -124,92 +60,53 @@ function ProvidersHero() {
               "lg:text-[56px] lg:leading-[60px]",
             )}
           >
-            Work with the most promising hardware brands, vetted by Bloom.
+            {hero.headline}
           </h1>
           <p className="max-w-[760px] text-[16px] leading-[26px] text-bloom-navy sm:text-[18px]">
-            Unlock a pipeline of qualified projects from fast&#8209;growing
-            hard&#8209;tech companies, backed by Bloom&apos;s rigorous
-            screening and centralized payments.
+            {hero.body}
           </p>
         </div>
 
-        {/* 5 mint-tinted square tiles, each with one of the line-art
-            delivery icons pulled from the live site. Staggered entrance
-            via bloom-hero-rise so the row reads left-to-right on load. */}
-        <HeroIconTiles />
+        <HeroIconTiles tiles={hero.iconTiles} />
       </div>
     </RevealOnScroll>
   );
 }
 
-function ProvidersBenefits() {
+function ProvidersBenefits({ benefits }: { benefits: ProvidersContent["benefits"] }) {
   return (
     <RevealOnScroll
       as="section"
       className="w-full bg-bloom-cream py-16 sm:py-20 lg:py-24"
     >
       <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-20 px-4 sm:px-6 lg:gap-28">
-        {/* Targeted inbound — show the in-platform brand-profile screen so
-            providers see a real qualified RFQ (services needed, funding stage,
-            volume projections) instead of a marketing illustration. */}
-        <BenefitRow
-          eyebrow="QUALIFIED LEADS"
-          heading="Targeted inbound from quality brands"
-          body="Bloom matches you with hardware brands that fit your capacity and specialties. No cold outreach required — qualified RFQs come straight to you with funding, volume, and product context attached."
-          visual={
-            <div className="w-full max-w-[640px]">
-              <HeroImage
-                src="/images/providers/targeted-inbound.avif"
-                alt="Bloom platform brand profile"
-                width={2048}
-                height={1148}
-              />
-            </div>
-          }
-        />
-
-        {/* Faster payments — show the in-platform invoices dashboard
-            (PAID / LATE statuses, totals, due dates). Cropped to drop the
-            purple gradient frame from the marketing PNG, and shown without
-            an outer card chrome so the screen reads as just the screen. */}
-        <BenefitRow
-          reverse
-          eyebrow="BLOOMPAY"
-          heading="Ensure faster payments"
-          body="BloomPay centralizes invoicing and accelerates payouts so you spend less time chasing payments. Track paid, due, and late invoices — and offer terms — all from one platform."
-          visual={
-            <div className="w-full max-w-[640px]">
-              <HeroImage
-                src="/images/providers/faster-payments.avif"
-                alt="Bloom platform invoices dashboard"
-                width={1266}
-                height={864}
-              />
-            </div>
-          }
-        />
-
-        <BenefitRow
-          eyebrow="DE-RISKED PROJECTS"
-          heading="New hardware, lower risk"
-          body="Every brand on the platform is pre-vetted for funding, technical readiness, and clear engineering specs — you onboard knowing the project is real."
-          visual={
-            <div className="w-full max-w-[640px]">
-              <HeroImage
-                src="/images/providers/lower-risk.avif"
-                alt="Bloom de-risked project workflow"
-                width={1767}
-                height={1142}
-              />
-            </div>
-          }
-        />
+        {benefits.map((benefit, i) => (
+          <BenefitRow
+            key={`${benefit.heading}-${i}`}
+            reverse={i % 2 === 1}
+            eyebrow={benefit.eyebrow || undefined}
+            heading={benefit.heading}
+            body={benefit.body}
+            visual={
+              benefit.imageUrl ? (
+                <div className="w-full max-w-[640px]">
+                  <HeroImage
+                    src={benefit.imageUrl}
+                    alt={benefit.imageAlt || benefit.heading}
+                    width={2048}
+                    height={1148}
+                  />
+                </div>
+              ) : null
+            }
+          />
+        ))}
       </div>
     </RevealOnScroll>
   );
 }
 
-function ProvidersCriteria() {
+function ProvidersCriteria({ criteria }: { criteria: ProvidersContent["criteria"] }) {
   return (
     <RevealOnScroll
       as="section"
@@ -223,34 +120,20 @@ function ProvidersCriteria() {
               "text-[32px] leading-[36px] sm:text-[40px] sm:leading-[44px] lg:text-[48px] lg:leading-[52px]",
             )}
           >
-            Bloom Service Provider Qualifying Criteria
+            {criteria.heading}
           </h1>
           <p className="mt-5 text-[16px] leading-[26px] text-bloom-navy sm:text-[18px]">
-            Each partner is evaluated across 8 core criteria before joining the
-            Bloom network.
+            {criteria.body}
           </p>
         </header>
 
-        <CriteriaCarousel className="mt-12 lg:mt-16" items={QUALIFYING_CRITERIA} />
-
+        <CriteriaCarousel className="mt-12 lg:mt-16" items={criteria.items} />
       </div>
     </RevealOnScroll>
   );
 }
 
-interface FrameworkStep {
-  label: string;
-  description: string;
-}
-
-const FRAMEWORK_STEPS: readonly FrameworkStep[] = [
-  { label: "APPLY", description: "Share capabilities, certifications, references, capacity" },
-  { label: "ONBOARD", description: "Create profile, set rates, sync BloomPay" },
-  { label: "MATCH", description: "Get qualified RFQs from matched brands" },
-  { label: "LAUNCH", description: "Run jobs with milestones, auto-invoicing, Bloom support" },
-] as const;
-
-function ProvidersFramework() {
+function ProvidersFramework({ framework }: { framework: ProvidersContent["framework"] }) {
   return (
     <RevealOnScroll
       as="section"
@@ -264,22 +147,22 @@ function ProvidersFramework() {
               "text-[32px] leading-[36px] sm:text-[40px] sm:leading-[44px] lg:text-[48px] lg:leading-[52px]",
             )}
           >
-            Win better jobs. Get paid faster.
+            {framework.heading}
           </h1>
           <p className="mt-5 text-[16px] leading-[26px] text-bloom-navy sm:text-[18px]">
-            Bloom matches proven providers with vetted hardware brands and
-            handles the back-office&mdash;RFQs, milestones, and
-            payments&mdash;so you can focus on execution.
+            {framework.body}
           </p>
         </header>
 
-        <FrameworkChevrons className="mt-12 lg:mt-16" steps={FRAMEWORK_STEPS} />
+        <FrameworkChevrons className="mt-12 lg:mt-16" steps={framework.steps} />
       </div>
     </RevealOnScroll>
   );
 }
 
-function ProvidersCTA() {
+function ProvidersCTA({ cta }: { cta: ProvidersContent["cta"] }) {
+  const isExternal =
+    cta.buttonHref.startsWith("http://") || cta.buttonHref.startsWith("https://");
   return (
     <RevealOnScroll
       as="section"
@@ -302,10 +185,12 @@ function ProvidersCTA() {
             "text-[28px] leading-[34px] sm:text-[36px] sm:leading-[42px] lg:text-[44px] lg:leading-[50px]",
           )}
         >
-          Apply to join the elite providers on Bloom&apos;s Network
+          {cta.heading}
         </h2>
         <Link
-          href="/contact-us"
+          href={cta.buttonHref}
+          target={isExternal ? "_blank" : undefined}
+          rel={isExternal ? "noreferrer" : undefined}
           className={cn(
             "inline-flex items-center gap-2 rounded-md",
             "bg-bloom-navy text-white hover:opacity-90",
@@ -313,7 +198,7 @@ function ProvidersCTA() {
             "transition-opacity duration-200",
           )}
         >
-          APPLY NOW
+          {cta.buttonLabel}
           <ArrowRightIcon className="h-4 w-4" />
         </Link>
       </div>
@@ -321,21 +206,23 @@ function ProvidersCTA() {
   );
 }
 
-export default function ProvidersPage() {
+export default async function ProvidersPage() {
+  const content = await loadProvidersPage();
+
   return (
     <>
       <FloatingNav />
       <main className="flex flex-col bg-bloom-cream">
-        <ProvidersHero />
-        <ProvidersBenefits />
-        <ProvidersCriteria />
-        <ProvidersFramework />
-        <ProvidersCTA />
+        <ProvidersHero hero={content.hero} />
+        <ProvidersBenefits benefits={content.benefits} />
+        <ProvidersCriteria criteria={content.criteria} />
+        <ProvidersFramework framework={content.framework} />
+        <ProvidersCTA cta={content.cta} />
         <section className="w-full bg-bloom-cream py-16 sm:py-20 lg:py-24">
           <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-16">
               <h1 className="text-[36px] font-bold leading-[1.1] tracking-tight text-bloom-navy md:text-[48px]">
-                FAQ
+                {content.faqHeading}
               </h1>
               <div className="w-full">
                 <FaqAccordion items={BLOOM_FAQ} />

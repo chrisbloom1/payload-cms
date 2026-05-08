@@ -17,48 +17,45 @@ import { FaqAccordion } from "@/components/widgets/FaqAccordion";
 import { BLOOM_FAQ } from "@/data/faq";
 import { FrameworkChevrons } from "@/components/FrameworkChevrons";
 import { BloomMarkGradient } from "@/components/BloomLogo";
+import RichText from "@/components/RichText";
+import { loadBrandsPage, type BrandsContent } from "@/lib/brands-page-resolver";
 
 // ---------------------------------------------------------------------------
 // Section components
 // ---------------------------------------------------------------------------
 
-function VerticalsTagRow() {
+function VerticalsTagRow({ verticals }: { verticals: BrandsContent["verticals"] }) {
   return (
     <div
       aria-label="Hardware verticals served"
       className="flex flex-wrap items-center gap-x-3 gap-y-2 text-[14px] font-medium text-bloom-orange sm:text-[15px]"
     >
-      <span>Mobility</span>
-      <span aria-hidden="true" className="text-bloom-orange/40">|</span>
-      <span>Drones</span>
-      <span aria-hidden="true" className="text-bloom-orange/40">|</span>
-      <span>Cleantech</span>
-      <span aria-hidden="true" className="text-bloom-orange/40">|</span>
-      <span>Robotics</span>
+      {verticals.map((v, i) => (
+        <span key={`${v.label}-${i}`} className="contents">
+          <span>{v.label}</span>
+          {i < verticals.length - 1 ? (
+            <span aria-hidden="true" className="text-bloom-orange/40">|</span>
+          ) : null}
+        </span>
+      ))}
     </div>
   );
 }
 
 // 2x2 collage of hardware brand product imagery, used as the visual for the
-// "Built for the brands building the future" row. Pulls existing story heroes
-// so we don't ship more assets just for this section.
-function VerticalsCollage() {
-  const tiles = [
-    { label: "Mobility", src: "/images/stories/dust-moto-hero.jpg" },
-    { label: "Drones", src: "/images/stories/birdstop-hero.jpg" },
-    { label: "Cleantech", src: "/images/stories/grounded-hero.jpg" },
-    { label: "Robotics", src: "/images/stories/wheel-me-hero.jpg" },
-  ] as const;
+// "Built for the brands building the future" row. Tiles come from the
+// BrandsPage global so the team can swap verticals without a deploy.
+function VerticalsCollage({ verticals }: { verticals: BrandsContent["verticals"] }) {
   return (
     <div className="grid w-full max-w-[480px] grid-cols-2 gap-3">
-      {tiles.map((tile) => (
+      {verticals.slice(0, 4).map((v) => (
         <div
-          key={tile.label}
+          key={v.label}
           className="relative aspect-square overflow-hidden rounded-md bg-bloom-navy/5"
         >
           <HeroImage
-            src={tile.src}
-            alt={tile.label}
+            src={v.imageUrl}
+            alt={v.label}
             width={600}
             height={600}
             fixedHeightClass="h-full"
@@ -66,7 +63,7 @@ function VerticalsCollage() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-bloom-navy/70 via-bloom-navy/15 to-transparent" />
           <span className="absolute bottom-3 left-3 text-[12px] font-bold uppercase tracking-[0.14em] text-white sm:text-[13px]">
-            {tile.label}
+            {v.label}
           </span>
         </div>
       ))}
@@ -74,7 +71,7 @@ function VerticalsCollage() {
   );
 }
 
-function BrandsHero() {
+function BrandsHero({ headline, body }: { headline: string; body: string }) {
   return (
     <RevealOnScroll
       as="section"
@@ -90,14 +87,10 @@ function BrandsHero() {
               "lg:text-[56px] lg:leading-[60px]",
             )}
           >
-            Supply chain complexity is killing your momentum
+            {headline}
           </h1>
           <p className="max-w-[560px] text-[16px] leading-[26px] text-bloom-navy sm:text-[18px]">
-            Hardware innovation should be about breakthroughs, not spreadsheets,
-            shipping labels, and supplier drama. Bloom unblocks your growth by
-            giving you instant, vetted access to the domestic manufacturing,
-            assembly, logistics, and service partners that power today&apos;s
-            most ambitious hardware brands.
+            {body}
           </p>
         </div>
 
@@ -113,7 +106,15 @@ function BrandsHero() {
   );
 }
 
-function BrandsBuiltForCoast() {
+function BrandsBuiltForCoast({
+  builtFor,
+  coastToCoast,
+  verticals,
+}: {
+  builtFor: BrandsContent["builtFor"];
+  coastToCoast: BrandsContent["coastToCoast"];
+  verticals: BrandsContent["verticals"];
+}) {
   return (
     <RevealOnScroll
       as="section"
@@ -121,15 +122,15 @@ function BrandsBuiltForCoast() {
     >
       <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-20 px-4 sm:px-6 lg:gap-28">
         <BenefitRow
-          eyebrow={<VerticalsTagRow />}
-          heading="Built for the brands building the future"
-          body="Bloom is purpose-built to support the unique operational challenges of today's most advanced hardware categories, where complexity, regulation, and logistics often stall growth."
-          visual={<VerticalsCollage />}
+          eyebrow={<VerticalsTagRow verticals={verticals} />}
+          heading={builtFor.heading}
+          body={builtFor.body}
+          visual={<VerticalsCollage verticals={verticals} />}
         />
         <BenefitRow
           reverse
-          heading="Coast to coast"
-          body="Our vetted network covers the entire US, linking you to local specialists and Fortune 100 powerhouses alike. Get fast, competitive access to partners ready to build, deliver, and service for you."
+          heading={coastToCoast.heading}
+          body={coastToCoast.body}
           visual={<Animationmap />}
         />
       </div>
@@ -137,19 +138,7 @@ function BrandsBuiltForCoast() {
   );
 }
 
-interface FrameworkStep {
-  label: string;
-  description: string;
-}
-
-const FRAMEWORK_STEPS: readonly FrameworkStep[] = [
-  { label: "JOIN", description: "Sign up, share product specs" },
-  { label: "MATCH", description: "Bloom algorithm + ops team select partners" },
-  { label: "LAUNCH", description: "Kickoff, dashboards, milestone tracker" },
-  { label: "SCALE", description: "QBRs, volume discounts, new markets" },
-] as const;
-
-function BrandsFramework() {
+function BrandsFramework({ framework }: { framework: BrandsContent["framework"] }) {
   return (
     <RevealOnScroll
       as="section"
@@ -163,22 +152,20 @@ function BrandsFramework() {
               "text-[32px] leading-[36px] sm:text-[40px] sm:leading-[44px] lg:text-[48px] lg:leading-[52px]",
             )}
           >
-            Proven framework built for scaling hardware brands
+            {framework.heading}
           </h1>
           <p className="mt-5 text-[16px] leading-[26px] text-bloom-navy sm:text-[18px]">
-            Bloom orchestrates the heavy‑lift of hardware operations so you
-            can focus on product and customers. Here&apos;s exactly what
-            happens after you request access.
+            {framework.body}
           </p>
         </header>
 
-        <FrameworkChevrons className="mt-12 lg:mt-16" steps={FRAMEWORK_STEPS} />
+        <FrameworkChevrons className="mt-12 lg:mt-16" steps={framework.steps} />
       </div>
     </RevealOnScroll>
   );
 }
 
-function BrandsPricing() {
+function BrandsPricing({ pricing }: { pricing: BrandsContent["pricing"] }) {
   return (
     <RevealOnScroll
       as="section"
@@ -189,26 +176,35 @@ function BrandsPricing() {
           <h1
             className={cn(
               "font-bold text-bloom-navy",
-              "text-[32px] leading-[36px] sm:text-[40px] sm:leading-[44px] lg:text-[48px] lg:leading-[52px]",
+              "text-[32px] leading-[36px] sm:text-[40px] sm:leading-[44px] lg:text-[48px] lg:leading-[52px],",
             )}
           >
-            Choose your plan
+            {pricing.heading}
           </h1>
-          <p className="mt-5 text-[16px] leading-[26px] text-bloom-navy sm:text-[18px]">
-            Bloom gives members access to a vetted network of hundreds of
-            manufacturers, logistics providers, and service partners across
-            North America. Through aggregated volume and strategic
-            partnerships, we developed{" "}
-            <strong className="font-bold">Bloom Preferred Pricing</strong>{" "}
-            which includes preferred rates with carriers, manufacturers, and
-            service providers, passing those savings directly to our members.
-            In addition to leveraging the Bloom platform, our teams are
-            available to assist with requests, bookings, matchmaking,
-            billing, and more. With{" "}
-            <strong className="font-bold">BloomPay</strong>, members can pay
-            all their vendors in one place and access extended payment terms,
-            right from the platform.
-          </p>
+          {pricing.body ? (
+            <RichText
+              content={pricing.body}
+              enableGutter={false}
+              enableProse
+              className="mt-5 prose-p:text-[16px] prose-p:leading-[26px] prose-p:text-bloom-navy sm:prose-p:text-[18px] prose-strong:font-bold"
+            />
+          ) : (
+            <p className="mt-5 text-[16px] leading-[26px] text-bloom-navy sm:text-[18px]">
+              Bloom gives members access to a vetted network of hundreds of
+              manufacturers, logistics providers, and service partners across
+              North America. Through aggregated volume and strategic
+              partnerships, we developed{" "}
+              <strong className="font-bold">Bloom Preferred Pricing</strong>{" "}
+              which includes preferred rates with carriers, manufacturers, and
+              service providers, passing those savings directly to our members.
+              In addition to leveraging the Bloom platform, our teams are
+              available to assist with requests, bookings, matchmaking,
+              billing, and more. With{" "}
+              <strong className="font-bold">BloomPay</strong>, members can pay
+              all their vendors in one place and access extended payment terms,
+              right from the platform.
+            </p>
+          )}
         </header>
 
         {/* Pricing comparison matrix from Proofly — full $500 / $2,000 / $6,000
@@ -223,7 +219,7 @@ function BrandsPricing() {
   );
 }
 
-function BrandsBloomPay() {
+function BrandsBloomPay({ bloomPay }: { bloomPay: BrandsContent["bloomPay"] }) {
   return (
     <RevealOnScroll
       as="section"
@@ -235,11 +231,10 @@ function BrandsBloomPay() {
           <div className="flex flex-col gap-5">
             <BloomPayLockup className="h-[28px] w-auto self-start" />
             <h2 className="max-w-[480px] text-[32px] font-bold leading-[36px] text-bloom-navy sm:text-[36px] sm:leading-[40px]">
-              Simplify and expand payment options
+              {bloomPay.heading}
             </h2>
             <p className="max-w-[480px] text-[18px] leading-[26px] text-bloom-navy">
-              Leverage BloomPay to pay all your vendors in one place and access
-              on platform extended payment terms up to 120 days.
+              {bloomPay.body}
             </p>
           </div>
           <div className="flex w-full justify-center lg:justify-end">
@@ -251,14 +246,15 @@ function BrandsBloomPay() {
   );
 }
 
-function BrandsCTA() {
+function BrandsCTA({ cta }: { cta: BrandsContent["cta"] }) {
+  const isExternal =
+    cta.buttonHref.startsWith("http://") || cta.buttonHref.startsWith("https://");
   return (
     <RevealOnScroll
       as="section"
       className="w-full bg-bloom-cream py-16 sm:py-20 lg:py-24"
     >
       <div className="mx-auto flex w-full max-w-[960px] flex-col items-center gap-7 px-6 text-center">
-        {/* Small orange Bloom mark anchored above the heading per live design */}
         <div
           aria-hidden="true"
           className="bg-bloom-cta flex h-[44px] w-[44px] items-center justify-center rounded-md"
@@ -275,12 +271,12 @@ function BrandsCTA() {
             "text-[28px] leading-[34px] sm:text-[36px] sm:leading-[42px] lg:text-[44px] lg:leading-[50px]",
           )}
         >
-          Ready to cut costs, launch faster, and de‑risk your operations?
+          {cta.heading}
         </h2>
         <Link
-          href="https://welcome.togetherwebloom.us/"
-          target="_blank"
-          rel="noreferrer"
+          href={cta.buttonHref}
+          target={isExternal ? "_blank" : undefined}
+          rel={isExternal ? "noreferrer" : undefined}
           className={cn(
             "inline-flex items-center gap-2 rounded-md",
             "bg-bloom-navy text-white hover:opacity-90",
@@ -288,7 +284,7 @@ function BrandsCTA() {
             "transition-opacity duration-200",
           )}
         >
-          UNLOCK YOUR POTENTIAL
+          {cta.buttonLabel}
           <ArrowRightIcon className="h-4 w-4" />
         </Link>
       </div>
@@ -296,23 +292,29 @@ function BrandsCTA() {
   );
 }
 
-export default function BrandsPage() {
+export default async function BrandsPage() {
+  const content = await loadBrandsPage();
+
   return (
     <>
       <FloatingNav />
       <main className="flex flex-col bg-bloom-cream">
-        <BrandsHero />
-        <BrandsBuiltForCoast />
-        <BrandsFramework />
-        <BrandsPricing />
-        <BrandsBloomPay />
+        <BrandsHero headline={content.hero.headline} body={content.hero.body} />
+        <BrandsBuiltForCoast
+          builtFor={content.builtFor}
+          coastToCoast={content.coastToCoast}
+          verticals={content.verticals}
+        />
+        <BrandsFramework framework={content.framework} />
+        <BrandsPricing pricing={content.pricing} />
+        <BrandsBloomPay bloomPay={content.bloomPay} />
         <MembersTestimonials />
-        <BrandsCTA />
+        <BrandsCTA cta={content.cta} />
         <section className="w-full bg-bloom-cream py-16 sm:py-20 lg:py-24">
           <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:gap-16">
               <h1 className="text-[36px] font-bold leading-[1.1] tracking-tight text-bloom-navy md:text-[48px]">
-                FAQ
+                {content.faqHeading}
               </h1>
               <div className="w-full">
                 <FaqAccordion items={BLOOM_FAQ} />

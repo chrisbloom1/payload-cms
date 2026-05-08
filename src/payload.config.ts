@@ -23,6 +23,8 @@ import { ReleaseNotes } from './collections/KnowledgeBase/ReleaseNotes'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { HomePage } from './Globals/HomePage/config'
+import { BrandsPage } from './Globals/BrandsPage/config'
+import { ProvidersPage } from './Globals/ProvidersPage/config'
 import { plugins } from './plugins'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
@@ -103,7 +105,9 @@ export default buildConfig({
   ],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [
-    HomePage, // editable home page content (hero, marquee, sections, stats)
+    HomePage, // /            — hero, marquee, sections, stats
+    BrandsPage, // /brands    — for-brands marketing copy + framework + pricing
+    ProvidersPage, // /providers — for-providers marketing copy + criteria
     Header, // top-nav links across the marketing site
     Footer, // bottom-nav links across the marketing site
   ],

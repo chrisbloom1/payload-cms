@@ -101,6 +101,18 @@ const BeforeDashboard: React.FC = () => {
         />
         <QuickCard
           label="Marketing"
+          title="For Brands page"
+          body="Hero, verticals, framework steps, pricing, BloomPay, CTA — everything on /brands."
+          href="/admin/globals/brands-page"
+        />
+        <QuickCard
+          label="Marketing"
+          title="For Providers page"
+          body="Hero, benefits rows, qualifying criteria, framework, CTA — everything on /providers."
+          href="/admin/globals/providers-page"
+        />
+        <QuickCard
+          label="Marketing"
           title="Blog posts"
           body="Articles published at /blog. Drafts autosave; use the Live Preview pane to see edits."
           href="/admin/collections/posts"
