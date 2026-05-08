@@ -1,6 +1,6 @@
 import type { CollectionAfterChangeHook } from 'payload'
 
-import { revalidatePath } from 'next/cache'
+import { safeRevalidatePath as revalidatePath } from '@/utilities/safeRevalidate'
 
 import type { Page } from '../../../payload-types'
 

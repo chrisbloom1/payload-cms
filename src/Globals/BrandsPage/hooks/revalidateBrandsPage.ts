@@ -1,8 +1,8 @@
 import type { GlobalAfterChangeHook } from 'payload'
-import { revalidateTag } from 'next/cache'
+import { safeRevalidateTag } from '@/utilities/safeRevalidate'
 
 export const revalidateBrandsPage: GlobalAfterChangeHook = ({ doc, req: { payload } }) => {
   payload.logger.info('Revalidating brands page')
-  revalidateTag('global_brands-page', 'max')
+  safeRevalidateTag('global_brands-page', 'max')
   return doc
 }
