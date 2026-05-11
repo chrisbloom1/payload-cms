@@ -8,6 +8,7 @@ import React from 'react'
 // client component. When draft mode is off the shell renders null
 // and the heavy chunks are never even fetched.
 import { PreviewModeShell } from '@/components/PreviewModeShell'
+import { TokenPreviewSwitcher } from '@/components/dev/TokenPreviewSwitcher'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
@@ -57,6 +58,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body>
         <Providers>
           <PreviewModeShell enabled={isEnabled} />
+          <TokenPreviewSwitcher />
 
           {/* Each section provides its own chrome via its per-section
               layout: marketing pages render `FloatingNav` + `UnifiedFooter`
