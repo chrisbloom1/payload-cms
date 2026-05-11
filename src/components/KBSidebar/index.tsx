@@ -8,5 +8,7 @@ import React from 'react'
  * the fixed-width sidebar column on `/kb`.
  */
 export const KBSidebar: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
-  return <aside className="lg:w-56 shrink-0">{children}</aside>
+  return (
+    <aside className="lg:sticky lg:top-24 lg:h-fit lg:w-64 shrink-0">{children}</aside>
+  )
 }

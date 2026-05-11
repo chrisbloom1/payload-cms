@@ -37,11 +37,11 @@ export const GuidesPageClient: React.FC<{
   thumbnails?: Record<string, string>
 }> = ({ guides, thumbnails = {} }) => {
   return (
-    <div className="pt-8 pb-24">
-      <div className="container">
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold mb-1">Platform Guides</h1>
-          <p className="text-sm text-muted-foreground">
+    <div className="pt-12 lg:pt-16 pb-24">
+      <div className="mx-auto w-full max-w-[1500px] px-4 lg:px-8">
+        <div className="mb-10">
+          <h1 className="text-3xl lg:text-4xl font-bold tracking-tight mb-2">Platform Guides</h1>
+          <p className="text-base text-muted-foreground">
             Short video walkthroughs of key Bloom workflows.
           </p>
         </div>
@@ -55,7 +55,7 @@ export const GuidesPageClient: React.FC<{
                 <p>Video guides coming soon.</p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {guides.map((guide) => {
                   const badge = guide.audience ? audienceBadge[guide.audience] : null
 

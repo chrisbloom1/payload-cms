@@ -45,11 +45,11 @@ export const GlossaryPageClient: React.FC<{ terms: GlossaryTerm[] }> = ({ terms 
   const letters = useMemo(() => grouped.map(([letter]) => letter), [grouped])
 
   return (
-    <div className="pt-8 pb-24">
-      <div className="container">
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold mb-1">Glossary</h1>
-          <p className="text-sm text-muted-foreground">
+    <div className="pt-12 lg:pt-16 pb-24">
+      <div className="mx-auto w-full max-w-[1500px] px-4 lg:px-8">
+        <div className="mb-10">
+          <h1 className="text-3xl lg:text-4xl font-bold tracking-tight mb-2">Glossary</h1>
+          <p className="text-base text-muted-foreground">
             Key terms used across the Bloom platform.
           </p>
         </div>

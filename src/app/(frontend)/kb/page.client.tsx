@@ -78,14 +78,14 @@ export const KBPageClient: React.FC<{
     : categories.find((c) => c.slug === activeCategory)?.name || 'Articles'
 
   return (
-    <div className="pt-8 pb-24">
-      <div className="container">
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold mb-1">Knowledge Base</h1>
-          <p className="text-sm text-muted-foreground">Articles and guides for Bloom brands and providers.</p>
+    <div className="pt-12 lg:pt-16 pb-24">
+      <div className="mx-auto w-full max-w-[1500px] px-4 lg:px-8">
+        <div className="mb-10">
+          <h1 className="text-3xl lg:text-4xl font-bold tracking-tight mb-2">Knowledge Base</h1>
+          <p className="text-base text-muted-foreground">Articles and guides for Bloom brands and providers.</p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex flex-col lg:flex-row gap-10">
           {/* Sidebar: category filters + shared nav */}
           <KBSidebar>
             <div className="mb-4">
@@ -130,7 +130,12 @@ export const KBPageClient: React.FC<{
 
           {/* Article list */}
           <div className="flex-1 min-w-0">
-            <h2 className="text-lg font-bold mb-4">{activeCategoryName}</h2>
+            <div className="flex items-baseline justify-between gap-4 mb-5">
+              <h2 className="text-xl font-bold">{activeCategoryName}</h2>
+              <span className="text-sm text-muted-foreground">
+                {filtered.length} {filtered.length === 1 ? 'article' : 'articles'}
+              </span>
+            </div>
 
             {filtered.length === 0 ? (
               <div className="flex flex-col items-center gap-3 py-16 text-center text-muted-foreground">
@@ -142,7 +147,7 @@ export const KBPageClient: React.FC<{
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
                 {filtered.map((article) => {
                   const category =
                     typeof article.category === 'object' ? article.category : null
