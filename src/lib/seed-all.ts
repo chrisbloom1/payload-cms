@@ -193,6 +193,9 @@ interface SeedReport {
 
 async function seedBlogPosts(payload: Payload): Promise<SeedReport> {
   const r: SeedReport = { collection: 'posts', created: 0, updated: 0, errors: [] }
+  const keepSlugs = new Set(BLOG_POSTS.map((p) => p.slug))
+
+  // 1) Upsert each post in the seed list
   for (const post of BLOG_POSTS) {
     const data = {
       title: post.title,
@@ -223,6 +226,31 @@ async function seedBlogPosts(payload: Payload): Promise<SeedReport> {
       r.errors.push(`${post.slug}: ${err.message ?? err}`)
     }
   }
+
+  // 2) Purge any posts in the DB whose slug is NOT in the seed list. This
+  //    lets us empty BLOG_POSTS (or remove individual entries) and have the
+  //    next build delete the corresponding rows. Drafts + versions are
+  //    cascaded by the collection config.
+  try {
+    const all = await (payload as any).find({
+      collection: 'posts',
+      limit: 1000,
+      depth: 0,
+      overrideAccess: true,
+    })
+    for (const doc of all.docs ?? []) {
+      const slug = (doc as any).slug as string | undefined
+      if (slug && keepSlugs.has(slug)) continue
+      try {
+        await (payload as any).delete({ collection: 'posts', id: (doc as any).id, overrideAccess: true })
+      } catch (err: any) {
+        r.errors.push(`delete ${slug ?? doc.id}: ${err.message ?? err}`)
+      }
+    }
+  } catch (err: any) {
+    r.errors.push(`purge: ${err.message ?? err}`)
+  }
+
   return r
 }
 
