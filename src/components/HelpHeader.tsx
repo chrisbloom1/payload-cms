@@ -3,7 +3,7 @@
 import * as React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ChevronDown, Menu, X, ArrowUpRight } from 'lucide-react'
+import { ChevronDown, Menu, X } from 'lucide-react'
 
 import { BloomWordmark } from '@/components/BloomLogo'
 import { cn } from '@/lib/utils'
@@ -53,6 +53,9 @@ const primaryLinks: { href: string; label: string }[] = [
   { href: '/customer-stories', label: 'Stories' },
 ]
 
+const CTA_PRIMARY_HREF = 'https://welcome.bloomnetwork.ai/'
+const CTA_GHOST_HREF = 'https://app.bloomnetwork.ai/sign-in'
+
 export const HelpHeader: React.FC = () => {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = React.useState(false)
@@ -85,8 +88,24 @@ export const HelpHeader: React.FC = () => {
           <BloomWordmark className="h-[28px] w-auto text-bloom-navy" />
         </Link>
 
-        {/* Desktop nav */}
+        {/* Desktop nav — primary links first, Resources last */}
         <nav className="hidden items-center gap-1 md:flex">
+          {primaryLinks.map(({ href, label }) => {
+            const isActive = pathname === href || pathname.startsWith(href + '/')
+            return (
+              <Link
+                key={href}
+                href={href}
+                className={cn(
+                  'rounded-md px-4 py-2 text-[14px] font-medium transition-colors hover:bg-bloom-mint/60',
+                  isActive ? 'text-bloom-navy' : 'text-bloom-navy/80',
+                )}
+              >
+                {label}
+              </Link>
+            )
+          })}
+
           <div
             className="relative"
             onMouseEnter={openResources}
@@ -113,7 +132,7 @@ export const HelpHeader: React.FC = () => {
 
             {resourcesOpen && (
               <div
-                className="absolute left-1/2 top-[calc(100%+8px)] z-50 w-[640px] -translate-x-1/2 rounded-md border border-bloom-navy/10 bg-white p-6 shadow-bloom-card"
+                className="absolute right-0 top-[calc(100%+8px)] z-50 w-[640px] rounded-md border border-bloom-navy/10 bg-white p-6 shadow-bloom-card"
                 role="menu"
                 onMouseEnter={openResources}
                 onMouseLeave={scheduleCloseResources}
@@ -150,34 +169,25 @@ export const HelpHeader: React.FC = () => {
               </div>
             )}
           </div>
-
-          {primaryLinks.map(({ href, label }) => {
-            const isActive = pathname === href || pathname.startsWith(href + '/')
-            return (
-              <Link
-                key={href}
-                href={href}
-                className={cn(
-                  'rounded-md px-4 py-2 text-[14px] font-medium transition-colors hover:bg-bloom-mint/60',
-                  isActive ? 'text-bloom-navy' : 'text-bloom-navy/80',
-                )}
-              >
-                {label}
-              </Link>
-            )
-          })}
         </nav>
 
-        {/* Right CTA */}
+        {/* Right CTAs — Get Started + Log In */}
         <div className="hidden items-center gap-2 md:flex">
           <a
-            href="https://app.bloomnetwork.ai"
+            href={CTA_PRIMARY_HREF}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 rounded-md bg-bloom-navy px-5 py-2 text-[13px] font-semibold tracking-wide text-white transition-opacity hover:opacity-90"
+            className="inline-flex items-center justify-center rounded-md bg-bloom-cta px-5 py-2.5 text-[12px] font-bold uppercase tracking-[0.08em] text-white transition-opacity hover:opacity-90"
           >
-            Open App
-            <ArrowUpRight className="h-3.5 w-3.5" />
+            Get Started
+          </a>
+          <a
+            href={CTA_GHOST_HREF}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center rounded-md p-3 text-[12px] font-extrabold uppercase tracking-[0.05em] text-bloom-navy transition-colors hover:bg-bloom-mint"
+          >
+            Log In
           </a>
         </div>
 
@@ -197,27 +207,7 @@ export const HelpHeader: React.FC = () => {
       {mobileOpen && (
         <div className="border-t border-bloom-navy/10 bg-white px-4 pb-6 pt-4 md:hidden">
           <div className="flex flex-col gap-6">
-            {resourceColumns.map((col) => (
-              <div key={col.heading} className="flex flex-col gap-2">
-                <h6 className="text-[11px] font-bold uppercase tracking-wider text-bloom-muted">
-                  {col.heading}
-                </h6>
-                <ul className="flex flex-col">
-                  {col.links.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="block py-2 text-[15px] font-medium text-bloom-navy"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-
-            <div className="flex flex-col gap-1 border-t border-bloom-navy/10 pt-4">
+            <div className="flex flex-col gap-1">
               {primaryLinks.map(({ href, label }) => (
                 <Link
                   key={href}
@@ -229,15 +219,46 @@ export const HelpHeader: React.FC = () => {
               ))}
             </div>
 
-            <a
-              href="https://app.bloomnetwork.ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-1.5 rounded-md bg-bloom-navy px-5 py-3 text-[14px] font-semibold tracking-wide text-white"
-            >
-              Open App
-              <ArrowUpRight className="h-3.5 w-3.5" />
-            </a>
+            <div className="flex flex-col gap-6 border-t border-bloom-navy/10 pt-4">
+              {resourceColumns.map((col) => (
+                <div key={col.heading} className="flex flex-col gap-2">
+                  <h6 className="text-[11px] font-bold uppercase tracking-wider text-bloom-muted">
+                    {col.heading}
+                  </h6>
+                  <ul className="flex flex-col">
+                    {col.links.map((link) => (
+                      <li key={link.href}>
+                        <Link
+                          href={link.href}
+                          className="block py-2 text-[15px] font-medium text-bloom-navy"
+                        >
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-col gap-2 border-t border-bloom-navy/10 pt-4">
+              <a
+                href={CTA_PRIMARY_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-md bg-bloom-cta px-5 py-3 text-[13px] font-bold uppercase tracking-[0.08em] text-white"
+              >
+                Get Started
+              </a>
+              <a
+                href={CTA_GHOST_HREF}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-md border border-bloom-navy px-5 py-3 text-[13px] font-extrabold uppercase tracking-[0.05em] text-bloom-navy"
+              >
+                Log In
+              </a>
+            </div>
           </div>
         </div>
       )}

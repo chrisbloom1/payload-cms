@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { FloatingNav } from "@/components/FloatingNav";
+import { HelpHeader } from "@/components/HelpHeader";
 import { UnifiedFooter } from "@/components/UnifiedFooter";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { ArrowRightIcon } from "@/components/icons";
@@ -222,7 +222,7 @@ export default async function ProvidersPage() {
 
   return (
     <>
-      <FloatingNav />
+      <HelpHeader />
       <main className="flex flex-col bg-bloom-cream">
         <ProvidersHero hero={content.hero} />
         <ProvidersBenefits benefits={content.benefits} />

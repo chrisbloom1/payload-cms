@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { FloatingNav } from "@/components/FloatingNav";
+import { HelpHeader } from "@/components/HelpHeader";
 import { UnifiedFooter } from "@/components/UnifiedFooter";
 import { ArrowRightIcon } from "@/components/icons";
 import { BrandLogo } from "@/components/BrandLogo";
@@ -41,7 +41,7 @@ export default async function StoryPage(
 
   return (
     <>
-      <FloatingNav />
+      <HelpHeader />
       <main className="bg-bloom-cream">
         {/* Hero: title left, hero image right + key benefits + nodes panel */}
         <section className="pt-28 pb-12 sm:pt-32 lg:pt-36">

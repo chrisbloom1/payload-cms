@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { FloatingNav } from "@/components/FloatingNav";
+import { HelpHeader } from "@/components/HelpHeader";
 import { UnifiedFooter } from "@/components/UnifiedFooter";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { ArrowRightIcon } from "@/components/icons";
@@ -314,7 +314,7 @@ export default async function BrandsPage() {
 
   return (
     <>
-      <FloatingNav />
+      <HelpHeader />
       <main className="flex flex-col bg-bloom-cream">
         <BrandsHero headline={content.hero.headline} body={content.hero.body} />
         <BrandsBuiltForCoast

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import configPromise from "@payload-config";
 import { getPayload } from "payload";
-import { FloatingNav } from "@/components/FloatingNav";
+import { HelpHeader } from "@/components/HelpHeader";
 import { UnifiedFooter } from "@/components/UnifiedFooter";
 import { ArrowRightIcon } from "@/components/icons";
 import RichText from "@/components/RichText";
@@ -190,7 +190,7 @@ export default async function BlogPostPage(
 
   return (
     <>
-      <FloatingNav />
+      <HelpHeader />
       <main className="flex-1 bg-bloom-cream pb-16 pt-24">
         <article className="mx-auto w-full max-w-[1100px] px-4 sm:px-6">
           {/* Hero: image right, headline left */}

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FloatingNav } from "@/components/FloatingNav";
+import { HelpHeader } from "@/components/HelpHeader";
 import { UnifiedFooter } from "@/components/UnifiedFooter";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { ArrowRightIcon } from "@/components/icons";
@@ -146,7 +146,7 @@ export default async function CustomerStoriesPage() {
 
   return (
     <>
-      <FloatingNav />
+      <HelpHeader />
       <main className="flex-1 bg-bloom-cream pb-16 pt-24">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
           <RevealOnScroll

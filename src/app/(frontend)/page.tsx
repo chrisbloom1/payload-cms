@@ -1,4 +1,4 @@
-import { FloatingNav } from "@/components/FloatingNav";
+import { HelpHeader } from "@/components/HelpHeader";
 import { UnifiedFooter } from "@/components/UnifiedFooter";
 import { HomeAppDemo } from "@/components/home/HomeAppDemo";
 import { HomeHeroNative } from "@/components/home/HomeHeroNative";
@@ -11,7 +11,6 @@ import {
   LazyHomeManageCard,
   LazyMembersTestimonials,
   LazyMockupterms,
-  LazyRolesSplit,
 } from "@/components/home/LazyHomeSections";
 import { loadHomePage } from "@/lib/home-page-resolver";
 import { loadTestimonials } from "@/lib/marketing-content-resolver";
@@ -34,7 +33,7 @@ export default async function HomePage() {
         type="image/webp"
         fetchPriority="high"
       />
-      <FloatingNav />
+      <HelpHeader />
       <main className="flex flex-col">
         {/* Hero — hand-rolled HTML/CSS replacement for the original
             Proofly/Framer SECTIONHERONEW export. Drops the
@@ -95,11 +94,6 @@ export default async function HomePage() {
             </div>
           </div>
         </section>
-
-        {/* For Brands / For Providers small navy pills */}
-        <div className="cv-auto-section cv-h-560">
-          <LazyRolesSplit />
-        </div>
 
         {/* Cultivating an ecosystem stats */}
         <div className="cv-auto-section">

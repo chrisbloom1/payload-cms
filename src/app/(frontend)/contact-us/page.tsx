@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { FloatingNav } from "@/components/FloatingNav";
+import { HelpHeader } from "@/components/HelpHeader";
 import { UnifiedFooter } from "@/components/UnifiedFooter";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { ContactForm } from "@/components/forms/ContactForm";
@@ -165,7 +165,7 @@ export default async function ContactUsPage() {
 
   return (
     <>
-      <FloatingNav />
+      <HelpHeader />
       <main className="bg-bloom-cream">
         <ContactHero hero={content.hero} />
         <ContactPaths paths={content.paths} />

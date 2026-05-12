@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { FloatingNav } from "@/components/FloatingNav";
+import { HelpHeader } from "@/components/HelpHeader";
 import { UnifiedFooter } from "@/components/UnifiedFooter";
 
 export const metadata: Metadata = {
@@ -68,7 +68,7 @@ function Bold({ children }: { children: ReactNode }) {
 export default function PrivacyPage() {
   return (
     <>
-      <FloatingNav />
+      <HelpHeader />
 
       <main className="bg-bloom-cream">
         {/* Hero */}
