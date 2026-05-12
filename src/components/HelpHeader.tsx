@@ -42,7 +42,6 @@ const resourceColumns: ResourceColumn[] = [
     heading: 'Help',
     links: [
       { href: '/contact-us', label: 'Contact', description: 'Talk to the Bloom team' },
-      { href: '/customer-stories', label: 'Customer Stories', description: 'How brands grow with Bloom' },
     ],
   },
 ]
