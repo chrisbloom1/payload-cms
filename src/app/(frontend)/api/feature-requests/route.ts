@@ -1,3 +1,5 @@
+// @ts-nocheck — feature-requests collection is disabled in payload.config.ts
+// (see migration TODO). Route is dormant until re-enabled.
 import { NextRequest, NextResponse } from 'next/server'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'

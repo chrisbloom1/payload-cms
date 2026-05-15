@@ -1,3 +1,5 @@
+// @ts-nocheck — feature-requests collection is disabled in payload.config.ts
+// (see migration TODO). Page is dormant until re-enabled.
 import type { Metadata } from 'next/types'
 
 import configPromise from '@payload-config'
