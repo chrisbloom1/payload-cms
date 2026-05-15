@@ -67,17 +67,21 @@ export interface Config {
   };
   blocks: {};
   collections: {
+    posts: Post;
+    'customer-stories': CustomerStory;
+    testimonials: Testimonial;
+    'marketing-faqs': MarketingFaq;
+    'team-members': TeamMember;
+    media: Media;
     articles: Article;
     faqs: Faq;
     glossary: Glossary;
     guides: Guide;
     'release-notes': ReleaseNote;
-    'feature-requests': FeatureRequest;
     'kb-categories': KbCategory;
     pages: Page;
-    media: Media;
     users: User;
-    posts: Post;
+    'mcp-audit-log': McpAuditLog;
     categories: Category;
     comments: Comment;
     redirects: Redirect;
@@ -91,17 +95,21 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
+    posts: PostsSelect<false> | PostsSelect<true>;
+    'customer-stories': CustomerStoriesSelect<false> | CustomerStoriesSelect<true>;
+    testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
+    'marketing-faqs': MarketingFaqsSelect<false> | MarketingFaqsSelect<true>;
+    'team-members': TeamMembersSelect<false> | TeamMembersSelect<true>;
+    media: MediaSelect<false> | MediaSelect<true>;
     articles: ArticlesSelect<false> | ArticlesSelect<true>;
     faqs: FaqsSelect<false> | FaqsSelect<true>;
     glossary: GlossarySelect<false> | GlossarySelect<true>;
     guides: GuidesSelect<false> | GuidesSelect<true>;
     'release-notes': ReleaseNotesSelect<false> | ReleaseNotesSelect<true>;
-    'feature-requests': FeatureRequestsSelect<false> | FeatureRequestsSelect<true>;
     'kb-categories': KbCategoriesSelect<false> | KbCategoriesSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
-    media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
-    posts: PostsSelect<false> | PostsSelect<true>;
+    'mcp-audit-log': McpAuditLogSelect<false> | McpAuditLogSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     comments: CommentsSelect<false> | CommentsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
@@ -118,10 +126,20 @@ export interface Config {
   };
   fallbackLocale: null;
   globals: {
+    'home-page': HomePage;
+    'brands-page': BrandsPage;
+    'providers-page': ProvidersPage;
+    'company-page': CompanyPage;
+    'contact-page': ContactPage;
     header: Header;
     footer: Footer;
   };
   globalsSelect: {
+    'home-page': HomePageSelect<false> | HomePageSelect<true>;
+    'brands-page': BrandsPageSelect<false> | BrandsPageSelect<true>;
+    'providers-page': ProvidersPageSelect<false> | ProvidersPageSelect<true>;
+    'company-page': CompanyPageSelect<false> | CompanyPageSelect<true>;
+    'contact-page': ContactPageSelect<false> | ContactPageSelect<true>;
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
   };
@@ -152,6 +170,516 @@ export interface UserAuthOperations {
     email: string;
     password: string;
   };
+}
+/**
+ * Articles published at /blog. Use displayCategory + displayAuthor for the marketing card; the SEO tab handles meta tags. Live Preview is enabled — open /blog/[slug] in another tab to see edits in real time.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: number;
+  title: string;
+  /**
+   * Short summary shown on the /blog index card and at the top of the article. Aim for 1–2 sentences.
+   */
+  excerpt?: string | null;
+  /**
+   * Hero image for this post (top of article and /blog index card). Upload here for the best result.
+   */
+  heroImage?: (number | null) | Media;
+  /**
+   * Fallback hero image URL or path (e.g. /images/blog/foo.jpg). Used only when no Hero Image is uploaded. Existing legacy posts use this; new posts should use Hero Image instead.
+   */
+  heroUrl?: string | null;
+  /**
+   * Short tag shown above the headline (e.g. "UPDATES", "INSIGHTS"). Falls back to the first related Category if blank.
+   */
+  displayCategory?: string | null;
+  /**
+   * Byline name shown on the article (e.g. "Chris Nolte"). Use this for guest authors who don't have a Payload login.
+   */
+  displayAuthor?: string | null;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  relatedPosts?: (number | Post)[] | null;
+  categories?: (number | Category)[] | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * Uploaded images for the site (hero photos, logos, etc.). Reference these from Blog Posts, Customer Stories, or Home Page logos via the upload fields.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  alt?: string | null;
+  caption?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+  sizes?: {
+    thumbnail?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    square?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    small?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    medium?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    large?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    xlarge?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: number;
+  title: string;
+  parent?: (number | null) | Category;
+  breadcrumbs?:
+    | {
+        doc?: (number | null) | Category;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Team members with admin access.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
+export interface User {
+  id: number;
+  name?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
+  collection: 'users';
+}
+/**
+ * Case studies shown at /customer-stories and /customer-stories/[slug]. The Card tab controls the index-page presentation (theme, alignment, ordering); Branding sets the hero/logo assets; Article holds the long-form story.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customer-stories".
+ */
+export interface CustomerStory {
+  id: number;
+  /**
+   * Headline shown on both the index card and the article hero.
+   */
+  title: string;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  /**
+   * Background color of the overlapping info card on the index page. Pick something that contrasts with the hero image.
+   */
+  cardTheme?: ('navy' | 'navyDeep' | 'teal' | 'mint' | 'cream' | 'lavender' | 'amber') | null;
+  /**
+   * Which side the card overlaps the hero image.
+   */
+  cardAlign?: ('left' | 'right') | null;
+  /**
+   * Order on the /customer-stories index page (lower numbers appear first).
+   */
+  sortOrder?: number | null;
+  /**
+   * Hero image at the top of the article and card.
+   */
+  heroImage?: (number | null) | Media;
+  /**
+   * Fallback hero URL or path. Used only when no Hero Image is uploaded.
+   */
+  heroUrl?: string | null;
+  /**
+   * Customer logo. Used on both the card and the article header.
+   */
+  logoImage?: (number | null) | Media;
+  /**
+   * Fallback logo URL or path.
+   */
+  logoUrl?: string | null;
+  /**
+   * Optional alternate logo for dark-themed cards (white version, used when card theme is navy/navyDeep/teal).
+   */
+  logoDarkImage?: (number | null) | Media;
+  /**
+   * Fallback dark-card logo URL or path.
+   */
+  logoDarkUrl?: string | null;
+  /**
+   * Accessible name for the logo (e.g. customer name).
+   */
+  logoAlt: string;
+  /**
+   * Whether the logo is a flat single-color silhouette or a full-color mark.
+   */
+  logoType?: ('monochrome' | 'color') | null;
+  /**
+   * Source color of the monochrome logo. White-source logos need brightness(0) on light cards to remain visible.
+   */
+  logoMonoColor?: ('white' | 'black') | null;
+  /**
+   * 3 short, ALL-CAPS-styled benefit lines that appear in the dark navy band beneath the hero. Aim for 1–2 sentences each.
+   */
+  topBenefits?:
+    | {
+        benefit: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Bloom service nodes used (Build, Deliver, Service). Shown as pills next to the top benefits.
+   */
+  nodes?:
+    | {
+        value: 'Build' | 'Deliver' | 'Service';
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Opening paragraph(s) introducing the customer and the challenge.
+   */
+  intro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Main narrative body — what Bloom did and how it played out.
+   */
+  body?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Customer pull-quote shown after the body.
+   */
+  quote?: {
+    text?: string | null;
+    author?: string | null;
+    /**
+     * e.g. "Co-Founder, Grounded".
+     */
+    role?: string | null;
+  };
+  /**
+   * Optional closing paragraph after the quote.
+   */
+  outro?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Numbered/bulleted detail benefits at the bottom (typically 3, max 6).
+   */
+  benefits?:
+    | {
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional final closing line.
+   */
+  closing?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * Customer pull-quotes shown by the testimonial carousel on the home, brands, and providers pages.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "testimonials".
+ */
+export interface Testimonial {
+  id: number;
+  /**
+   * The quote itself. Plain text — no quotation marks needed (the carousel adds them).
+   */
+  quote: string;
+  /**
+   * Speaker name (e.g. "Sam Shapiro").
+   */
+  author: string;
+  /**
+   * Role / title (e.g. "Co-Founder").
+   */
+  title: string;
+  /**
+   * Optional company name (e.g. "Grounded").
+   */
+  company?: string | null;
+  /**
+   * Headshot or avatar.
+   */
+  avatarImage?: (number | null) | Media;
+  /**
+   * Fallback avatar URL when no image is uploaded. If both are blank, initials render automatically.
+   */
+  avatarUrl?: string | null;
+  /**
+   * Carousel order (lower numbers appear first).
+   */
+  sortOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * FAQ entries shown at the bottom of /brands and /providers. Use the Surfaces field to control which page(s) each FAQ appears on.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "marketing-faqs".
+ */
+export interface MarketingFaq {
+  id: number;
+  question: string;
+  answer: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Which marketing page(s) this FAQ appears on. Most entries live on both.
+   */
+  surfaces?: ('brands' | 'providers')[] | null;
+  /**
+   * Order within the FAQ accordion (lower numbers appear first).
+   */
+  sortOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Bloom team members shown on /company.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team-members".
+ */
+export interface TeamMember {
+  id: number;
+  name: string;
+  /**
+   * Role / title (e.g. "CEO & Co-founder").
+   */
+  title: string;
+  /**
+   * Full LinkedIn URL.
+   */
+  linkedin?: string | null;
+  /**
+   * Headshot. Upload here for the best result.
+   */
+  photoImage?: (number | null) | Media;
+  /**
+   * Fallback URL or path (e.g. /images/team/foo.png). Used when no Photo Image is uploaded.
+   */
+  photoUrl?: string | null;
+  /**
+   * Long-form biography. The card-modal on /company renders this as the expanded body.
+   */
+  bio?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  sortOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -330,26 +858,8 @@ export interface ReleaseNote {
   createdAt: string;
 }
 /**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "feature-requests".
- */
-export interface FeatureRequest {
-  id: number;
-  title: string;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  description: string;
-  status?: ('new' | 'under-review' | 'planned' | 'in-progress' | 'shipped') | null;
-  votes?: number | null;
-  submitterName?: string | null;
-  submitterEmail?: string | null;
-  audience?: ('brand' | 'provider' | 'both') | null;
-  category?: (number | null) | KbCategory;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
+ * Generic block-based pages served at /[slug]. Most marketing pages are coded directly; use this only for one-off CMS-driven landing pages.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages".
  */
@@ -409,90 +919,6 @@ export interface Page {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media".
- */
-export interface Media {
-  id: number;
-  alt?: string | null;
-  caption?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  updatedAt: string;
-  createdAt: string;
-  url?: string | null;
-  thumbnailURL?: string | null;
-  filename?: string | null;
-  mimeType?: string | null;
-  filesize?: number | null;
-  width?: number | null;
-  height?: number | null;
-  focalX?: number | null;
-  focalY?: number | null;
-  sizes?: {
-    thumbnail?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    square?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    small?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    medium?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    large?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-    xlarge?: {
-      url?: string | null;
-      width?: number | null;
-      height?: number | null;
-      mimeType?: string | null;
-      filesize?: number | null;
-      filename?: string | null;
-    };
-  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -628,97 +1054,6 @@ export interface ArchiveBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
- */
-export interface Category {
-  id: number;
-  title: string;
-  parent?: (number | null) | Category;
-  breadcrumbs?:
-    | {
-        doc?: (number | null) | Category;
-        url?: string | null;
-        label?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: number;
-  title: string;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  relatedPosts?: (number | Post)[] | null;
-  categories?: (number | Category)[] | null;
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Media;
-    description?: string | null;
-  };
-  publishedAt?: string | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        name?: string | null;
-      }[]
-    | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
- */
-export interface User {
-  id: number;
-  name?: string | null;
-  updatedAt: string;
-  createdAt: string;
-  email: string;
-  resetPasswordToken?: string | null;
-  resetPasswordExpiration?: string | null;
-  salt?: string | null;
-  hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
-  sessions?:
-    | {
-        id: string;
-        createdAt?: string | null;
-        expiresAt: string;
-      }[]
-    | null;
-  password?: string | null;
-  collection: 'users';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "FormBlock".
  */
 export interface FormBlock {
@@ -744,6 +1079,8 @@ export interface FormBlock {
   blockType: 'formBlock';
 }
 /**
+ * Reusable form definitions (used by the Form block).
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "forms".
  */
@@ -918,6 +1255,55 @@ export interface Form {
   createdAt: string;
 }
 /**
+ * Every mutation made through the Payload MCP endpoint. Read-only.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mcp-audit-log".
+ */
+export interface McpAuditLog {
+  id: number;
+  /**
+   * Human-readable one-liner like "update articles/abc123"
+   */
+  summary: string;
+  tool: 'payload_create' | 'payload_update' | 'payload_delete' | 'payload_publish' | 'payload_update_global';
+  /**
+   * Collection or global slug the mutation targeted
+   */
+  collection?: string | null;
+  /**
+   * Document ID (for update/delete/publish), empty for create
+   */
+  documentId?: string | null;
+  status: 'success' | 'error';
+  /**
+   * Tool arguments as provided by the MCP client
+   */
+  args?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * On success: result summary. On error: error message + stack.
+   */
+  result?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Comments submitted by visitors on blog posts
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -940,6 +1326,8 @@ export interface Comment {
   createdAt: string;
 }
 /**
+ * URL redirects (e.g. retired pages → new ones). Cache rebuilds when this changes.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
@@ -966,6 +1354,8 @@ export interface Redirect {
   createdAt: string;
 }
 /**
+ * Submitted form responses (read-only history).
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "form-submissions".
  */
@@ -1037,6 +1427,30 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
+        relationTo: 'posts';
+        value: number | Post;
+      } | null)
+    | ({
+        relationTo: 'customer-stories';
+        value: number | CustomerStory;
+      } | null)
+    | ({
+        relationTo: 'testimonials';
+        value: number | Testimonial;
+      } | null)
+    | ({
+        relationTo: 'marketing-faqs';
+        value: number | MarketingFaq;
+      } | null)
+    | ({
+        relationTo: 'team-members';
+        value: number | TeamMember;
+      } | null)
+    | ({
+        relationTo: 'media';
+        value: number | Media;
+      } | null)
+    | ({
         relationTo: 'articles';
         value: number | Article;
       } | null)
@@ -1057,10 +1471,6 @@ export interface PayloadLockedDocument {
         value: number | ReleaseNote;
       } | null)
     | ({
-        relationTo: 'feature-requests';
-        value: number | FeatureRequest;
-      } | null)
-    | ({
         relationTo: 'kb-categories';
         value: number | KbCategory;
       } | null)
@@ -1069,16 +1479,12 @@ export interface PayloadLockedDocument {
         value: number | Page;
       } | null)
     | ({
-        relationTo: 'media';
-        value: number | Media;
-      } | null)
-    | ({
         relationTo: 'users';
         value: number | User;
       } | null)
     | ({
-        relationTo: 'posts';
-        value: number | Post;
+        relationTo: 'mcp-audit-log';
+        value: number | McpAuditLog;
       } | null)
     | ({
         relationTo: 'categories';
@@ -1145,6 +1551,230 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts_select".
+ */
+export interface PostsSelect<T extends boolean = true> {
+  title?: T;
+  excerpt?: T;
+  heroImage?: T;
+  heroUrl?: T;
+  displayCategory?: T;
+  displayAuthor?: T;
+  content?: T;
+  relatedPosts?: T;
+  categories?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  publishedAt?: T;
+  authors?: T;
+  populatedAuthors?:
+    | T
+    | {
+        id?: T;
+        name?: T;
+      };
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customer-stories_select".
+ */
+export interface CustomerStoriesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  slugLock?: T;
+  cardTheme?: T;
+  cardAlign?: T;
+  sortOrder?: T;
+  heroImage?: T;
+  heroUrl?: T;
+  logoImage?: T;
+  logoUrl?: T;
+  logoDarkImage?: T;
+  logoDarkUrl?: T;
+  logoAlt?: T;
+  logoType?: T;
+  logoMonoColor?: T;
+  topBenefits?:
+    | T
+    | {
+        benefit?: T;
+        id?: T;
+      };
+  nodes?:
+    | T
+    | {
+        value?: T;
+        id?: T;
+      };
+  intro?: T;
+  body?: T;
+  quote?:
+    | T
+    | {
+        text?: T;
+        author?: T;
+        role?: T;
+      };
+  outro?: T;
+  benefits?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  closing?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  publishedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "testimonials_select".
+ */
+export interface TestimonialsSelect<T extends boolean = true> {
+  quote?: T;
+  author?: T;
+  title?: T;
+  company?: T;
+  avatarImage?: T;
+  avatarUrl?: T;
+  sortOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "marketing-faqs_select".
+ */
+export interface MarketingFaqsSelect<T extends boolean = true> {
+  question?: T;
+  answer?: T;
+  surfaces?: T;
+  sortOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "team-members_select".
+ */
+export interface TeamMembersSelect<T extends boolean = true> {
+  name?: T;
+  title?: T;
+  linkedin?: T;
+  photoImage?: T;
+  photoUrl?: T;
+  bio?: T;
+  sortOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media_select".
+ */
+export interface MediaSelect<T extends boolean = true> {
+  alt?: T;
+  caption?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+  sizes?:
+    | T
+    | {
+        thumbnail?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        square?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        small?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        medium?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        large?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        xlarge?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1230,25 +1860,6 @@ export interface ReleaseNotesSelect<T extends boolean = true> {
   breakingChanges?: T;
   updatedAt?: T;
   createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "feature-requests_select".
- */
-export interface FeatureRequestsSelect<T extends boolean = true> {
-  title?: T;
-  slug?: T;
-  slugLock?: T;
-  description?: T;
-  status?: T;
-  votes?: T;
-  submitterName?: T;
-  submitterEmail?: T;
-  audience?: T;
-  category?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1401,89 +2012,6 @@ export interface FormBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "media_select".
- */
-export interface MediaSelect<T extends boolean = true> {
-  alt?: T;
-  caption?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  url?: T;
-  thumbnailURL?: T;
-  filename?: T;
-  mimeType?: T;
-  filesize?: T;
-  width?: T;
-  height?: T;
-  focalX?: T;
-  focalY?: T;
-  sizes?:
-    | T
-    | {
-        thumbnail?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        square?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        small?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        medium?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        large?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-        xlarge?:
-          | T
-          | {
-              url?: T;
-              width?: T;
-              height?: T;
-              mimeType?: T;
-              filesize?: T;
-              filename?: T;
-            };
-      };
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
@@ -1507,33 +2035,18 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts_select".
+ * via the `definition` "mcp-audit-log_select".
  */
-export interface PostsSelect<T extends boolean = true> {
-  title?: T;
-  content?: T;
-  relatedPosts?: T;
-  categories?: T;
-  meta?:
-    | T
-    | {
-        title?: T;
-        image?: T;
-        description?: T;
-      };
-  publishedAt?: T;
-  authors?: T;
-  populatedAuthors?:
-    | T
-    | {
-        id?: T;
-        name?: T;
-      };
-  slug?: T;
-  slugLock?: T;
+export interface McpAuditLogSelect<T extends boolean = true> {
+  summary?: T;
+  tool?: T;
+  collection?: T;
+  documentId?: T;
+  status?: T;
+  args?: T;
+  result?: T;
   updatedAt?: T;
   createdAt?: T;
-  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1803,6 +2316,425 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
+ * Editable content for the marketing home page (bloomnetwork.ai/). Live Preview is enabled — open the page in another tab to see changes immediately.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page".
+ */
+export interface HomePage {
+  id: number;
+  hero?: {
+    /**
+     * The H1 at the top of the page.
+     */
+    headline?: string | null;
+    /**
+     * Words shown before the rotating-word pill (e.g. "We help make").
+     */
+    subheadingPrefix?: string | null;
+    /**
+     * Words that cycle inside the navy pill, ~1.6s each. The pill always sizes to the longest word.
+     */
+    rotatingWords?:
+      | {
+          word: string;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Word(s) shown after the rotating-word pill.
+     */
+    subheadingSuffix?: string | null;
+    /**
+     * Greyed-out hint text in the chat textarea before the visitor types.
+     */
+    chatPlaceholder?: string | null;
+    /**
+     * CTA label inside the chat box.
+     */
+    chatButtonLabel?: string | null;
+    /**
+     * Where the chat submits to. Visitor input is appended as ?prefill=… so the marketplace flow opens with their prompt pre-filled.
+     */
+    chatPrefillUrl?: string | null;
+    /**
+     * The small navy pill that overlaps the bottom of the chat card.
+     */
+    badgeText?: string | null;
+    /**
+     * Paragraph below the chat card. Plain text; no markdown.
+     */
+    tagline?: string | null;
+  };
+  /**
+   * Top row, scrolls left. Logos render at 56px tall, 110px max width.
+   */
+  logoMarqueeRow1?:
+    | {
+        /**
+         * Preferred — upload via Media library.
+         */
+        logoImage?: (number | null) | Media;
+        /**
+         * Fallback URL (used when no Logo Image is set).
+         */
+        logoUrl?: string | null;
+        /**
+         * Brand name (used for accessibility).
+         */
+        alt: string;
+        /**
+         * Original asset width in px.
+         */
+        width?: number | null;
+        /**
+         * Original asset height in px.
+         */
+        height?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Bottom row, scrolls right.
+   */
+  logoMarqueeRow2?:
+    | {
+        logoImage?: (number | null) | Media;
+        logoUrl?: string | null;
+        alt: string;
+        width?: number | null;
+        height?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  discover?: {
+    heading?: string | null;
+    body?: string | null;
+  };
+  manage?: {
+    heading?: string | null;
+    body?: string | null;
+  };
+  pay?: {
+    heading?: string | null;
+    body?: string | null;
+  };
+  ecosystem?: {
+    heading?: string | null;
+    body?: string | null;
+    /**
+     * Each card animates from 0 to its target value when it scrolls into view.
+     */
+    stats?:
+      | {
+          /**
+           * Target number to count up to (e.g. 40).
+           */
+          value: number;
+          /**
+           * Trailing symbol (e.g. "%", "x", "+").
+           */
+          suffix?: string | null;
+          /**
+           * Big colored label (e.g. "Reduction", "Lower", "Faster").
+           */
+          label: string;
+          /**
+           * Small grey caption underneath (e.g. "in lead times").
+           */
+          description: string;
+          /**
+           * Color theme for the label text. Cycle through orange/coral/red across cards for the live look.
+           */
+          labelColor?: ('orange' | 'coral' | 'red' | 'navy') | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Editable content for /brands (For Brands marketing page). Live Preview works — open /brands in another tab to see edits live.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brands-page".
+ */
+export interface BrandsPage {
+  id: number;
+  hero?: {
+    headline?: string | null;
+    body?: string | null;
+  };
+  /**
+   * Each vertical becomes a tag in the orange row and a tile in the 2x2 collage.
+   */
+  verticals?:
+    | {
+        label: string;
+        /**
+         * Tile background image (square crop).
+         */
+        image?: (number | null) | Media;
+        /**
+         * Fallback URL when no Media is uploaded.
+         */
+        imageUrl?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  builtFor?: {
+    heading?: string | null;
+    body?: string | null;
+  };
+  coastToCoast?: {
+    heading?: string | null;
+    body?: string | null;
+  };
+  framework?: {
+    heading?: string | null;
+    body?: string | null;
+    /**
+     * Numbered chevron steps under the framework heading.
+     */
+    steps?:
+      | {
+          /**
+           * Short uppercase label (e.g. "JOIN").
+           */
+          label: string;
+          description: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  pricing?: {
+    heading?: string | null;
+    /**
+     * Description above the pricing matrix. Use bold for term emphasis (e.g. "Bloom Preferred Pricing", "BloomPay").
+     */
+    body?: {
+      root: {
+        type: string;
+        children: {
+          type: any;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+  };
+  bloomPay?: {
+    heading?: string | null;
+    body?: string | null;
+  };
+  cta?: {
+    heading?: string | null;
+    buttonLabel?: string | null;
+    buttonHref?: string | null;
+  };
+  /**
+   * Heading for the FAQ accordion at the bottom of the page.
+   */
+  faqHeading?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Editable content for /providers. Live Preview works — open /providers in another tab to see edits live.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "providers-page".
+ */
+export interface ProvidersPage {
+  id: number;
+  hero?: {
+    headline?: string | null;
+    body?: string | null;
+    /**
+     * Mint-tinted square tiles next to the hero (line-art delivery icons). Render with currentColor — supply SVG paths or upload images.
+     */
+    iconTiles?:
+      | {
+          image?: (number | null) | Media;
+          /**
+           * Fallback URL when no Media is uploaded.
+           */
+          imageUrl?: string | null;
+          alt: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * Each row alternates left/right (auto). Eyebrow is the small uppercase tag above the heading.
+   */
+  benefits?:
+    | {
+        /**
+         * Short uppercase tag (e.g. "QUALIFIED LEADS").
+         */
+        eyebrow?: string | null;
+        heading: string;
+        body: string;
+        /**
+         * Visual shown next to the text (platform screenshot, illustration, etc).
+         */
+        image?: (number | null) | Media;
+        /**
+         * Fallback URL.
+         */
+        imageUrl?: string | null;
+        imageAlt?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  criteria?: {
+    heading?: string | null;
+    body?: string | null;
+    items?:
+      | {
+          /**
+           * Short label (e.g. "Service 01").
+           */
+          label: string;
+          title: string;
+          description: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  framework?: {
+    heading?: string | null;
+    body?: string | null;
+    steps?:
+      | {
+          /**
+           * Short uppercase label.
+           */
+          label: string;
+          description: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  cta?: {
+    heading?: string | null;
+    buttonLabel?: string | null;
+    buttonHref?: string | null;
+  };
+  faqHeading?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Editable content for /company. Team members live in their own collection.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "company-page".
+ */
+export interface CompanyPage {
+  id: number;
+  hero?: {
+    headline?: string | null;
+    body?: string | null;
+  };
+  whatWeDo?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    body?: string | null;
+  };
+  whoWeAre?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    body?: string | null;
+  };
+  ecosystem?: {
+    heading?: string | null;
+    paragraphs?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
+   * The 4-up grid of resource tiles. If `comingSoon` is checked, the card is shown without a link.
+   */
+  resources?:
+    | {
+        title: string;
+        body: string;
+        /**
+         * Link target (e.g. /newsroom). Leave blank to mark "Coming Soon".
+         */
+        href?: string | null;
+        /**
+         * When checked, the card renders as static (no link) with a "Coming Soon" badge.
+         */
+        comingSoon?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Small uppercase label above the team grid.
+   */
+  teamEyebrow?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Editable content for /contact-us. The form itself is built via Payload Forms.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page".
+ */
+export interface ContactPage {
+  id: number;
+  hero?: {
+    headline?: string | null;
+    body?: string | null;
+  };
+  paths?:
+    | {
+        eyebrow: string;
+        heading: string;
+        body: string;
+        href: string;
+        /**
+         * Link label (e.g. "Explore for brands").
+         */
+        cta: string;
+        id?: string | null;
+      }[]
+    | null;
+  formSection?: {
+    eyebrow?: string | null;
+    heading?: string | null;
+    body?: string | null;
+  };
+  officesHeading?: string | null;
+  offices?:
+    | {
+        city: string;
+        line1: string;
+        line2: string;
+        id?: string | null;
+      }[]
+    | null;
+  connectHeading?: string | null;
+  linkedinUrl?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Top navigation links shown across the marketing site.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header".
  */
@@ -1827,6 +2759,8 @@ export interface Header {
   createdAt?: string | null;
 }
 /**
+ * Footer navigation links shown across the marketing site.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "footer".
  */
@@ -1849,6 +2783,317 @@ export interface Footer {
     | null;
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home-page_select".
+ */
+export interface HomePageSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        headline?: T;
+        subheadingPrefix?: T;
+        rotatingWords?:
+          | T
+          | {
+              word?: T;
+              id?: T;
+            };
+        subheadingSuffix?: T;
+        chatPlaceholder?: T;
+        chatButtonLabel?: T;
+        chatPrefillUrl?: T;
+        badgeText?: T;
+        tagline?: T;
+      };
+  logoMarqueeRow1?:
+    | T
+    | {
+        logoImage?: T;
+        logoUrl?: T;
+        alt?: T;
+        width?: T;
+        height?: T;
+        id?: T;
+      };
+  logoMarqueeRow2?:
+    | T
+    | {
+        logoImage?: T;
+        logoUrl?: T;
+        alt?: T;
+        width?: T;
+        height?: T;
+        id?: T;
+      };
+  discover?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+      };
+  manage?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+      };
+  pay?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+      };
+  ecosystem?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+        stats?:
+          | T
+          | {
+              value?: T;
+              suffix?: T;
+              label?: T;
+              description?: T;
+              labelColor?: T;
+              id?: T;
+            };
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "brands-page_select".
+ */
+export interface BrandsPageSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        headline?: T;
+        body?: T;
+      };
+  verticals?:
+    | T
+    | {
+        label?: T;
+        image?: T;
+        imageUrl?: T;
+        id?: T;
+      };
+  builtFor?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+      };
+  coastToCoast?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+      };
+  framework?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+        steps?:
+          | T
+          | {
+              label?: T;
+              description?: T;
+              id?: T;
+            };
+      };
+  pricing?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+      };
+  bloomPay?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+      };
+  cta?:
+    | T
+    | {
+        heading?: T;
+        buttonLabel?: T;
+        buttonHref?: T;
+      };
+  faqHeading?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "providers-page_select".
+ */
+export interface ProvidersPageSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        headline?: T;
+        body?: T;
+        iconTiles?:
+          | T
+          | {
+              image?: T;
+              imageUrl?: T;
+              alt?: T;
+              id?: T;
+            };
+      };
+  benefits?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        body?: T;
+        image?: T;
+        imageUrl?: T;
+        imageAlt?: T;
+        id?: T;
+      };
+  criteria?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+        items?:
+          | T
+          | {
+              label?: T;
+              title?: T;
+              description?: T;
+              id?: T;
+            };
+      };
+  framework?:
+    | T
+    | {
+        heading?: T;
+        body?: T;
+        steps?:
+          | T
+          | {
+              label?: T;
+              description?: T;
+              id?: T;
+            };
+      };
+  cta?:
+    | T
+    | {
+        heading?: T;
+        buttonLabel?: T;
+        buttonHref?: T;
+      };
+  faqHeading?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "company-page_select".
+ */
+export interface CompanyPageSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        headline?: T;
+        body?: T;
+      };
+  whatWeDo?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        body?: T;
+      };
+  whoWeAre?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        body?: T;
+      };
+  ecosystem?:
+    | T
+    | {
+        heading?: T;
+        paragraphs?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+      };
+  resources?:
+    | T
+    | {
+        title?: T;
+        body?: T;
+        href?: T;
+        comingSoon?: T;
+        id?: T;
+      };
+  teamEyebrow?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-page_select".
+ */
+export interface ContactPageSelect<T extends boolean = true> {
+  hero?:
+    | T
+    | {
+        headline?: T;
+        body?: T;
+      };
+  paths?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        body?: T;
+        href?: T;
+        cta?: T;
+        id?: T;
+      };
+  formSection?:
+    | T
+    | {
+        eyebrow?: T;
+        heading?: T;
+        body?: T;
+      };
+  officesHeading?: T;
+  offices?:
+    | T
+    | {
+        city?: T;
+        line1?: T;
+        line2?: T;
+        id?: T;
+      };
+  connectHeading?: T;
+  linkedinUrl?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://raw.githubusercontent.com/modelcontextprotocol/spec/main/schema/2024-11-05/schema.json",
+  "mcpServers": {
+    "payload": {
+      "type": "http",
+      "url": "${PAYLOAD_MCP_URL:-https://www.togetherwebloom.us/api/mcp/mcp}",
+      "headers": {
+        "Authorization": "Bearer ${PAYLOAD_MCP_TOKEN}"
+      }
+    }
+  }
+}
