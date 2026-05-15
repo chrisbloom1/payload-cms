@@ -3,7 +3,7 @@
   "mcpServers": {
     "payload": {
       "type": "http",
-      "url": "${PAYLOAD_MCP_URL:-https://www.togetherwebloom.us/api/mcp/mcp}",
+      "url": "https://bloom-merge.vercel.app/api/mcp/mcp",
       "headers": {
         "Authorization": "Bearer ${PAYLOAD_MCP_TOKEN}"
       }
