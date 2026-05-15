@@ -12,6 +12,7 @@ import * as migration_20260508_160000_testimonials_and_faqs from './20260508_160
 import * as migration_20260508_170000_company_team from './20260508_170000_company_team';
 import * as migration_20260508_180000_contact_page from './20260508_180000_contact_page';
 import * as migration_20260508_190000_fix_marketing_faqs_surfaces from './20260508_190000_fix_marketing_faqs_surfaces';
+import * as migration_20260515_201425_add_mcp_audit_log from './20260515_201425_add_mcp_audit_log';
 
 export const migrations = [
   {
@@ -83,5 +84,10 @@ export const migrations = [
     up: migration_20260508_190000_fix_marketing_faqs_surfaces.up,
     down: migration_20260508_190000_fix_marketing_faqs_surfaces.down,
     name: '20260508_190000_fix_marketing_faqs_surfaces',
+  },
+  {
+    up: migration_20260515_201425_add_mcp_audit_log.up,
+    down: migration_20260515_201425_add_mcp_audit_log.down,
+    name: '20260515_201425_add_mcp_audit_log'
   },
 ];

@@ -49,6 +49,11 @@ export const generateSummary: CollectionAfterChangeHook = async ({
       collection: 'articles',
       id: doc.id,
       data: { summary },
+      // Bypass access — the hook runs in whatever req context triggered
+      // the create. MCP calls set overrideAccess:true at the outer call
+      // but inner update from a hook doesn't inherit it, which 404s
+      // ("Not Found") when there's no authenticated user on req.
+      overrideAccess: true,
       // Prevent infinite loop — skip hooks on this update
       context: { skipSummaryGeneration: true },
     })
