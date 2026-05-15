@@ -10,6 +10,7 @@ import { Categories } from './collections/Categories'
 import { Comments } from './collections/Comments'
 import { CustomerStories } from './collections/CustomerStories'
 import { MarketingFaqs } from './collections/MarketingFaqs'
+import { MCPAuditLog } from './collections/MCPAuditLog'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
@@ -115,6 +116,7 @@ export default buildConfig({
     // === System (rare admin tasks) ===
     Pages, // generic block-based one-off pages
     Users,
+    MCPAuditLog, // append-only log of every mutation made via /api/mcp
 
     // === Hidden / legacy (kept for FK integrity) ===
     Categories, // hidden — replaced by displayCategory string field
