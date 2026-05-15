@@ -23,6 +23,9 @@ const handler = createMcpHandler(
 
 const authHandler = withMcpAuth(handler, verifyMcpBearer, {
   required: true,
+  // Tells 401 responses to advertise our OAuth resource metadata so
+  // claude.ai discovers the OAuth flow and walks through it.
+  resourceMetadataPath: '/.well-known/oauth-protected-resource',
 })
 
 export { authHandler as GET, authHandler as POST, authHandler as DELETE }
