@@ -118,12 +118,7 @@ export const Articles: CollectionConfig = {
     ...slugField(),
   ],
   hooks: {
-    afterChange: [
-      (args) => {
-        if (args.context?.skipSummaryGeneration) return args.doc
-        return generateSummary(args)
-      },
-    ],
+    beforeChange: [generateSummary],
   },
   versions: {
     drafts: true,
