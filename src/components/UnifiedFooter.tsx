@@ -74,7 +74,7 @@ export function UnifiedFooter({ className }: { className?: string }) {
         {/* Top: brand block + 3 link columns */}
         <div className="grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-[1.5fr_1fr_1fr_1fr] md:gap-x-10">
           {/* Brand block — wider so the description has room to breathe */}
-          <div className="col-span-2 flex flex-col gap-5 md:col-span-1">
+          <div className="col-span-2 flex flex-col items-start gap-5 md:col-span-1">
             <BloomWordmark className="h-[36px] w-auto" />
             <p className="text-[14px] leading-[1.55] text-bloom-navy/80 max-w-[320px]">
               {BLOOM_DESCRIPTION}
