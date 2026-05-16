@@ -110,12 +110,12 @@ function BrandsHero({ headline, body }: { headline: string; body: string }) {
 
         {/* Brandsintroanimation = Framer-exported widget. Internal "Turn on →"
             transitions the 6 service cards into a connected hexagonal network
-            with the orange Bloom mark in the center — interaction is owned by
-            the widget itself, no external CTA needed.
+            with the orange Bloom mark in the center.
 
-            min-h reserves space so hydration doesn't shift the hero LCP
-            (audit measured CLS 0.21 here without it). */}
-        <div className="w-full min-h-[480px] md:min-h-[560px] [content-visibility:auto] [contain-intrinsic-size:auto_560px]">
+            content-visibility:auto + contain-intrinsic-size reserves
+            space ahead of hydration (CLS fix from the launch audit)
+            without forcing the box to stay oversized after layout. */}
+        <div className="flex w-full justify-center [content-visibility:auto] [contain-intrinsic-size:auto_490px]">
           <Brandsintroanimation />
         </div>
       </div>
@@ -149,7 +149,7 @@ function BrandsBuiltForCoast({
           heading={coastToCoast.heading}
           body={coastToCoast.body}
           visual={
-            <div className="w-full min-h-[320px] md:min-h-[400px] [content-visibility:auto] [contain-intrinsic-size:auto_400px]">
+            <div className="flex w-full justify-center [content-visibility:auto] [contain-intrinsic-size:auto_300px]">
               <Animationmap />
             </div>
           }
@@ -233,7 +233,10 @@ function BrandsPricing({ pricing }: { pricing: BrandsContent["pricing"] }) {
             "*Extended terms subject to credit approval." footnote, so we don't
             duplicate it below. */}
         <div className="mt-12 flex w-full justify-center lg:mt-16">
-          <div className="w-full min-h-[600px] md:min-h-[760px] [content-visibility:auto] [contain-intrinsic-size:auto_760px]">
+          {/* Framer Pricingmatrix renders at ~919×460 — center it inside
+              the container and let content-visibility reserve intrinsic
+              space (no oversized min-h that left empty whitespace). */}
+          <div className="flex w-full justify-center [content-visibility:auto] [contain-intrinsic-size:auto_480px]">
             <Pricingmatrix />
           </div>
         </div>
@@ -267,7 +270,7 @@ function BrandsBloomPay({ bloomPay }: { bloomPay: BrandsContent["bloomPay"] }) {
             <div className="w-full max-w-[480px] lg:hidden">
               <BloomPayWidget className="w-full" />
             </div>
-            <div className="hidden lg:block w-full max-w-[520px] min-h-[420px] md:min-h-[480px] [content-visibility:auto] [contain-intrinsic-size:auto_480px]">
+            <div className="hidden lg:flex w-full max-w-[520px] justify-center [content-visibility:auto] [contain-intrinsic-size:auto_270px]">
               <Mockupterms />
             </div>
           </div>
