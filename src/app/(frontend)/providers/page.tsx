@@ -19,7 +19,7 @@ import {
 import { loadMarketingFaqs } from "@/lib/marketing-content-resolver";
 
 export const metadata: Metadata = {
-  title: "For Providers — Bloom",
+  title: "For Providers",
   description:
     "Win better hardware jobs. Get matched with vetted, fast-growing hardware brands and accelerate payments through Bloom's centralized platform.",
   alternates: { canonical: "/providers" },

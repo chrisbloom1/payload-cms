@@ -73,7 +73,7 @@ export const BRANDS_DEFAULTS: BrandsContent = {
   cta: {
     heading: 'Ready to cut costs, launch faster, and de‑risk your operations?',
     buttonLabel: 'UNLOCK YOUR POTENTIAL',
-    buttonHref: 'https://welcome.togetherwebloom.us/',
+    buttonHref: 'https://welcome.bloomnetwork.ai/',
   },
   faqHeading: 'FAQ',
 }

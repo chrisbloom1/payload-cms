@@ -209,7 +209,7 @@ export const BrandsPage: GlobalConfig = {
                 {
                   name: 'buttonHref',
                   type: 'text',
-                  defaultValue: 'https://welcome.togetherwebloom.us/',
+                  defaultValue: 'https://welcome.bloomnetwork.ai/',
                 },
               ],
             },

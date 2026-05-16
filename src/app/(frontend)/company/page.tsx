@@ -15,7 +15,7 @@ import {
 // ---------------------------------------------------------------------------
 
 export const metadata = {
-  title: "Company — Bloom",
+  title: "Company",
   description:
     "Bloom brings hard tech brands into an operations ecosystem that nurtures every stage of their product's growth.",
   alternates: { canonical: "/company" },

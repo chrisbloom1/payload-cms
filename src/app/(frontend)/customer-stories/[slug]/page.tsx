@@ -23,12 +23,14 @@ export async function generateMetadata(
 ) {
   const { slug } = await params;
   const story = await loadStoryDetail(slug);
-  if (!story) return { title: "Story Not Found - Bloom" };
+  if (!story) return { title: "Story Not Found" };
   // Prefer the legacy intro string if present (richer); else just title.
-  const description = story.legacyIntro?.[0]?.slice(0, 160);
+  const description = story.legacyIntro?.[0]?.slice(0, 160) ??
+    `Read how ${story.title} scaled with Bloom's network of vetted manufacturing, warehousing, and logistics partners.`;
   return {
-    title: `${story.title} - Bloom`,
+    title: story.title,
     description,
+    alternates: { canonical: `/customer-stories/${slug}` },
   };
 }
 
@@ -243,7 +245,7 @@ export default async function StoryPage(
               Ready to make hardware less hard?
             </h2>
             <Link
-              href="https://welcome.togetherwebloom.us/"
+              href="https://welcome.bloomnetwork.ai/"
               target="_blank"
               rel="noreferrer"
               className={cn(

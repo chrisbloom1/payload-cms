@@ -11,7 +11,7 @@ function client(): Resend {
 }
 
 function fromAddress(): string {
-  return process.env.RESEND_FROM_EMAIL ?? 'noreply@togetherwebloom.us'
+  return process.env.RESEND_FROM_EMAIL ?? 'noreply@bloomnetwork.ai'
 }
 
 export async function sendLoginCode(email: string, code: string): Promise<void> {

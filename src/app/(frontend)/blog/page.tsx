@@ -8,7 +8,7 @@ import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { BLOG_POSTS, type BlogPost } from "@/lib/blog-posts";
 
 export const metadata = {
-  title: "News - Bloom",
+  title: "Blog",
   description:
     "The latest developments at Bloom. From new partnerships to industry insights, this is your go-to source for all things Bloom.",
   alternates: { canonical: "/blog" },
@@ -135,7 +135,7 @@ export default async function BlogIndexPage() {
             className="mx-auto mb-16 max-w-3xl text-center"
           >
             <h1 className="text-[40px] font-bold leading-[1.05] tracking-tight text-bloom-navy md:text-[56px] md:leading-[60px]">
-              News
+              Blog
             </h1>
             <p className="mt-6 text-[18px] leading-[26px] text-bloom-navy">
               The latest developments at Bloom. From new partnerships to

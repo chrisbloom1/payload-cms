@@ -172,10 +172,11 @@ export async function generateMetadata(
 ) {
   const { slug } = await params;
   const post = await resolvePost(slug);
-  if (!post) return { title: "Post Not Found - Bloom" };
+  if (!post) return { title: "Post Not Found" };
   return {
-    title: `${post.title} - Bloom`,
+    title: post.title,
     description: post.excerpt,
+    alternates: { canonical: `/blog/${slug}` },
   };
 }
 

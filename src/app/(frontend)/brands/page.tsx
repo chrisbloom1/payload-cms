@@ -25,7 +25,7 @@ import {
 } from "@/lib/marketing-content-resolver";
 
 export const metadata: Metadata = {
-  title: "For Brands — Bloom",
+  title: "For Brands",
   description:
     "The supply chain platform purpose-built for hardware brands. Get matched with vetted manufacturing, warehousing, assembly, and logistics partners across North America.",
   alternates: { canonical: "/brands" },

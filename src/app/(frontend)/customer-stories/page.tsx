@@ -13,7 +13,7 @@ import {
 } from "@/lib/customer-story-resolver";
 
 export const metadata = {
-  title: "Customer Stories — Bloom",
+  title: "Customer Stories",
   description:
     "How hardware brands like Infinite Machine, Grounded, Birdstop, Maeving, and more scaled with Bloom's network of vetted manufacturing, warehousing, and logistics partners.",
   alternates: { canonical: "/customer-stories" },

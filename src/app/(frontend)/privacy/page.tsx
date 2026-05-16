@@ -4,9 +4,10 @@ import { HelpHeader } from "@/components/HelpHeader";
 import { UnifiedFooter } from "@/components/UnifiedFooter";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Bloom",
+  title: "Privacy Policy",
   description:
     "Bloom's Privacy Policy describes how we collect, use, and share personal information and how you can exercise your privacy rights.",
+  alternates: { canonical: "/privacy" },
 };
 
 interface TocLink {
@@ -853,10 +854,10 @@ export default function PrivacyPage() {
               request that we not sell your information in the future, please
               contact us at{" "}
               <a
-                href="mailto:info@togetherwebloom.us"
+                href="mailto:info@bloomnetwork.ai"
                 className="underline underline-offset-4 hover:opacity-80"
               >
-                info@togetherwebloom.us
+                info@bloomnetwork.ai
               </a>{" "}
               with the subject line “Nevada Do Not Sell Request” and provide
               us with your name and the email address associated with your
@@ -919,10 +920,10 @@ export default function PrivacyPage() {
               <Bold>Bloom</Bold>
               <br />
               <a
-                href="mailto:hello@togetherwebloom.us"
+                href="mailto:hello@bloomnetwork.ai"
                 className="underline underline-offset-4 hover:opacity-80"
               >
-                hello@togetherwebloom.us
+                hello@bloomnetwork.ai
               </a>
               <br />
               2050 15th St, Detroit, MI 48216
