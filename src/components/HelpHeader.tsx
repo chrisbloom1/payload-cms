@@ -51,6 +51,7 @@ export const HelpHeader: React.FC = () => {
                 href={href}
                 className={cn(
                   'rounded-md px-4 py-2 text-[14px] font-medium transition-colors hover:bg-bloom-mint/60',
+                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bloom-navy focus-visible:ring-offset-2',
                   isActive ? 'text-bloom-navy' : 'text-bloom-navy/80',
                 )}
               >
@@ -66,7 +67,7 @@ export const HelpHeader: React.FC = () => {
             href={CTA_PRIMARY_HREF}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center rounded-md bg-bloom-cta px-5 py-2.5 text-[12px] font-bold uppercase tracking-[0.08em] text-white transition-opacity hover:opacity-90"
+            className="inline-flex items-center justify-center rounded-md bg-bloom-cta px-5 py-2.5 text-[12px] font-bold uppercase tracking-[0.08em] text-white transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bloom-navy focus-visible:ring-offset-2"
           >
             Get Started
           </a>
@@ -74,7 +75,7 @@ export const HelpHeader: React.FC = () => {
             href={CTA_GHOST_HREF}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center rounded-md p-3 text-[12px] font-extrabold uppercase tracking-[0.05em] text-bloom-navy transition-colors hover:bg-bloom-mint"
+            className="inline-flex items-center justify-center rounded-md p-3 text-[12px] font-extrabold uppercase tracking-[0.05em] text-bloom-navy transition-colors hover:bg-bloom-mint focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bloom-navy focus-visible:ring-offset-2"
           >
             Log In
           </a>

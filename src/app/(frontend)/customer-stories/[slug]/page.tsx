@@ -44,7 +44,7 @@ export default async function StoryPage(
   return (
     <>
       <HelpHeader />
-      <main className="bg-bloom-cream">
+      <main id="main-content" className="bg-bloom-cream">
         {/* Hero: title left, hero image right + key benefits + nodes panel */}
         <section className="pt-28 pb-12 sm:pt-32 lg:pt-36">
           <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">

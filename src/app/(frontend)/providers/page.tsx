@@ -223,7 +223,7 @@ export default async function ProvidersPage() {
   return (
     <>
       <HelpHeader />
-      <main className="flex flex-col bg-bloom-cream">
+      <main id="main-content" className="flex flex-col bg-bloom-cream">
         <ProvidersHero hero={content.hero} />
         <ProvidersBenefits benefits={content.benefits} />
         <ProvidersCriteria criteria={content.criteria} />

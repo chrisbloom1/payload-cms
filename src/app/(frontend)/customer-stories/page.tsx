@@ -118,14 +118,14 @@ function StoryRow({ story }: { story: ResolvedStoryCard }) {
             width={300}
             height={60}
           />
-          <h3
+          <h2
             className={cn(
               "text-[18px] font-bold leading-[24px] sm:text-[22px] sm:leading-[28px] lg:text-[26px] lg:leading-[32px]",
               t.text,
             )}
           >
             {story.title}
-          </h3>
+          </h2>
           <span
             className={cn(
               "inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-[0.14em]",
@@ -147,7 +147,7 @@ export default async function CustomerStoriesPage() {
   return (
     <>
       <HelpHeader />
-      <main className="flex-1 bg-bloom-cream pb-16 pt-24">
+      <main id="main-content" className="flex-1 bg-bloom-cream pb-16 pt-24">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
           <RevealOnScroll
             as="section"

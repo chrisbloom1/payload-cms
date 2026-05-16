@@ -34,7 +34,7 @@ export default async function HomePage() {
         fetchPriority="high"
       />
       <HelpHeader />
-      <main className="flex flex-col">
+      <main id="main-content" className="flex flex-col">
         {/* Hero — hand-rolled HTML/CSS replacement for the original
             Proofly/Framer SECTIONHERONEW export. Drops the
             @proofly-framer/runtime + framer-motion dependency

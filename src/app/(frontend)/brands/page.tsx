@@ -315,7 +315,7 @@ export default async function BrandsPage() {
   return (
     <>
       <HelpHeader />
-      <main className="flex flex-col bg-bloom-cream">
+      <main id="main-content" className="flex flex-col bg-bloom-cream">
         <BrandsHero headline={content.hero.headline} body={content.hero.body} />
         <BrandsBuiltForCoast
           builtFor={content.builtFor}

@@ -166,7 +166,7 @@ export default async function ContactUsPage() {
   return (
     <>
       <HelpHeader />
-      <main className="bg-bloom-cream">
+      <main id="main-content" className="bg-bloom-cream">
         <ContactHero hero={content.hero} />
         <ContactPaths paths={content.paths} />
         <ContactFormSection content={content} />

@@ -113,9 +113,9 @@ function PostCard({ post }: { post: IndexCard }) {
         />
       </div>
       <div className="flex flex-1 flex-col gap-3 p-6">
-        <h4 className="text-[20px] font-bold leading-[26px] text-bloom-navy">
+        <h2 className="text-[20px] font-bold leading-[26px] text-bloom-navy">
           {post.title}
-        </h4>
+        </h2>
         <p className="mt-auto text-[14px] text-bloom-muted">{post.dateLabel}</p>
       </div>
     </Link>
@@ -128,7 +128,7 @@ export default async function BlogIndexPage() {
   return (
     <>
       <HelpHeader />
-      <main className="flex-1 bg-bloom-cream pb-16 pt-24">
+      <main id="main-content" className="flex-1 bg-bloom-cream pb-16 pt-24">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
           <RevealOnScroll
             as="section"

@@ -192,7 +192,7 @@ export default async function BlogPostPage(
   return (
     <>
       <HelpHeader />
-      <main className="flex-1 bg-bloom-cream pb-16 pt-24">
+      <main id="main-content" className="flex-1 bg-bloom-cream pb-16 pt-24">
         <article className="mx-auto w-full max-w-[1100px] px-4 sm:px-6">
           {/* Hero: image right, headline left */}
           <header className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:gap-16">
@@ -234,7 +234,7 @@ export default async function BlogPostPage(
                 content={post.content.data}
                 enableGutter={false}
                 enableProse
-                className="prose-headings:text-bloom-navy prose-p:text-bloom-navy prose-li:text-bloom-navy prose-strong:text-bloom-navy prose-a:text-bloom-orange"
+                className="prose-headings:text-bloom-navy prose-p:text-bloom-navy prose-li:text-bloom-navy prose-strong:text-bloom-navy prose-a:text-bloom-orange prose-a:underline prose-a:underline-offset-2"
               />
             </div>
           ) : (

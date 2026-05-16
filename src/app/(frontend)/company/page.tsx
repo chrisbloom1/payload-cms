@@ -54,7 +54,7 @@ export default async function CompanyPage() {
   return (
     <>
       <HelpHeader />
-      <main className="flex-1 bg-bloom-cream pb-16 pt-24">
+      <main id="main-content" className="flex-1 bg-bloom-cream pb-16 pt-24">
         <div className="mx-auto max-w-7xl px-6">
           {/* Hero -------------------------------------------------------- */}
           <RevealOnScroll as="section" className="mb-20 max-w-4xl">

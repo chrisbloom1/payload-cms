@@ -56,6 +56,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           (e.g. `(frontend)/page.tsx`) so they only run for the route
           that actually shows that image. */}
       <body>
+        {/* Skip-to-content link — visually hidden until focused. Lets
+            keyboard users jump past the sticky nav on every page. Pages
+            should add id="main-content" to their primary <main>. */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-bloom-navy focus:px-4 focus:py-2 focus:text-sm focus:font-bold focus:text-white"
+        >
+          Skip to content
+        </a>
         <Providers>
           <PreviewModeShell enabled={isEnabled} />
           <TokenPreviewSwitcher />

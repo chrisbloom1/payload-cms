@@ -71,7 +71,7 @@ export default function PrivacyPage() {
     <>
       <HelpHeader />
 
-      <main className="bg-bloom-cream">
+      <main id="main-content" className="bg-bloom-cream">
         {/* Hero */}
         <section className="pt-32 pb-12">
           <div className="mx-auto max-w-[960px] px-4">

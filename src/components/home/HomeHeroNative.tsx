@@ -251,10 +251,12 @@ export function HomeHeroNative({
           </div>
           {/* Badge is absolute-positioned with z-index above the card so
               it sits *over* the bottom edge instead of being clipped by
-              flex layout — matches the live bloomnetwork.ai pattern. */}
+              flex layout — matches the live bloomnetwork.ai pattern.
+              max-w-[calc(100%-1rem)] + whitespace-nowrap keeps it inside
+              the form bounds on narrow viewports. */}
           <span
             aria-hidden="true"
-            className="absolute -bottom-3 left-1/2 z-10 -translate-x-1/2 inline-flex items-center justify-center rounded-full bg-bloom-navy px-3.5 py-1 text-[12px] font-semibold text-bloom-cream sm:text-[13px]"
+            className="absolute -bottom-3 left-1/2 z-10 -translate-x-1/2 inline-flex max-w-[calc(100%-1rem)] items-center justify-center whitespace-nowrap rounded-full bg-bloom-navy px-3.5 py-1 text-[12px] font-semibold text-bloom-cream sm:text-[13px]"
             style={{
               fontFamily:
                 '"Haffer Bold", "Haffer Bold Placeholder", "Haffer Fallback", sans-serif',
