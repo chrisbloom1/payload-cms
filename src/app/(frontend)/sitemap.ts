@@ -24,6 +24,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date()
 
   // 1) Static marketing routes — hand-maintained.
+  // KB, guides, changelog, and roadmap are intentionally omitted: those
+  // routes are team-gated pre-launch and shouldn't be in search results.
+  // Restore from git history when those sections go public.
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/`, changeFrequency: 'weekly', priority: 1, lastModified: now },
     { url: `${baseUrl}/brands`, changeFrequency: 'monthly', priority: 0.9, lastModified: now },
@@ -32,12 +35,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/company`, changeFrequency: 'monthly', priority: 0.7, lastModified: now },
     { url: `${baseUrl}/contact-us`, changeFrequency: 'yearly', priority: 0.5, lastModified: now },
     { url: `${baseUrl}/blog`, changeFrequency: 'weekly', priority: 0.8, lastModified: now },
-    { url: `${baseUrl}/kb`, changeFrequency: 'weekly', priority: 0.85, lastModified: now },
-    { url: `${baseUrl}/kb/faqs`, changeFrequency: 'weekly', priority: 0.7, lastModified: now },
-    { url: `${baseUrl}/kb/glossary`, changeFrequency: 'monthly', priority: 0.6, lastModified: now },
-    { url: `${baseUrl}/guides`, changeFrequency: 'weekly', priority: 0.75, lastModified: now },
-    { url: `${baseUrl}/roadmap`, changeFrequency: 'weekly', priority: 0.6, lastModified: now },
-    { url: `${baseUrl}/changelog`, changeFrequency: 'weekly', priority: 0.6, lastModified: now },
     { url: `${baseUrl}/privacy`, changeFrequency: 'yearly', priority: 0.3, lastModified: now },
   ]
 
@@ -87,46 +84,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // /customer-stories/[slug] — don't list it as its own URL.
   }
 
-  // 3) CMS-backed routes (Payload). Wrapped so a DB blip doesn't
-  //    crater the sitemap response.
-  try {
-    const payload = await getPayload({ config: configPromise })
-    const articles = await payload.find({
-      collection: 'articles',
-      limit: 500,
-      select: { slug: true, updatedAt: true },
-      where: { _status: { equals: 'published' } },
-    })
-    for (const doc of articles.docs) {
-      staticRoutes.push({
-        url: `${baseUrl}/kb/${doc.slug}`,
-        lastModified: doc.updatedAt ? new Date(doc.updatedAt) : now,
-        changeFrequency: 'monthly',
-        priority: 0.6,
-      })
-    }
-  } catch (err) {
-    console.warn('[sitemap] articles query failed:', err)
-  }
-  try {
-    const payload = await getPayload({ config: configPromise })
-    const guides = await payload.find({
-      collection: 'guides',
-      limit: 500,
-      select: { slug: true, updatedAt: true },
-      where: { _status: { equals: 'published' } },
-    })
-    for (const doc of guides.docs) {
-      staticRoutes.push({
-        url: `${baseUrl}/guides/${doc.slug}`,
-        lastModified: doc.updatedAt ? new Date(doc.updatedAt) : now,
-        changeFrequency: 'monthly',
-        priority: 0.65,
-      })
-    }
-  } catch (err) {
-    console.warn('[sitemap] guides query failed:', err)
-  }
+  // 3) CMS-backed routes (Payload) — KB articles and guides are gated
+  // pre-launch so we don't emit them in the sitemap. Restore the
+  // articles + guides loops here from git history when those sections
+  // go public.
 
   return staticRoutes
 }

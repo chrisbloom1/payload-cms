@@ -20,21 +20,15 @@ type ResourceColumn = {
   links: ResourceLink[]
 }
 
+// KB, guides, changelog, and roadmap are intentionally hidden from
+// public navigation pre-launch. Team members access them directly at
+// bloomnetwork.ai/kb (gated via the Bloom KB sign-in flow). When those
+// sections are ready for public discovery, restore the entries from
+// git history and re-include the Learn/Updates columns.
 const resourceColumns: ResourceColumn[] = [
-  {
-    heading: 'Learn',
-    links: [
-      { href: '/kb', label: 'Knowledge Base', description: 'Articles for brands and providers' },
-      { href: '/guides', label: 'Guides', description: 'Step-by-step playbooks' },
-      { href: '/kb/faqs', label: 'FAQs', description: 'Quick answers to common questions' },
-      { href: '/kb/glossary', label: 'Glossary', description: 'Industry and platform terminology' },
-    ],
-  },
   {
     heading: 'Updates',
     links: [
-      { href: '/changelog', label: 'Changelog', description: "What's new in Bloom" },
-      { href: '/roadmap', label: 'Roadmap', description: "What's coming next" },
       { href: '/blog', label: 'Blog', description: 'News and announcements' },
     ],
   },
