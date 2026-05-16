@@ -2,6 +2,7 @@ import { HelpHeader } from "@/components/HelpHeader";
 import { UnifiedFooter } from "@/components/UnifiedFooter";
 import { HomeAppDemo } from "@/components/home/HomeAppDemo";
 import { HomeHeroNative } from "@/components/home/HomeHeroNative";
+import { BloomPayWidget } from "@/components/widgets/BloomPayWidget";
 // Below-fold sections are lazy + delayed so their JS chunks don't
 // bloat the initial HTML or block hydration. cv-auto-section reserves
 // the right scroll height so the swap-in is CLS-neutral.
@@ -88,7 +89,17 @@ export default async function HomePage() {
                   </p>
                 </div>
                 <div className="flex w-full justify-center lg:justify-end">
-                  <LazyMockupterms />
+                  {/* Mockupterms is the Framer-exported animated widget
+                      used on desktop. It has fixed sizing that overflows
+                      on mobile, so we substitute the hand-rolled
+                      BloomPayWidget below lg — same content, responsive
+                      stacked layout. */}
+                  <div className="w-full max-w-[480px] lg:hidden">
+                    <BloomPayWidget className="w-full" />
+                  </div>
+                  <div className="hidden lg:block">
+                    <LazyMockupterms />
+                  </div>
                 </div>
               </div>
             </div>

@@ -13,6 +13,7 @@ import Brandsintroanimation from "@/components/proofly/Brandsintroanimation.jsx"
 import Animationmap from "@/components/proofly/Animationmap.jsx";
 import Pricingmatrix from "@/components/proofly/Pricingmatrix.jsx";
 import Mockupterms from "@/components/proofly/Mockupterms.jsx";
+import { BloomPayWidget } from "@/components/widgets/BloomPayWidget";
 import { MembersTestimonials } from "@/components/widgets/MembersTestimonials";
 import { FaqAccordion } from "@/components/widgets/FaqAccordion";
 import { FrameworkChevrons } from "@/components/FrameworkChevrons";
@@ -258,7 +259,13 @@ function BrandsBloomPay({ bloomPay }: { bloomPay: BrandsContent["bloomPay"] }) {
             </p>
           </div>
           <div className="flex w-full justify-center lg:justify-end">
-            <div className="w-full max-w-[520px] min-h-[420px] md:min-h-[480px] [content-visibility:auto] [contain-intrinsic-size:auto_480px]">
+            {/* Framer Mockupterms has fixed desktop dimensions and overflows
+                on mobile. BloomPayWidget below lg is a hand-rolled
+                responsive equivalent. */}
+            <div className="w-full max-w-[480px] lg:hidden">
+              <BloomPayWidget className="w-full" />
+            </div>
+            <div className="hidden lg:block w-full max-w-[520px] min-h-[420px] md:min-h-[480px] [content-visibility:auto] [contain-intrinsic-size:auto_480px]">
               <Mockupterms />
             </div>
           </div>
