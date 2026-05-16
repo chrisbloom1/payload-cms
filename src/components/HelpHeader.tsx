@@ -33,6 +33,21 @@ export const HelpHeader: React.FC = () => {
     setMobileOpen(false)
   }, [pathname])
 
+  // Close drawer on Escape; lock body scroll while open.
+  React.useEffect(() => {
+    if (!mobileOpen) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileOpen(false)
+    }
+    document.addEventListener('keydown', onKey)
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prevOverflow
+    }
+  }, [mobileOpen])
+
   return (
     <header className="sticky top-0 z-40 w-full border-b border-bloom-navy/10 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
       <div className="mx-auto flex h-[64px] w-full max-w-[1280px] items-center justify-between px-4 sm:px-6">
@@ -95,7 +110,13 @@ export const HelpHeader: React.FC = () => {
 
       {/* Mobile drawer */}
       {mobileOpen && (
-        <div className="border-t border-bloom-navy/10 bg-white px-4 pb-6 pt-4 md:hidden">
+        <div
+          id="help-header-mobile-drawer"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Site navigation"
+          className="border-t border-bloom-navy/10 bg-white px-4 pb-6 pt-4 md:hidden"
+        >
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-1">
               {primaryLinks.map(({ href, label }) => (

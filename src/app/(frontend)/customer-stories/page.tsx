@@ -11,13 +11,15 @@ import {
   type CardTheme,
   type ResolvedStoryCard,
 } from "@/lib/customer-story-resolver";
+import { pageMetadata } from "@/utilities/pageMetadata";
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: "Customer Stories",
   description:
     "How hardware brands like Infinite Machine, Grounded, Birdstop, Maeving, and more scaled with Bloom's network of vetted manufacturing, warehousing, and logistics partners.",
-  alternates: { canonical: "/customer-stories" },
-};
+  path: "/customer-stories",
+  ogTag: "Stories",
+});
 
 const THEME_STYLES: Record<
   CardTheme,
@@ -87,7 +89,7 @@ function StoryRow({ story }: { story: ResolvedStoryCard }) {
   return (
     <Link
       href={`/customer-stories/${story.slug}`}
-      aria-label={story.title}
+      aria-label={`Read story: ${story.title}`}
       className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bloom-orange focus-visible:ring-offset-4 focus-visible:ring-offset-bloom-cream"
     >
       <div className="relative">

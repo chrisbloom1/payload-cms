@@ -17,13 +17,15 @@ import {
   type ProvidersContent,
 } from "@/lib/providers-page-resolver";
 import { loadMarketingFaqs } from "@/lib/marketing-content-resolver";
+import { pageMetadata } from "@/utilities/pageMetadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "For Providers",
   description:
     "Win better hardware jobs. Get matched with vetted, fast-growing hardware brands and accelerate payments through Bloom's centralized platform.",
-  alternates: { canonical: "/providers" },
-};
+  path: "/providers",
+  ogTag: "For Providers",
+});
 
 function HeroIconTiles({ tiles }: { tiles: ProvidersContent["hero"]["iconTiles"] }) {
   return (

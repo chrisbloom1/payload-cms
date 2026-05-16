@@ -6,13 +6,15 @@ import { HelpHeader } from "@/components/HelpHeader";
 import { UnifiedFooter } from "@/components/UnifiedFooter";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { BLOG_POSTS, type BlogPost } from "@/lib/blog-posts";
+import { pageMetadata } from "@/utilities/pageMetadata";
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: "Blog",
   description:
     "The latest developments at Bloom. From new partnerships to industry insights, this is your go-to source for all things Bloom.",
-  alternates: { canonical: "/blog" },
-};
+  path: "/blog",
+  ogTag: "Blog",
+});
 
 interface IndexCard {
   slug: string;

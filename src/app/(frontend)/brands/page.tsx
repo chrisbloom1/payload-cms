@@ -8,6 +8,7 @@ import { BloomPayLockup } from "@/components/BloomLogo";
 import { BenefitRow } from "@/components/BenefitRow";
 import { HeroImage } from "@/components/HeroImage";
 import { cn } from "@/lib/utils";
+import { pageMetadata } from "@/utilities/pageMetadata";
 // Proofly = Framer-exported Bloom components
 import Brandsintroanimation from "@/components/proofly/Brandsintroanimation.jsx";
 import Animationmap from "@/components/proofly/Animationmap.jsx";
@@ -25,12 +26,13 @@ import {
   loadTestimonials,
 } from "@/lib/marketing-content-resolver";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "For Brands",
   description:
     "The supply chain platform purpose-built for hardware brands. Get matched with vetted manufacturing, warehousing, assembly, and logistics partners across North America.",
-  alternates: { canonical: "/brands" },
-};
+  path: "/brands",
+  ogTag: "For Brands",
+});
 
 // ---------------------------------------------------------------------------
 // Section components

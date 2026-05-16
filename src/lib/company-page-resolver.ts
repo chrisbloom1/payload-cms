@@ -22,26 +22,19 @@ export interface CompanyContent {
   team: TeamMember[]
 }
 
+// Pre-launch: dropped two "Coming Soon" cards (Social Impact + Sustainability)
+// per product call — not strong enough story to lean into on launch. Newsroom
+// rerouted to /blog since /newsroom doesn't exist as a separate route.
 const DEFAULT_RESOURCES: ResourceCard[] = [
   {
-    title: 'Newsroom',
-    body: 'We power innovation across the hardware industry.',
-    href: '/newsroom',
+    title: 'Blog',
+    body: 'News and announcements from across the hardware industry.',
+    href: '/blog',
   },
   {
     title: 'Customer Stories',
     body: 'We support hardware brands, no matter their stage or size.',
     href: '/customer-stories',
-  },
-  {
-    title: 'Social Impact',
-    body: 'We are committed to exploring the full potential of hardware products.',
-    comingSoon: true,
-  },
-  {
-    title: 'Sustainability',
-    body: 'We decarbonize hard tech by optimizing the services it needs to thrive.',
-    comingSoon: true,
   },
 ]
 

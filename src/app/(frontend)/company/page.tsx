@@ -9,17 +9,19 @@ import {
   loadCompanyPage,
   type ResourceCard,
 } from "@/lib/company-page-resolver";
+import { pageMetadata } from "@/utilities/pageMetadata";
 
 // ---------------------------------------------------------------------------
 // Static metadata
 // ---------------------------------------------------------------------------
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: "Company",
   description:
     "Bloom brings hard tech brands into an operations ecosystem that nurtures every stage of their product's growth.",
-  alternates: { canonical: "/company" },
-};
+  path: "/company",
+  ogTag: "Company",
+});
 
 // ---------------------------------------------------------------------------
 // Local atoms
@@ -104,9 +106,12 @@ export default async function CompanyPage() {
           </RevealOnScroll>
 
           {/* Resources grid --------------------------------------------- */}
+          {/* 2-up grid: pre-launch we only ship Blog + Customer Stories
+              here. If more resource cards return later, restore
+              lg:grid-cols-4 (or 3) from git history. */}
           <RevealOnScroll
             as="section"
-            className="mb-28 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
+            className="mb-28 grid grid-cols-1 gap-6 sm:grid-cols-2 max-w-[860px] mx-auto"
           >
             {content.resources.map((card) => (
               <ResourceTile key={card.title} card={card} />

@@ -8,6 +8,7 @@ import { HeroImage } from "@/components/HeroImage";
 import { BloomMarkGradient } from "@/components/BloomLogo";
 import RichText from "@/components/RichText";
 import { cn } from "@/lib/utils";
+import { pageMetadata } from "@/utilities/pageMetadata";
 import {
   loadAllSlugs,
   loadStoryDetail,
@@ -24,14 +25,14 @@ export async function generateMetadata(
   const { slug } = await params;
   const story = await loadStoryDetail(slug);
   if (!story) return { title: "Story Not Found" };
-  // Prefer the legacy intro string if present (richer); else just title.
   const description = story.legacyIntro?.[0]?.slice(0, 160) ??
     `Read how ${story.title} scaled with Bloom's network of vetted manufacturing, warehousing, and logistics partners.`;
-  return {
+  return pageMetadata({
     title: story.title,
     description,
-    alternates: { canonical: `/customer-stories/${slug}` },
-  };
+    path: `/customer-stories/${slug}`,
+    ogTag: "Customer Stories",
+  });
 }
 
 export default async function StoryPage(

@@ -2,13 +2,15 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { HelpHeader } from "@/components/HelpHeader";
 import { UnifiedFooter } from "@/components/UnifiedFooter";
+import { pageMetadata } from "@/utilities/pageMetadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Privacy Policy",
   description:
     "Bloom's Privacy Policy describes how we collect, use, and share personal information and how you can exercise your privacy rights.",
-  alternates: { canonical: "/privacy" },
-};
+  path: "/privacy",
+  ogTag: "Privacy",
+});
 
 interface TocLink {
   /** Anchor target — note section 7/8 anchors are swapped on the live site (verbatim). */

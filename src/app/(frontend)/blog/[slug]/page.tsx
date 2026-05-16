@@ -12,6 +12,7 @@ import {
   getPostBySlug,
   type BlogPost,
 } from "@/lib/blog-posts";
+import { pageMetadata } from "@/utilities/pageMetadata";
 
 /**
  * Blog post detail. Source of truth is the Payload `posts` collection;
@@ -173,11 +174,12 @@ export async function generateMetadata(
   const { slug } = await params;
   const post = await resolvePost(slug);
   if (!post) return { title: "Post Not Found" };
-  return {
+  return pageMetadata({
     title: post.title,
-    description: post.excerpt,
-    alternates: { canonical: `/blog/${slug}` },
-  };
+    description: post.excerpt ?? `${post.title} — read the full post on the Bloom blog.`,
+    path: `/blog/${slug}`,
+    ogTag: "Blog",
+  });
 }
 
 export default async function BlogPostPage(

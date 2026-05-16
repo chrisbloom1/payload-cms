@@ -11,13 +11,15 @@ import {
   loadContactPage,
   type ContactContent,
 } from "@/lib/contact-page-resolver";
+import { pageMetadata } from "@/utilities/pageMetadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contact us",
   description:
     "If you're a hardware brand or service provider interested in joining our platform, or if you just have questions, we'd love to hear from you!",
-  alternates: { canonical: "/contact-us" },
-};
+  path: "/contact-us",
+  ogTag: "Contact",
+});
 
 function ContactHero({ hero }: { hero: ContactContent["hero"] }) {
   return (
