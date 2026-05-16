@@ -108,8 +108,11 @@ function BrandsHero({ headline, body }: { headline: string; body: string }) {
         {/* Brandsintroanimation = Framer-exported widget. Internal "Turn on →"
             transitions the 6 service cards into a connected hexagonal network
             with the orange Bloom mark in the center — interaction is owned by
-            the widget itself, no external CTA needed. */}
-        <div className="w-full">
+            the widget itself, no external CTA needed.
+
+            min-h reserves space so hydration doesn't shift the hero LCP
+            (audit measured CLS 0.21 here without it). */}
+        <div className="w-full min-h-[480px] md:min-h-[560px] [content-visibility:auto] [contain-intrinsic-size:auto_560px]">
           <Brandsintroanimation />
         </div>
       </div>
@@ -142,7 +145,11 @@ function BrandsBuiltForCoast({
           reverse
           heading={coastToCoast.heading}
           body={coastToCoast.body}
-          visual={<Animationmap />}
+          visual={
+            <div className="w-full min-h-[320px] md:min-h-[400px] [content-visibility:auto] [contain-intrinsic-size:auto_400px]">
+              <Animationmap />
+            </div>
+          }
         />
       </div>
     </RevealOnScroll>
@@ -223,7 +230,9 @@ function BrandsPricing({ pricing }: { pricing: BrandsContent["pricing"] }) {
             "*Extended terms subject to credit approval." footnote, so we don't
             duplicate it below. */}
         <div className="mt-12 flex w-full justify-center lg:mt-16">
-          <Pricingmatrix />
+          <div className="w-full min-h-[600px] md:min-h-[760px] [content-visibility:auto] [contain-intrinsic-size:auto_760px]">
+            <Pricingmatrix />
+          </div>
         </div>
       </div>
     </RevealOnScroll>
@@ -249,7 +258,9 @@ function BrandsBloomPay({ bloomPay }: { bloomPay: BrandsContent["bloomPay"] }) {
             </p>
           </div>
           <div className="flex w-full justify-center lg:justify-end">
-            <Mockupterms />
+            <div className="w-full max-w-[520px] min-h-[420px] md:min-h-[480px] [content-visibility:auto] [contain-intrinsic-size:auto_480px]">
+              <Mockupterms />
+            </div>
           </div>
         </div>
       </div>
