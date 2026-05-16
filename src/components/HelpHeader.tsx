@@ -3,47 +3,23 @@
 import * as React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ChevronDown, Menu, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 
 import { BloomWordmark } from '@/components/BloomLogo'
 import { cn } from '@/lib/utils'
 
-type ResourceLink = {
-  href: string
-  label: string
-  description?: string
-  external?: boolean
-}
-
-type ResourceColumn = {
-  heading: string
-  links: ResourceLink[]
-}
-
-// KB, guides, changelog, and roadmap are intentionally hidden from
-// public navigation pre-launch. Team members access them directly at
-// bloomnetwork.ai/kb (gated via the Bloom KB sign-in flow). When those
-// sections are ready for public discovery, restore the entries from
-// git history and re-include the Learn/Updates columns.
-const resourceColumns: ResourceColumn[] = [
-  {
-    heading: 'Updates',
-    links: [
-      { href: '/blog', label: 'Blog', description: 'News and announcements' },
-    ],
-  },
-  {
-    heading: 'Help',
-    links: [
-      { href: '/contact-us', label: 'Contact', description: 'Talk to the Bloom team' },
-    ],
-  },
-]
-
+/**
+ * Pre-launch nav. KB/guides/changelog/roadmap are hidden from public
+ * navigation — team accesses them directly at bloomnetwork.ai/kb via
+ * the gated sign-in. Restore a Resources dropdown from git history
+ * when those sections go public.
+ */
 const primaryLinks: { href: string; label: string }[] = [
   { href: '/brands', label: 'For Brands' },
   { href: '/providers', label: 'For Providers' },
   { href: '/customer-stories', label: 'Stories' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/contact-us', label: 'Contact' },
 ]
 
 const CTA_PRIMARY_HREF = 'https://welcome.bloomnetwork.ai/'
@@ -52,26 +28,10 @@ const CTA_GHOST_HREF = 'https://app.bloomnetwork.ai/sign-in'
 export const HelpHeader: React.FC = () => {
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = React.useState(false)
-  const [resourcesOpen, setResourcesOpen] = React.useState(false)
-  const closeTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null)
 
   React.useEffect(() => {
     setMobileOpen(false)
-    setResourcesOpen(false)
   }, [pathname])
-
-  const openResources = React.useCallback(() => {
-    if (closeTimer.current) {
-      clearTimeout(closeTimer.current)
-      closeTimer.current = null
-    }
-    setResourcesOpen(true)
-  }, [])
-
-  const scheduleCloseResources = React.useCallback(() => {
-    if (closeTimer.current) clearTimeout(closeTimer.current)
-    closeTimer.current = setTimeout(() => setResourcesOpen(false), 120)
-  }, [])
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-bloom-navy/10 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
@@ -81,7 +41,7 @@ export const HelpHeader: React.FC = () => {
           <BloomWordmark className="h-[28px] w-auto text-bloom-navy" />
         </Link>
 
-        {/* Desktop nav — primary links first, Resources last */}
+        {/* Desktop nav */}
         <nav className="hidden items-center gap-1 md:flex">
           {primaryLinks.map(({ href, label }) => {
             const isActive = pathname === href || pathname.startsWith(href + '/')
@@ -98,70 +58,6 @@ export const HelpHeader: React.FC = () => {
               </Link>
             )
           })}
-
-          <div
-            className="relative"
-            onMouseEnter={openResources}
-            onMouseLeave={scheduleCloseResources}
-          >
-            <button
-              type="button"
-              className={cn(
-                'inline-flex items-center gap-1.5 rounded-md px-4 py-2 text-[14px] font-medium text-bloom-navy transition-colors hover:bg-bloom-mint/60',
-                resourcesOpen && 'bg-bloom-mint/60',
-              )}
-              aria-haspopup="menu"
-              aria-expanded={resourcesOpen}
-              onClick={() => setResourcesOpen((v) => !v)}
-            >
-              Resources
-              <ChevronDown
-                className={cn(
-                  'h-3.5 w-3.5 transition-transform',
-                  resourcesOpen && 'rotate-180',
-                )}
-              />
-            </button>
-
-            {resourcesOpen && (
-              <div
-                className="absolute right-0 top-[calc(100%+8px)] z-50 w-[640px] rounded-md border border-bloom-navy/10 bg-white p-6 shadow-bloom-card"
-                role="menu"
-                onMouseEnter={openResources}
-                onMouseLeave={scheduleCloseResources}
-              >
-                <div className="grid grid-cols-3 gap-6">
-                  {resourceColumns.map((col) => (
-                    <div key={col.heading} className="flex flex-col gap-3">
-                      <h6 className="text-[11px] font-bold uppercase tracking-wider text-bloom-muted">
-                        {col.heading}
-                      </h6>
-                      <ul className="flex flex-col gap-1">
-                        {col.links.map((link) => (
-                          <li key={link.href}>
-                            <Link
-                              href={link.href}
-                              className="-mx-2 flex flex-col gap-0.5 rounded-md px-2 py-2 transition-colors hover:bg-bloom-mint/50"
-                              role="menuitem"
-                            >
-                              <span className="text-[14px] font-semibold text-bloom-navy">
-                                {link.label}
-                              </span>
-                              {link.description && (
-                                <span className="text-[12px] leading-snug text-bloom-muted">
-                                  {link.description}
-                                </span>
-                              )}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
         </nav>
 
         {/* Right CTAs — Get Started + Log In */}
@@ -209,28 +105,6 @@ export const HelpHeader: React.FC = () => {
                 >
                   {label}
                 </Link>
-              ))}
-            </div>
-
-            <div className="flex flex-col gap-6 border-t border-bloom-navy/10 pt-4">
-              {resourceColumns.map((col) => (
-                <div key={col.heading} className="flex flex-col gap-2">
-                  <h6 className="text-[11px] font-bold uppercase tracking-wider text-bloom-muted">
-                    {col.heading}
-                  </h6>
-                  <ul className="flex flex-col">
-                    {col.links.map((link) => (
-                      <li key={link.href}>
-                        <Link
-                          href={link.href}
-                          className="block py-2 text-[15px] font-medium text-bloom-navy"
-                        >
-                          {link.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
               ))}
             </div>
 
