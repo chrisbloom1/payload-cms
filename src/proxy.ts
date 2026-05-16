@@ -3,26 +3,27 @@ import { NextRequest, NextResponse } from 'next/server'
 import { SESSION_COOKIE, verifySession } from '@/lib/kb-auth/session'
 
 /**
- * Next.js 16 renamed middleware → proxy. Same shape, same behavior.
+ * Next.js 16 renamed middleware → proxy. Proxy always runs on the
+ * Node.js runtime and no longer supports the `export const config`
+ * matcher pattern from the middleware days — path matching has to
+ * happen inline in the proxy function.
  *
  * Gates /kb/* and /guides/* behind a Bloom team session cookie.
  *
  * Excluded:
  * - /kb/login (the login page itself)
- * - /api/* — MCP route has bearer/OAuth, kb login routes need to work
- *   while logged-out, Payload's own /api/* has its own access control.
+ * - everything else — short-circuits with NextResponse.next()
  */
-export const config = {
-  matcher: ['/kb/:path*', '/guides/:path*'],
-  // jsonwebtoken pulls in node:crypto, which isn't available on the
-  // edge runtime. Pin to nodejs explicitly.
-  runtime: 'nodejs',
+const GATED_PREFIXES = ['/kb/', '/guides/']
+
+function isGated(pathname: string): boolean {
+  if (pathname.startsWith('/kb/login')) return false
+  return GATED_PREFIXES.some((p) => pathname.startsWith(p)) || pathname === '/kb' || pathname === '/guides'
 }
 
 export function proxy(request: NextRequest) {
   const url = request.nextUrl
-
-  if (url.pathname.startsWith('/kb/login')) return NextResponse.next()
+  if (!isGated(url.pathname)) return NextResponse.next()
 
   const cookie = request.cookies.get(SESSION_COOKIE)?.value
   if (cookie && verifySession(cookie)) {
