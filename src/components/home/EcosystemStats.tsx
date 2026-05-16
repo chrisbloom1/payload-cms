@@ -64,12 +64,20 @@ interface StatCardProps {
 }
 
 function StatCard({ target, suffix, label, description, labelColor }: StatCardProps) {
+  // Screen readers should hear the final value, not the animating 0.
+  // Visual users see the counter animate; assistive tech reads the
+  // aria-label on the wrapper and the inner animated number is
+  // marked aria-hidden.
+  const ariaValue = `${target}${suffix ?? ""} ${label}. ${description}`;
   return (
     <li className="flex flex-col items-start justify-between gap-3 rounded-md bg-bloom-mint p-6 min-h-[200px]">
-      <div className="text-[64px] font-bold leading-none tracking-[-0.02em] text-bloom-navy md:text-[92px]">
+      <div
+        className="text-[64px] font-bold leading-none tracking-[-0.02em] text-bloom-navy md:text-[92px]"
+        aria-label={ariaValue}
+      >
         <AnimatedStat target={target} suffix={suffix} />
       </div>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-1" aria-hidden="true">
         <h3 className={`text-[20px] font-normal capitalize leading-tight md:text-[24px] ${labelColor}`}>
           {label}
         </h3>
@@ -125,7 +133,7 @@ function AnimatedStat({ target, suffix }: AnimatedStatProps) {
   }, [target]);
 
   return (
-    <span ref={ref}>
+    <span ref={ref} aria-hidden="true">
       {value}
       {suffix}
     </span>

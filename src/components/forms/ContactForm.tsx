@@ -45,27 +45,61 @@ function Field({ label, htmlFor, children }: FieldProps) {
 }
 
 /**
- * ContactForm — client-side contact form for the Bloom clone.
+ * ContactForm — client-side contact form for the Bloom site.
  *
- * - Two select dropdowns (role + intent), four required text inputs,
- *   a required message textarea, a privacy-policy checkbox, and a
- *   submit button.
- * - On submit we preventDefault, run native HTML5 validation, then
- *   show an inline success message — there is no real backend.
+ * Two select dropdowns (role + intent), four required text inputs,
+ * a required message textarea, a privacy-policy checkbox, a honeypot
+ * field, and a submit button. POSTs to /api/contact which delivers via
+ * Resend.
  */
 export function ContactForm() {
   const formId = useId();
   const [submitted, setSubmitted] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setErrorMsg(null);
     const form = event.currentTarget;
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
     }
-    setSubmitted(true);
-    form.reset();
+    const formData = new FormData(form);
+    const payload = {
+      role: formData.get("role"),
+      seeking: formData.get("seeking"),
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+      email: formData.get("email"),
+      company: formData.get("company"),
+      message: formData.get("message"),
+      website: formData.get("website"), // honeypot — bots fill this
+    };
+    setBusy(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        const data = (await res.json().catch(() => ({}))) as { error?: string };
+        setErrorMsg(
+          data.error === "validation_failed"
+            ? "Please check your entries and try again."
+            : "Something went wrong. Please try again or email hello@bloomnetwork.ai.",
+        );
+        return;
+      }
+      setSubmitted(true);
+      form.reset();
+    } catch {
+      setErrorMsg("Network error. Please try again.");
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
@@ -176,9 +210,22 @@ export function ContactForm() {
           name="message"
           rows={5}
           required
+          minLength={10}
           className={cn(FIELD_BASE_CLASSES, "min-h-[8rem] resize-y")}
         />
       </Field>
+
+      {/* Honeypot — hidden from real users, bots will fill it. */}
+      <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", height: 0, overflow: "hidden" }}>
+        <label htmlFor={`${formId}-website`}>Website (leave blank)</label>
+        <input
+          id={`${formId}-website`}
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
 
       <label
         htmlFor={`${formId}-privacy`}
@@ -209,15 +256,17 @@ export function ContactForm() {
       <div className="flex flex-col gap-3">
         <button
           type="submit"
+          disabled={busy}
           className={cn(
             "inline-flex w-fit items-center justify-center rounded-md",
             "bg-bloom-navy text-white uppercase tracking-[0.08em] hover:opacity-90",
             "px-8 py-3.5 text-[14px] font-bold leading-none",
             "transition-opacity duration-200",
             "focus:outline-none focus:ring-2 focus:ring-bloom-navy focus:ring-offset-2",
+            "disabled:cursor-wait disabled:opacity-70",
           )}
         >
-          SUBMIT
+          {busy ? "SENDING…" : "SUBMIT"}
         </button>
 
         {submitted && (
@@ -227,6 +276,15 @@ export function ContactForm() {
             className="text-[14px] font-bold text-bloom-navy"
           >
             Thanks — we&apos;ll be in touch shortly.
+          </p>
+        )}
+        {errorMsg && (
+          <p
+            role="alert"
+            aria-live="assertive"
+            className="text-[14px] font-bold text-[#c53030]"
+          >
+            {errorMsg}
           </p>
         )}
       </div>

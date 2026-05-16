@@ -9,15 +9,6 @@ const PRODUCT_LINKS = [
   { href: 'https://app.bloomnetwork.ai', label: 'Open App', external: true },
 ] as const
 
-const RESOURCE_LINKS = [
-  { href: '/kb', label: 'Knowledge Base' },
-  { href: '/guides', label: 'Guides' },
-  { href: '/kb/faqs', label: 'FAQs' },
-  { href: '/kb/glossary', label: 'Glossary' },
-  { href: '/changelog', label: 'Changelog' },
-  { href: '/roadmap', label: 'Roadmap' },
-] as const
-
 const STORIES_LINKS = [
   { href: '/customer-stories', label: 'Customer Stories' },
   { href: '/blog', label: 'Blog' },
@@ -28,10 +19,15 @@ const COMPANY_LINKS = [
   { href: '/contact-us', label: 'Contact' },
 ] as const
 
+// TODO: 19 Morris Ave / Brooklyn, NY 10019 — 10019 is Manhattan,
+// not Brooklyn. Verify with the team and either correct the ZIP or
+// drop the second address entry. Detroit address stands.
 const ADDRESSES = [
   { line1: '2050 15th St', line2: 'Detroit, MI 48216' },
-  { line1: '19 Morris Ave', line2: 'Brooklyn, NY 10019' },
 ] as const
+
+const BLOOM_DESCRIPTION =
+  "Bloom is the network for hardware brands and the manufacturing partners that bring them to life — connecting the right teams to build, source, and scale physical products."
 
 type LinkItem = { href: string; label: string; external?: boolean }
 
@@ -75,11 +71,14 @@ export function UnifiedFooter({ className }: { className?: string }) {
   return (
     <footer className={cn('w-full bg-bloom-mint text-bloom-navy', className)}>
       <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-12 px-4 py-14 sm:px-6 md:py-16">
-        {/* Top: brand block + 4 link columns */}
-        <div className="grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-5 md:gap-x-10">
-          {/* Brand block — single-column width so logo aligns with the first link column */}
+        {/* Top: brand block + 3 link columns */}
+        <div className="grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-[1.5fr_1fr_1fr_1fr] md:gap-x-10">
+          {/* Brand block — wider so the description has room to breathe */}
           <div className="col-span-2 flex flex-col gap-5 md:col-span-1">
             <BloomWordmark className="h-[36px] w-auto" />
+            <p className="text-[14px] leading-[1.55] text-bloom-navy/80 max-w-[320px]">
+              {BLOOM_DESCRIPTION}
+            </p>
             <div className="flex flex-col gap-3">
               {ADDRESSES.map((addr) => (
                 <address
@@ -104,24 +103,20 @@ export function UnifiedFooter({ className }: { className?: string }) {
           </div>
 
           <FooterLinkGroup heading="Product" links={PRODUCT_LINKS} />
-          <FooterLinkGroup heading="Resources" links={RESOURCE_LINKS} />
           <FooterLinkGroup heading="Stories" links={STORIES_LINKS} />
           <FooterLinkGroup heading="Company" links={COMPANY_LINKS} />
         </div>
 
-        {/* Bottom: copyright + legal */}
+        {/* Bottom: copyright + Privacy */}
         <div className="flex flex-col items-start gap-3 border-t border-bloom-navy/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-[12px] text-bloom-navy/70">© {year} Bloom Inc.</p>
-          <div className="flex items-center gap-6">
-            <Link
-              href="/privacy"
-              prefetch={false}
-              className="text-[12px] text-bloom-navy/70 transition-colors hover:text-bloom-navy"
-            >
-              Privacy
-            </Link>
-            <span className="text-[12px] text-bloom-navy/70">Terms</span>
-          </div>
+          <Link
+            href="/privacy"
+            prefetch={false}
+            className="text-[12px] text-bloom-navy/70 transition-colors hover:text-bloom-navy"
+          >
+            Privacy
+          </Link>
         </div>
       </div>
     </footer>
