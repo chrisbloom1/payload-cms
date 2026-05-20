@@ -169,7 +169,80 @@ Run these manually against the Vercel **Preview** deploy of
 - Newsletter / hubspot / marketing-automation pixels — not currently
   wired. Add when sales/marketing team decides on a stack.
 
-## 8. Things already done (for the record)
+## 8. Lighthouse audit results (dev mode, 2026-05-20)
+
+Audits were run against the local Next.js dev server. **Performance
+scores in dev mode are not representative of production** — dev ships
+unminified JS/CSS, no compression, no chunk-splitting, and includes
+HMR runtime. Expect significant perf improvements on the prod build.
+
+| Route | Form factor | Perf | A11y | BP | SEO |
+|---|---|---|---|---|---|
+| `/` | mobile | 66 | **100** | 96 | **100** |
+| `/brands` | mobile | 43 | 98 | 96 | **100** |
+
+### Real findings (will persist into prod)
+
+- ✅ **Color-contrast fixed** — the BloomPayWidget previously inherited
+  `#fe570b` orange (2.95:1) and `#776f8f` muted text (4.36:1) — both
+  failed WCAG AA 4.5:1. Tokens were already updated in
+  `globals.css` to `#c93f00` / `#5a5474` pre-launch; this audit just
+  confirmed the dev cache was stale.
+- ✅ **listitem semantic fixed** — `BloomPayWidget` previously used
+  `<ul role="radiogroup">` which orphans `<li>` children. Switched to
+  `<div role="radiogroup">` with `role="radio"` children. A11y score
+  went 93 → 100 on `/`.
+- ⚠️ **`/brands` heading-order: h5 follows h1 without h2/h3/h4.** The
+  offending h5 is rendered by a Framer-exported widget
+  (`framer-hz7ly5 ...`) — likely `Brandsintroanimation` or similar in
+  `src/components/proofly/`. **Fix path:** either tweak the heading
+  level in the Framer source and re-export through Proofly (we
+  vendored the package so the team can't push from Proofly anymore —
+  edit the .jsx directly), or wrap the widget in a section with an
+  appropriate h2/h3 above it.
+- ⚠️ **`/brands` LCP 12.5s, TBT 1,040ms in dev.** The Framer iframes
+  on this page (`Brandsintroanimation`, `Animationmap`,
+  `Pricingmatrix`, `Mockupterms`) ship significant JS. In production
+  the bundle will be ~70% smaller and CDN-cached. Re-audit the prod
+  preview deploy before drawing conclusions about real-world perf.
+
+### Items only flagged because of dev mode (ignore)
+
+These all show as failures in dev but disappear in production:
+
+- `unminified-javascript`, `unminified-css`, `unused-javascript`,
+  `valid-source-maps`, `legacy-javascript-insight` — production build
+  minifies, tree-shakes, and emits source maps.
+- `errors-in-console` — only entries are `WebSocket connection to
+  'ws://127.0.0.1:3000/_next/webpack-hmr'` failures. That's the dev
+  HMR socket; doesn't exist in prod.
+- `render-blocking-insight`, `network-dependency-tree-insight`,
+  `document-latency-insight` — dev serves uncompressed; prod gzip /
+  brotli closes the gap.
+
+### Recommended pre-launch verification
+
+After the next Vercel **Preview** deploy with PostHog env vars in
+place:
+
+```bash
+# Run prod-mode audits against the deployed preview URL
+npx lighthouse https://<your-preview-url>/ \
+  --quiet --chrome-flags="--headless=new" \
+  --form-factor=mobile --output=html --output-path=lh-home-prod.html
+npx lighthouse https://<your-preview-url>/brands \
+  --quiet --chrome-flags="--headless=new" \
+  --form-factor=mobile --output=html --output-path=lh-brands-prod.html
+```
+
+Production targets to aim for at launch: **Performance ≥ 80, A11y
+100, Best Practices ≥ 95, SEO 100.** If `/brands` performance is
+still under 70 on the prod build, the Framer widgets are the
+remaining lever — consider further deferring/lazy-loading them or
+replacing additional ones with hand-rolled HTML/CSS (we already did
+this for the home hero).
+
+## 9. Things already done (for the record)
 
 - ✅ `@proofly-framer/ui` vendored — site no longer depends on the
   Proofly account being active.
@@ -190,3 +263,5 @@ Run these manually against the Vercel **Preview** deploy of
 - ✅ `llms.txt` cleaned: removed pre-launch sections + stale Brooklyn
   ZIP, added `/terms` link.
 - ✅ Stale ZIP TODO comment removed from `UnifiedFooter`.
+- ✅ Lighthouse audit run; `BloomPayWidget` semantic + dev-cache
+  contrast issues confirmed clear after fix (a11y 93 → 100 on `/`).

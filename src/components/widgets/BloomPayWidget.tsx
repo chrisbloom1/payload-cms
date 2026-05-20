@@ -112,7 +112,7 @@ export function BloomPayWidget({ className, initialIndex = 1 }: BloomPayWidgetPr
         </button>
       </header>
 
-      <ul
+      <div
         role="radiogroup"
         aria-label="Net payment terms"
         className="divide-y divide-bloom-grey"
@@ -120,34 +120,33 @@ export function BloomPayWidget({ className, initialIndex = 1 }: BloomPayWidgetPr
         {TERMS.map((term, index) => {
           const isActive = index === activeIndex;
           return (
-            <li key={term.key}>
-              <button
-                type="button"
-                role="radio"
-                aria-checked={isActive}
-                onClick={() => handleSelect(index)}
-                className={cn(
-                  "flex w-full items-center gap-4 px-5 py-3 text-left transition-colors",
-                  "hover:bg-bloom-mint-soft focus:outline-none focus-visible:bg-bloom-mint-soft",
-                )}
-              >
-                <span className="flex min-w-0 flex-1 items-baseline gap-2">
-                  <span className="text-[14px] text-bloom-muted tabular-nums">
-                    {term.delta}
-                  </span>
-                  <span className="text-[12px] text-bloom-muted tabular-nums">
-                    ({term.pct})
-                  </span>
+            <button
+              key={term.key}
+              type="button"
+              role="radio"
+              aria-checked={isActive}
+              onClick={() => handleSelect(index)}
+              className={cn(
+                "flex w-full items-center gap-4 px-5 py-3 text-left transition-colors",
+                "hover:bg-bloom-mint-soft focus:outline-none focus-visible:bg-bloom-mint-soft",
+              )}
+            >
+              <span className="flex min-w-0 flex-1 items-baseline gap-2">
+                <span className="text-[14px] text-bloom-muted tabular-nums">
+                  {term.delta}
                 </span>
-                <span className="text-[14px] font-medium text-bloom-navy">
-                  {term.key}
+                <span className="text-[12px] text-bloom-muted tabular-nums">
+                  ({term.pct})
                 </span>
-                <CheckIndicator active={isActive} />
-              </button>
-            </li>
+              </span>
+              <span className="text-[14px] font-medium text-bloom-navy">
+                {term.key}
+              </span>
+              <CheckIndicator active={isActive} />
+            </button>
           );
         })}
-      </ul>
+      </div>
 
       <footer className="flex items-center justify-between gap-4 bg-bloom-mint-soft px-5 py-4">
         <div className="min-w-0">
