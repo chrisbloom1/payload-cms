@@ -22,8 +22,8 @@ export function HomeAppMockup() {
       <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
         <div className="relative overflow-hidden rounded-md ring-1 ring-bloom-navy/10">
           <video
-            src="/videos/hero-loop.mp4"
-            poster="/videos/hero-loop-poster.webp"
+            src="/videos/bloom-app-demo.mp4"
+            poster="/videos/bloom-app-demo-poster.webp"
             autoPlay
             muted
             loop

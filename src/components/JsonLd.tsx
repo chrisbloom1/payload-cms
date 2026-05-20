@@ -72,6 +72,26 @@ interface ArticleInput {
   section?: string
 }
 
+interface BreadcrumbInput {
+  /** Ordered list of crumbs, root last excluded — function adds Home automatically. */
+  trail: { name: string; path: string }[]
+}
+
+export function breadcrumbJsonLd({ trail }: BreadcrumbInput) {
+  const base = getServerSideURL()
+  const items = [{ name: 'Home', path: '/' }, ...trail].map((c, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: c.name,
+    item: `${base}${c.path}`,
+  }))
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items,
+  }
+}
+
 export function articleJsonLd(input: ArticleInput) {
   const base = getServerSideURL()
   const url = `${base}${input.path}`

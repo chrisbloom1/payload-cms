@@ -108,7 +108,7 @@ function PostCard({ post }: { post: IndexCard }) {
       <div className="relative aspect-[16/9] w-full overflow-hidden bg-bloom-cream">
         <Image
           src={post.hero}
-          alt=""
+          alt={post.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 420px"
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"

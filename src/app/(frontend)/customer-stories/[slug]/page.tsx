@@ -9,7 +9,7 @@ import { BloomMarkGradient } from "@/components/BloomLogo";
 import RichText from "@/components/RichText";
 import { cn } from "@/lib/utils";
 import { pageMetadata } from "@/utilities/pageMetadata";
-import { JsonLd, articleJsonLd } from "@/components/JsonLd";
+import { JsonLd, articleJsonLd, breadcrumbJsonLd } from "@/components/JsonLd";
 import {
   loadAllSlugs,
   loadStoryDetail,
@@ -46,13 +46,21 @@ export default async function StoryPage(
   return (
     <>
       <JsonLd
-        data={articleJsonLd({
-          title: story.title,
-          description: story.legacyIntro?.[0]?.slice(0, 160),
-          path: `/customer-stories/${slug}`,
-          image: story.hero || story.logo,
-          section: "Customer Stories",
-        })}
+        data={[
+          articleJsonLd({
+            title: story.title,
+            description: story.legacyIntro?.[0]?.slice(0, 160),
+            path: `/customer-stories/${slug}`,
+            image: story.hero || story.logo,
+            section: "Customer Stories",
+          }),
+          breadcrumbJsonLd({
+            trail: [
+              { name: "Customer Stories", path: "/customer-stories" },
+              { name: story.title, path: `/customer-stories/${slug}` },
+            ],
+          }),
+        ]}
       />
       <HelpHeader />
       <main id="main-content" className="bg-bloom-cream">
@@ -84,7 +92,7 @@ export default async function StoryPage(
               <div className="overflow-hidden rounded-md ring-1 ring-bloom-navy/10">
                 <HeroImage
                   src={story.hero}
-                  alt=""
+                  alt={`${story.title} — customer story`}
                   width={1200}
                   height={750}
                   priority

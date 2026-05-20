@@ -13,7 +13,7 @@ import {
   type BlogPost,
 } from "@/lib/blog-posts";
 import { pageMetadata } from "@/utilities/pageMetadata";
-import { JsonLd, articleJsonLd } from "@/components/JsonLd";
+import { JsonLd, articleJsonLd, breadcrumbJsonLd } from "@/components/JsonLd";
 
 /**
  * Blog post detail. Source of truth is the Payload `posts` collection;
@@ -195,14 +195,22 @@ export default async function BlogPostPage(
   return (
     <>
       <JsonLd
-        data={articleJsonLd({
-          title: post.title,
-          description: post.excerpt,
-          path: `/blog/${post.slug}`,
-          image: post.hero,
-          author: post.author,
-          section: post.category,
-        })}
+        data={[
+          articleJsonLd({
+            title: post.title,
+            description: post.excerpt,
+            path: `/blog/${post.slug}`,
+            image: post.hero,
+            author: post.author,
+            section: post.category,
+          }),
+          breadcrumbJsonLd({
+            trail: [
+              { name: "Blog", path: "/blog" },
+              { name: post.title, path: `/blog/${post.slug}` },
+            ],
+          }),
+        ]}
       />
       <HelpHeader />
       <main id="main-content" className="flex-1 bg-bloom-cream pb-16 pt-24">
@@ -231,7 +239,7 @@ export default async function BlogPostPage(
             <div className="relative aspect-[16/9] w-full overflow-hidden rounded-md ring-1 ring-bloom-navy/10">
               <Image
                 src={post.hero}
-                alt=""
+                alt={post.title}
                 fill
                 sizes="(max-width: 1024px) 100vw, 540px"
                 className="object-cover"
@@ -323,7 +331,7 @@ export default async function BlogPostPage(
                   <div className="relative aspect-[16/9] w-full overflow-hidden bg-bloom-cream">
                     <Image
                       src={r.hero}
-                      alt=""
+                      alt={r.title}
                       fill
                       sizes="(max-width: 1024px) 100vw, 360px"
                       className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"

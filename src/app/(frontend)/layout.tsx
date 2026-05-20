@@ -7,6 +7,8 @@ import React from 'react'
 // can't use `dynamic({ ssr: false })`, so we route through a thin
 // client component. When draft mode is off the shell renders null
 // and the heavy chunks are never even fetched.
+import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { PostHogProvider } from '@/components/PostHogProvider'
 import { PreviewModeShell } from '@/components/PreviewModeShell'
 import { TokenPreviewSwitcher } from '@/components/dev/TokenPreviewSwitcher'
@@ -68,6 +70,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         </a>
         <Providers>
           <PostHogProvider />
+          <Analytics />
+          <SpeedInsights />
           <PreviewModeShell enabled={isEnabled} />
           <TokenPreviewSwitcher />
 
@@ -136,8 +140,10 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: '/logos/bloom-symbol.svg', type: 'image/svg+xml' },
+      { url: '/seo/favicon.png', type: 'image/png', sizes: '32x32' },
+      { url: '/favicon.ico', sizes: 'any' },
     ],
-    shortcut: '/logos/bloom-symbol.svg',
-    apple: '/logos/bloom-symbol.svg',
+    shortcut: '/seo/favicon.png',
+    apple: [{ url: '/seo/apple-touch-icon.png', sizes: '180x180' }],
   },
 }

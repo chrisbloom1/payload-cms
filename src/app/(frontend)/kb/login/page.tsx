@@ -16,7 +16,7 @@ type Props = {
 export default async function KbLoginPage({ searchParams }: Props) {
   const { return: returnTo } = await searchParams
   return (
-    <main style={{
+    <div style={{
       minHeight: '100vh',
       display: 'grid',
       placeItems: 'center',
@@ -26,6 +26,6 @@ export default async function KbLoginPage({ searchParams }: Props) {
       color: '#1a2238',
     }}>
       <LoginForm returnTo={returnTo ?? '/kb'} />
-    </main>
+    </div>
   )
 }

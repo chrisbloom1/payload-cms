@@ -23,15 +23,6 @@
 - [Contact](https://www.bloomnetwork.ai/contact-us): sales / support contact form.
 - [Blog](https://www.bloomnetwork.ai/blog): news and announcements.
 
-## Resources
-
-- [Knowledge Base](https://www.bloomnetwork.ai/kb): how-to articles, best practices, troubleshooting.
-- [FAQs](https://www.bloomnetwork.ai/kb/faqs): common questions about the platform.
-- [Glossary](https://www.bloomnetwork.ai/kb/glossary): definitions for supply-chain and Bloom-specific terms.
-- [Guides](https://www.bloomnetwork.ai/guides): long-form playbooks for getting work done with Bloom.
-- [Roadmap](https://www.bloomnetwork.ai/roadmap): upcoming features and timeline.
-- [Changelog](https://www.bloomnetwork.ai/changelog): platform updates by release.
-
 ## Product
 
 - [Sign in](https://app.bloomnetwork.ai/sign-in): existing customer login.
@@ -40,9 +31,10 @@
 ## Optional
 
 - [Privacy policy](https://www.bloomnetwork.ai/privacy): data handling and user rights.
+- [Terms of Service](https://www.bloomnetwork.ai/terms): platform terms of use.
 - [LinkedIn](https://www.linkedin.com/company/bloomus): company page.
 
 ## Company
 
 Bloom Inc., founded 2024.
-Offices: Detroit, MI (2050 15th St, 48216) and Brooklyn, NY (19 Morris Ave, 10019).
+Office: Detroit, MI (2050 15th St, 48216).
