@@ -22,7 +22,6 @@ export function HomeAppMockup() {
       <div className="mx-auto w-full max-w-[1200px] px-4 sm:px-6">
         <div className="relative overflow-hidden rounded-md ring-1 ring-bloom-navy/10">
           <video
-            src="/videos/bloom-app-demo.mp4"
             poster="/videos/bloom-app-demo-poster.webp"
             autoPlay
             muted
@@ -31,7 +30,18 @@ export function HomeAppMockup() {
             preload="metadata"
             aria-label="Demo of the Bloom platform dashboard"
             className="block h-auto w-full"
-          />
+          >
+            <source src="/videos/bloom-app-demo.mp4" type="video/mp4" />
+            {/* See HomeAppDemo for rationale — silent demo, captions
+                track describes the on-screen activity. */}
+            <track
+              kind="captions"
+              src="/videos/bloom-app-demo.en.vtt"
+              srcLang="en"
+              label="English"
+              default
+            />
+          </video>
         </div>
       </div>
     </RevealOnScroll>

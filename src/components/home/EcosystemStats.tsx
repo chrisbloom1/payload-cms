@@ -64,16 +64,20 @@ interface StatCardProps {
 }
 
 function StatCard({ target, suffix, label, description, labelColor }: StatCardProps) {
-  // Screen readers should hear the final value, not the animating 0.
-  // Visual users see the counter animate; assistive tech reads the
-  // aria-label on the wrapper and the inner animated number is
-  // marked aria-hidden.
-  const ariaValue = `${target}${suffix ?? ""} ${label}. ${description}`;
+  // Each card has a single accessible name on the <li> so screen readers
+  // read it as one phrase ("40% reduction in lead times") instead of
+  // walking the visible number → label → description tree and reading
+  // the animating counter in between. The visible content is marked
+  // aria-hidden so the same text isn't announced twice.
+  const accessibleName = `${target}${suffix ?? ""} ${label.toLowerCase()} ${description}`;
   return (
-    <li className="flex flex-col items-start justify-between gap-3 rounded-md bg-bloom-mint p-6 min-h-[200px]">
+    <li
+      className="flex flex-col items-start justify-between gap-3 rounded-md bg-bloom-mint p-6 min-h-[200px]"
+      aria-label={accessibleName}
+    >
       <div
         className="text-[64px] font-bold leading-none tracking-[-0.02em] text-bloom-navy md:text-[92px]"
-        aria-label={ariaValue}
+        aria-hidden="true"
       >
         <AnimatedStat target={target} suffix={suffix} />
       </div>

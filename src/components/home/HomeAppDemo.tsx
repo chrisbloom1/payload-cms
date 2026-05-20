@@ -88,6 +88,18 @@ export function HomeAppDemo() {
             >
               {/* data-src deferred until after first paint via useEffect */}
               <source data-src="/videos/bloom-app-demo.mp4" type="video/mp4" />
+              {/* Captions track for accessibility — the video has no
+                  audio; the track describes the on-screen activity so
+                  screen-reader / deaf+HoH users get the visual story
+                  in text. Required by Lighthouse `video-caption` and
+                  WCAG 1.2.2. */}
+              <track
+                kind="captions"
+                src="/videos/bloom-app-demo.en.vtt"
+                srcLang="en"
+                label="English"
+                default
+              />
               {/* Static fallback if video can't load. No `priority` here —
                   the LCP poster preload lives in (frontend)/page.tsx; we
                   don't want a duplicate Next.js auto-generated preload. */}
