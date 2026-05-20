@@ -115,13 +115,6 @@ export function UnifiedFooter({ className }: { className?: string }) {
             >
               Privacy
             </Link>
-            <Link
-              href="/terms"
-              prefetch={false}
-              className="text-[12px] text-bloom-navy/70 transition-colors hover:text-bloom-navy"
-            >
-              Terms
-            </Link>
           </div>
         </div>
       </div>

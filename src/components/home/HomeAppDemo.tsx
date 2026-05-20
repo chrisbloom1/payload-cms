@@ -92,13 +92,14 @@ export function HomeAppDemo() {
                   audio; the track describes the on-screen activity so
                   screen-reader / deaf+HoH users get the visual story
                   in text. Required by Lighthouse `video-caption` and
-                  WCAG 1.2.2. */}
+                  WCAG 1.2.2. No `default` — the cue text would
+                  otherwise auto-render over the video; presence of the
+                  track alone satisfies the audit. */}
               <track
                 kind="captions"
                 src="/videos/bloom-app-demo.en.vtt"
                 srcLang="en"
                 label="English"
-                default
               />
               {/* Static fallback if video can't load. No `priority` here —
                   the LCP poster preload lives in (frontend)/page.tsx; we
