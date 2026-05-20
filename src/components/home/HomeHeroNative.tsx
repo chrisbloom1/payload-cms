@@ -287,6 +287,11 @@ export function HomeHeroNative({
         className="relative mb-6 flex w-full flex-col gap-6 overflow-hidden"
         aria-label="Bloom partner brands"
       >
+        {/* Marquee logo eager-loading: the first ~6 logos per row are
+            visible at first paint, and Lighthouse identified one of them
+            (TIME) as the LCP element. Mark the first 6 of each row eager
+            with fetchpriority=high so the browser fetches them on the
+            critical path; everything past index 5 stays lazy. */}
         <div className="hero-marquee-left flex w-max items-center gap-12 px-4">
           {[...row1, ...row1].map((logo, idx) => (
             <Image
@@ -295,7 +300,8 @@ export function HomeHeroNative({
               alt={logo.alt}
               width={logo.width}
               height={logo.height}
-              loading="lazy"
+              loading={idx < 6 ? "eager" : "lazy"}
+              fetchPriority={idx < 6 ? "high" : "auto"}
               decoding="async"
               unoptimized
               className="h-12 max-w-[100px] flex-shrink-0 object-contain opacity-80 sm:h-14 sm:max-w-[110px]"
@@ -311,7 +317,8 @@ export function HomeHeroNative({
               alt={logo.alt}
               width={logo.width}
               height={logo.height}
-              loading="lazy"
+              loading={idx < 6 ? "eager" : "lazy"}
+              fetchPriority={idx < 6 ? "high" : "auto"}
               decoding="async"
               unoptimized
               className="h-12 max-w-[100px] flex-shrink-0 object-contain opacity-80 sm:h-14 sm:max-w-[110px]"
