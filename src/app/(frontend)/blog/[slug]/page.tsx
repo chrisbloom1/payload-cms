@@ -13,6 +13,7 @@ import {
   type BlogPost,
 } from "@/lib/blog-posts";
 import { pageMetadata } from "@/utilities/pageMetadata";
+import { JsonLd, articleJsonLd } from "@/components/JsonLd";
 
 /**
  * Blog post detail. Source of truth is the Payload `posts` collection;
@@ -173,7 +174,7 @@ export async function generateMetadata(
 ) {
   const { slug } = await params;
   const post = await resolvePost(slug);
-  if (!post) return { title: "Post Not Found" };
+  if (!post) return { title: "Post Not Found", robots: { index: false, follow: false } };
   return pageMetadata({
     title: post.title,
     description: post.excerpt ?? `${post.title} — read the full post on the Bloom blog.`,
@@ -193,6 +194,16 @@ export default async function BlogPostPage(
 
   return (
     <>
+      <JsonLd
+        data={articleJsonLd({
+          title: post.title,
+          description: post.excerpt,
+          path: `/blog/${post.slug}`,
+          image: post.hero,
+          author: post.author,
+          section: post.category,
+        })}
+      />
       <HelpHeader />
       <main id="main-content" className="flex-1 bg-bloom-cream pb-16 pt-24">
         <article className="mx-auto w-full max-w-[1100px] px-4 sm:px-6">

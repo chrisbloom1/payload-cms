@@ -169,9 +169,15 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const { slug = '' } = await paramsPromise
   const guide = await queryGuideBySlug({ slug })
 
+  if (!guide) {
+    return {
+      title: 'Guide Not Found',
+      robots: { index: false, follow: false },
+    }
+  }
   return {
-    title: guide?.title || 'Guide Not Found',
-    description: guide?.description || undefined,
+    title: guide.title,
+    description: guide.description || undefined,
   }
 }
 

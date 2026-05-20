@@ -19,9 +19,6 @@ const COMPANY_LINKS = [
   { href: '/contact-us', label: 'Contact' },
 ] as const
 
-// TODO: 19 Morris Ave / Brooklyn, NY 10019 — 10019 is Manhattan,
-// not Brooklyn. Verify with the team and either correct the ZIP or
-// drop the second address entry. Detroit address stands.
 const ADDRESSES = [
   { line1: '2050 15th St', line2: 'Detroit, MI 48216' },
 ] as const
@@ -107,16 +104,25 @@ export function UnifiedFooter({ className }: { className?: string }) {
           <FooterLinkGroup heading="Company" links={COMPANY_LINKS} />
         </div>
 
-        {/* Bottom: copyright + Privacy */}
+        {/* Bottom: copyright + legal links */}
         <div className="flex flex-col items-start gap-3 border-t border-bloom-navy/15 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-[12px] text-bloom-navy/70">© {year} Bloom Inc.</p>
-          <Link
-            href="/privacy"
-            prefetch={false}
-            className="text-[12px] text-bloom-navy/70 transition-colors hover:text-bloom-navy"
-          >
-            Privacy
-          </Link>
+          <div className="flex items-center gap-5">
+            <Link
+              href="/privacy"
+              prefetch={false}
+              className="text-[12px] text-bloom-navy/70 transition-colors hover:text-bloom-navy"
+            >
+              Privacy
+            </Link>
+            <Link
+              href="/terms"
+              prefetch={false}
+              className="text-[12px] text-bloom-navy/70 transition-colors hover:text-bloom-navy"
+            >
+              Terms
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

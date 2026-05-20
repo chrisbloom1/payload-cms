@@ -7,6 +7,7 @@ import React from 'react'
 // can't use `dynamic({ ssr: false })`, so we route through a thin
 // client component. When draft mode is off the shell renders null
 // and the heavy chunks are never even fetched.
+import { PostHogProvider } from '@/components/PostHogProvider'
 import { PreviewModeShell } from '@/components/PreviewModeShell'
 import { TokenPreviewSwitcher } from '@/components/dev/TokenPreviewSwitcher'
 import { Providers } from '@/providers'
@@ -66,6 +67,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           Skip to content
         </a>
         <Providers>
+          <PostHogProvider />
           <PreviewModeShell enabled={isEnabled} />
           <TokenPreviewSwitcher />
 

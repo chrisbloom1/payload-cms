@@ -15,6 +15,7 @@ import {
 } from "@/components/home/LazyHomeSections";
 import { loadHomePage } from "@/lib/home-page-resolver";
 import { loadTestimonials } from "@/lib/marketing-content-resolver";
+import { JsonLd, organizationJsonLd, websiteJsonLd } from "@/components/JsonLd";
 
 export default async function HomePage() {
   const [home, testimonials] = await Promise.all([
@@ -24,6 +25,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
       {/* Per-page LCP preload — fetchpriority=high makes the browser
           start downloading the video poster (the LCP element) at top
           priority, before discovering it through the <video> element. */}

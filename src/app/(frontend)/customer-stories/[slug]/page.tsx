@@ -9,6 +9,7 @@ import { BloomMarkGradient } from "@/components/BloomLogo";
 import RichText from "@/components/RichText";
 import { cn } from "@/lib/utils";
 import { pageMetadata } from "@/utilities/pageMetadata";
+import { JsonLd, articleJsonLd } from "@/components/JsonLd";
 import {
   loadAllSlugs,
   loadStoryDetail,
@@ -24,7 +25,7 @@ export async function generateMetadata(
 ) {
   const { slug } = await params;
   const story = await loadStoryDetail(slug);
-  if (!story) return { title: "Story Not Found" };
+  if (!story) return { title: "Story Not Found", robots: { index: false, follow: false } };
   const description = story.legacyIntro?.[0]?.slice(0, 160) ??
     `Read how ${story.title} scaled with Bloom's network of vetted manufacturing, warehousing, and logistics partners.`;
   return pageMetadata({
@@ -44,6 +45,15 @@ export default async function StoryPage(
 
   return (
     <>
+      <JsonLd
+        data={articleJsonLd({
+          title: story.title,
+          description: story.legacyIntro?.[0]?.slice(0, 160),
+          path: `/customer-stories/${slug}`,
+          image: story.hero || story.logo,
+          section: "Customer Stories",
+        })}
+      />
       <HelpHeader />
       <main id="main-content" className="bg-bloom-cream">
         {/* Hero: title left, hero image right + key benefits + nodes panel */}
