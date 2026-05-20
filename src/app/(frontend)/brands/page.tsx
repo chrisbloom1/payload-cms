@@ -9,11 +9,13 @@ import { BenefitRow } from "@/components/BenefitRow";
 import { HeroImage } from "@/components/HeroImage";
 import { cn } from "@/lib/utils";
 import { pageMetadata } from "@/utilities/pageMetadata";
-// Proofly = Framer-exported Bloom components
+// Proofly = Framer-exported Bloom components. Animationmap is lazy
+// (570KB chunk, below-fold). Pricingmatrix and Mockupterms have been
+// fully replaced by hand-rolled HTML/CSS versions below, dropping
+// ~3500 lines of Framer code from the /brands JS payload.
 import Brandsintroanimation from "@/components/proofly/Brandsintroanimation.jsx";
-import Animationmap from "@/components/proofly/Animationmap.jsx";
-import Pricingmatrix from "@/components/proofly/Pricingmatrix.jsx";
-import Mockupterms from "@/components/proofly/Mockupterms.jsx";
+import { LazyAnimationmap } from "@/components/brands/LazyBrandsSections";
+import { BrandsPricingMatrix } from "@/components/brands/BrandsPricingMatrix";
 import { BloomPayWidget } from "@/components/widgets/BloomPayWidget";
 import { MembersTestimonials } from "@/components/widgets/MembersTestimonials";
 import { FaqAccordion } from "@/components/widgets/FaqAccordion";
@@ -151,8 +153,8 @@ function BrandsBuiltForCoast({
           heading={coastToCoast.heading}
           body={coastToCoast.body}
           visual={
-            <div className="flex w-full justify-center [content-visibility:auto] [contain-intrinsic-size:auto_300px]">
-              <Animationmap />
+            <div className="cv-auto-section cv-h-560 flex w-full justify-center">
+              <LazyAnimationmap />
             </div>
           }
         />
@@ -188,7 +190,13 @@ function BrandsFramework({ framework }: { framework: BrandsContent["framework"] 
   );
 }
 
-function BrandsPricing({ pricing }: { pricing: BrandsContent["pricing"] }) {
+function BrandsPricing({
+  pricing,
+  ctaHref,
+}: {
+  pricing: BrandsContent["pricing"];
+  ctaHref: string;
+}) {
   return (
     <RevealOnScroll
       as="section"
@@ -230,17 +238,12 @@ function BrandsPricing({ pricing }: { pricing: BrandsContent["pricing"] }) {
           )}
         </header>
 
-        {/* Pricing comparison matrix from Proofly — full $500 / $2,000 / $6,000
-            tiers + comparison rows. The matrix already includes the
-            "*Extended terms subject to credit approval." footnote, so we don't
-            duplicate it below. */}
+        {/* Hand-rolled comparison matrix — Seed / Growth / Full Bloom
+            tiers + feature rows. Includes the "*Extended terms subject
+            to credit approval." footnote, so we don't duplicate it
+            below. */}
         <div className="mt-12 flex w-full justify-center lg:mt-16">
-          {/* Framer Pricingmatrix renders at ~919×460 — center it inside
-              the container and let content-visibility reserve intrinsic
-              space (no oversized min-h that left empty whitespace). */}
-          <div className="flex w-full justify-center [content-visibility:auto] [contain-intrinsic-size:auto_480px]">
-            <Pricingmatrix />
-          </div>
+          <BrandsPricingMatrix ctaHref={ctaHref} />
         </div>
       </div>
     </RevealOnScroll>
@@ -266,15 +269,11 @@ function BrandsBloomPay({ bloomPay }: { bloomPay: BrandsContent["bloomPay"] }) {
             </p>
           </div>
           <div className="flex w-full justify-center lg:justify-end">
-            {/* Framer Mockupterms has fixed desktop dimensions and overflows
-                on mobile. BloomPayWidget below lg is a hand-rolled
-                responsive equivalent. */}
-            <div className="w-full max-w-[480px] lg:hidden">
-              <BloomPayWidget className="w-full" />
-            </div>
-            <div className="hidden lg:flex w-full max-w-[520px] justify-center [content-visibility:auto] [contain-intrinsic-size:auto_270px]">
-              <Mockupterms />
-            </div>
+            {/* BloomPayWidget is the hand-rolled responsive replacement
+                for the Framer Mockupterms widget. Used at all
+                breakpoints so the Framer chunk isn't in /brands' JS
+                payload at all. */}
+            <BloomPayWidget className="w-full max-w-[480px]" />
           </div>
         </div>
       </div>
@@ -348,7 +347,7 @@ export default async function BrandsPage() {
           verticals={content.verticals}
         />
         <BrandsFramework framework={content.framework} />
-        <BrandsPricing pricing={content.pricing} />
+        <BrandsPricing pricing={content.pricing} ctaHref={content.cta.buttonHref} />
         <BrandsBloomPay bloomPay={content.bloomPay} />
         <MembersTestimonials testimonials={testimonials} />
         <BrandsCTA cta={content.cta} />
