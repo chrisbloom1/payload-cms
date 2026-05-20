@@ -544,37 +544,33 @@ html[data-theme='light'] {
    contrast failures across Brandsintroanimation, Pricingmatrix,
    Animationmap, etc. — every one was using a Framer Light Grey,
    Amber accent, or pale purple-grey value that fails WCAG AA on
-   the cream / mint surfaces the widgets are placed on. Framer
-   inlines these colors via `style="color: rgb(...)"` so we can't
-   reach them through normal class selectors. Attribute-substring
-   selectors target the exact rgb() literals the runtime emits.
-   Bumping each to a hand-picked replacement that clears 4.5:1 on
-   #f6f6f8 / #dcebec / white. The :where() wrapper keeps these at
-   specificity 0 so component-level styling can still win when it
-   wants to; the !important overrides Framer's inline style. */
-[class^="framer-"] :where([style*="color: rgb(119, 111, 143)"],
-                          [style*="color:rgb(119, 111, 143)"],
-                          [style*="color: rgb(119,111,143)"]) {
+   the cream / mint surfaces the widgets are placed on.
+
+   Framer does NOT inline `color: rgb(...)` directly — it inlines
+   CSS custom properties like
+     --framer-text-color: var(--extracted-..., var(--token-..., rgb(119,111,143)))
+   and the class CSS later does `color: var(--framer-text-color)`.
+   So our override has to (a) match the rgb literal anywhere in the
+   inline style, and (b) win the cascade by overriding the custom
+   property too. Both are easier with a global ancestor selector +
+   :is() instead of :where(); use !important so Framer's class
+   declarations can't beat us. */
+.framer-iRkKX,
+[class^="framer-"] [style*="rgb(119, 111, 143)"],
+[class^="framer-"] [style*="rgb(119,111,143)"] {
   /* Framer Light Grey #776f8f → darker muted (~5.5:1 on #f6f6f8). */
+  --framer-text-color: rgb(90, 84, 116) !important;
   color: rgb(90, 84, 116) !important;
 }
-[class^="framer-"] :where([style*="color: rgb(173, 173, 199)"],
-                          [style*="color:rgb(173, 173, 199)"],
-                          [style*="color: rgb(173,173,199)"]) {
+[class^="framer-"] [style*="rgb(173, 173, 199)"],
+[class^="framer-"] [style*="rgb(173,173,199)"] {
   /* Pale purple-grey #adadc7 used for fine print → darker shade. */
+  --framer-text-color: rgb(90, 84, 116) !important;
   color: rgb(90, 84, 116) !important;
 }
-[class^="framer-"] :where([style*="color: rgb(255, 152, 0)"],
-                          [style*="color:rgb(255, 152, 0)"],
-                          [style*="color: rgb(255,152,0)"]) {
+[class^="framer-"] [style*="rgb(255, 152, 0)"],
+[class^="framer-"] [style*="rgb(255,152,0)"] {
   /* Amber #ff9800 fails 1.99:1 at 24px on cream → deepen. */
+  --framer-text-color: rgb(176, 99, 0) !important;
   color: rgb(176, 99, 0) !important;
-}
-/* Decorative reverse: light text painted on the Framer Light Grey
-   background (the muted token used as a fill). Bumping the bg side
-   darker so the foreground clears AA. */
-[class^="framer-"] :where([style*="background-color: rgb(119, 111, 143)"],
-                          [style*="background-color:rgb(119, 111, 143)"],
-                          [style*="background-color: rgb(119,111,143)"]) {
-  background-color: rgb(60, 52, 80) !important;
 }
