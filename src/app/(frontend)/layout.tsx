@@ -9,7 +9,9 @@ import React from 'react'
 // and the heavy chunks are never even fetched.
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { GoogleAnalytics } from '@next/third-parties/google'
 import { PostHogProvider } from '@/components/PostHogProvider'
+import { MarketingTrackers } from '@/components/MarketingTrackers'
 import { PreviewModeShell } from '@/components/PreviewModeShell'
 import { TokenPreviewSwitcher } from '@/components/dev/TokenPreviewSwitcher'
 import { Providers } from '@/providers'
@@ -72,6 +74,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <PostHogProvider />
           <Analytics />
           <SpeedInsights />
+          {/* GA4 first-party tag. @next/third-parties/google handles
+              lazy-loading via next/script under the hood. */}
+          <GoogleAnalytics gaId="G-L403T3VDEL" />
+          {/* Apollo.io + Instantly visitor tracking — both load with
+              `lazyOnload` so they don't compete with hydration. */}
+          <MarketingTrackers />
           <PreviewModeShell enabled={isEnabled} />
           <TokenPreviewSwitcher />
 

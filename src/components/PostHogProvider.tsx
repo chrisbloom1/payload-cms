@@ -30,6 +30,9 @@ function loadPostHog(): Promise<PostHogClient | null> {
     const ph = (mod.default ?? mod) as unknown as PostHogClient
     ph.init(POSTHOG_KEY!, {
       api_host: POSTHOG_HOST,
+      // `defaults` pins SDK config behavior to a known release so future
+      // posthog-js updates don't silently change capture semantics.
+      defaults: '2025-05-24',
       capture_pageview: false,
       capture_pageleave: true,
       person_profiles: 'identified_only',

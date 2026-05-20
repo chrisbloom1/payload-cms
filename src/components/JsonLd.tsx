@@ -33,7 +33,13 @@ export function organizationJsonLd() {
     legalName: 'Bloom Inc.',
     url: base,
     logo: `${base}/logos/bloom-symbol.svg`,
-    sameAs: ['https://www.linkedin.com/company/bloomnetwork'],
+    description:
+      'The vetted supply chain marketplace platform reshaping how hardware is built, delivered, and serviced. With AI native tooling to make discovery, bidding and booking effortless.',
+    sameAs: [
+      'https://www.linkedin.com/company/bloomnetworkai/',
+      'https://www.instagram.com/bloomnetwork.ai',
+      'https://togetherwebloom.us',
+    ],
     address: {
       '@type': 'PostalAddress',
       streetAddress: '2050 15th St',
@@ -45,7 +51,7 @@ export function organizationJsonLd() {
     contactPoint: {
       '@type': 'ContactPoint',
       email: 'hello@bloomnetwork.ai',
-      contactType: 'customer support',
+      contactType: 'customer service',
     },
   }
 }
