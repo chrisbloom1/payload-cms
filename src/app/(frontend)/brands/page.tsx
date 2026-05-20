@@ -112,10 +112,12 @@ function BrandsHero({ headline, body }: { headline: string; body: string }) {
             transitions the 6 service cards into a connected hexagonal network
             with the orange Bloom mark in the center.
 
-            content-visibility:auto + contain-intrinsic-size reserves
-            space ahead of hydration (CLS fix from the launch audit)
-            without forcing the box to stay oversized after layout. */}
-        <div className="flex w-full justify-center [content-visibility:auto] [contain-intrinsic-size:auto_490px]">
+            Above-the-fold, so content-visibility isn't appropriate — use a
+            real min-height to hard-reserve space. The widget hydrates to
+            ~488px on mobile and ~600px on desktop, so we match. Without
+            this lock the hero section was the worst CLS offender on /brands
+            (0.144) per the launch Lighthouse audit. */}
+        <div className="flex w-full justify-center min-h-[500px] lg:min-h-[620px]">
           <Brandsintroanimation />
         </div>
       </div>

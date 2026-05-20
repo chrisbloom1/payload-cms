@@ -761,7 +761,7 @@ var Component2 = React2.forwardRef(function (props, ref) {
                     __smartComponentFX: true,
                     __targetOpacity: 1
                   }
-                }, baseVariant, gestureVariant)}>{<React2.Fragment>{_jsxs(motion2.h5, {
+                }, baseVariant, gestureVariant)}>{<React2.Fragment>{_jsxs(motion2.h3, {
                       style: {
                         "--font-selector": "Q1VTVE9NO0hhZmZlciBSZWd1bGFy",
                         "--framer-font-family": '"Haffer Regular", "Haffer Regular Placeholder", sans-serif',
@@ -835,7 +835,7 @@ var Component2 = React2.forwardRef(function (props, ref) {
                     __smartComponentFX: true,
                     __targetOpacity: 1
                   }
-                }, baseVariant, gestureVariant)}>{<React2.Fragment>{_jsxs(motion2.h5, {
+                }, baseVariant, gestureVariant)}>{<React2.Fragment>{_jsxs(motion2.h3, {
                       style: {
                         "--font-selector": "Q1VTVE9NO0hhZmZlciBCb2xk",
                         "--framer-font-family": '"Haffer Bold", "Haffer Bold Placeholder", sans-serif',
@@ -913,7 +913,7 @@ var Component2 = React2.forwardRef(function (props, ref) {
                     __smartComponentFX: true,
                     __targetOpacity: 1
                   }
-                }, baseVariant, gestureVariant)}>{<React2.Fragment>{_jsxs(motion2.h5, {
+                }, baseVariant, gestureVariant)}>{<React2.Fragment>{_jsxs(motion2.h3, {
                       style: {
                         "--font-selector": "Q1VTVE9NO0hhZmZlciBCb2xk",
                         "--framer-font-family": '"Haffer Bold", "Haffer Bold Placeholder", sans-serif',
