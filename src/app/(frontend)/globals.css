@@ -531,8 +531,18 @@ html[data-theme='light'] {
 
    The widget is a Framer export so we can't change the source
    directly; everything below uses high-specificity overrides. */
-.framer-iRkKX {
-  --token-6fd3de1e-1b13-4bd5-b721-6a4a53348221: rgb(60, 52, 80);
+/* Framer "Light Grey" design token — used as both text color AND
+   background fill across every exported widget (Mockupterms,
+   Brandsintroanimation, Pricingmatrix, Animationmap, etc.). The
+   original value rgb(119,111,143) failed WCAG AA when used as a
+   surface fill behind cream text (4.36:1, needs 4.5:1). Overriding
+   it globally on :root + every framer-prefixed element so the
+   token resolves to a darker shade everywhere the runtime emits
+   `background-color: var(--token-..., rgb(119,111,143))` etc. */
+:root,
+[class^="framer-"],
+[class*=" framer-"] {
+  --token-6fd3de1e-1b13-4bd5-b721-6a4a53348221: rgb(60, 52, 80) !important;
 }
 /* Targets only the inactive cycling rows (the runtime sets inline
    opacity: 0.5 on those). Active row keeps its inherent opacity 1. */
