@@ -46,7 +46,7 @@
     "@payloadcms/richtext-lexical": "3.80.0",
     "@payloadcms/ui": "3.80.0",
     "@proofly-framer/runtime": "1.0.2",
-    "@proofly-framer/ui": "https://registry.proofly.ae/ui/93bd9730-02e5-4beb-ba6a-885a45ba1894.tgz",
+    "@proofly-framer/ui": "file:./vendor/proofly-framer-ui.tgz",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-checkbox": "^1.1.2",
     "@radix-ui/react-label": "^2.1.0",

@@ -48,8 +48,8 @@ importers:
         specifier: 1.0.2
         version: 1.0.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@proofly-framer/ui':
-        specifier: https://registry.proofly.ae/ui/93bd9730-02e5-4beb-ba6a-885a45ba1894.tgz
-        version: https://registry.proofly.ae/ui/93bd9730-02e5-4beb-ba6a-885a45ba1894.tgz(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: file:./vendor/proofly-framer-ui.tgz
+        version: file:vendor/proofly-framer-ui.tgz(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@radix-ui/react-accordion':
         specifier: ^1.2.12
         version: 1.2.12(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -1404,8 +1404,8 @@ packages:
       react: '>=19.0.0'
       react-dom: '>=19.0.0'
 
-  '@proofly-framer/ui@https://registry.proofly.ae/ui/93bd9730-02e5-4beb-ba6a-885a45ba1894.tgz':
-    resolution: {integrity: sha512-py8aF9JXeWFyl1ZyMlU3M+pU8MHjSBkJujDmnwTzheY7Y2zVbB20z+a5mhoLtGBYmpvfoW0if2OedlYM9hY7pA==, tarball: https://registry.proofly.ae/ui/93bd9730-02e5-4beb-ba6a-885a45ba1894.tgz}
+  '@proofly-framer/ui@file:vendor/proofly-framer-ui.tgz':
+    resolution: {integrity: sha512-py8aF9JXeWFyl1ZyMlU3M+pU8MHjSBkJujDmnwTzheY7Y2zVbB20z+a5mhoLtGBYmpvfoW0if2OedlYM9hY7pA==, tarball: file:vendor/proofly-framer-ui.tgz}
     version: 1.0.0-93bd973002e5
     peerDependencies:
       react: '>=19.0.0'
@@ -6025,7 +6025,7 @@ snapshots:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
 
-  '@proofly-framer/ui@https://registry.proofly.ae/ui/93bd9730-02e5-4beb-ba6a-885a45ba1894.tgz(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@proofly-framer/ui@file:vendor/proofly-framer-ui.tgz(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@proofly-framer/runtime': 1.0.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react: 19.2.4
