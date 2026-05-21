@@ -59,8 +59,11 @@ export function renderHazmatPdfHtml(
     .map((l) => l.trim())
     .filter(Boolean)
 
+  // Drop the signature down so the "x-height" of the script sits on
+  // the rule. Descenders (J, p, etc.) intentionally cross the line —
+  // matches how a real wet signature looks on a printed form.
   const signatureCell = opts.signaturePngBase64
-    ? `<img src="data:image/png;base64,${opts.signaturePngBase64}" alt="" style="max-height: 40px; max-width: 220px;" />`
+    ? `<img src="data:image/png;base64,${opts.signaturePngBase64}" alt="" style="max-height: 40px; max-width: 220px; margin-bottom: -10px;" />`
     : `<span class="sig-script">${escape(draft.signerName)}</span>`
 
   const logoMarkup = opts.logoPngBase64

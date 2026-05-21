@@ -209,12 +209,14 @@ export function HazmatPreview({ draft }: HazmatPreviewProps) {
           <tr>
             <td className="w-[40%] border-b border-bloom-navy/40 px-1 pb-1 align-bottom">
               {/* Real signature image — same asset embedded in the
-                  generated PDF for visual parity. */}
+                  generated PDF. mb-[-10px] drops the image so the
+                  baseline sits on the rule with descenders below,
+                  matching a wet signature on a printed form. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/hazmat/signer-chris-nolte.png"
                 alt=""
-                className="max-h-[36px] w-auto"
+                className="mb-[-10px] max-h-[36px] w-auto"
               />
             </td>
             <td className="w-[30%] border-b border-bloom-navy/40 px-3 pb-1 align-bottom font-bold">
