@@ -75,7 +75,7 @@ export default function PrivacyPage() {
 
       <main id="main-content" className="bg-bloom-cream">
         {/* Hero */}
-        <section className="pt-32 pb-12">
+        <section className="pt-20 pb-12 sm:pt-24 lg:pt-28">
           <div className="mx-auto max-w-[960px] px-4">
             <h1 className="text-[40px] font-bold leading-[44px] tracking-[-0.01em] text-bloom-navy md:text-[48px] md:leading-[52px]">
               Privacy Policy

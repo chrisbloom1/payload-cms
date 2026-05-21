@@ -58,7 +58,7 @@ function ProvidersHero({ hero }: { hero: ProvidersContent["hero"] }) {
   return (
     <RevealOnScroll
       as="section"
-      className="relative w-full overflow-hidden bg-bloom-cream pt-32 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24"
+      className="relative w-full overflow-hidden bg-bloom-cream pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-28 lg:pb-24"
     >
       <div className="relative z-10 mx-auto flex w-full max-w-[1280px] flex-col items-center gap-10 px-6 text-center lg:gap-14">
         <div className="flex max-w-[920px] flex-col items-center gap-6">
