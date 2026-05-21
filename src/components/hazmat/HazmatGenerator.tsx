@@ -89,10 +89,43 @@ export function HazmatGenerator() {
     }
   }, [])
 
-  const onGeneratePdf = useCallback(() => {
-    setToast({ msg: 'PDF generation wires in Step 5.', type: 'err' })
-    setTimeout(() => setToast(null), 2000)
-  }, [])
+  const [isGenerating, setIsGenerating] = useState(false)
+  const onGeneratePdf = useCallback(async () => {
+    if (isGenerating) return
+    setIsGenerating(true)
+    setToast(null)
+    try {
+      const res = await fetch('/api/hazmat/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ draft }),
+      })
+      if (!res.ok) {
+        const errBody = await res.json().catch(() => ({ error: `status ${res.status}` }))
+        throw new Error(errBody.error || `generate failed (${res.status})`)
+      }
+      const blob = await res.blob()
+      // Trigger download in a new tab so the team can save it or
+      // send it from the inline PDF viewer.
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `shipper-declaration-${draft.bolRef || 'draft'}.pdf`
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+      // Free the blob after a short delay so the click has resolved.
+      setTimeout(() => URL.revokeObjectURL(url), 1000)
+      setToast({ msg: 'PDF generated.', type: 'ok' })
+      setTimeout(() => setToast(null), 3000)
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'PDF generation failed'
+      setToast({ msg, type: 'err' })
+      setTimeout(() => setToast(null), 4000)
+    } finally {
+      setIsGenerating(false)
+    }
+  }, [draft, isGenerating])
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
@@ -104,6 +137,7 @@ export function HazmatGenerator() {
         onGeneratePdf={onGeneratePdf}
         onClear={onClear}
         isExtracting={isExtracting}
+        isGenerating={isGenerating}
       />
       <PreviewPanel draft={draft} />
 
@@ -137,6 +171,7 @@ interface FormPanelProps {
   onGeneratePdf: () => void
   onClear: () => void
   isExtracting: boolean
+  isGenerating: boolean
 }
 
 function FormPanel({
@@ -147,6 +182,7 @@ function FormPanel({
   onGeneratePdf,
   onClear,
   isExtracting,
+  isGenerating,
 }: FormPanelProps) {
   return (
     <section className="flex flex-col gap-4">
@@ -381,9 +417,20 @@ function FormPanel({
         <button
           type="button"
           onClick={onGeneratePdf}
-          className="rounded-md bg-bloom-navy px-5 py-2 text-[13px] font-bold uppercase tracking-[0.05em] text-white transition-opacity hover:opacity-90"
+          disabled={isGenerating}
+          className={cn(
+            'inline-flex items-center gap-2 rounded-md bg-bloom-navy px-5 py-2 text-[13px] font-bold uppercase tracking-[0.05em] text-white transition-opacity hover:opacity-90',
+            isGenerating && 'cursor-not-allowed opacity-60',
+          )}
         >
-          Generate PDF
+          {isGenerating ? (
+            <>
+              <span className="inline-block h-3 w-3 animate-spin rounded-full border-2 border-white border-t-transparent" />
+              Generating…
+            </>
+          ) : (
+            'Generate PDF'
+          )}
         </button>
       </div>
     </section>
