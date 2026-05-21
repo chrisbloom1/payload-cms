@@ -44,6 +44,17 @@ const nextConfig = {
       '@radix-ui/react-slot',
     ],
   },
+  // @sparticuz/chromium ships chromium.br + native libs as binary files
+  // under node_modules/@sparticuz/chromium/bin/. Next's bundler doesn't
+  // trace those by default (they're not imported as modules), so the
+  // /api/hazmat/generate function 500s with "input directory ... does
+  // not exist". Marking the package as external + explicitly tracing
+  // the bin/ folder into the function payload keeps the binaries in
+  // place for executablePath() to find.
+  serverExternalPackages: ['@sparticuz/chromium', 'puppeteer-core'],
+  outputFileTracingIncludes: {
+    '/api/hazmat/generate': ['./node_modules/@sparticuz/chromium/bin/**'],
+  },
   redirects,
 }
 

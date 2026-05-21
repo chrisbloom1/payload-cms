@@ -11,6 +11,7 @@ import {
   type ShipmentDraft,
 } from './types'
 import { HazmatPreview } from './HazmatPreview'
+import { HazmatAuditTrail, type AuditEvent } from './HazmatAuditTrail'
 
 // Top-level Generator component. Left panel = form sections, right
 // panel = live preview that mirrors the Shipper's Declaration PDF
@@ -28,10 +29,25 @@ export function HazmatGenerator() {
 
   const [draft, setDraft] = useState<ShipmentDraft>(EMPTY_DRAFT)
   const [shipmentId, setShipmentId] = useState<string | null>(initialShipmentId)
+  const [auditTrail, setAuditTrail] = useState<AuditEvent[]>([])
   const [isExtracting, setIsExtracting] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [isLoading, setIsLoading] = useState(Boolean(initialShipmentId))
   const [toast, setToast] = useState<{ msg: string; type: 'ok' | 'err' } | null>(null)
+
+  // Refresh audit trail by re-fetching the shipment. Called after
+  // save/generate so the user sees the just-recorded event without a
+  // full page reload.
+  const refreshAuditTrail = useCallback(async (id: string) => {
+    try {
+      const res = await fetch(`/api/hazmat/shipments/${id}`)
+      if (!res.ok) return
+      const doc = await res.json()
+      if (Array.isArray(doc.auditTrail)) setAuditTrail(doc.auditTrail as AuditEvent[])
+    } catch {
+      // Non-fatal; viewer just shows stale or empty.
+    }
+  }, [])
 
   // Load an existing shipment when ?id=… is present in the URL. Runs
   // once on mount + whenever the URL ID changes (e.g. browser back).
@@ -47,6 +63,7 @@ export function HazmatGenerator() {
         const { coerceDocToDraft } = await import('@/lib/hazmat/shipment-mapper')
         setDraft(coerceDocToDraft(doc))
         setShipmentId(initialShipmentId)
+        if (Array.isArray(doc.auditTrail)) setAuditTrail(doc.auditTrail as AuditEvent[])
       } catch (err) {
         if (cancelled) return
         const msg = err instanceof Error ? err.message : 'load failed'
@@ -84,6 +101,7 @@ export function HazmatGenerator() {
       carrier: d.carrier,
     }))
     setShipmentId(null)
+    setAuditTrail([])
     router.replace('/ops/hazmat')
     setToast({ msg: 'Cleared.', type: 'ok' })
     setTimeout(() => setToast(null), 2000)
@@ -108,11 +126,14 @@ export function HazmatGenerator() {
         throw new Error(body.error || `save failed (${res.status})`)
       }
       const doc = await res.json()
+      const newId = !isUpdate && doc.id ? String(doc.id) : shipmentId
       if (!isUpdate && doc.id) {
         setShipmentId(String(doc.id))
         // Reflect new ID in URL so the user can bookmark / refresh.
         router.replace(`/ops/hazmat?id=${doc.id}`)
       }
+      if (Array.isArray(doc.auditTrail)) setAuditTrail(doc.auditTrail as AuditEvent[])
+      else if (newId) refreshAuditTrail(newId)
       setToast({ msg: isUpdate ? 'Saved.' : 'Draft saved.', type: 'ok' })
       setTimeout(() => setToast(null), 2500)
     } catch (err) {
@@ -171,7 +192,7 @@ export function HazmatGenerator() {
       const res = await fetch('/api/hazmat/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ draft }),
+        body: JSON.stringify({ draft, shipmentId }),
       })
       if (!res.ok) {
         const errBody = await res.json().catch(() => ({ error: `status ${res.status}` }))
@@ -197,25 +218,31 @@ export function HazmatGenerator() {
       setTimeout(() => setToast(null), 4000)
     } finally {
       setIsGenerating(false)
+      // PDF gen on a saved shipment appends an audit event server-side
+      // — refresh so the user sees it immediately.
+      if (shipmentId) refreshAuditTrail(shipmentId)
     }
-  }, [draft, isGenerating])
+  }, [draft, shipmentId, isGenerating, refreshAuditTrail])
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-      <FormPanel
-        draft={draft}
-        set={set}
-        onProductTypeChange={onProductTypeChange}
-        onBolUpload={onBolUpload}
-        onGeneratePdf={onGeneratePdf}
-        onSave={onSave}
-        onClear={onClear}
-        shipmentId={shipmentId}
-        isExtracting={isExtracting}
-        isGenerating={isGenerating}
-        isSaving={isSaving}
-        isLoading={isLoading}
-      />
+      <div className="flex flex-col gap-4">
+        <FormPanel
+          draft={draft}
+          set={set}
+          onProductTypeChange={onProductTypeChange}
+          onBolUpload={onBolUpload}
+          onGeneratePdf={onGeneratePdf}
+          onSave={onSave}
+          onClear={onClear}
+          shipmentId={shipmentId}
+          isExtracting={isExtracting}
+          isGenerating={isGenerating}
+          isSaving={isSaving}
+          isLoading={isLoading}
+        />
+        {shipmentId && auditTrail.length > 0 ? <HazmatAuditTrail events={auditTrail} /> : null}
+      </div>
       <PreviewPanel draft={draft} />
 
       {toast ? (

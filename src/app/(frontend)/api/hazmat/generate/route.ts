@@ -2,7 +2,9 @@ import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { readFile } from 'fs/promises'
 import path from 'path'
-import { SESSION_COOKIE, verifySession } from '@/lib/kb-auth/session'
+import { getPayload } from 'payload'
+import configPromise from '@payload-config'
+import { SESSION_COOKIE, verifySession, type SessionClaims } from '@/lib/kb-auth/session'
 import { renderHazmatPdfHtml } from '@/lib/hazmat/pdf-template'
 import type { ShipmentDraft } from '@/components/hazmat/types'
 
@@ -26,6 +28,67 @@ function unauthorized() {
   return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
 }
 
+// When the caller supplies a shipmentId, the generated PDF is uploaded
+// to Payload's media collection and the shipment's `generatedPdf`
+// relation is updated to point at it. An audit-trail event is also
+// appended. Required for §172.201(e) 2-year retention (the PDF blob
+// is the system of record once signed/transmitted).
+async function persistPdfToShipment(args: {
+  shipmentId: string
+  pdf: Buffer | Uint8Array
+  filename: string
+  session: SessionClaims
+}): Promise<{ mediaId: number | string } | null> {
+  try {
+    const payload = await getPayload({ config: configPromise })
+
+    // Upload PDF buffer to media. Payload's local API accepts a File
+    // object via the `file` arg in Node 20+ (which Vercel runs).
+    const file = new File([new Uint8Array(args.pdf)], args.filename, {
+      type: 'application/pdf',
+    })
+
+    const media = (await payload.create({
+      collection: 'media' as never,
+      data: { alt: `Shipper's Declaration ${args.filename}` } as never,
+      file: {
+        data: Buffer.from(await file.arrayBuffer()),
+        mimetype: file.type,
+        name: file.name,
+        size: file.size,
+      },
+    })) as { id: number | string }
+
+    // Append audit + update shipment's generatedPdf relation.
+    const existing = (await payload.findByID({
+      collection: 'hazmat-shipments' as never,
+      id: args.shipmentId,
+    })) as { auditTrail?: unknown[] }
+    const auditTrail = Array.isArray(existing.auditTrail) ? existing.auditTrail : []
+
+    await payload.update({
+      collection: 'hazmat-shipments' as never,
+      id: args.shipmentId,
+      data: {
+        generatedPdf: media.id,
+        auditTrail: [
+          ...auditTrail,
+          {
+            event: 'generated_pdf',
+            timestamp: new Date().toISOString(),
+            changes: { actor: args.session.email, mediaId: media.id, filename: args.filename },
+          },
+        ],
+      } as never,
+    })
+    return { mediaId: media.id }
+  } catch {
+    // Don't fail the whole request — the user still gets the PDF
+    // downloaded. Persistence is a best-effort side-effect.
+    return null
+  }
+}
+
 async function loadAssetBase64(relativeName: string): Promise<string | null> {
   try {
     const p = path.join(process.cwd(), 'public', 'hazmat', relativeName)
@@ -39,9 +102,10 @@ async function loadAssetBase64(relativeName: string): Promise<string | null> {
 
 export async function POST(request: Request): Promise<Response> {
   const sessionCookie = (await cookies()).get(SESSION_COOKIE)?.value
-  if (!sessionCookie || !verifySession(sessionCookie)) return unauthorized()
+  const session = sessionCookie ? verifySession(sessionCookie) : null
+  if (!session) return unauthorized()
 
-  let body: { draft?: ShipmentDraft }
+  let body: { draft?: ShipmentDraft; shipmentId?: string | number }
   try {
     body = await request.json()
   } catch {
@@ -87,14 +151,30 @@ export async function POST(request: Request): Promise<Response> {
     })
 
     const filename = `shipper-declaration-${draft.bolRef || 'draft'}.pdf`
-    return new Response(new Uint8Array(pdf), {
-      status: 200,
-      headers: {
-        'Content-Type': 'application/pdf',
-        'Content-Disposition': `inline; filename="${filename}"`,
-        'Content-Length': String(pdf.length),
-      },
-    })
+
+    // If the client is editing a saved shipment, persist this PDF to
+    // Payload media and link it back. Best-effort — failure here does
+    // not block the response, since the user still gets the download.
+    let persisted: { mediaId: number | string } | null = null
+    if (body.shipmentId) {
+      persisted = await persistPdfToShipment({
+        shipmentId: String(body.shipmentId),
+        pdf,
+        filename,
+        session,
+      })
+    }
+
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/pdf',
+      'Content-Disposition': `inline; filename="${filename}"`,
+      'Content-Length': String(pdf.length),
+    }
+    if (persisted?.mediaId !== undefined) {
+      headers['X-Hazmat-Media-Id'] = String(persisted.mediaId)
+    }
+
+    return new Response(new Uint8Array(pdf), { status: 200, headers })
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err)
     return NextResponse.json({ error: message }, { status: 500 })
