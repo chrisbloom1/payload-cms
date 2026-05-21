@@ -17,6 +17,7 @@ import { Posts } from './collections/Posts'
 import { TeamMembers } from './collections/TeamMembers'
 import { Testimonials } from './collections/Testimonials'
 import { Users } from './collections/Users'
+import { HazmatShipments } from './collections/HazmatShipments'
 import { KBCategories } from './collections/KnowledgeBase/KBCategories'
 import { Articles } from './collections/KnowledgeBase/Articles'
 import { FAQs } from './collections/KnowledgeBase/FAQs'
@@ -112,6 +113,9 @@ export default buildConfig({
     // is regenerated with separate enum names.
     // FeatureRequests,
     KBCategories,
+
+    // === Operations (internal workflows) ===
+    HazmatShipments, // DOT Shipper's Declarations for domestic ground hazmat
 
     // === System (rare admin tasks) ===
     Pages, // generic block-based one-off pages

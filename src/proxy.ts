@@ -8,17 +8,22 @@ import { SESSION_COOKIE, verifySession } from '@/lib/kb-auth/session'
  * matcher pattern from the middleware days — path matching has to
  * happen inline in the proxy function.
  *
- * Gates /kb/* and /guides/* behind a Bloom team session cookie.
+ * Gates /kb/*, /guides/*, and /ops/* behind a Bloom team session cookie.
  *
  * Excluded:
  * - /kb/login (the login page itself)
  * - everything else — short-circuits with NextResponse.next()
  */
-const GATED_PREFIXES = ['/kb/', '/guides/']
+const GATED_PREFIXES = ['/kb/', '/guides/', '/ops/']
 
 function isGated(pathname: string): boolean {
   if (pathname.startsWith('/kb/login')) return false
-  return GATED_PREFIXES.some((p) => pathname.startsWith(p)) || pathname === '/kb' || pathname === '/guides'
+  return (
+    GATED_PREFIXES.some((p) => pathname.startsWith(p)) ||
+    pathname === '/kb' ||
+    pathname === '/guides' ||
+    pathname === '/ops'
+  )
 }
 
 export function proxy(request: NextRequest) {

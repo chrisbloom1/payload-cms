@@ -13,6 +13,7 @@ import * as migration_20260508_170000_company_team from './20260508_170000_compa
 import * as migration_20260508_180000_contact_page from './20260508_180000_contact_page';
 import * as migration_20260508_190000_fix_marketing_faqs_surfaces from './20260508_190000_fix_marketing_faqs_surfaces';
 import * as migration_20260515_210000_mcp_audit_log_surgical from './20260515_210000_mcp_audit_log_surgical';
+import * as migration_20260521_070000_hazmat_shipments from './20260521_070000_hazmat_shipments';
 
 export const migrations = [
   {
@@ -89,5 +90,10 @@ export const migrations = [
     up: migration_20260515_210000_mcp_audit_log_surgical.up,
     down: migration_20260515_210000_mcp_audit_log_surgical.down,
     name: '20260515_210000_mcp_audit_log_surgical',
+  },
+  {
+    up: migration_20260521_070000_hazmat_shipments.up,
+    down: migration_20260521_070000_hazmat_shipments.down,
+    name: '20260521_070000_hazmat_shipments',
   },
 ];
