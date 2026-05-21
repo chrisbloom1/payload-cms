@@ -10,7 +10,7 @@ const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
   locale: 'en_US',
   siteName: 'Bloom',
-  title: "Bloom — Hardware shouldn't be hard.",
+  title: "Bloom · Hardware shouldn't be hard.",
   description:
     'Bloom connects hardware brands with a vetted network of manufacturing, warehousing, assembly, and logistics partners. Discover, bid, book, and pay supply chain operations from one platform.',
   images: [
@@ -18,7 +18,7 @@ const defaultOpenGraph: Metadata['openGraph'] = {
       url: `${getServerSideURL()}/og`,
       width: 1200,
       height: 630,
-      alt: 'Bloom — Hardware shouldn’t be hard.',
+      alt: 'Bloom · Hardware shouldn’t be hard.',
       type: 'image/png',
     },
   ],

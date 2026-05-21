@@ -150,7 +150,7 @@ export const CUSTOMER_STORIES: readonly CustomerStory[] = [
     nodes: ["Build", "Deliver"],
     intro: [
       "Birdstop is an American drone manufacturer. Birdstop systems are operated from hundreds of miles away safely in national airspace. Used by enterprises and governments across the country and overseas. A “click-to-coverage” user experience gives non-expert operators eyes on any scene in 60 seconds or less, driven by Birdstop’s tight engineering of reliable airframes, robust autonomy, and integrated electronics and vision systems.",
-      "Birdstop designs and builds much of this system in-house and is one of the few companies in the U.S. with the highest approvals for autonomous aviation in the United States, backed by nine FAA approvals for BVLOS operations, allowing them to deploy strategically in sensitive and high-value environments. As Birdstop rapidly scales to meet significant demand, the challenge isn’t how to build drones, but how to scale a sophisticated drone network without diluting what makes it special — that’s where Bloom comes in.",
+      "Birdstop designs and builds much of this system in-house and is one of the few companies in the U.S. with the highest approvals for autonomous aviation in the United States, backed by nine FAA approvals for BVLOS operations, allowing them to deploy strategically in sensitive and high-value environments. As Birdstop rapidly scales to meet significant demand, the challenge isn’t how to build drones, but how to scale a sophisticated drone network without diluting what makes it special. That’s where Bloom comes in.",
     ],
     body: [
       "Bloom mobilized its network to provide Birdstop with the critical infrastructure and partners needed to innovate at speed. By securing a dedicated test site within Metro Detroit's Aerial Mobility Innovation Zone, Bloom enabled Birdstop to test take-offs and landings with significantly fewer restrictions, accelerating their R&D timeline and tightening the loop between software, autonomy, and real-world operations. The most cutting edge features of Birdstop technology are now tested and validated here first in an operational environment before they roll out to customers.",
@@ -220,11 +220,11 @@ export const CUSTOMER_STORIES: readonly CustomerStory[] = [
       {
         title: "Shipping & Delivery",
         description:
-          "Bloom coordinates multimodal shipping — parcels for spares, LTL for kits, white-glove for complete robots — with damage-mitigation packaging so systems arrive ready to roll. The 3PL network is set to support broader distribution.",
+          "Bloom coordinates multimodal shipping (parcels for spares, LTL for kits, white-glove for complete robots) with damage-mitigation packaging so systems arrive ready to roll. The 3PL network is set to support broader distribution.",
       },
     ],
     closing:
-      "With Bloom’s partner network, wheel.me scaled U.S. operations efficiently — freeing space, sourcing parts locally, and delivering robots with confidence. As growth accelerates, Bloom provides the logistics, warehousing, and fabrication capacity to scale faster, smarter, and with less friction.",
+      "With Bloom’s partner network, wheel.me scaled U.S. operations efficiently, freeing space, sourcing parts locally, and delivering robots with confidence. As growth accelerates, Bloom provides the logistics, warehousing, and fabrication capacity to scale faster, smarter, and with less friction.",
   },
   {
     slug: "maeving",
@@ -241,7 +241,7 @@ export const CUSTOMER_STORIES: readonly CustomerStory[] = [
     ],
     nodes: ["Build", "Deliver"],
     intro: [
-      "Maeving is redefining electric motorcycles with its stunning, retro-inspired designs and groundbreaking swappable battery technology. Expanding into the U.S. presented unique challenges: how to scale quickly, deliver a premium customer experience, and build a service ecosystem—all without traditional infrastructure.",
+      "Maeving is redefining electric motorcycles with its stunning, retro-inspired designs and groundbreaking swappable battery technology. Expanding into the U.S. presented unique challenges: how to scale quickly, deliver a premium customer experience, and build a service ecosystem, all without traditional infrastructure.",
     ],
     body: [
       "Bloom’s innovative logistics and service platform enabled Maeving to launch strategically in key regions, leveraging warehousing, last-mile delivery, and an expansive service network to provide a frictionless ownership experience.",
@@ -252,7 +252,7 @@ export const CUSTOMER_STORIES: readonly CustomerStory[] = [
       role: "US General Manager, Maeving",
     },
     outro:
-      "By eliminating the need for physical warehousing and handling all operational logistics, Bloom allowed Maeving to focus on its core mission—providing high-quality, sustainable urban mobility solutions. With scalable infrastructure in place, Maeving is now primed for accelerated growth and nationwide expansion.",
+      "By eliminating the need for physical warehousing and handling all operational logistics, Bloom allowed Maeving to focus on its core mission: providing high-quality, sustainable urban mobility solutions. With scalable infrastructure in place, Maeving is now primed for accelerated growth and nationwide expansion.",
     benefits: [
       {
         title: "Instant Market Presence",
@@ -296,10 +296,10 @@ export const CUSTOMER_STORIES: readonly CustomerStory[] = [
       "Electric Outdoors designs deployable, solar-powered systems that enable hospitality in remote, off-grid environments. The team behind the brand has an industrial design ethos and a deep commitment to sustainability, pushing the limits of all-electric applications in the outdoors.",
     ],
     body: [
-      "To support its U.S. expansion, Electric Outdoors partnered with Bloom’s network to quickly stand up warehousing, fulfillment, and assembly operations—without needing to build internal infrastructure or sign long-term agreements. They leveraged one of Bloom's partner facilities in Detroit as a critical stepping stone—bridging early production needs while preparing to scale into larger contract manufacturing partnerships as growth accelerates.",
+      "To support its U.S. expansion, Electric Outdoors partnered with Bloom’s network to quickly stand up warehousing, fulfillment, and assembly operations without needing to build internal infrastructure or sign long-term agreements. They leveraged one of Bloom's partner facilities in Detroit as a critical stepping stone, bridging early production needs while preparing to scale into larger contract manufacturing partnerships as growth accelerates.",
     ],
     quote: {
-      text: "We are in a phase where we need to keep our team focused on product and user experience—not on logistics and facilities. Bloom is a perfect partner for this and gives us the freedom to be product and customer focused while staying agile and scaling fast.",
+      text: "We are in a phase where we need to keep our team focused on product and user experience, not on logistics and facilities. Bloom is a perfect partner for this and gives us the freedom to be product and customer focused while staying agile and scaling fast.",
       author: "Josef Hjelmaker",
       role: "Founder & CEO, Electric Outdoors",
     },
@@ -307,17 +307,17 @@ export const CUSTOMER_STORIES: readonly CustomerStory[] = [
       {
         title: "Warehousing, Fulfillment & Modular Assembly",
         description:
-          "Bloom’s network provides Electric Outdoors with flexible access to secure warehousing, pallet and container storage, and optional use of technical staff—whether it's outbound fulfillment or on-site assembly. All of it is built around flexibility and speed. Through Bloom’s network, the team can also access fully-equipped fabrication tools — CNC machines, laser cutters, welders, and more — making it easy to build jigs, tweak parts, or test new components on the fly.",
+          "Bloom’s network provides Electric Outdoors with flexible access to secure warehousing, pallet and container storage, and optional use of technical staff, whether it's outbound fulfillment or on-site assembly. All of it is built around flexibility and speed. Through Bloom’s network, the team can also access fully-equipped fabrication tools (CNC machines, laser cutters, welders, and more) making it easy to build jigs, tweak parts, or test new components on the fly.",
       },
       {
         title: "Distributed Warehousing & Flatbed-Ready Delivery",
         description:
-          "With access to both coastal and central warehousing, Electric Outdoors can stage its large-format units closer to end markets — reducing transit times and avoiding unnecessary handoffs between fragmented logistics providers. Bloom’s infrastructure supports flatbed-ready delivery, enabling these deployable systems to ship direct-to-site, fully prepped for setup and activation.",
+          "With access to both coastal and central warehousing, Electric Outdoors can stage its large-format units closer to end markets, reducing transit times and avoiding unnecessary handoffs between fragmented logistics providers. Bloom’s infrastructure supports flatbed-ready delivery, enabling these deployable systems to ship direct-to-site, fully prepped for setup and activation.",
       },
       {
         title: "Scalable Infrastructure for Explosive Growth",
         description:
-          "Whether launching a new product or responding to surging demand, Electric Outdoors now has the additional operational runway to grow quickly. Bloom’s flexible model allows the team to scale up or down based on seasonality or geography — without overextending.",
+          "Whether launching a new product or responding to surging demand, Electric Outdoors now has the additional operational runway to grow quickly. Bloom’s flexible model allows the team to scale up or down based on seasonality or geography, without overextending.",
       },
     ],
     closing:
@@ -340,7 +340,7 @@ export const CUSTOMER_STORIES: readonly CustomerStory[] = [
       "Launched in 2020, Moonbikes developed the world’s first electric snowbike, expanding from Europe to the U.S. to meet growing demand. In 2024, they joined Bloom’s platform to streamline North American operations, allowing their team to invest more deeply in branding and marketing while Bloom took on essential logistics, supply chain, and operational support.",
     ],
     body: [
-      "For Moonbikes, Bloom's network brings efficiency and adaptability. With access to Bloom’s network of warehousing and delivery partners, Moonbikes strategically positions its logistics to reduce costs and improve service across key geographies. This arrangement converts traditionally high fixed costs—like warehousing and assembly—into variable costs, thanks to flexible options like monthly assembly station rentals and seasonal “hibernation mode” for peak and off-peak demand.",
+      "For Moonbikes, Bloom's network brings efficiency and adaptability. With access to Bloom’s network of warehousing and delivery partners, Moonbikes strategically positions its logistics to reduce costs and improve service across key geographies. This arrangement converts traditionally high fixed costs (like warehousing and assembly) into variable costs, thanks to flexible options like monthly assembly station rentals and seasonal “hibernation mode” for peak and off-peak demand.",
     ],
     quote: {
       text: "This partnership represents an important step for Moonbikes’ next chapter. By leveraging Bloom’s platform we are confident in our ability to accelerate growth in the U.S., streamline operations, and enhance our customer experience. We are excited to continue to deliver sustainable, all-electric, winter snow sports offerings in North America while expanding our innovation in the mobility space.",
@@ -361,7 +361,7 @@ export const CUSTOMER_STORIES: readonly CustomerStory[] = [
       {
         title: "Flexible Resource Access",
         description:
-          "Moonbikes accesses Bloom's operational resources as needed, including testing, rework, assembly, reverse logistics, and more—allowing them to remain agile and focus on growth.",
+          "Moonbikes accesses Bloom's operational resources as needed, including testing, rework, assembly, reverse logistics, and more, allowing them to remain agile and focus on growth.",
       },
     ],
     closing:
@@ -384,7 +384,7 @@ export const CUSTOMER_STORIES: readonly CustomerStory[] = [
       "Dust Moto has taken the American powersports industry by storm with its sought-after electric dirt bike, tapping into a $20 billion market with innovation and a commitment to American manufacturing. Aligning closely with Bloom's mission of building a sustainable, resilient industry, Dust Moto's approach meets the rising demand for microHardware products with domestic supply chain solutions.",
     ],
     body: [
-      "Dust Moto isn’t just making bikes—they’re bridging traditional powersports with cutting-edge hardware tech, inviting more people into the sport with a fresh, eco-friendly twist. Partnering with Bloom gives Dust Moto critical access to Bloom’s extensive network, from assembly and warehousing to distribution, fueling their growth as they prepare to launch the Model_1 in 2025.",
+      "Dust Moto isn’t just making bikes, they’re bridging traditional powersports with cutting-edge hardware tech, inviting more people into the sport with a fresh, eco-friendly twist. Partnering with Bloom gives Dust Moto critical access to Bloom’s extensive network, from assembly and warehousing to distribution, fueling their growth as they prepare to launch the Model_1 in 2025.",
       "Through Bloom, Dust Moto is gaining operational agility and tapping into Michigan’s expanding role as a hub for hardware innovation. By locating their manufacturing operations at Newlab in Michigan Central and leveraging Shophouse Park in the Upper Peninsula for testing and refinement, Dust Moto is set to connect enthusiasts nationwide.",
     ],
     quote: {
@@ -427,13 +427,13 @@ export const CUSTOMER_STORIES: readonly CustomerStory[] = [
     ],
     nodes: ["Build", "Deliver"],
     intro: [
-      "In 2024, beloved Scandinavian mobility brand Cake joined forces with Bloom to relaunch its North American operations under new ownership, Emoto Supply Co. Known globally for its class-leading electric scooters, motorcycles, and e-bikes, Cake needed a partner who could ensure a swift, seamless return to market. Bloom’s platform enabled just that—providing essential warehousing, logistics, and rework solutions that minimized downtime and maximized efficiency for Cake’s relaunch.",
+      "In 2024, beloved Scandinavian mobility brand Cake joined forces with Bloom to relaunch its North American operations under new ownership, Emoto Supply Co. Known globally for its class-leading electric scooters, motorcycles, and e-bikes, Cake needed a partner who could ensure a swift, seamless return to market. Bloom’s platform enabled just that, providing essential warehousing, logistics, and rework solutions that minimized downtime and maximized efficiency for Cake’s relaunch.",
     ],
     body: [
       "Within two weeks, Bloom onboarded Cake, establishing a robust support network for warehousing, inventory inspection, and cataloging. Cake quickly leveraged Bloom’s platform not only to fulfill immediate needs like replacement parts for existing customers but also to ensure future scalability through flexible, wrap-around services.",
     ],
     quote: {
-      text: "Upon acquiring the assets for CAKE North America, we faced the task of relocating and establishing a comprehensive logistics operation. Fortunately, we found an invaluable partner in Bloom, our third-party logistics provider. Their expertise has streamlined every aspect of our warehousing and logistics — from setup and staffing to software implementation — saving us significant time and resources. As we venture into new horizons in the micromobility space, we are thrilled to have Bloom at the forefront, supporting our efforts in warehousing, logistics, assembly, and service.",
+      text: "Upon acquiring the assets for CAKE North America, we faced the task of relocating and establishing a comprehensive logistics operation. Fortunately, we found an invaluable partner in Bloom, our third-party logistics provider. Their expertise has streamlined every aspect of our warehousing and logistics (from setup and staffing to software implementation) saving us significant time and resources. As we venture into new horizons in the micromobility space, we are thrilled to have Bloom at the forefront, supporting our efforts in warehousing, logistics, assembly, and service.",
       author: "Michael Joyce",
       role: "Managing Partner & Founder, Emoto Supply Co.",
     },

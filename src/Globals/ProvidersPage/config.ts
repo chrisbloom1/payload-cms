@@ -15,7 +15,7 @@ export const ProvidersPage: GlobalConfig = {
   admin: {
     group: 'Marketing',
     description:
-      'Editable content for /providers. Live Preview works — open /providers in another tab to see edits live.',
+      'Editable content for /providers. Live Preview works, open /providers in another tab to see edits live.',
   },
   fields: [
     {
@@ -47,7 +47,7 @@ export const ProvidersPage: GlobalConfig = {
                   labels: { singular: 'Icon Tile', plural: 'Icon Tiles' },
                   admin: {
                     description:
-                      'Mint-tinted square tiles next to the hero (line-art delivery icons). Render with currentColor — supply SVG paths or upload images.',
+                      'Mint-tinted square tiles next to the hero (line-art delivery icons). Render with currentColor; supply SVG paths or upload images.',
                   },
                   fields: [
                     {
@@ -147,7 +147,7 @@ export const ProvidersPage: GlobalConfig = {
                   name: 'body',
                   type: 'textarea',
                   defaultValue:
-                    'Bloom matches proven providers with vetted hardware brands and handles the back-office—RFQs, milestones, and payments—so you can focus on execution.',
+                    'Bloom matches proven providers with vetted hardware brands and handles the back-office (RFQs, milestones, and payments) so you can focus on execution.',
                 },
                 {
                   name: 'steps',

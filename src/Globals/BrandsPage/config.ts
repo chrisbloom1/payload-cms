@@ -25,7 +25,7 @@ export const BrandsPage: GlobalConfig = {
   admin: {
     group: 'Marketing',
     description:
-      'Editable content for /brands (For Brands marketing page). Live Preview works — open /brands in another tab to see edits live.',
+      'Editable content for /brands (For Brands marketing page). Live Preview works, open /brands in another tab to see edits live.',
   },
   fields: [
     {

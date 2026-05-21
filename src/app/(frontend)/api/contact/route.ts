@@ -60,7 +60,7 @@ export async function POST(request: Request) {
   const resend = new Resend(apiKey)
   const fromAddress = process.env.RESEND_FROM_EMAIL ?? 'noreply@bloomnetwork.ai'
 
-  const subject = `Contact: ${body.firstName} ${body.lastName} — ${body.company}`
+  const subject = `Contact: ${body.firstName} ${body.lastName} (${body.company})`
   const text = [
     `From: ${body.firstName} ${body.lastName} <${body.email}>`,
     `Company: ${body.company}`,

@@ -5,7 +5,7 @@ export const runtime = 'edge'
 
 const DEFAULT_TITLE = "Hardware shouldn't be hard."
 const DEFAULT_TAGLINE =
-  'The supply chain platform for hardware companies. Discover, bid, book, and pay vetted manufacturing, warehousing, assembly, and logistics partners — all in one place.'
+  'The supply chain platform for hardware companies. Discover, bid, book, and pay vetted manufacturing, warehousing, assembly, and logistics partners, all in one place.'
 
 /**
  * Dynamic OG image generator.

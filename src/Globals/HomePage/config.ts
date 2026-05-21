@@ -22,7 +22,7 @@ export const HomePage: GlobalConfig = {
   admin: {
     group: 'Marketing',
     description:
-      "Editable content for the marketing home page (bloomnetwork.ai/). Live Preview is enabled — open the page in another tab to see changes immediately.",
+      "Editable content for the marketing home page (bloomnetwork.ai/). Live Preview is enabled, open the page in another tab to see changes immediately.",
   },
   fields: [
     {
@@ -140,7 +140,7 @@ export const HomePage: GlobalConfig = {
                   name: 'logoImage',
                   type: 'upload',
                   relationTo: 'media',
-                  admin: { description: 'Preferred — upload via Media library.' },
+                  admin: { description: 'Preferred: upload via Media library.' },
                 },
                 {
                   name: 'logoUrl',
@@ -249,7 +249,7 @@ export const HomePage: GlobalConfig = {
         {
           label: 'Ecosystem Stats',
           description:
-            'Stats grid below the sections — heading, lede, and 3+ stat cards.',
+            'Stats grid below the sections: heading, lede, and 3+ stat cards.',
           fields: [
             {
               name: 'ecosystem',

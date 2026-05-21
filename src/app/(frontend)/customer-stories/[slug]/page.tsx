@@ -92,7 +92,7 @@ export default async function StoryPage(
               <div className="overflow-hidden rounded-md ring-1 ring-bloom-navy/10">
                 <HeroImage
                   src={story.hero}
-                  alt={`${story.title} — customer story`}
+                  alt={`${story.title} customer story`}
                   width={1200}
                   height={750}
                   priority
@@ -191,7 +191,7 @@ export default async function StoryPage(
                       {story.quote.author}
                     </span>
                   ) : null}
-                  {story.quote.role ? <span> — {story.quote.role}</span> : null}
+                  {story.quote.role ? <span>, {story.quote.role}</span> : null}
                 </figcaption>
               </figure>
             ) : null}

@@ -26,7 +26,7 @@ export const ContactPage: GlobalConfig = {
                   name: 'body',
                   type: 'textarea',
                   defaultValue:
-                    "Whether you're a hardware brand, a service provider, or just have a question — drop us a line and the right person at Bloom will get back to you.",
+                    "Whether you're a hardware brand, a service provider, or just have a question, drop us a line and the right person at Bloom will get back to you.",
                 },
               ],
             },
@@ -71,7 +71,7 @@ export const ContactPage: GlobalConfig = {
                   name: 'body',
                   type: 'textarea',
                   defaultValue:
-                    "Fill out the form and we'll route your message to the right team — usually a same-day response on weekdays.",
+                    "Fill out the form and we'll route your message to the right team. Usually a same-day response on weekdays.",
                 },
               ],
             },

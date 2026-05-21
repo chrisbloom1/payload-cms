@@ -28,7 +28,7 @@ export interface ContactContent {
 export const CONTACT_DEFAULTS: ContactContent = {
   hero: {
     headline: "Let's build hardware, together.",
-    body: "Whether you're a hardware brand, a service provider, or just have a question — drop us a line and the right person at Bloom will get back to you.",
+    body: "Whether you're a hardware brand, a service provider, or just have a question, drop us a line and the right person at Bloom will get back to you.",
   },
   paths: [
     {
@@ -49,7 +49,7 @@ export const CONTACT_DEFAULTS: ContactContent = {
   formSection: {
     eyebrow: 'Get in touch',
     heading: 'Send us a message',
-    body: "Fill out the form and we'll route your message to the right team — usually a same-day response on weekdays.",
+    body: "Fill out the form and we'll route your message to the right team. Usually a same-day response on weekdays.",
   },
   officesHeading: 'Offices',
   offices: [

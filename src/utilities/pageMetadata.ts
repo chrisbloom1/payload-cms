@@ -31,7 +31,7 @@ export function pageMetadata({ title, description, path, ogTag }: PageMetaInput)
       title: `${title} | Bloom`,
       description,
       url: path,
-      images: [{ url: ogImage, width: 1200, height: 630, alt: `Bloom — ${title}` }],
+      images: [{ url: ogImage, width: 1200, height: 630, alt: `Bloom · ${title}` }],
     }),
     twitter: {
       card: 'summary_large_image',

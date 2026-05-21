@@ -33,7 +33,7 @@ export default function GlobalError({
           We hit an unexpected error.
         </h1>
         <p className="text-[16px] leading-[26px] text-bloom-navy/80">
-          The page couldn&apos;t load. Try again — if it keeps happening, let
+          The page couldn&apos;t load. Try again. If it keeps happening, let
           us know at{' '}
           <a
             href="mailto:hello@bloomnetwork.ai"

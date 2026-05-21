@@ -275,7 +275,7 @@ export function ContactForm() {
             aria-live="polite"
             className="text-[14px] font-bold text-bloom-navy"
           >
-            Thanks — we&apos;ll be in touch shortly.
+            Thanks, we&apos;ll be in touch shortly.
           </p>
         )}
         {errorMsg && (

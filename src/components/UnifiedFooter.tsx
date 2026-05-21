@@ -24,7 +24,7 @@ const ADDRESSES = [
 ] as const
 
 const BLOOM_DESCRIPTION =
-  "Bloom is the network for hardware brands and the manufacturing partners that bring them to life — connecting the right teams to build, source, and scale physical products."
+  "Bloom is the network for hardware brands and the manufacturing partners that bring them to life, connecting the right teams to build, source, and scale physical products."
 
 type LinkItem = { href: string; label: string; external?: boolean }
 

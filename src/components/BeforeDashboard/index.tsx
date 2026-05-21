@@ -89,7 +89,7 @@ const BeforeDashboard: React.FC = () => {
         </h2>
         <p style={{ margin: '4px 0 0', fontSize: '14px', color: 'var(--theme-elevation-600)' }}>
           Edit the public marketing site here. Live Preview is enabled across
-          everything below — open the live page in another tab and your edits
+          everything below. Open the live page in another tab and your edits
           show up as you type.
         </p>
       </div>
@@ -109,13 +109,13 @@ const BeforeDashboard: React.FC = () => {
         <QuickCard
           label="Marketing"
           title="For Brands page"
-          body="Hero, verticals, framework steps, pricing, BloomPay, CTA — everything on /brands."
+          body="Hero, verticals, framework steps, pricing, BloomPay, CTA, everything on /brands."
           href="/admin/globals/brands-page"
         />
         <QuickCard
           label="Marketing"
           title="For Providers page"
-          body="Hero, benefits rows, qualifying criteria, framework, CTA — everything on /providers."
+          body="Hero, benefits rows, qualifying criteria, framework, CTA, everything on /providers."
           href="/admin/globals/providers-page"
         />
         <QuickCard
@@ -145,7 +145,7 @@ const BeforeDashboard: React.FC = () => {
         <QuickCard
           label="Marketing"
           title="Company page"
-          body="Hero, mission 2-up, ecosystem statement, resource cards, team eyebrow — everything on /company."
+          body="Hero, mission 2-up, ecosystem statement, resource cards, team eyebrow, everything on /company."
           href="/admin/globals/company-page"
         />
         <QuickCard

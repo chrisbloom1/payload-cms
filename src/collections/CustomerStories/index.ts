@@ -302,7 +302,7 @@ export const CustomerStories: CollectionConfig = {
               }),
               admin: {
                 description:
-                  'Main narrative body — what Bloom did and how it played out.',
+                  'Main narrative body: what Bloom did and how it played out.',
               },
             },
             {

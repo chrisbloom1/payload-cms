@@ -69,7 +69,7 @@ export function FloatingNav() {
         {/* Logo — actual SVG wordmark extracted from the live site */}
         <Link
           href="/"
-          aria-label="Bloom — home"
+          aria-label="Bloom home"
           prefetch={false}
           className="flex items-center"
         >
@@ -161,7 +161,7 @@ export function FloatingNav() {
           <div className="flex h-24 items-center justify-between px-6">
             <Link
               href="/"
-              aria-label="Bloom — home"
+              aria-label="Bloom home"
               prefetch={false}
               className="flex items-center"
               onClick={closeMobile}

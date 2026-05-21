@@ -5,7 +5,7 @@ import { LoginForm } from './LoginForm'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Sign in — Bloom',
+  title: 'Sign in · Bloom',
   robots: { index: false, follow: false },
 }
 

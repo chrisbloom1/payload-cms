@@ -151,7 +151,7 @@ export const BLOG_POSTS: readonly BlogPost[] = [
         items: [
           "It starts with a natural conversation about a project, just like talking with one of our own seasoned ops leads.",
           "Under the hood, it’s following a protocol: pulling in enriched data about the company and project, asking targeted follow-ups, and translating stated needs into a structured service request instead of a vague “I need a manufacturer.”",
-          "The real fun begins when a conversation activates our matching engines to search across thousands of providers — not just by obvious tags but by capabilities, certifications, past performance, geography, capacity, and more.",
+          "The real fun begins when a conversation activates our matching engines to search across thousands of providers, not just by obvious tags but by capabilities, certifications, past performance, geography, capacity, and more.",
         ],
       },
       { type: "p", text: "We’re going far deeper than “I know a guy.”" },
@@ -171,10 +171,10 @@ export const BLOG_POSTS: readonly BlogPost[] = [
       {
         type: "ul",
         items: [
-          "Request & Matching Engines — AI-driven workflows that turn messy asks into complete RFQs and RFPs, letting hardware teams find the right providers in a fraction of the time.",
-          "Unified Intelligence Layer — A continuously enriched knowledge graph of brands, providers, capabilities, quotes, and outcomes that gets smarter with every interaction.",
-          "Marketplace Agents — Agents that help negotiate scope, standardize terms, coordinate quotes, and keep both sides aligned as work moves from idea to delivery.",
-          "Bloom Pay — Integrated billing, contracting, and financing options so the work keeps moving even through cash crunches, while service providers get the confidence and security of reliable payments.",
+          "Request & Matching Engines: AI-driven workflows that turn messy asks into complete RFQs and RFPs, letting hardware teams find the right providers in a fraction of the time.",
+          "Unified Intelligence Layer: A continuously enriched knowledge graph of brands, providers, capabilities, quotes, and outcomes that gets smarter with every interaction.",
+          "Marketplace Agents: Agents that help negotiate scope, standardize terms, coordinate quotes, and keep both sides aligned as work moves from idea to delivery.",
+          "Bloom Pay: Integrated billing, contracting, and financing options so the work keeps moving even through cash crunches, while service providers get the confidence and security of reliable payments.",
         ],
       },
       {
@@ -209,12 +209,12 @@ export const BLOG_POSTS: readonly BlogPost[] = [
     date: "2025-08-12",
     dateLabel: "Aug 12, 2025",
     category: "PRESS",
-    author: "Patti Waldmeir — Financial Times",
+    author: "Patti Waldmeir, Financial Times",
     hero: "/images/blog/ft-trump-tariffs.png",
     body: [
       {
         type: "p",
-        text: "Bloom’s co-founders Chris Nolte and Justin Kosmides were featured in an FT documentary exploring the resurgence of American manufacturing. Set in Detroit, the film investigates whether tariffs and reshoring can deliver high-tech jobs and rebuild the middle class. Filmed at Newlab, the segment highlights Bloom’s efforts to enable modern hardware companies—from drones to electric motorcycles—to manufacture domestically and sustainably. The piece emphasizes the critical role of platforms like Bloom in reshaping how and where things are made in America.",
+        text: "Bloom’s co-founders Chris Nolte and Justin Kosmides were featured in an FT documentary exploring the resurgence of American manufacturing. Set in Detroit, the film investigates whether tariffs and reshoring can deliver high-tech jobs and rebuild the middle class. Filmed at Newlab, the segment highlights Bloom’s efforts to enable modern hardware companies (from drones to electric motorcycles) to manufacture domestically and sustainably. The piece emphasizes the critical role of platforms like Bloom in reshaping how and where things are made in America.",
       },
       {
         type: "linkButton",
@@ -230,7 +230,7 @@ export const BLOG_POSTS: readonly BlogPost[] = [
     date: "2025-07-29",
     dateLabel: "Jul 29, 2025",
     category: "PODCAST",
-    author: "Chris Luecke — Manufacturing Happy Hour",
+    author: "Chris Luecke, Manufacturing Happy Hour",
     hero: "/images/blog/midwestern-happyhour.png",
     body: [
       {
@@ -278,26 +278,26 @@ export const BLOG_POSTS: readonly BlogPost[] = [
     body: [
       {
         type: "p",
-        text: "We just released the first video on my new YouTube channel, Future in the Making, and I couldn’t be more excited to share it with you. The video is called “Detroit is Where the Future Will Be Built”, and it’s personal. It tells the story of how I moved to Detroit, why I co-founded Bloom, and why I believe this city — and the people building things here — are at the center of something much bigger than any one company.",
+        text: "We just released the first video on my new YouTube channel, Future in the Making, and I couldn’t be more excited to share it with you. The video is called “Detroit is Where the Future Will Be Built”, and it’s personal. It tells the story of how I moved to Detroit, why I co-founded Bloom, and why I believe this city, and the people building things here, are at the center of something much bigger than any one company.",
       },
       {
         type: "p",
-        text: "Future in the Making is where I’ll be sharing stories from inside the ecosystem — startups, manufacturing partners, engineers, founders, and builders — all working to shape the next chapter of American innovation. Many of them are Bloom members. Some of them are just starting out, some are more established. And all of them are part of something meaningful.",
+        text: "Future in the Making is where I’ll be sharing stories from inside the ecosystem (startups, manufacturing partners, engineers, founders, and builders) all working to shape the next chapter of American innovation. Many of them are Bloom members. Some of them are just starting out, some are more established. And all of them are part of something meaningful.",
       },
       { type: "h3", text: "What’s This Channel About?" },
       {
         type: "p",
-        text: "This project is about more than just products — it’s about the people, places, and systems that make it possible to build complex physical things in a world that hasn’t made that easy for a long time. From electric bikes to drones, solar to storage, and even new forms of transportation and defense — we’re in a moment where it’s possible to rethink not just what we build, but how and where we build it.",
+        text: "This project is about more than just products. It’s about the people, places, and systems that make it possible to build complex physical things in a world that hasn’t made that easy for a long time. From electric bikes to drones, solar to storage, and even new forms of transportation and defense, we’re in a moment where it’s possible to rethink not just what we build, but how and where we build it.",
       },
       { type: "h3", text: "Why Detroit?" },
       {
         type: "p",
-        text: "The first video digs into that. But the short version is: there’s talent, space, infrastructure, and history here — not to mention momentum. At Newlab and Michigan Central, you can feel it. The future is already in progress.",
+        text: "The first video digs into that. But the short version is: there’s talent, space, infrastructure, and history here, not to mention momentum. At Newlab and Michigan Central, you can feel it. The future is already in progress.",
       },
       { type: "h3", text: "Why Now?" },
       {
         type: "p",
-        text: "Because we need to believe that making things locally, sustainably, and intelligently isn’t just possible — it’s necessary. And we need more voices showing how it’s actually being done. This channel is my way of pulling the curtain back, sharing lessons, and hopefully connecting with more people who want to build the future — and build it better.",
+        text: "Because we need to believe that making things locally, sustainably, and intelligently isn’t just possible. It’s necessary. And we need more voices showing how it’s actually being done. This channel is my way of pulling the curtain back, sharing lessons, and hopefully connecting with more people who want to build the future, and build it better.",
       },
       {
         type: "linkButton",
@@ -349,7 +349,7 @@ export const BLOG_POSTS: readonly BlogPost[] = [
         type: "p",
         text: "Even more important: this gives operators the ability to flex individual parts of their ops stack without spinning up new workflows every time. Need more warehousing this month, less delivery next? Dial in your operations with Bloom.",
       },
-      { type: "h3", text: "Not just convenient — actually better" },
+      { type: "h3", text: "Not just convenient, actually better" },
       {
         type: "p",
         text: "Consolidated invoicing solves some of the biggest structural pain points in hardware operations:",
@@ -361,14 +361,14 @@ export const BLOG_POSTS: readonly BlogPost[] = [
           "Manual reconciliation and billing errors: Copying invoice details, chasing context, and flagging mismatches wastes time and introduces risk. Bloom ties payment to services at the source.",
           "Fragmented payment systems: Each vendor has their own terms, methods, and portals. Bloom unifies them.",
           "Unclear ownership across teams: When finance, ops, and logistics all touch a transaction, it’s easy for details to fall through the cracks. Bloom gives everyone one place to look.",
-          "Mismatched net terms: Vendors often expect payment before a product is delivered—or long before the brand gets paid. Bloom is building structured, consistent net terms so operators can stay liquid and partners get paid on time.",
+          "Mismatched net terms: Vendors often expect payment before a product is delivered, or long before the brand gets paid. Bloom is building structured, consistent net terms so operators can stay liquid and partners get paid on time.",
           "Onboarding new vendors = starting from scratch: Bloom standardizes vendor billing through one trusted layer, reducing ramp-up and risk.",
         ],
       },
       { type: "h3", text: "Built for operators" },
       {
         type: "p",
-        text: "This launch is part of Bloom’s broader mission: to build the operations system for physical hardware—one that’s flexible, transparent, and designed for the realities of modern hardware teams. Streamlining invoicing isn’t just a back-office feature. It’s another way operators get ahead of the chaos.",
+        text: "This launch is part of Bloom’s broader mission: to build the operations system for physical hardware, one that’s flexible, transparent, and designed for the realities of modern hardware teams. Streamlining invoicing isn’t just a back-office feature. It’s another way operators get ahead of the chaos.",
       },
       {
         type: "p",
@@ -392,20 +392,20 @@ export const BLOG_POSTS: readonly BlogPost[] = [
     body: [
       {
         type: "p",
-        text: "Today, we’re excited to announce a new partnership between Bloom and Re:Build Manufacturing—a collaboration that brings unprecedented access to advanced, U.S.-based production capabilities directly to Bloom members.",
+        text: "Today, we’re excited to announce a new partnership between Bloom and Re:Build Manufacturing, a collaboration that brings unprecedented access to advanced, U.S.-based production capabilities directly to Bloom members.",
       },
       {
         type: "p",
-        text: "Re:Build Manufacturing is a family of engineering and manufacturing businesses whose combined experience forms a national industrial powerhouse. Their model is built around long-term partnerships, operational excellence, and vertically integrated capabilities—from advanced battery systems and embedded electronics to lightweight composites and complex system assembly. Their mission: to rekindle American industry through modern, flexible, and world-class production infrastructure.",
+        text: "Re:Build Manufacturing is a family of engineering and manufacturing businesses whose combined experience forms a national industrial powerhouse. Their model is built around long-term partnerships, operational excellence, and vertically integrated capabilities, from advanced battery systems and embedded electronics to lightweight composites and complex system assembly. Their mission: to rekindle American industry through modern, flexible, and world-class production infrastructure.",
       },
       {
         type: "p",
-        text: "Combined with Bloom’s growing network of innovative hardware brands and operational infrastructure, this partnership unlocks a new path to building and scaling physical products—domestically, efficiently, and at any stage of growth.",
+        text: "Combined with Bloom’s growing network of innovative hardware brands and operational infrastructure, this partnership unlocks a new path to building and scaling physical products: domestically, efficiently, and at any stage of growth.",
       },
       { type: "h3", text: "Why This Matters" },
       {
         type: "p",
-        text: "For years, hardware companies in the U.S. have faced a simple but painful paradox: to scale, they need access to reliable, high-quality production—but accessing that production typically requires scale.",
+        text: "For years, hardware companies in the U.S. have faced a simple but painful paradox: to scale, they need access to reliable, high-quality production, but accessing that production typically requires scale.",
       },
       {
         type: "p",
@@ -424,7 +424,7 @@ export const BLOG_POSTS: readonly BlogPost[] = [
       },
       {
         type: "p",
-        text: "Whether you're a mobility startup building your first pilot run or an enterprise brand localizing production for a new market, this partnership provides the infrastructure and operational support to move faster—without compromising on quality or control.",
+        text: "Whether you're a mobility startup building your first pilot run or an enterprise brand localizing production for a new market, this partnership provides the infrastructure and operational support to move faster, without compromising on quality or control.",
       },
       { type: "h3", text: "The Bigger Picture" },
       {
@@ -433,7 +433,7 @@ export const BLOG_POSTS: readonly BlogPost[] = [
       },
       {
         type: "p",
-        text: "Re:Build shares that vision—not just in theory, but in practice. They're proving that advanced manufacturing can be accessible, adaptable, and aligned with the needs of modern hardware companies.",
+        text: "Re:Build shares that vision, not just in theory, but in practice. They're proving that advanced manufacturing can be accessible, adaptable, and aligned with the needs of modern hardware companies.",
       },
       {
         type: "p",
@@ -449,7 +449,7 @@ export const BLOG_POSTS: readonly BlogPost[] = [
     slug: "self-onboarding-for-bloom-members",
     title: "New: Self-Onboarding for Bloom Members",
     excerpt:
-      "Joining Bloom just got a whole lot easier. Starting today, new members can onboard themselves directly to the platform — one step closer to a fully self-service experience.",
+      "Joining Bloom just got a whole lot easier. Starting today, new members can onboard themselves directly to the platform, one step closer to a fully self-service experience.",
     date: "2025-04-08",
     dateLabel: "Apr 8, 2025",
     category: "UPDATES",
@@ -458,7 +458,7 @@ export const BLOG_POSTS: readonly BlogPost[] = [
     body: [
       {
         type: "p",
-        text: "Joining Bloom just got easier. New members can now onboard themselves directly through the platform—bringing us one step closer to a fully self-service experience.",
+        text: "Joining Bloom just got easier. New members can now onboard themselves directly through the platform, bringing us one step closer to a fully self-service experience.",
       },
       {
         type: "p",
@@ -467,19 +467,19 @@ export const BLOG_POSTS: readonly BlogPost[] = [
       { type: "h3", text: "What’s Included" },
       {
         type: "p",
-        text: "NDA & Membership Agreement — Members can sign all necessary agreements—including NDAs and the Bloom Membership Agreement—digitally within the onboarding flow. No email chains, no PDFs to print.",
+        text: "NDA & Membership Agreement: Members can sign all necessary agreements (including NDAs and the Bloom Membership Agreement) digitally within the onboarding flow. No email chains, no PDFs to print.",
       },
       {
         type: "p",
-        text: "Document Sharing — The onboarding process prompts you to securely upload the key documents we need: W-9s, insurance certificates, and any compliance paperwork. You’ll know exactly what’s required and where to upload it.",
+        text: "Document Sharing: The onboarding process prompts you to securely upload the key documents we need: W-9s, insurance certificates, and any compliance paperwork. You’ll know exactly what’s required and where to upload it.",
       },
       {
         type: "p",
-        text: "Secure File Handling — All files are stored securely and tied to your member profile, ensuring privacy while keeping everything in one accessible location.",
+        text: "Secure File Handling: All files are stored securely and tied to your member profile, ensuring privacy while keeping everything in one accessible location.",
       },
       {
         type: "p",
-        text: "Service & Intent Setup — You’ll be asked to share your goals, your target use cases, and the services you’re likely to need. This helps Bloom match you with the right partners and resources from day one.",
+        text: "Service & Intent Setup: You’ll be asked to share your goals, your target use cases, and the services you’re likely to need. This helps Bloom match you with the right partners and resources from day one.",
       },
       { type: "h3", text: "Why It Matters" },
       {
@@ -526,7 +526,7 @@ export const BLOG_POSTS: readonly BlogPost[] = [
     date: "2024-10-08",
     dateLabel: "Oct 8, 2024",
     category: "PODCAST",
-    author: "Edward Niedermeyer — Autonocast",
+    author: "Edward Niedermeyer, Autonocast",
     hero: "/images/blog/autonocast.png",
     body: [
       {

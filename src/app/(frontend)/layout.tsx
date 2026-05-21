@@ -98,11 +98,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 export const metadata: Metadata = {
   metadataBase: new URL(getServerSideURL()),
   title: {
-    default: "Bloom — Hardware shouldn't be hard.",
+    default: "Bloom · Hardware shouldn't be hard.",
     template: '%s | Bloom',
   },
   description:
-    'Bloom is the supply chain platform for hardware companies. Discover, bid, book, and pay a vetted network of manufacturing, warehousing, assembly, and logistics partners — all in one place.',
+    'Bloom is the supply chain platform for hardware companies. Discover, bid, book, and pay a vetted network of manufacturing, warehousing, assembly, and logistics partners, all in one place.',
   applicationName: 'Bloom',
   authors: [{ name: 'Bloom Inc.', url: 'https://www.bloomnetwork.ai' }],
   generator: 'Next.js',
@@ -126,9 +126,9 @@ export const metadata: Metadata = {
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
-    title: "Bloom — Hardware shouldn't be hard.",
+    title: "Bloom · Hardware shouldn't be hard.",
     description:
-      'The supply chain platform for hardware companies. Discover vetted partners, manage operations, and access flexible payment terms — all in one place.',
+      'The supply chain platform for hardware companies. Discover vetted partners, manage operations, and access flexible payment terms, all in one place.',
     images: [`${getServerSideURL()}/og`],
   },
   alternates: {

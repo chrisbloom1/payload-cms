@@ -50,21 +50,21 @@ const DEFAULT_BENEFITS: BenefitRow[] = [
   {
     eyebrow: 'QUALIFIED LEADS',
     heading: 'Targeted inbound from quality brands',
-    body: 'Bloom matches you with hardware brands that fit your capacity and specialties. No cold outreach required — qualified RFQs come straight to you with funding, volume, and product context attached.',
+    body: 'Bloom matches you with hardware brands that fit your capacity and specialties. No cold outreach required. Qualified RFQs come straight to you with funding, volume, and product context attached.',
     imageUrl: '/images/providers/targeted-inbound.avif',
     imageAlt: 'Bloom platform brand profile',
   },
   {
     eyebrow: 'BLOOMPAY',
     heading: 'Ensure faster payments',
-    body: 'BloomPay centralizes invoicing and accelerates payouts so you spend less time chasing payments. Track paid, due, and late invoices — and offer terms — all from one platform.',
+    body: 'BloomPay centralizes invoicing and accelerates payouts so you spend less time chasing payments. Track paid, due, and late invoices (and offer terms) all from one platform.',
     imageUrl: '/images/providers/faster-payments.avif',
     imageAlt: 'Bloom platform invoices dashboard',
   },
   {
     eyebrow: 'DE-RISKED PROJECTS',
     heading: 'New hardware, lower risk',
-    body: 'Every brand on the platform is pre-vetted for funding, technical readiness, and clear engineering specs — you onboard knowing the project is real.',
+    body: 'Every brand on the platform is pre-vetted for funding, technical readiness, and clear engineering specs, so you onboard knowing the project is real.',
     imageUrl: '/images/providers/lower-risk.avif',
     imageAlt: 'Bloom de-risked project workflow',
   },
@@ -95,7 +95,7 @@ export const PROVIDERS_DEFAULTS: ProvidersContent = {
   },
   framework: {
     heading: 'Win better jobs. Get paid faster.',
-    body: 'Bloom matches proven providers with vetted hardware brands and handles the back-office—RFQs, milestones, and payments—so you can focus on execution.',
+    body: 'Bloom matches proven providers with vetted hardware brands and handles the back-office (RFQs, milestones, and payments) so you can focus on execution.',
     steps: [
       { label: 'APPLY', description: 'Share capabilities, certifications, references, capacity' },
       { label: 'ONBOARD', description: 'Create profile, set rates, sync BloomPay' },

@@ -52,7 +52,7 @@ export const HelpHeader: React.FC = () => {
     <header className="sticky top-0 z-40 w-full border-b border-bloom-navy/10 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
       <div className="mx-auto flex h-[64px] w-full max-w-[1280px] items-center justify-between px-4 sm:px-6">
         {/* Logo */}
-        <Link href="/" aria-label="Bloom — home" className="flex items-center">
+        <Link href="/" aria-label="Bloom home" className="flex items-center">
           <BloomWordmark className="h-[28px] w-auto text-bloom-navy" />
         </Link>
 

@@ -177,7 +177,7 @@ export async function generateMetadata(
   if (!post) return { title: "Post Not Found", robots: { index: false, follow: false } };
   return pageMetadata({
     title: post.title,
-    description: post.excerpt ?? `${post.title} — read the full post on the Bloom blog.`,
+    description: post.excerpt ?? `${post.title}. Read the full post on the Bloom blog.`,
     path: `/blog/${slug}`,
     ogTag: "Blog",
   });

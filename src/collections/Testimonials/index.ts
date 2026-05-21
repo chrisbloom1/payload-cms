@@ -28,7 +28,7 @@ export const Testimonials: CollectionConfig = {
       type: 'textarea',
       required: true,
       admin: {
-        description: 'The quote itself. Plain text — no quotation marks needed (the carousel adds them).',
+        description: 'The quote itself. Plain text, no quotation marks needed (the carousel adds them).',
       },
     },
     {

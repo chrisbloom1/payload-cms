@@ -228,7 +228,7 @@ export function BrandsPricingMatrix({
                     {row.label}
                     {row.subLabel ? (
                       <span className="ml-1 font-normal text-bloom-muted">
-                        — {row.subLabel}
+                        ({row.subLabel})
                       </span>
                     ) : null}
                   </dt>
