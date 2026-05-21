@@ -89,7 +89,7 @@ export function UnifiedFooter({ className }: { className?: string }) {
               ))}
             </div>
             <a
-              href="https://www.linkedin.com/company/bloomus"
+              href="https://www.linkedin.com/company/bloomnetworkai"
               target="_blank"
               rel="noreferrer"
               aria-label="Bloom on LinkedIn"

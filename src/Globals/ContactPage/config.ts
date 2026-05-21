@@ -98,7 +98,7 @@ export const ContactPage: GlobalConfig = {
             {
               name: 'linkedinUrl',
               type: 'text',
-              defaultValue: 'https://www.linkedin.com/company/bloomus',
+              defaultValue: 'https://www.linkedin.com/company/bloomnetworkai',
             },
           ],
         },

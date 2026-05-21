@@ -57,7 +57,7 @@ export const CONTACT_DEFAULTS: ContactContent = {
     { city: 'Brooklyn, NY', line1: '19 Morris Ave', line2: 'Brooklyn, NY 10019' },
   ],
   connectHeading: 'Connect',
-  linkedinUrl: 'https://www.linkedin.com/company/bloomus',
+  linkedinUrl: 'https://www.linkedin.com/company/bloomnetworkai',
 }
 
 function asString(v: unknown, fallback = ''): string {
