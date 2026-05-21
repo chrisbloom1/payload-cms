@@ -26,13 +26,13 @@ function unauthorized() {
   return NextResponse.json({ error: 'unauthorized' }, { status: 401 })
 }
 
-async function loadSignatureBase64(): Promise<string | null> {
+async function loadAssetBase64(relativeName: string): Promise<string | null> {
   try {
-    const p = path.join(process.cwd(), 'public', 'hazmat', 'signer-chris-nolte.png')
+    const p = path.join(process.cwd(), 'public', 'hazmat', relativeName)
     const buf = await readFile(p)
     return buf.toString('base64')
   } catch {
-    // Not fatal — template falls back to typed name in a script font.
+    // Not fatal — template falls back to text rendering.
     return null
   }
 }
@@ -52,8 +52,11 @@ export async function POST(request: Request): Promise<Response> {
     return NextResponse.json({ error: 'missing `draft` field' }, { status: 400 })
   }
 
-  const signaturePngBase64 = await loadSignatureBase64()
-  const html = renderHazmatPdfHtml(draft, { signaturePngBase64 })
+  const [signaturePngBase64, logoPngBase64] = await Promise.all([
+    loadAssetBase64('signer-chris-nolte.png'),
+    loadAssetBase64('bloom-logo.png'),
+  ])
+  const html = renderHazmatPdfHtml(draft, { signaturePngBase64, logoPngBase64 })
 
   // Lazy-import chromium + puppeteer-core only when actually generating —
   // keeps the route's import graph small for other endpoints and lets

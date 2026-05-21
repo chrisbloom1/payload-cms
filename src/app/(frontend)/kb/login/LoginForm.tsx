@@ -1,8 +1,14 @@
 'use client'
 
 import { useState } from 'react'
+import { cn } from '@/lib/utils'
 
 type Stage = 'email' | 'code'
+
+// Universal Bloom sign-in form — used by /kb, /guides, /ops gates.
+// Styling matches the marketing/admin design system (Bloom tokens via
+// Tailwind utility classes) so it doesn't look orphaned from the rest
+// of the app.
 
 export function LoginForm({ returnTo }: { returnTo: string }) {
   const [stage, setStage] = useState<Stage>('email')
@@ -65,65 +71,97 @@ export function LoginForm({ returnTo }: { returnTo: string }) {
   }
 
   return (
-    <div style={{
-      background: 'white',
-      borderRadius: 12,
-      padding: '2rem',
-      maxWidth: 420,
-      width: '100%',
-      boxShadow: '0 2px 24px rgba(0,0,0,0.06)',
-    }}>
-      <h1 style={{ margin: '0 0 0.5rem', fontSize: '1.5rem' }}>Bloom KB sign-in</h1>
-      <p style={{ color: '#4a5568', lineHeight: 1.5, marginBottom: '1.5rem' }}>
-        {stage === 'email'
-          ? 'Enter your Bloom team email to receive a sign-in code.'
-          : `We sent a 6-digit code to ${email}. Enter it below.`}
-      </p>
+    <div className="w-full max-w-[420px] rounded-md bg-white p-8 shadow-[0_2px_24px_rgba(0,0,0,0.06)] ring-1 ring-bloom-navy/10">
+      <div className="mb-6 flex flex-col gap-1">
+        <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-bloom-orange">
+          Bloom
+        </p>
+        <h1 className="text-[22px] font-bold leading-tight text-bloom-navy">
+          Sign in
+        </h1>
+        <p className="mt-2 text-[14px] leading-[20px] text-bloom-muted">
+          {stage === 'email'
+            ? 'Enter your Bloom team email to receive a sign-in code.'
+            : `We sent a 6-digit code to ${email}. Enter it below.`}
+        </p>
+      </div>
 
       {stage === 'email' ? (
-        <form onSubmit={submitEmail}>
-          <label
-            htmlFor="email"
-            style={{ display: 'block', fontSize: '0.85rem', marginBottom: 6, color: '#4a5568' }}
+        <form onSubmit={submitEmail} className="flex flex-col gap-4">
+          <div className="flex flex-col gap-1">
+            <label
+              htmlFor="email"
+              className="text-[11px] font-bold uppercase tracking-[0.05em] text-bloom-muted"
+            >
+              Email
+            </label>
+            <input
+              id="email"
+              type="email"
+              required
+              autoFocus
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@bloomnetwork.ai"
+              className="w-full rounded-md border border-bloom-navy/15 bg-white px-3 py-2.5 text-[14px] text-bloom-navy transition-colors focus:border-bloom-navy focus:outline-none focus:ring-2 focus:ring-bloom-navy/10"
+            />
+          </div>
+          <button
+            type="submit"
+            disabled={busy}
+            className={cn(
+              'inline-flex w-full items-center justify-center gap-2 rounded-md bg-bloom-navy px-5 py-2.5 text-[13px] font-bold uppercase tracking-[0.05em] text-white transition-opacity hover:opacity-90',
+              busy && 'cursor-wait opacity-60',
+            )}
           >
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            required
-            autoFocus
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="you@bloomnetwork.ai"
-            style={inputStyle}
-          />
-          <button type="submit" disabled={busy} style={buttonStyle(busy)}>
-            {busy ? 'Sending…' : 'Send code'}
+            {busy ? (
+              <>
+                <span className="inline-block h-3 w-3 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                Sending…
+              </>
+            ) : (
+              'Send code'
+            )}
           </button>
         </form>
       ) : (
-        <form onSubmit={submitCode}>
-          <label
-            htmlFor="code"
-            style={{ display: 'block', fontSize: '0.85rem', marginBottom: 6, color: '#4a5568' }}
+        <form onSubmit={submitCode} className="flex flex-col gap-4">
+          <div className="flex flex-col gap-1">
+            <label
+              htmlFor="code"
+              className="text-[11px] font-bold uppercase tracking-[0.05em] text-bloom-muted"
+            >
+              6-digit code
+            </label>
+            <input
+              id="code"
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]{6}"
+              maxLength={6}
+              required
+              autoFocus
+              value={code}
+              onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))}
+              className="w-full rounded-md border border-bloom-navy/15 bg-white px-3 py-3 text-center text-[20px] font-bold tracking-[0.4em] tabular-nums text-bloom-navy transition-colors focus:border-bloom-navy focus:outline-none focus:ring-2 focus:ring-bloom-navy/10"
+            />
+          </div>
+          <button
+            type="submit"
+            disabled={busy || code.length !== 6}
+            className={cn(
+              'inline-flex w-full items-center justify-center gap-2 rounded-md bg-bloom-navy px-5 py-2.5 text-[13px] font-bold uppercase tracking-[0.05em] text-white transition-opacity hover:opacity-90',
+              (busy || code.length !== 6) && 'cursor-not-allowed opacity-60',
+            )}
           >
-            6-digit code
-          </label>
-          <input
-            id="code"
-            type="text"
-            inputMode="numeric"
-            pattern="[0-9]{6}"
-            maxLength={6}
-            required
-            autoFocus
-            value={code}
-            onChange={(e) => setCode(e.target.value.replace(/\D/g, ''))}
-            style={{ ...inputStyle, fontSize: '1.5rem', letterSpacing: '0.5rem', textAlign: 'center' }}
-          />
-          <button type="submit" disabled={busy || code.length !== 6} style={buttonStyle(busy)}>
-            {busy ? 'Verifying…' : 'Verify'}
+            {busy ? (
+              <>
+                <span className="inline-block h-3 w-3 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                Verifying…
+              </>
+            ) : (
+              'Verify'
+            )}
           </button>
           <button
             type="button"
@@ -133,12 +171,7 @@ export function LoginForm({ returnTo }: { returnTo: string }) {
               setChallenge(null)
               setError(null)
             }}
-            style={{
-              ...buttonStyle(false),
-              background: 'transparent',
-              color: '#4a5568',
-              marginTop: 8,
-            }}
+            className="text-[13px] text-bloom-muted underline-offset-4 transition-colors hover:text-bloom-navy hover:underline"
           >
             Use a different email
           </button>
@@ -146,31 +179,10 @@ export function LoginForm({ returnTo }: { returnTo: string }) {
       )}
 
       {error && (
-        <div style={{ color: '#c53030', fontSize: '0.9rem', marginTop: '0.75rem' }}>{error}</div>
+        <div className="mt-4 rounded-md bg-bloom-orange/10 px-3 py-2 text-[13px] text-bloom-orange-deep">
+          {error}
+        </div>
       )}
     </div>
   )
 }
-
-const inputStyle: React.CSSProperties = {
-  width: '100%',
-  padding: '0.75rem',
-  border: '1px solid #e2e8f0',
-  borderRadius: 8,
-  fontSize: '1rem',
-  boxSizing: 'border-box',
-}
-
-const buttonStyle = (busy: boolean): React.CSSProperties => ({
-  width: '100%',
-  padding: '0.85rem',
-  background: '#ff6b35',
-  color: 'white',
-  border: 'none',
-  borderRadius: 8,
-  fontSize: '1rem',
-  fontWeight: 600,
-  cursor: busy ? 'wait' : 'pointer',
-  marginTop: '1rem',
-  opacity: busy ? 0.7 : 1,
-})

@@ -30,6 +30,8 @@ function fmtDate(iso: string): string {
 export interface RenderOpts {
   /** Base64-encoded PNG signature image. Optional; falls back to typed name. */
   signaturePngBase64?: string | null
+  /** Base64-encoded PNG Bloom wordmark + symbol. Optional; falls back to inline text. */
+  logoPngBase64?: string | null
 }
 
 export function renderHazmatPdfHtml(
@@ -60,6 +62,10 @@ export function renderHazmatPdfHtml(
   const signatureCell = opts.signaturePngBase64
     ? `<img src="data:image/png;base64,${opts.signaturePngBase64}" alt="" style="max-height: 40px; max-width: 220px;" />`
     : `<span class="sig-script">${escape(draft.signerName)}</span>`
+
+  const logoMarkup = opts.logoPngBase64
+    ? `<img src="data:image/png;base64,${opts.logoPngBase64}" alt="Bloom" style="height: 28px; width: auto; display: block;" />`
+    : `<div class="brand">Bloom<span class="glyph">▾</span></div>`
 
   return `<!doctype html>
 <html lang="en">
@@ -166,8 +172,8 @@ export function renderHazmatPdfHtml(
   <div class="doc">
     <header>
       <div>
-        <div class="brand">Bloom<span class="glyph">▾</span></div>
-        <div class="brand-sub">Network Operations — Shipper&apos;s Agent</div>
+        ${logoMarkup}
+        <div class="brand-sub" style="margin-top: 6px;">Network Operations — Shipper&apos;s Agent</div>
       </div>
       <div class="title">
         <h1>Shipper&apos;s Declaration for Dangerous Goods</h1>

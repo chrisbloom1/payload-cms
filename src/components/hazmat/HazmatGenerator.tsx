@@ -1,6 +1,7 @@
 'use client'
 
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import {
   EMPTY_DRAFT,
@@ -21,9 +22,44 @@ import { HazmatPreview } from './HazmatPreview'
 // merge the response into draft via setDraft({...draft, ...response}).
 
 export function HazmatGenerator() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const initialShipmentId = searchParams.get('id')
+
   const [draft, setDraft] = useState<ShipmentDraft>(EMPTY_DRAFT)
+  const [shipmentId, setShipmentId] = useState<string | null>(initialShipmentId)
   const [isExtracting, setIsExtracting] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
+  const [isLoading, setIsLoading] = useState(Boolean(initialShipmentId))
   const [toast, setToast] = useState<{ msg: string; type: 'ok' | 'err' } | null>(null)
+
+  // Load an existing shipment when ?id=… is present in the URL. Runs
+  // once on mount + whenever the URL ID changes (e.g. browser back).
+  useEffect(() => {
+    if (!initialShipmentId) return
+    let cancelled = false
+    ;(async () => {
+      try {
+        const res = await fetch(`/api/hazmat/shipments/${initialShipmentId}`)
+        if (!res.ok) throw new Error(`load failed (${res.status})`)
+        const doc = await res.json()
+        if (cancelled) return
+        const { coerceDocToDraft } = await import('@/lib/hazmat/shipment-mapper')
+        setDraft(coerceDocToDraft(doc))
+        setShipmentId(initialShipmentId)
+      } catch (err) {
+        if (cancelled) return
+        const msg = err instanceof Error ? err.message : 'load failed'
+        setToast({ msg: `Couldn't load shipment: ${msg}`, type: 'err' })
+        setTimeout(() => setToast(null), 4000)
+      } finally {
+        if (!cancelled) setIsLoading(false)
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [initialShipmentId])
 
   const set = useCallback(
     <K extends keyof ShipmentDraft>(key: K, value: ShipmentDraft[K]) =>
@@ -37,7 +73,7 @@ export function HazmatGenerator() {
   )
 
   const onClear = useCallback(() => {
-    if (!confirm('Clear all fields?')) return
+    if (!confirm('Clear all fields and start a new shipment?')) return
     // Keep persistent defaults (signer, emergency, carrier prefs)
     setDraft((d) => ({
       ...EMPTY_DRAFT,
@@ -47,9 +83,46 @@ export function HazmatGenerator() {
       chemtrecContract: d.chemtrecContract,
       carrier: d.carrier,
     }))
+    setShipmentId(null)
+    router.replace('/ops/hazmat')
     setToast({ msg: 'Cleared.', type: 'ok' })
     setTimeout(() => setToast(null), 2000)
-  }, [])
+  }, [router])
+
+  const onSave = useCallback(async () => {
+    if (isSaving) return
+    setIsSaving(true)
+    setToast(null)
+    try {
+      const isUpdate = Boolean(shipmentId)
+      const res = await fetch(
+        isUpdate ? `/api/hazmat/shipments/${shipmentId}` : '/api/hazmat/shipments',
+        {
+          method: isUpdate ? 'PATCH' : 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ draft }),
+        },
+      )
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({ error: `status ${res.status}` }))
+        throw new Error(body.error || `save failed (${res.status})`)
+      }
+      const doc = await res.json()
+      if (!isUpdate && doc.id) {
+        setShipmentId(String(doc.id))
+        // Reflect new ID in URL so the user can bookmark / refresh.
+        router.replace(`/ops/hazmat?id=${doc.id}`)
+      }
+      setToast({ msg: isUpdate ? 'Saved.' : 'Draft saved.', type: 'ok' })
+      setTimeout(() => setToast(null), 2500)
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'save failed'
+      setToast({ msg, type: 'err' })
+      setTimeout(() => setToast(null), 4000)
+    } finally {
+      setIsSaving(false)
+    }
+  }, [draft, shipmentId, router, isSaving])
 
   const onBolUpload = useCallback(async (file: File) => {
     setIsExtracting(true)
@@ -135,9 +208,13 @@ export function HazmatGenerator() {
         onProductTypeChange={onProductTypeChange}
         onBolUpload={onBolUpload}
         onGeneratePdf={onGeneratePdf}
+        onSave={onSave}
         onClear={onClear}
+        shipmentId={shipmentId}
         isExtracting={isExtracting}
         isGenerating={isGenerating}
+        isSaving={isSaving}
+        isLoading={isLoading}
       />
       <PreviewPanel draft={draft} />
 
@@ -169,9 +246,13 @@ interface FormPanelProps {
   onProductTypeChange: (next: ProductType) => void
   onBolUpload: (file: File) => Promise<void>
   onGeneratePdf: () => void
+  onSave: () => void
   onClear: () => void
+  shipmentId: string | null
   isExtracting: boolean
   isGenerating: boolean
+  isSaving: boolean
+  isLoading: boolean
 }
 
 function FormPanel({
@@ -180,10 +261,22 @@ function FormPanel({
   onProductTypeChange,
   onBolUpload,
   onGeneratePdf,
+  onSave,
   onClear,
+  shipmentId,
   isExtracting,
   isGenerating,
+  isSaving,
+  isLoading,
 }: FormPanelProps) {
+  if (isLoading) {
+    return (
+      <section className="flex items-center justify-center rounded-md bg-white p-12 text-[13px] text-bloom-muted shadow-[0_1px_3px_rgba(0,0,0,0.08)]">
+        <span className="mr-2 inline-block h-3 w-3 animate-spin rounded-full border-2 border-bloom-navy border-t-transparent" />
+        Loading shipment…
+      </section>
+    )
+  }
   return (
     <section className="flex flex-col gap-4">
       <BolDropzone onFile={onBolUpload} isProcessing={isExtracting} />
@@ -406,32 +499,63 @@ function FormPanel({
         </Grid>
       </Panel>
 
-      <div className="flex flex-wrap items-center justify-end gap-2 pb-4">
-        <button
-          type="button"
-          onClick={onClear}
-          className="rounded-md border border-bloom-navy/20 bg-white px-4 py-2 text-[13px] font-medium text-bloom-navy transition-colors hover:border-bloom-navy"
-        >
-          Clear
-        </button>
-        <button
-          type="button"
-          onClick={onGeneratePdf}
-          disabled={isGenerating}
-          className={cn(
-            'inline-flex items-center gap-2 rounded-md bg-bloom-navy px-5 py-2 text-[13px] font-bold uppercase tracking-[0.05em] text-white transition-opacity hover:opacity-90',
-            isGenerating && 'cursor-not-allowed opacity-60',
-          )}
-        >
-          {isGenerating ? (
+      <div className="flex flex-wrap items-center justify-between gap-2 pb-4">
+        <p className="text-[11px] text-bloom-muted">
+          {shipmentId ? (
             <>
-              <span className="inline-block h-3 w-3 animate-spin rounded-full border-2 border-white border-t-transparent" />
-              Generating…
+              Editing shipment <span className="font-mono">#{shipmentId}</span>
             </>
           ) : (
-            'Generate PDF'
+            'New draft — save to persist'
           )}
-        </button>
+        </p>
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={onClear}
+            className="rounded-md border border-bloom-navy/20 bg-white px-4 py-2 text-[13px] font-medium text-bloom-navy transition-colors hover:border-bloom-navy"
+          >
+            New
+          </button>
+          <button
+            type="button"
+            onClick={onSave}
+            disabled={isSaving}
+            className={cn(
+              'inline-flex items-center gap-2 rounded-md border border-bloom-navy bg-white px-4 py-2 text-[13px] font-bold text-bloom-navy transition-opacity hover:opacity-90',
+              isSaving && 'cursor-not-allowed opacity-60',
+            )}
+          >
+            {isSaving ? (
+              <>
+                <span className="inline-block h-3 w-3 animate-spin rounded-full border-2 border-bloom-navy border-t-transparent" />
+                Saving…
+              </>
+            ) : shipmentId ? (
+              'Save changes'
+            ) : (
+              'Save draft'
+            )}
+          </button>
+          <button
+            type="button"
+            onClick={onGeneratePdf}
+            disabled={isGenerating}
+            className={cn(
+              'inline-flex items-center gap-2 rounded-md bg-bloom-navy px-5 py-2 text-[13px] font-bold uppercase tracking-[0.05em] text-white transition-opacity hover:opacity-90',
+              isGenerating && 'cursor-not-allowed opacity-60',
+            )}
+          >
+            {isGenerating ? (
+              <>
+                <span className="inline-block h-3 w-3 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                Generating…
+              </>
+            ) : (
+              'Generate PDF'
+            )}
+          </button>
+        </div>
       </div>
     </section>
   )

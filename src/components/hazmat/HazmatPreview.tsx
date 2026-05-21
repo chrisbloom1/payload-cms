@@ -48,11 +48,15 @@ export function HazmatPreview({ draft }: HazmatPreviewProps) {
     >
       <header className="flex items-start justify-between border-b border-bloom-navy/15 pb-4">
         <div>
-          <p className="text-[20px] font-bold leading-none text-bloom-navy">
-            Bloom
-            <span className="ml-0.5 inline-block translate-y-[-2px] text-bloom-orange">▾</span>
-          </p>
-          <p className="mt-1 text-[8px] font-bold uppercase tracking-[0.18em] text-bloom-muted">
+          {/* Real Bloom wordmark + symbol — same asset embedded in the
+              generated PDF for consistency. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/hazmat/bloom-logo.png"
+            alt="Bloom"
+            className="block h-7 w-auto"
+          />
+          <p className="mt-1.5 text-[8px] font-bold uppercase tracking-[0.18em] text-bloom-muted">
             Network Operations — Shipper&apos;s Agent
           </p>
         </div>
@@ -204,11 +208,14 @@ export function HazmatPreview({ draft }: HazmatPreviewProps) {
         <tbody>
           <tr>
             <td className="w-[40%] border-b border-bloom-navy/40 px-1 pb-1 align-bottom">
-              {/* Signature image plugs in here in Step 5 (PDF). For the
-                  preview we just show the typed name. */}
-              <span className="text-[14px] font-bold italic text-bloom-navy">
-                {draft.signerName}
-              </span>
+              {/* Real signature image — same asset embedded in the
+                  generated PDF for visual parity. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/hazmat/signer-chris-nolte.png"
+                alt=""
+                className="max-h-[36px] w-auto"
+              />
             </td>
             <td className="w-[30%] border-b border-bloom-navy/40 px-3 pb-1 align-bottom font-bold">
               {draft.signerName}
