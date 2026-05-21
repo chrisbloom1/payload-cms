@@ -33,6 +33,7 @@
     "test:e2e:manual": "cross-env PLAYWRIGHT_SLOW_MO=750 E2E_MANUAL_REVIEW=true playwright test --headed --workers=1"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.97.1",
     "@base-ui/react": "^1.4.1",
     "@modelcontextprotocol/sdk": "^1.29.0",
     "@next/third-parties": "^16.2.6",

@@ -51,14 +51,42 @@ export function HazmatGenerator() {
     setTimeout(() => setToast(null), 2000)
   }, [])
 
-  // Placeholder handlers — wired in subsequent steps.
-  const onBolUpload = useCallback(async (_file: File) => {
+  const onBolUpload = useCallback(async (file: File) => {
     setIsExtracting(true)
-    setToast({ msg: 'BOL extraction wires in Step 4.', type: 'err' })
-    setTimeout(() => {
+    setToast(null)
+    try {
+      const fd = new FormData()
+      fd.append('file', file)
+      const res = await fetch('/api/hazmat/extract', { method: 'POST', body: fd })
+      const data = await res.json()
+      if (!res.ok) {
+        throw new Error(data.error || `extract failed (${res.status})`)
+      }
+      const extracted = data.extracted as Partial<ShipmentDraft>
+      // Shallow-merge only non-empty fields so the user's defaults
+      // (signer, emergency phone, special notes) survive an extract.
+      setDraft((d) => {
+        const next = { ...d }
+        for (const [k, v] of Object.entries(extracted)) {
+          if (typeof v === 'string' && v.length > 0 && k in next) {
+            ;(next as Record<string, unknown>)[k] = v
+          }
+        }
+        // Re-derive UN# / shipping name / class if productType arrived
+        if (typeof extracted.productType === 'string') {
+          return applyProductType(next, extracted.productType as ProductType)
+        }
+        return next
+      })
+      setToast({ msg: 'BOL extracted — review fields and adjust.', type: 'ok' })
+      setTimeout(() => setToast(null), 3500)
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'extraction failed'
+      setToast({ msg, type: 'err' })
+      setTimeout(() => setToast(null), 4000)
+    } finally {
       setIsExtracting(false)
-      setToast(null)
-    }, 2000)
+    }
   }, [])
 
   const onGeneratePdf = useCallback(() => {
