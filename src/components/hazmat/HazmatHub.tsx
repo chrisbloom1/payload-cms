@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
+import { HazmatGenerator } from './HazmatGenerator'
 
 // Top-level hub component. Hosts the two-tab interface from the
 // prototype (Generator + Knowledge). Each tab is a separate client
@@ -69,7 +70,7 @@ export function HazmatHub() {
         aria-labelledby={activeTab}
         className="min-h-[480px]"
       >
-        {activeTab === 'generator' ? <GeneratorPlaceholder /> : <KnowledgePlaceholder />}
+        {activeTab === 'generator' ? <HazmatGenerator /> : <KnowledgePlaceholder />}
       </section>
     </div>
   )
@@ -78,18 +79,6 @@ export function HazmatHub() {
 // Placeholders — replaced in Step 3 (Generator UI port) and a later
 // step (Knowledge hub data-driven content). Keeping them inline for
 // now so the skeleton is one file to review.
-
-function GeneratorPlaceholder() {
-  return (
-    <div className="rounded-md bg-white p-8 ring-1 ring-bloom-navy/10">
-      <h2 className="text-[18px] font-bold text-bloom-navy">Generator</h2>
-      <p className="mt-2 text-[14px] text-bloom-muted">
-        BOL upload → AI extraction → Shipper&apos;s Declaration PDF. UI ports
-        in Step 3; extraction wires in Step 4; PDF generation in Step 5.
-      </p>
-    </div>
-  )
-}
 
 function KnowledgePlaceholder() {
   return (
