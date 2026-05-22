@@ -12,5 +12,16 @@ test-results
 # Payload default media upload directory
 public/media/
 .tmp-admin-login.png
+.tmp-*.jpeg
+.tmp-*.png
 .review-screenshots/
 .claude/a11y-*.txt
+
+# Loose hazmat / shipping artifacts (one-off, not for repo)
+BL-BOMO-*.pdf
+BL-BOMO-*.png
+bloom-hazmat-*.html
+bloom-hazmat-*.md
+chris-nolte-signature.png
+chris-nolte-voice.md
+Bloom Logo.png

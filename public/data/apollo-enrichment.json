@@ -1,0 +1,1114 @@
+{
+  "_meta": {
+    "enriched_date": "2026-05-22",
+    "tool": "Apollo via MCP (organizations_enrich + mixed_people_api_search)",
+    "entries_attempted": 30,
+    "notes": [
+      "Last names are partially obfuscated (e.g. 'Pa***h') as returned by Apollo's search API on the current plan. Full names require a separate people-enrichment call.",
+      "email_status maps: 'verified' = has_email=true, 'unavailable' = has_email=false. Actual email addresses were not captured (public-facing resource).",
+      "LinkedIn URLs for individual partners are not returned by the people-search endpoint; the org linkedin_url is provided instead. People enrichment would be needed for per-person LinkedIn.",
+      "For CVCs whose Apollo record points to the parent corporation (e.g. Boeing, 3M, Caterpillar, Chevron), partner-title searches surface portfolio-company founders and engineers rather than only the corporate venture arm's investing team. These rows are flagged with a _note."
+    ]
+  },
+  "curated-2150": {
+    "name": "2150",
+    "domain": "2150.vc",
+    "url": "https://2150.vc",
+    "apollo_org_id": "603d383021054d00e2a4e39f",
+    "linkedin_url": "http://www.linkedin.com/company/2150vc",
+    "employees": 22,
+    "founded_year": 2019,
+    "industry": "venture capital & private equity",
+    "total_funding": 1016525700,
+    "latest_funding_stage": "Other",
+    "description": "2150 is a venture capital firm founded in 2019 and based in London, with additional offices in Copenhagen and Berlin. It is part of Urban Partners, focusing on investment strategies that address urban challenges.",
+    "partners": [
+      {
+        "name": "Christian Jo***k",
+        "title": "Co-founder and Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66fa82474baae60001c85f4a"
+      },
+      {
+        "name": "Derek Br***s",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "646aea9c97be3f00015cf3db"
+      },
+      {
+        "name": "Rahul Pa***h",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66fa87154baae60001ca1868"
+      }
+    ]
+  },
+  "curated-3m-ventures": {
+    "name": "3M Ventures",
+    "domain": "3m.com",
+    "url": "https://3m.com",
+    "apollo_org_id": "5edba935e36c200001d51dcb",
+    "linkedin_url": "http://www.linkedin.com/company/3m",
+    "employees": 62000,
+    "founded_year": 1902,
+    "industry": "machinery",
+    "total_funding": null,
+    "latest_funding_stage": null,
+    "description": "3M Company is a leading American multinational conglomerate based in St. Paul, Minnesota. Founded in 1902, the company initially focused on mining but quickly adapted to produce sandpaper and has since expanded its offerings to include over 60,000 products.",
+    "partners": [
+      {
+        "name": "Pawan Ka***a",
+        "title": "Partner",
+        "email_status": "unavailable",
+        "apollo_person_id": "64302af1222f14000125ac43"
+      },
+      {
+        "name": "3m Ou***r",
+        "title": "Partner",
+        "email_status": "unavailable",
+        "apollo_person_id": "6198863f8bdd08000157fccc"
+      },
+      {
+        "name": "Wayne Li***d",
+        "title": "Advanced Principal",
+        "email_status": "unavailable",
+        "apollo_person_id": "54eba4fb746869431150ee04"
+      },
+      {
+        "name": "Matt Wa***t",
+        "title": "Chief Product Officer and Co-Founder",
+        "email_status": "unavailable",
+        "apollo_person_id": "5b99e195324d44118e87b7e5"
+      },
+      {
+        "name": "Will Ho***l",
+        "title": "Principal Engineer",
+        "email_status": "verified",
+        "apollo_person_id": "5f1c88e785f82e00011e7644"
+      }
+    ]
+  },
+  "curated-5am-ventures": {
+    "name": "5AM Ventures",
+    "domain": "5amventures.com",
+    "url": "https://5amventures.com",
+    "apollo_org_id": "5a9dab9ca6da98d9466edc6f",
+    "linkedin_url": "http://www.linkedin.com/company/5amventures",
+    "employees": 42,
+    "founded_year": 2002,
+    "industry": "venture capital & private equity",
+    "total_funding": null,
+    "latest_funding_stage": null,
+    "description": "5AM Ventures is a venture capital firm established in 2002, based in San Francisco, California, with additional locations in Menlo Park and Waltham. The firm focuses on early-stage investments in next-generation life sciences companies.",
+    "partners": [
+      {
+        "name": "Katie Sp***g",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "686fe899cc049a0001e88b53"
+      },
+      {
+        "name": "Katherine Tan",
+        "title": "Partner",
+        "email_status": "unavailable",
+        "apollo_person_id": "68d3dc9e04e4f7000189a0d3"
+      },
+      {
+        "name": "Kush Pa***r",
+        "title": "Managing Partner",
+        "email_status": "verified",
+        "apollo_person_id": "60ce61ee6b3bce00017dcc8d"
+      },
+      {
+        "name": "Brian Da***s",
+        "title": "Venture Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66f6919e1adccc00012e78e5"
+      },
+      {
+        "name": "Steve Hi***k",
+        "title": "Venture Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66ff6985607297000164f23f"
+      }
+    ]
+  },
+  "curated-8vc": {
+    "name": "8VC",
+    "domain": "8vc.com",
+    "url": "https://8vc.com",
+    "apollo_org_id": "57c4a406a6da982cc0f79f1f",
+    "linkedin_url": "http://www.linkedin.com/company/8vc",
+    "employees": 240,
+    "founded_year": 2015,
+    "industry": "venture capital & private equity",
+    "total_funding": 2774750000,
+    "latest_funding_stage": "Other",
+    "description": "8VC is a venture capital firm based in Austin, Texas, founded in 2015 by Joe Lonsdale. The firm specializes in early-stage investments in technology and life sciences companies that tackle significant societal and economic challenges.",
+    "partners": [
+      {
+        "name": "Andrea Co***s",
+        "title": "Founder",
+        "email_status": "unavailable",
+        "apollo_person_id": "6a07e12e0a160500012625e8"
+      },
+      {
+        "name": "Bela Be***a",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "67aeac34ea22ae00010ff91e"
+      },
+      {
+        "name": "Kevin Ni***n",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "66fc49dae2a03d00018d1dda"
+      },
+      {
+        "name": "Nick Do***k",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66f500fe78226f0001fbe07f"
+      },
+      {
+        "name": "Bhaskar Gh***h",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "6119e37b6cd8cf000137aca7"
+      }
+    ]
+  },
+  "curated-abb-technology-ventures": {
+    "name": "ABB Technology Ventures",
+    "domain": "global.abb",
+    "url": "https://global.abb/group/en/technology/abb-technology-ventures",
+    "apollo_org_id": null,
+    "note": "Apollo enrichment returned empty for global.abb",
+    "partners": []
+  },
+  "curated-aenu": {
+    "name": "AENU",
+    "domain": "aenu.com",
+    "url": "https://aenu.com",
+    "apollo_org_id": "66725a7d07f1930001e036b8",
+    "linkedin_url": "http://www.linkedin.com/company/aenu",
+    "employees": 25,
+    "founded_year": null,
+    "industry": "venture capital & private equity",
+    "total_funding": 104321000,
+    "latest_funding_stage": "Other",
+    "description": "AENU Advisor GmbH is a Berlin-based impact venture capital firm that focuses on early-stage climate tech and social impact companies across Europe. The firm invests in proprietary technologies that address the climate crisis and promote social equality.",
+    "partners": [
+      {
+        "name": "Ferry He***n",
+        "title": "Founder & Partner",
+        "email_status": "verified",
+        "apollo_person_id": "60ee6e7bb0d28b000152e47a"
+      },
+      {
+        "name": "Philip Sp***t",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66f680dfef73f00001fc68dd"
+      },
+      {
+        "name": "Robert St***r",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "5e642d8f1123d100011a5a3f"
+      },
+      {
+        "name": "Siobhan Br***r",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66f9aea91c88bb0001ab88fa"
+      }
+    ]
+  },
+  "curated-arch-venture-partners": {
+    "name": "ARCH Venture Partners",
+    "domain": "archventure.com",
+    "url": "https://archventure.com",
+    "apollo_org_id": "5f7229029feb3f008cd5a933",
+    "linkedin_url": "http://www.linkedin.com/company/avpvc",
+    "employees": 77,
+    "founded_year": 1986,
+    "industry": "venture capital & private equity",
+    "total_funding": 12285000000,
+    "latest_funding_stage": "Other",
+    "description": "ARCH Venture Partners is a seed and early-stage venture capital firm based in Chicago, founded in 1986. The firm specializes in investing in disruptive science and technology companies, focusing on life sciences, physical sciences, and information technology.",
+    "partners": [
+      {
+        "name": "Nilay Th***r",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "5fae1c40855f7d0001fc39f0"
+      },
+      {
+        "name": "Carol Suh",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66f51c664cf9890001519468"
+      },
+      {
+        "name": "Corey Ri***r",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "54a3df8d746869367671da19"
+      },
+      {
+        "name": "Sean Ke***l",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66f57fc6b66dce0001f04ded"
+      },
+      {
+        "name": "Robin Wa***i",
+        "title": "Partner",
+        "email_status": "unavailable",
+        "apollo_person_id": "67ed4e2f1d2cfd0001e0746a"
+      }
+    ]
+  },
+  "curated-amazon-climate-pledge-fund": {
+    "name": "Amazon Climate Pledge Fund",
+    "domain": "sustainability.aboutamazon.com",
+    "url": "https://sustainability.aboutamazon.com/the-climate-pledge-fund",
+    "apollo_org_id": null,
+    "note": "Apollo returned wrong org (Brazilian Amazon Group at amazon-presse.fr) - not the Amazon Climate Pledge Fund",
+    "partners": []
+  },
+  "curated-america-s-frontier-fund-aff": {
+    "name": "America's Frontier Fund (AFF)",
+    "domain": "americasfrontierfund.org",
+    "url": "https://americasfrontierfund.org",
+    "apollo_org_id": null,
+    "note": "Apollo enrichment returned empty for americasfrontierfund.org",
+    "partners": []
+  },
+  "curated-anzu-partners": {
+    "name": "Anzu Partners",
+    "domain": "anzupartners.com",
+    "url": "https://anzupartners.com",
+    "apollo_org_id": "5e4f353ef42dde0099f8078f",
+    "linkedin_url": "http://www.linkedin.com/company/anzupartners",
+    "employees": 58,
+    "founded_year": 2014,
+    "industry": "venture capital & private equity",
+    "total_funding": 692550000,
+    "latest_funding_stage": "Other",
+    "description": "Anzu Partners is an investment firm based in Washington, D.C., that focuses on industrial and life science technology companies with transformative potential. Founded in 2014, the firm manages around $1 billion in strategic assets.",
+    "partners": [
+      {
+        "name": "Jenna Ab***i",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "64c9299b6fefb400017d7d44"
+      },
+      {
+        "name": "Hunter Br***n",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "5add4db5a6da984dd3c3979c"
+      },
+      {
+        "name": "Bill St***g",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66f725529678b30001a52e3c"
+      },
+      {
+        "name": "Jimmy Kan",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66fbe5fac0fd13000174c0e0"
+      },
+      {
+        "name": "Wendy Pa***i",
+        "title": "Head of Talent, Principal",
+        "email_status": "verified",
+        "apollo_person_id": "61195d0ce740f70001b27453"
+      }
+    ]
+  },
+  "curated-at-one-ventures": {
+    "name": "At One Ventures",
+    "domain": "atoneventures.com",
+    "url": "https://atoneventures.com",
+    "apollo_org_id": "5e9a15d478adbe0098b528f3",
+    "linkedin_url": "http://www.linkedin.com/company/at-one-ventures",
+    "employees": 25,
+    "founded_year": 2020,
+    "industry": "venture capital & private equity",
+    "total_funding": 525000000,
+    "latest_funding_stage": "Other",
+    "description": "At One Ventures is a venture capital firm based in Silicon Valley, founded in 2020. The firm focuses on investing in early-stage deep technology companies that aim to create a positive impact on nature. With $525 million under management across two funds.",
+    "partners": [
+      {
+        "name": "Danae Jo***n",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "6861eec56b8b6e000118e747"
+      },
+      {
+        "name": "Luke Zh***n",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "62bad595c7028e0001f848c5"
+      },
+      {
+        "name": "Helen Lin",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66f9a29212771600014a605b"
+      },
+      {
+        "name": "Laurie Me***d",
+        "title": "Founding Partner | Venture Capital",
+        "email_status": "verified",
+        "apollo_person_id": "66f4a9c944a1d80001355316"
+      },
+      {
+        "name": "Brian St***g",
+        "title": "Principal, Early-stage Investing",
+        "email_status": "verified",
+        "apollo_person_id": "54a4572e7468693209401240"
+      }
+    ]
+  },
+  "curated-bmw-i-ventures": {
+    "name": "BMW i Ventures",
+    "domain": "bmwiventures.com",
+    "url": "https://bmwiventures.com",
+    "apollo_org_id": "5b1475aba6da98710b61877d",
+    "linkedin_url": "http://www.linkedin.com/company/bmw-i-ventures",
+    "employees": 220,
+    "founded_year": 2011,
+    "industry": "financial services",
+    "total_funding": 900000000,
+    "latest_funding_stage": "Other",
+    "description": "BMW i Ventures is the corporate venture capital arm of BMW Group, established in 2011 and located in Mountain View, California. The firm invests in early-stage startups, leveraging BMW's expertise while operating with the speed typical of Silicon Valley.",
+    "partners": [
+      {
+        "name": "Samantha Hu***g",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "66ed433ec4dc680001db0c85"
+      },
+      {
+        "name": "Scott Wa***n",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "66edbff00f126e00011e1d1d"
+      },
+      {
+        "name": "Cedric Ch***r",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "66f3bc59fc2ddd0001f97db7"
+      },
+      {
+        "name": "Baris Gu***l",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "60ff7761452f430001d91c77"
+      },
+      {
+        "name": "Marcus Be***t",
+        "title": "Managing Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66edb0a8ec3d7300015c67ce"
+      }
+    ]
+  },
+  "curated-boeing-next-formerly-horizonx": {
+    "name": "Boeing NeXt (formerly HorizonX)",
+    "domain": "boeing.com",
+    "url": "https://boeing.com/innovation",
+    "apollo_org_id": "54a1229169702d9a8b695403",
+    "linkedin_url": "http://www.linkedin.com/company/boeing",
+    "employees": 172000,
+    "founded_year": 1916,
+    "industry": "aviation & aerospace",
+    "total_funding": null,
+    "latest_funding_stage": null,
+    "description": "Boeing is the world's largest aerospace company, based in Chicago. It specializes in the design, manufacturing, and sale of commercial jetliners, military aircraft, helicopters, satellites, and related services. Founded in 1916 by William E. Boeing.",
+    "partners": [
+      {
+        "name": "Jocelynn Hu***s",
+        "title": "Founder",
+        "email_status": "verified",
+        "apollo_person_id": "636c16411b067a0001d1dada",
+        "_note": "Boeing-org-wide search; not vetted for HorizonX/Boeing Ventures attribution"
+      },
+      {
+        "name": "Braden Mi***t",
+        "title": "Founder",
+        "email_status": "unavailable",
+        "apollo_person_id": "67c33348a45be300019f316f",
+        "_note": "Boeing-org-wide search; not vetted for HorizonX/Boeing Ventures attribution"
+      },
+      {
+        "name": "Salman Pa***a",
+        "title": "Founder",
+        "email_status": "unavailable",
+        "apollo_person_id": "66273ca7fd0ea60007eee206",
+        "_note": "Boeing-org-wide search; not vetted for HorizonX/Boeing Ventures attribution"
+      },
+      {
+        "name": "Hakim Kh***n",
+        "title": "Founder",
+        "email_status": "unavailable",
+        "apollo_person_id": "6752e8058ad39a000134a96f",
+        "_note": "Boeing-org-wide search; not vetted for HorizonX/Boeing Ventures attribution"
+      },
+      {
+        "name": "Harmen Sc***s",
+        "title": "Founder",
+        "email_status": "unavailable",
+        "apollo_person_id": "69845f941087a30001e57cd4",
+        "_note": "Boeing-org-wide search; not vetted for HorizonX/Boeing Ventures attribution"
+      }
+    ]
+  },
+  "curated-bosch-ventures-formerly-rbvc": {
+    "name": "Bosch Ventures (formerly RBVC)",
+    "domain": "bosch-ventures.com",
+    "url": "https://bosch-ventures.com",
+    "apollo_org_id": null,
+    "note": "Apollo enrichment returned empty for bosch-ventures.com",
+    "partners": []
+  },
+  "curated-breakthrough-energy-ventures": {
+    "name": "Breakthrough Energy Ventures",
+    "domain": "breakthroughenergy.org",
+    "url": "https://breakthroughenergy.org/our-work/ventures/",
+    "apollo_org_id": "624f02c45f983b008d0f6314",
+    "linkedin_url": "http://www.linkedin.com/company/breakthrough-energy",
+    "employees": 200,
+    "founded_year": 2015,
+    "industry": "management consulting",
+    "total_funding": 3233000000,
+    "latest_funding_stage": "Other",
+    "description": "Breakthrough Energy is an organization founded in 2015 by Bill Gates and a group of high-net-worth investors. Its mission is to accelerate innovation in sustainable energy technologies to achieve net-zero greenhouse gas emissions by 2050.",
+    "partners": [
+      {
+        "name": "Bill Ga***s",
+        "title": "Founder",
+        "email_status": "verified",
+        "apollo_person_id": "6867cec58eea26000153fa61"
+      },
+      {
+        "name": "David Da***n",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "6799ff7759c1640001e33e8a"
+      },
+      {
+        "name": "Christina Ka***i",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66f57d502e172c00013789af"
+      },
+      {
+        "name": "Gaetan Bo***e",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "62eb428a560b230001f6b35f"
+      },
+      {
+        "name": "Christopher Po***r",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "54a5c36574686938acbf6da6"
+      }
+    ]
+  },
+  "curated-buoyant-ventures": {
+    "name": "Buoyant Ventures",
+    "domain": "buoyantvc.com",
+    "url": "https://buoyantvc.com",
+    "apollo_org_id": null,
+    "note": "Apollo enrichment returned empty for buoyantvc.com",
+    "partners": []
+  },
+  "curated-caterpillar-venture-capital": {
+    "name": "Caterpillar Venture Capital",
+    "domain": "caterpillar.com",
+    "url": "https://caterpillar.com",
+    "apollo_org_id": "5e699a8d1d525e00980b32e4",
+    "linkedin_url": "http://www.linkedin.com/company/caterpillar-inc",
+    "employees": 113000,
+    "founded_year": 1925,
+    "industry": "machinery",
+    "total_funding": null,
+    "latest_funding_stage": null,
+    "description": "Caterpillar Inc. is the leading manufacturer of construction and mining equipment, as well as off-highway diesel and natural gas engines, industrial gas turbines, and diesel-electric locomotives. Established in 1925.",
+    "partners": [
+      {
+        "name": "Vijay Ra***y",
+        "title": "Founder",
+        "email_status": "unavailable",
+        "apollo_person_id": "6045ea2ab2cdad0001e97c3c",
+        "_note": "Caterpillar Inc. org-wide search; not vetted for Venture Capital arm"
+      },
+      {
+        "name": "Bales Ja***r",
+        "title": "Founder",
+        "email_status": "unavailable",
+        "apollo_person_id": "64280d9a4a8fd40001c84fe5",
+        "_note": "Caterpillar Inc. org-wide search; not vetted for Venture Capital arm"
+      },
+      {
+        "name": "Dorit Bi***n",
+        "title": "Principal",
+        "email_status": "unavailable",
+        "apollo_person_id": "687bcfa376bbf500019f3fb9",
+        "_note": "Caterpillar Inc. org-wide search; not vetted for Venture Capital arm"
+      },
+      {
+        "name": "Theophile Ns***e",
+        "title": "Partner",
+        "email_status": "unavailable",
+        "apollo_person_id": "67012abbc46664000179ecde",
+        "_note": "Caterpillar Inc. org-wide search; not vetted for Venture Capital arm"
+      },
+      {
+        "name": "Travis Cl***k",
+        "title": "Principal Engineer",
+        "email_status": "verified",
+        "apollo_person_id": "662fbe6c05c0b70007abc284",
+        "_note": "Caterpillar Inc. org-wide search; not vetted for Venture Capital arm"
+      }
+    ]
+  },
+  "curated-chevron-technology-ventures": {
+    "name": "Chevron Technology Ventures",
+    "domain": "chevron.com",
+    "url": "https://chevron.com/technology/technology-ventures",
+    "apollo_org_id": "5f49df5c1fe0980001b3b364",
+    "linkedin_url": "http://www.linkedin.com/company/chevron",
+    "employees": 46000,
+    "founded_year": 1879,
+    "industry": "oil & energy",
+    "total_funding": null,
+    "latest_funding_stage": null,
+    "description": "Chevron Corporation is a multinational energy company based in San Ramon, California. It specializes in all aspects of the oil and gas industry, including exploration, production, refining, and marketing.",
+    "partners": [
+      {
+        "name": "Tahira Su***n",
+        "title": "Co-Founder",
+        "email_status": "unavailable",
+        "apollo_person_id": "686a29592249cf0001bd98bc",
+        "_note": "Chevron org-wide search; not vetted for Technology Ventures arm"
+      },
+      {
+        "name": "Ada De***s",
+        "title": "Co-Founder",
+        "email_status": "unavailable",
+        "apollo_person_id": "68a3004942cb5b0001999f74",
+        "_note": "Chevron org-wide search; not vetted for Technology Ventures arm"
+      },
+      {
+        "name": "G D",
+        "title": "Co-FoundeR",
+        "email_status": "unavailable",
+        "apollo_person_id": "63179c6dd6b9870001d7acf5",
+        "_note": "Chevron org-wide search; not vetted for Technology Ventures arm"
+      },
+      {
+        "name": "Michel Pi***d",
+        "title": "Co-founder",
+        "email_status": "unavailable",
+        "apollo_person_id": "6425aafdd18b4a0001d7c8e4",
+        "_note": "Chevron org-wide search; not vetted for Technology Ventures arm"
+      },
+      {
+        "name": "Ethan Ba***d",
+        "title": "Founder",
+        "email_status": "unavailable",
+        "apollo_person_id": "605db8c7a83acc0001d5f360",
+        "_note": "Chevron org-wide search; not vetted for Technology Ventures arm"
+      }
+    ]
+  },
+  "curated-closed-loop-partners": {
+    "name": "Closed Loop Partners",
+    "domain": "closedlooppartners.com",
+    "url": "https://closedlooppartners.com",
+    "apollo_org_id": "556ddcdb736964124f86b701",
+    "linkedin_url": "http://www.linkedin.com/company/closed-loop-partners",
+    "employees": 68,
+    "founded_year": 2014,
+    "industry": "financial services",
+    "total_funding": 348500000,
+    "latest_funding_stage": "Other",
+    "description": "Closed Loop Partners is a New York-based investment firm and circular economy platform founded in 2014. The company manages venture capital, private equity, and catalytic capital strategies while operating an innovation center and recycling services.",
+    "partners": [
+      {
+        "name": "Andrew Mc***m",
+        "title": "Venture Partner",
+        "email_status": "verified",
+        "apollo_person_id": "55bef11a73696420c71e2100"
+      },
+      {
+        "name": "Ian Yo***s",
+        "title": "Venture Partner",
+        "email_status": "verified",
+        "apollo_person_id": "54c215b9746869163907b276"
+      },
+      {
+        "name": "Kate Da***y",
+        "title": "Managing Partner & Head of the Center for the Circular Economy",
+        "email_status": "verified",
+        "apollo_person_id": "608e69d8731dec00016fd7c2"
+      }
+    ]
+  },
+  "curated-counteract-partners": {
+    "name": "Counteract Partners",
+    "domain": "counteract.vc",
+    "url": "https://counteract.vc",
+    "apollo_org_id": "6086d7d7ff0ab500e2503857",
+    "linkedin_url": "http://www.linkedin.com/company/wecounteract",
+    "employees": 9,
+    "founded_year": 2020,
+    "industry": "venture capital & private equity",
+    "total_funding": 42264600,
+    "latest_funding_stage": "Other",
+    "description": "Counteract is a London-based venture capital firm established in 2020. The firm focuses on early-stage investments in carbon removal technologies, aiming to facilitate the removal of 5 gigatonnes of CO2e by 2050.",
+    "partners": [
+      {
+        "name": "Andrew Sh***e",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66f5a6bbf0738500014c6e83"
+      },
+      {
+        "name": "Matt Is***s",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66f5a6c5ca98d900012b672e"
+      },
+      {
+        "name": "Andy Bo***l",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66f5a6b6e039b600015d4fb0"
+      }
+    ]
+  },
+  "curated-dcvc-data-collective": {
+    "name": "DCVC (Data Collective)",
+    "domain": "dcvc.com",
+    "url": "https://dcvc.com",
+    "apollo_org_id": "54a11cd469702d86b6b8c400",
+    "linkedin_url": "http://www.linkedin.com/company/data-collective",
+    "employees": 45,
+    "founded_year": 2011,
+    "industry": "venture capital & private equity",
+    "total_funding": 2009000000,
+    "latest_funding_stage": "Other",
+    "description": "DCVC (Data Collective) is a deep tech venture capital firm based in San Francisco, California, founded in 2011. With over $4 billion in assets under management, the firm has invested in more than 200 companies, focusing on computational approaches and deep tech.",
+    "partners": [
+      {
+        "name": "Zachary Bo***e",
+        "title": "Cofounder and Managing Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66f56f47010bc10001178ac2"
+      },
+      {
+        "name": "Vandon Du***g",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "5e842122b3aa24000175f171"
+      },
+      {
+        "name": "Kristen Ro***a",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "60e6ceb4f5d5e60001733337"
+      },
+      {
+        "name": "Josue",
+        "title": "Principal",
+        "email_status": "unavailable",
+        "apollo_person_id": "66d6c91c01ec04000149279b"
+      },
+      {
+        "name": "Jayden Bai",
+        "title": "Partner",
+        "email_status": "unavailable",
+        "apollo_person_id": "67f7e8343e8a7d0001302a78"
+      }
+    ]
+  },
+  "curated-dcvc-bio": {
+    "name": "DCVC Bio",
+    "domain": "dcvcbio.com",
+    "url": "https://dcvcbio.com",
+    "apollo_org_id": null,
+    "note": "Apollo enrichment returned empty for dcvcbio.com (likely subsumed under parent DCVC)",
+    "partners": []
+  },
+  "curated-decisive-point": {
+    "name": "Decisive Point",
+    "domain": "decisivepoint.com",
+    "url": "https://decisivepoint.com",
+    "apollo_org_id": "5e1c9f6401ddd9008c8a0634",
+    "linkedin_url": "http://www.linkedin.com/company/decisivepointllc",
+    "employees": 20,
+    "founded_year": 2018,
+    "industry": "venture capital & private equity",
+    "total_funding": null,
+    "latest_funding_stage": "Other",
+    "description": "Decisive Point is a boutique venture capital and advisory firm based in New York, founded in 2018. The firm specializes in investing in dual-use technology startups that focus on defense, national security, energy, and infrastructure.",
+    "partners": [
+      {
+        "name": "Jacqueline Bl***n",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "61d71c6da461a50001ef7818"
+      },
+      {
+        "name": "Shawn Ca***n",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "57d9f0a3a6da98765467d5b3"
+      },
+      {
+        "name": "Andrew Pr***e",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66f45b12a3992000019c0a9c"
+      },
+      {
+        "name": "Matthew Wi***s",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "68e8c75546f13a0001eae345"
+      },
+      {
+        "name": "Debi-Michelle O'***l",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "683aba7ed491f50001210990"
+      }
+    ]
+  },
+  "curated-eclipse-ventures": {
+    "name": "Eclipse Ventures",
+    "domain": "eclipse.vc",
+    "url": "https://eclipse.vc",
+    "apollo_org_id": "56d7e3a1f3e5bb79fe000698",
+    "linkedin_url": "http://www.linkedin.com/company/eclipse-vc",
+    "employees": 280,
+    "founded_year": 2015,
+    "industry": "venture capital & private equity",
+    "total_funding": 2893775000,
+    "latest_funding_stage": "Other",
+    "description": "Eclipse Ventures is a venture capital firm based in Palo Alto that collaborates with entrepreneurs to innovate in essential physical industries \u2014 manufacturing, logistics, energy, healthcare, and agriculture.",
+    "partners": [
+      {
+        "name": "Elisa Jee",
+        "title": "Co-Founder",
+        "email_status": "unavailable",
+        "apollo_person_id": "66c3f1094bc3aa0001684f1f"
+      },
+      {
+        "name": "Amir Fr***l",
+        "title": "Founder, Builder",
+        "email_status": "verified",
+        "apollo_person_id": "66fecaf38c75540001abc5c9"
+      },
+      {
+        "name": "Randol Ai***n",
+        "title": "Venture Founder",
+        "email_status": "verified",
+        "apollo_person_id": "666b17f6b04a8700013238bc"
+      },
+      {
+        "name": "Aidan Ma***s",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "67cc1a4ffc41930001f011c7"
+      },
+      {
+        "name": "Greg Re***w",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66f787e6d075000001e471cc"
+      }
+    ]
+  },
+  "curated-energize-capital-energize-ventures": {
+    "name": "Energize Capital (Energize Ventures)",
+    "domain": "energizecap.com",
+    "url": "https://energizecap.com",
+    "apollo_org_id": "54a129dd69702d9b8b29db01",
+    "linkedin_url": "http://www.linkedin.com/company/energize-cap",
+    "employees": 31,
+    "founded_year": 2016,
+    "industry": "venture capital & private equity",
+    "total_funding": 1210000000,
+    "latest_funding_stage": "Other",
+    "description": "Energize Capital is a Chicago-based venture capital firm established in 2016. Focuses on early-stage investments in asset-light, digitally-enabled climate solutions promoting decarbonization across energy, transportation, and manufacturing.",
+    "partners": [
+      {
+        "name": "John To***h",
+        "title": "Co-Founder & Managing Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66f5111c7b91830001e8a47f"
+      },
+      {
+        "name": "Mark To***c",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "66f03c59f10e9700019785f7"
+      },
+      {
+        "name": "Eileen Wa***s",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "66f18884de19da000175fed7"
+      },
+      {
+        "name": "Ana Hu***r",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "5e7be72240c996000130b3d7"
+      },
+      {
+        "name": "Sam Au***n",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "66eb6e8459a30600016b3ca3"
+      }
+    ]
+  },
+  "curated-energy-impact-partners-eip": {
+    "name": "Energy Impact Partners (EIP)",
+    "domain": "energyimpactpartners.com",
+    "url": "https://energyimpactpartners.com",
+    "apollo_org_id": "56df0662f3e5bb7086005882",
+    "linkedin_url": "http://www.linkedin.com/company/energy-impact-partners",
+    "employees": 160,
+    "founded_year": 2015,
+    "industry": "venture capital & private equity",
+    "total_funding": 4348930000,
+    "latest_funding_stage": "Other",
+    "description": "Energy Impact Partners (EIP) is a global investment firm founded in 2015 by Hans Kobler, focusing on the energy sector to promote a sustainable energy future. Manages $3.6B+ in assets.",
+    "partners": [
+      {
+        "name": "Lindsay Lu***r",
+        "title": "Co-Founder and Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66efd8d3f10e9700018f1a13"
+      },
+      {
+        "name": "Hans Ko***r",
+        "title": "Founder & Managing Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66f3a45b1f7bfd00012fa940"
+      },
+      {
+        "name": "James Sp***z",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "66f78d3fd075000001e63065"
+      },
+      {
+        "name": "Derek Sh***n",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "66f8c115a817d600019b8037"
+      },
+      {
+        "name": "Joshua Ka***i",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "54a3dd787468693b8c8c0319"
+      }
+    ]
+  },
+  "curated-flagship-pioneering": {
+    "name": "Flagship Pioneering",
+    "domain": "flagshippioneering.com",
+    "url": "https://flagshippioneering.com",
+    "apollo_org_id": "54a1348c69702d2f9f718500",
+    "linkedin_url": "http://www.linkedin.com/company/flagship-pioneering",
+    "employees": 770,
+    "founded_year": 2000,
+    "industry": "research",
+    "total_funding": 8372000000,
+    "latest_funding_stage": "Other",
+    "description": "Flagship Pioneering is a venture capital firm and company incubator based in Cambridge, Massachusetts, founded in 2000 by Noubar Afeyan. Focuses on inventing and funding first-in-category bioplatform companies.",
+    "partners": [
+      {
+        "name": "Louisa He***s",
+        "title": "Co-Founder",
+        "email_status": "verified",
+        "apollo_person_id": "57d709aba6da9828a5dd1d83"
+      },
+      {
+        "name": "Alana Go***n",
+        "title": "Founder",
+        "email_status": "unavailable",
+        "apollo_person_id": "66ff7374c672d90001a9be83"
+      },
+      {
+        "name": "Simon Br***r",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "5fd8b639f2c0fa0001dc39ba"
+      },
+      {
+        "name": "Dmitriy Bo***v",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "6845606e243d48000165d7de"
+      },
+      {
+        "name": "Charlotte Ma***t",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "681afa563bc4000001681aab"
+      }
+    ]
+  },
+  "curated-founders-fund": {
+    "name": "Founders Fund",
+    "domain": "foundersfund.com",
+    "url": "https://foundersfund.com",
+    "apollo_org_id": "54a198f874686942d3958000",
+    "linkedin_url": "http://www.linkedin.com/company/the-founders-fund",
+    "employees": 61,
+    "founded_year": 2005,
+    "industry": "venture capital & private equity",
+    "total_funding": 11194517222,
+    "latest_funding_stage": "Other",
+    "description": "Founders Fund is a venture capital firm based in San Francisco, founded in 2005 by Peter Thiel, Ken Howery, and Luke Nosek. Manages approximately $12-17B in assets, focuses on innovative technologies across various stages and sectors.",
+    "partners": [
+      {
+        "name": "Diego Sc***r",
+        "title": "Founder",
+        "email_status": "unavailable",
+        "apollo_person_id": "6493cd2827d2a80001353873"
+      },
+      {
+        "name": "Jasmine Da***s",
+        "title": "Founder",
+        "email_status": "unavailable",
+        "apollo_person_id": "644547fde79bef00010e5aee"
+      },
+      {
+        "name": "Lena Gr***a",
+        "title": "Founder",
+        "email_status": "unavailable",
+        "apollo_person_id": "6445479dcee9d2000124b871"
+      },
+      {
+        "name": "Delian As***v",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66f466501d630c0001c0a68b"
+      },
+      {
+        "name": "Joey Kr***g",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "67c1a6815b73070001c3d166"
+      }
+    ]
+  },
+  "curated-future-ventures": {
+    "name": "Future Ventures",
+    "domain": "future.ventures",
+    "url": "https://future.ventures",
+    "apollo_org_id": "5cafc652ad30f209540ea594",
+    "linkedin_url": "http://www.linkedin.com/company/futureventures",
+    "employees": 34,
+    "founded_year": 2018,
+    "industry": "venture capital & private equity",
+    "total_funding": 400000000,
+    "latest_funding_stage": "Other",
+    "description": "Future Ventures is a venture capital firm established in 2018, specializing in seed and early-stage investments. The firm focuses on mission-driven entrepreneurs developing disruptive technologies.",
+    "partners": [
+      {
+        "name": "Maryanna Sa***o",
+        "title": "Co-founder and Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66f3e8ebe85b300001384701"
+      },
+      {
+        "name": "Blake Ly***h",
+        "title": "Principal Managing Partner",
+        "email_status": "unavailable",
+        "apollo_person_id": "54a551e77468693b8c08ae8e"
+      },
+      {
+        "name": "Nico En***z",
+        "title": "Principal",
+        "email_status": "verified",
+        "apollo_person_id": "60f41462905b4d0001ba498a"
+      },
+      {
+        "name": "Steve Ju***n",
+        "title": "Managing Director & Founder",
+        "email_status": "unavailable",
+        "apollo_person_id": "66f2ea3763b38c000112696c"
+      },
+      {
+        "name": "Martin Le***s",
+        "title": "General Partner",
+        "email_status": "unavailable",
+        "apollo_person_id": "6709ae50941fe200018e4804"
+      }
+    ]
+  },
+  "curated-galvanize-climate-solutions": {
+    "name": "Galvanize Climate Solutions",
+    "domain": "galvanizeclimate.com",
+    "url": "https://galvanizeclimate.com",
+    "apollo_org_id": "613a5ce90e551200a41e3822",
+    "linkedin_url": "http://www.linkedin.com/company/galvanizellc",
+    "employees": 89,
+    "founded_year": 2021,
+    "industry": "investment management",
+    "total_funding": 1370000000,
+    "latest_funding_stage": "Other",
+    "description": "Galvanize Climate Solutions is a climate-focused global investment firm founded in 2021 by Katie Hall and Tom Steyer, with notable leadership including former U.S. Secretary of State John Kerry.",
+    "partners": [
+      {
+        "name": "Suresh Va***n",
+        "title": "Partner",
+        "email_status": "verified",
+        "apollo_person_id": "6114a58370f1c4000192865e"
+      },
+      {
+        "name": "Meghan Pa***a",
+        "title": "Partner, Credit",
+        "email_status": "verified",
+        "apollo_person_id": "57e1d362a6da9808d6e16523"
+      },
+      {
+        "name": "Dan No***p",
+        "title": "Principal, Science and Technology",
+        "email_status": "verified",
+        "apollo_person_id": "6093696606cc9d00012aec89"
+      },
+      {
+        "name": "Chris Cr***d",
+        "title": "Partner / Co-Head of Credit",
+        "email_status": "verified",
+        "apollo_person_id": "614a7c9d0cc1470001ee834d"
+      },
+      {
+        "name": "Dylan Wa***r",
+        "title": "Harvard University Practicum Partner",
+        "email_status": "verified",
+        "apollo_person_id": "66faddf4fb49920001cfb04e"
+      }
+    ]
+  }
+}
