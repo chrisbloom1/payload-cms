@@ -17,7 +17,7 @@ export function ReferralForm() {
 
   if (result?.ok) {
     return (
-      <div className="mt-12 rounded-3xl bg-bloom-cream p-10 text-center text-bloom-navy">
+      <div className="mt-10 rounded-3xl bg-bloom-mint p-10 text-center text-bloom-navy">
         <span className="font-mono text-[11px] font-semibold tracking-[0.18em] text-bloom-orange uppercase">
           THANK YOU
         </span>
@@ -30,7 +30,7 @@ export function ReferralForm() {
         <button
           type="button"
           onClick={() => setResult(null)}
-          className="mt-8 inline-block rounded-full border border-bloom-navy/20 px-5 py-2.5 font-mono text-[11px] font-semibold tracking-[0.14em] text-bloom-navy uppercase transition-colors hover:border-bloom-navy/40"
+          className="mt-8 inline-block rounded-full border border-bloom-navy/20 bg-white px-5 py-2.5 font-mono text-[11px] font-semibold tracking-[0.14em] text-bloom-navy uppercase transition-colors hover:border-bloom-navy/40"
         >
           Refer another brand
         </button>
@@ -39,9 +39,9 @@ export function ReferralForm() {
   }
 
   return (
-    <form action={handle} className="mt-10 flex flex-col gap-5">
+    <form action={handle} className="mt-10 flex flex-col gap-4">
       {result?.ok === false && (
-        <div className="rounded-2xl border border-red-300 bg-red-100/10 p-4 text-[14px] text-red-200">
+        <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-[14px] text-red-900">
           {result.error}
         </div>
       )}
@@ -55,128 +55,71 @@ export function ReferralForm() {
         aria-hidden
       />
 
-      <Row>
-        <Field label="Your name" name="name" required placeholder="Jane Doe" />
-        <Field
-          label="Your email"
-          name="email"
-          type="email"
-          required
-          placeholder="you@example.com"
-        />
-      </Row>
-      <Field
-        label="Your role / company"
-        name="role"
-        placeholder="e.g. Partner at Greentown Labs"
-      />
+      <Field name="name" required placeholder="Your full name" />
+      <Field name="email" type="email" required placeholder="Your email" />
+      <Field name="role" placeholder="Your role / company (optional)" />
 
-      <div className="my-2 border-t border-bloom-cream/15" />
+      <Field name="brand" required placeholder="The brand you want to refer" />
+      <Field name="brandUrl" type="url" placeholder="Their website (optional)" />
 
-      <Row>
-        <Field
-          label="Brand you want to refer"
-          name="brand"
-          required
-          placeholder="e.g. Acme Mobility"
-        />
-        <Field
-          label="Their website"
-          name="brandUrl"
-          type="url"
-          placeholder="https://"
-        />
-      </Row>
       <Textarea
-        label="Your relationship to them"
-        name="relationship"
-        rows={3}
-        placeholder="How you know them. The warmer the intro, the faster we can move."
-      />
-      <Textarea
-        label="Why they fit Bloom"
         name="why"
         required
         rows={5}
-        placeholder="What they're building, what they need, anything else useful for us to know."
+        placeholder="How are you connected to the hardware ecosystem? Why is this brand a fit for Bloom?"
       />
 
-      <div className="flex flex-wrap items-center gap-3 pt-3">
-        <button
-          type="submit"
-          disabled={pending}
-          className="inline-block rounded-full bg-bloom-cream px-6 py-3 font-mono text-[12px] font-semibold tracking-[0.14em] text-bloom-navy uppercase transition-opacity hover:opacity-90 disabled:opacity-50"
-        >
-          {pending ? "Submitting…" : "Submit"}
-        </button>
-        <span className="font-mono text-[11px] tracking-[0.14em] text-bloom-cream/50 uppercase">
-          We respond within a week
-        </span>
-      </div>
+      <button
+        type="submit"
+        disabled={pending}
+        className="bg-bloom-cta mt-4 inline-block w-full rounded-2xl px-8 py-5 text-[16px] font-extrabold tracking-tight text-white shadow-bloom-card transition-transform hover:scale-[1.01] disabled:scale-100 disabled:opacity-50"
+      >
+        {pending ? "Submitting…" : "Submit"}
+      </button>
     </form>
   );
 }
 
-function Row({ children }: { children: React.ReactNode }) {
-  return <div className="grid gap-5 sm:grid-cols-2">{children}</div>;
-}
-
 function Field({
-  label,
   name,
   type = "text",
   required,
   placeholder,
 }: {
-  label: string;
   name: string;
   type?: string;
   required?: boolean;
   placeholder?: string;
 }) {
   return (
-    <label className="flex flex-col gap-2">
-      <span className="font-mono text-[10px] font-semibold tracking-[0.14em] text-bloom-cream/70 uppercase">
-        {label}
-        {required && " *"}
-      </span>
-      <input
-        type={type}
-        name={name}
-        required={required}
-        placeholder={placeholder}
-        className="h-12 rounded-lg border border-bloom-cream/15 bg-bloom-cream/5 px-4 text-[14px] text-bloom-cream placeholder:text-bloom-cream/35 focus:border-bloom-cream/40 focus:outline-none"
-      />
-    </label>
+    <input
+      type={type}
+      name={name}
+      required={required}
+      placeholder={placeholder}
+      className="h-14 rounded-xl border border-transparent bg-bloom-grey/60 px-5 text-[15px] text-bloom-navy placeholder:text-bloom-muted/80 focus:border-bloom-navy/30 focus:bg-white focus:outline-none"
+    />
   );
 }
 
 function Textarea({
-  label,
   name,
   required,
   placeholder,
   rows = 4,
 }: {
-  label: string;
   name: string;
   required?: boolean;
   placeholder?: string;
   rows?: number;
 }) {
   return (
-    <label className="flex flex-col gap-2">
-      <span className="font-mono text-[10px] font-semibold tracking-[0.14em] text-bloom-cream/70 uppercase">
-        {label}
-        {required && " *"}
-      </span>
-      <textarea
-        name={name}
-        required={required}
-        placeholder={placeholder}
-        rows={rows}
-        className="rounded-lg border border-bloom-cream/15 bg-bloom-cream/5 px-4 py-3 text-[14px] leading-[1.55] text-bloom-cream placeholder:text-bloom-cream/35 focus:border-bloom-cream/40 focus:outline-none"
-      />
-    </label>
+    <textarea
+      name={name}
+      required={required}
+      placeholder={placeholder}
+      rows={rows}
+      className="rounded-xl border border-transparent bg-bloom-grey/60 px-5 py-4 text-[15px] leading-[1.55] text-bloom-navy placeholder:text-bloom-muted/80 focus:border-bloom-navy/30 focus:bg-white focus:outline-none"
+    />
   );
 }
