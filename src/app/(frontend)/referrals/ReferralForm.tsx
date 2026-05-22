@@ -17,7 +17,7 @@ export function ReferralForm() {
 
   if (result?.ok) {
     return (
-      <div className="mt-10 rounded-3xl bg-bloom-mint p-10 text-center text-bloom-navy">
+      <div className="mt-10 rounded-2xl bg-bloom-mint p-10 text-center text-bloom-navy">
         <span className="font-mono text-[11px] font-semibold tracking-[0.18em] text-bloom-orange uppercase">
           THANK YOU
         </span>
@@ -41,7 +41,7 @@ export function ReferralForm() {
   return (
     <form action={handle} className="mt-10 flex flex-col gap-4">
       {result?.ok === false && (
-        <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-[14px] text-red-900">
+        <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-[14px] text-red-900">
           {result.error}
         </div>
       )}
@@ -72,7 +72,7 @@ export function ReferralForm() {
       <button
         type="submit"
         disabled={pending}
-        className="bg-bloom-cta mt-4 inline-block w-full rounded-2xl px-8 py-5 text-[16px] font-extrabold tracking-tight text-white shadow-bloom-card transition-transform hover:scale-[1.01] disabled:scale-100 disabled:opacity-50"
+        className="bg-bloom-cta mt-4 inline-block w-full rounded-lg px-8 py-5 text-[16px] font-extrabold tracking-tight text-white shadow-bloom-card transition-transform hover:scale-[1.01] disabled:scale-100 disabled:opacity-50"
       >
         {pending ? "Submitting…" : "Submit"}
       </button>
@@ -97,7 +97,7 @@ function Field({
       name={name}
       required={required}
       placeholder={placeholder}
-      className="h-14 rounded-xl border border-transparent bg-bloom-grey/60 px-5 text-[15px] text-bloom-navy placeholder:text-bloom-muted/80 focus:border-bloom-navy/30 focus:bg-white focus:outline-none"
+      className="h-14 rounded-lg border border-transparent bg-bloom-grey/60 px-5 text-[15px] text-bloom-navy placeholder:text-bloom-muted/80 focus:border-bloom-navy/30 focus:bg-white focus:outline-none"
     />
   );
 }
@@ -119,7 +119,7 @@ function Textarea({
       required={required}
       placeholder={placeholder}
       rows={rows}
-      className="rounded-xl border border-transparent bg-bloom-grey/60 px-5 py-4 text-[15px] leading-[1.55] text-bloom-navy placeholder:text-bloom-muted/80 focus:border-bloom-navy/30 focus:bg-white focus:outline-none"
+      className="rounded-lg border border-transparent bg-bloom-grey/60 px-5 py-4 text-[15px] leading-[1.55] text-bloom-navy placeholder:text-bloom-muted/80 focus:border-bloom-navy/30 focus:bg-white focus:outline-none"
     />
   );
 }

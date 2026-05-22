@@ -90,7 +90,7 @@ export default function ReferralsPage() {
               {STEPS.map((s) => (
                 <li
                   key={s.n}
-                  className="rounded-2xl bg-bloom-mint-soft p-7 transition-colors hover:bg-bloom-mint/60 sm:p-8"
+                  className="rounded-xl bg-bloom-mint-soft p-7 transition-colors hover:bg-bloom-mint/60 sm:p-8"
                 >
                   <div className="font-mono text-[22px] leading-none font-bold tracking-wide text-bloom-navy/25 tabular-nums">
                     {s.n}
@@ -116,7 +116,7 @@ export default function ReferralsPage() {
             <h2 className={cn(headingDisplay, "text-center")}>What You Earn</h2>
             <div className="mx-auto mt-12 grid max-w-[920px] gap-5 sm:grid-cols-2">
               {/* Seed Tier */}
-              <div className="bg-bloom-cta relative overflow-hidden rounded-3xl p-10 text-center text-white shadow-bloom-card sm:p-12">
+              <div className="bg-bloom-cta relative overflow-hidden rounded-2xl p-10 text-center text-white shadow-bloom-card sm:p-12">
                 <span className="font-mono text-[12px] font-bold tracking-[0.16em] uppercase opacity-90">
                   Seed Tier
                 </span>
@@ -128,7 +128,7 @@ export default function ReferralsPage() {
                 </p>
               </div>
               {/* Growth Tier */}
-              <div className="relative overflow-hidden rounded-3xl bg-bloom-navy p-10 text-center text-bloom-cream shadow-bloom-card sm:p-12">
+              <div className="relative overflow-hidden rounded-2xl bg-bloom-navy p-10 text-center text-bloom-cream shadow-bloom-card sm:p-12">
                 <span className="font-mono text-[12px] font-bold tracking-[0.16em] uppercase opacity-80">
                   Growth Tier
                 </span>
