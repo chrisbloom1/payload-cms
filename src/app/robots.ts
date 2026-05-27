@@ -8,7 +8,10 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/admin/', '/api/', '/next/'],
+      // Hidden pre-launch sections. Team accesses /kb directly via the
+      // gated sign-in flow; nothing under these paths should be crawled
+      // until they're ready for public discovery.
+      disallow: ['/admin/', '/api/', '/next/', '/kb/', '/guides/', '/changelog', '/roadmap'],
     },
     sitemap: `${baseUrl}/sitemap.xml`,
   }

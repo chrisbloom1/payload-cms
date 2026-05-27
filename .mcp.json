@@ -1,0 +1,12 @@
+{
+  "$schema": "https://raw.githubusercontent.com/modelcontextprotocol/spec/main/schema/2024-11-05/schema.json",
+  "mcpServers": {
+    "payload": {
+      "type": "http",
+      "url": "https://bloom-merge.vercel.app/api/mcp/mcp",
+      "headers": {
+        "Authorization": "Bearer ${PAYLOAD_MCP_TOKEN}"
+      }
+    }
+  }
+}

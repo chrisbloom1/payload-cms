@@ -3,7 +3,17 @@ import * as migration_20241214_124128 from './20241214_124128';
 import * as migration_20260222_003500_payload_3_77_compat from './20260222_003500_payload_3_77_compat';
 import * as migration_20260403_173231 from './20260403_173231';
 import * as migration_20260404_012349_add_guides_collection from './20260404_012349_add_guides_collection';
-import * as migration_20260404_014640_feature_requests from './20260404_014640_feature_requests';
+import * as migration_20260508_120000_blog_posts_editable from './20260508_120000_blog_posts_editable';
+import * as migration_20260508_120100_blog_hero_image_upload from './20260508_120100_blog_hero_image_upload';
+import * as migration_20260508_130000_customer_stories from './20260508_130000_customer_stories';
+import * as migration_20260508_140000_home_page_global from './20260508_140000_home_page_global';
+import * as migration_20260508_150000_brands_providers_globals from './20260508_150000_brands_providers_globals';
+import * as migration_20260508_160000_testimonials_and_faqs from './20260508_160000_testimonials_and_faqs';
+import * as migration_20260508_170000_company_team from './20260508_170000_company_team';
+import * as migration_20260508_180000_contact_page from './20260508_180000_contact_page';
+import * as migration_20260508_190000_fix_marketing_faqs_surfaces from './20260508_190000_fix_marketing_faqs_surfaces';
+import * as migration_20260515_210000_mcp_audit_log_surgical from './20260515_210000_mcp_audit_log_surgical';
+import * as migration_20260521_070000_hazmat_shipments from './20260521_070000_hazmat_shipments';
 
 export const migrations = [
   {
@@ -32,8 +42,58 @@ export const migrations = [
     name: '20260404_012349_add_guides_collection',
   },
   {
-    up: migration_20260404_014640_feature_requests.up,
-    down: migration_20260404_014640_feature_requests.down,
-    name: '20260404_014640_feature_requests'
+    up: migration_20260508_120000_blog_posts_editable.up,
+    down: migration_20260508_120000_blog_posts_editable.down,
+    name: '20260508_120000_blog_posts_editable',
+  },
+  {
+    up: migration_20260508_120100_blog_hero_image_upload.up,
+    down: migration_20260508_120100_blog_hero_image_upload.down,
+    name: '20260508_120100_blog_hero_image_upload',
+  },
+  {
+    up: migration_20260508_130000_customer_stories.up,
+    down: migration_20260508_130000_customer_stories.down,
+    name: '20260508_130000_customer_stories',
+  },
+  {
+    up: migration_20260508_140000_home_page_global.up,
+    down: migration_20260508_140000_home_page_global.down,
+    name: '20260508_140000_home_page_global',
+  },
+  {
+    up: migration_20260508_150000_brands_providers_globals.up,
+    down: migration_20260508_150000_brands_providers_globals.down,
+    name: '20260508_150000_brands_providers_globals',
+  },
+  {
+    up: migration_20260508_160000_testimonials_and_faqs.up,
+    down: migration_20260508_160000_testimonials_and_faqs.down,
+    name: '20260508_160000_testimonials_and_faqs',
+  },
+  {
+    up: migration_20260508_170000_company_team.up,
+    down: migration_20260508_170000_company_team.down,
+    name: '20260508_170000_company_team',
+  },
+  {
+    up: migration_20260508_180000_contact_page.up,
+    down: migration_20260508_180000_contact_page.down,
+    name: '20260508_180000_contact_page',
+  },
+  {
+    up: migration_20260508_190000_fix_marketing_faqs_surfaces.up,
+    down: migration_20260508_190000_fix_marketing_faqs_surfaces.down,
+    name: '20260508_190000_fix_marketing_faqs_surfaces',
+  },
+  {
+    up: migration_20260515_210000_mcp_audit_log_surgical.up,
+    down: migration_20260515_210000_mcp_audit_log_surgical.down,
+    name: '20260515_210000_mcp_audit_log_surgical',
+  },
+  {
+    up: migration_20260521_070000_hazmat_shipments.up,
+    down: migration_20260521_070000_hazmat_shipments.down,
+    name: '20260521_070000_hazmat_shipments',
   },
 ];

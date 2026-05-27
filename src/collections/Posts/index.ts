@@ -48,9 +48,15 @@ export const Posts: CollectionConfig<'posts'> = {
       description: true,
     },
   },
+  labels: {
+    singular: 'Blog Post',
+    plural: 'Blog Posts',
+  },
   admin: {
-    hidden: true,
-    defaultColumns: ['title', 'slug', 'updatedAt'],
+    group: 'Marketing',
+    description:
+      "Articles published at /blog. Use displayCategory + displayAuthor for the marketing card; the SEO tab handles meta tags. Live Preview is enabled, open /blog/[slug] in another tab to see edits in real time.",
+    defaultColumns: ['title', 'displayCategory', 'publishedAt', 'updatedAt'],
     livePreview: {
       url: ({ data }) => {
         const path = generatePreviewPath({
@@ -76,6 +82,50 @@ export const Posts: CollectionConfig<'posts'> = {
       name: 'title',
       type: 'text',
       required: true,
+    },
+    {
+      name: 'excerpt',
+      type: 'textarea',
+      required: false,
+      admin: {
+        description:
+          'Short summary shown on the /blog index card and at the top of the article. Aim for 1–2 sentences.',
+      },
+    },
+    {
+      name: 'heroImage',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        description:
+          'Hero image for this post (top of article and /blog index card). Upload here for the best result.',
+      },
+    },
+    {
+      name: 'heroUrl',
+      type: 'text',
+      admin: {
+        description:
+          'Fallback hero image URL or path (e.g. /images/blog/foo.jpg). Used only when no Hero Image is uploaded. Existing legacy posts use this; new posts should use Hero Image instead.',
+      },
+    },
+    {
+      name: 'displayCategory',
+      type: 'text',
+      admin: {
+        position: 'sidebar',
+        description:
+          'Short tag shown above the headline (e.g. "UPDATES", "INSIGHTS"). Falls back to the first related Category if blank.',
+      },
+    },
+    {
+      name: 'displayAuthor',
+      type: 'text',
+      admin: {
+        position: 'sidebar',
+        description:
+          'Byline name shown on the article (e.g. "Chris Nolte"). Use this for guest authors who don\'t have a Payload login.',
+      },
     },
     {
       type: 'tabs',

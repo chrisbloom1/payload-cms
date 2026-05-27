@@ -1,4 +1,4 @@
-import type { CollectionAfterChangeHook } from 'payload'
+import type { CollectionBeforeChangeHook } from 'payload'
 
 /**
  * Extracts plain text from Lexical rich text JSON by recursively
@@ -34,26 +34,22 @@ function richTextToPlainText(richText: unknown): string {
     .trim()
 }
 
-export const generateSummary: CollectionAfterChangeHook = async ({
-  doc,
-  req,
-  operation,
-}) => {
-  if (operation !== 'create' && operation !== 'update') return doc
+/**
+ * Mutates `data` in-place so the summary is written in the same DB write
+ * as the rest of the doc. Previously this was an afterChange hook that
+ * did a separate `payload.update()` to backfill the summary — but on
+ * draft creation that inner update's findByID couldn't see the just-
+ * created draft (defaults to published-only) and threw "Not Found",
+ * which surfaced as the failure mode every MCP article create hit.
+ *
+ * beforeChange has no separate write, no findByID, no version
+ * resolution — it's just a transform on the data going to the DB.
+ */
+export const generateSummary: CollectionBeforeChangeHook = ({ data }) => {
+  const body = (data as { body?: unknown }).body
+  if (body == null) return data
 
-  const plainText = richTextToPlainText(doc.body)
-  const summary = plainText.slice(0, 500)
-
-  if (summary !== doc.summary) {
-    await req.payload.update({
-      collection: 'articles',
-      id: doc.id,
-      data: { summary },
-      // Prevent infinite loop — skip hooks on this update
-      context: { skipSummaryGeneration: true },
-    })
-    doc.summary = summary
-  }
-
-  return doc
+  const plainText = richTextToPlainText(body)
+  ;(data as { summary?: string }).summary = plainText.slice(0, 500)
+  return data
 }

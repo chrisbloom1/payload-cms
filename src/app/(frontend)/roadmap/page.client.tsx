@@ -7,7 +7,6 @@ import {
   Check,
 } from 'lucide-react'
 
-import { KBSidebar } from '@/components/KBSidebar'
 import { cn } from '@/utilities/cn'
 
 interface FeatureRequest {
@@ -145,18 +144,16 @@ export const RoadmapPageClient: React.FC<{ requests: FeatureRequest[] }> = ({
   }
 
   return (
-    <div className="pt-8 pb-24">
-      <div className="container">
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold mb-1">Roadmap</h1>
-          <p className="text-sm text-muted-foreground">
+    <div className="pt-12 lg:pt-16 pb-24">
+      <div className="mx-auto w-full max-w-[1500px] px-4 lg:px-8">
+        <div className="mb-10">
+          <h1 className="text-3xl lg:text-4xl font-bold tracking-tight mb-2">Roadmap</h1>
+          <p className="text-base text-muted-foreground">
             Submit feature ideas and vote on what gets built next.
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8">
-          <KBSidebar />
-
+        <div className="flex flex-col gap-8">
           {/* Main content */}
           <div className="flex-1 min-w-0">
             {/* Status filter pills */}
@@ -166,9 +163,9 @@ export const RoadmapPageClient: React.FC<{ requests: FeatureRequest[] }> = ({
                   key={value}
                   onClick={() => setActiveFilter(value)}
                   className={cn(
-                    'rounded-full px-3.5 py-1.5 text-sm font-medium transition-all',
+                    'rounded-md px-3.5 py-1.5 text-sm font-medium transition-all',
                     activeFilter === value
-                      ? 'bg-foreground text-background shadow-sm'
+                      ? 'bg-foreground text-background shadow-xs'
                       : 'bg-muted text-muted-foreground hover:text-foreground',
                   )}
                 >
@@ -193,7 +190,7 @@ export const RoadmapPageClient: React.FC<{ requests: FeatureRequest[] }> = ({
                   return (
                     <div
                       key={req.id}
-                      className="flex gap-4 rounded-xl bg-white p-4 shadow-sm"
+                      className="flex gap-4 rounded-md bg-white p-4 shadow-xs"
                     >
                       {/* Vote column */}
                       <div className="flex flex-col items-center shrink-0">
@@ -201,7 +198,7 @@ export const RoadmapPageClient: React.FC<{ requests: FeatureRequest[] }> = ({
                           onClick={() => handleVote(req.id)}
                           disabled={hasVoted}
                           className={cn(
-                            'flex h-9 w-9 items-center justify-center rounded-lg transition-all',
+                            'flex h-9 w-9 items-center justify-center rounded-md transition-all',
                             hasVoted
                               ? 'bg-foreground/5 text-foreground cursor-default'
                               : 'bg-muted text-muted-foreground hover:bg-foreground/10 hover:text-foreground',
@@ -224,7 +221,7 @@ export const RoadmapPageClient: React.FC<{ requests: FeatureRequest[] }> = ({
                           {badge && (
                             <span
                               className={cn(
-                                'inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium',
+                                'inline-flex items-center rounded-md px-2 py-0.5 text-[11px] font-medium',
                                 badge.className,
                               )}
                             >
@@ -250,20 +247,20 @@ export const RoadmapPageClient: React.FC<{ requests: FeatureRequest[] }> = ({
             )}
 
             {/* Submit form */}
-            <div className="mt-12 rounded-xl bg-white p-6 shadow-sm">
+            <div className="mt-12 rounded-md bg-white p-6 shadow-xs">
               <h2 className="text-lg font-bold mb-1">Submit a Feature Request</h2>
               <p className="text-sm text-muted-foreground mb-6">
                 Got an idea? Let us know what you&apos;d like to see built.
               </p>
 
               {submitSuccess && (
-                <div className="mb-4 rounded-lg bg-green-50 px-4 py-3 text-sm text-green-700">
+                <div className="mb-4 rounded-md bg-green-50 px-4 py-3 text-sm text-green-700">
                   Thanks! Your request has been submitted for review.
                 </div>
               )}
 
               {submitError && (
-                <div className="mb-4 rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
+                <div className="mb-4 rounded-md bg-red-50 px-4 py-3 text-sm text-red-700">
                   {submitError}
                 </div>
               )}
@@ -280,7 +277,7 @@ export const RoadmapPageClient: React.FC<{ requests: FeatureRequest[] }> = ({
                     minLength={5}
                     value={formTitle}
                     onChange={(e) => setFormTitle(e.target.value)}
-                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-foreground/20"
+                    className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm outline-hidden focus:ring-2 focus:ring-foreground/20"
                     placeholder="Short, descriptive title"
                   />
                 </div>
@@ -296,7 +293,7 @@ export const RoadmapPageClient: React.FC<{ requests: FeatureRequest[] }> = ({
                     rows={3}
                     value={formDescription}
                     onChange={(e) => setFormDescription(e.target.value)}
-                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-foreground/20 resize-none"
+                    className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm outline-hidden focus:ring-2 focus:ring-foreground/20 resize-none"
                     placeholder="Describe the feature and why it would be useful"
                   />
                 </div>
@@ -311,7 +308,7 @@ export const RoadmapPageClient: React.FC<{ requests: FeatureRequest[] }> = ({
                       type="text"
                       value={formName}
                       onChange={(e) => setFormName(e.target.value)}
-                      className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-foreground/20"
+                      className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm outline-hidden focus:ring-2 focus:ring-foreground/20"
                       placeholder="Optional"
                     />
                   </div>
@@ -324,7 +321,7 @@ export const RoadmapPageClient: React.FC<{ requests: FeatureRequest[] }> = ({
                       type="email"
                       value={formEmail}
                       onChange={(e) => setFormEmail(e.target.value)}
-                      className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-foreground/20"
+                      className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm outline-hidden focus:ring-2 focus:ring-foreground/20"
                       placeholder="Optional"
                     />
                   </div>
@@ -333,7 +330,7 @@ export const RoadmapPageClient: React.FC<{ requests: FeatureRequest[] }> = ({
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="rounded-lg bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90 disabled:opacity-50"
+                  className="rounded-md bg-foreground px-4 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90 disabled:opacity-50"
                 >
                   {submitting ? 'Submitting...' : 'Submit Request'}
                 </button>

@@ -1,0 +1,40 @@
+# Bloom
+
+> Bloom is the supply chain platform for hardware companies. We connect brands building physical products (mobility, energy, robotics, electronics) with a vetted network of manufacturing, warehousing, assembly, and logistics providers — and let them discover, bid, book, pay, and manage all of it from one place.
+
+## What Bloom does
+
+- **Marketplace** — brands describe a product's supply chain needs once and Bloom matches them with operations partners (manufacturing, assembly, warehousing, after-sales service, component sourcing, delivery) that have been pre-vetted for fit.
+- **BloomPay** — pay vendors from a single account with extended payment terms (Net 15 → Net 120). Brands can change payment terms per invoice and get visibility on cashflow impact before committing.
+- **Operations platform** — message partners, manage RFQs, track shipments, and oversee fulfillment across multiple providers in one workspace.
+
+## Audience
+
+- **For Brands** — hardware companies in mobility, energy, robotics, and adjacent industries that want to scale faster, reduce lead times, and lower fulfillment costs.
+- **For Providers** — manufacturers, warehouses, and logistics operators who want a steady stream of pre-qualified RFQs from vetted brand customers.
+
+## Marketing site
+
+- [Home](https://www.bloomnetwork.ai/): high-level overview, hero, partner logos, testimonials.
+- [For Brands](https://www.bloomnetwork.ai/brands): pitch + features for hardware brands using Bloom.
+- [For Providers](https://www.bloomnetwork.ai/providers): pitch + features for manufacturing / ops providers.
+- [Customer stories](https://www.bloomnetwork.ai/customer-stories): case studies and testimonials.
+- [Company](https://www.bloomnetwork.ai/company): about the team and Bloom Inc.
+- [Contact](https://www.bloomnetwork.ai/contact-us): sales / support contact form.
+- [Blog](https://www.bloomnetwork.ai/blog): news and announcements.
+
+## Product
+
+- [Sign in](https://app.bloomnetwork.ai/sign-in): existing customer login.
+- [Get started](https://welcome.bloomnetwork.ai/): onboarding flow for new accounts.
+
+## Optional
+
+- [Privacy policy](https://www.bloomnetwork.ai/privacy): data handling and user rights.
+- [Terms of Service](https://www.bloomnetwork.ai/terms): platform terms of use.
+- [LinkedIn](https://www.linkedin.com/company/bloomus): company page.
+
+## Company
+
+Bloom Inc., founded 2024.
+Office: Detroit, MI (2050 15th St, 48216).

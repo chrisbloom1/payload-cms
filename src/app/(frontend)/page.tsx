@@ -1,157 +1,129 @@
-import type { Metadata } from 'next/types'
-
-import configPromise from '@payload-config'
-import Link from 'next/link'
-import { getPayload } from 'payload'
-
-import RichText from '@/components/RichText'
-import { SearchInput } from '@/components/SearchInput'
+import { HelpHeader } from "@/components/HelpHeader";
+import { UnifiedFooter } from "@/components/UnifiedFooter";
+import { HomeAppDemo } from "@/components/home/HomeAppDemo";
+import { HomeHeroNative } from "@/components/home/HomeHeroNative";
+import { BloomPayWidget } from "@/components/widgets/BloomPayWidget";
+// Below-fold sections are lazy + delayed so their JS chunks don't
+// bloat the initial HTML or block hydration. cv-auto-section reserves
+// the right scroll height so the swap-in is CLS-neutral.
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-
-export const dynamic = 'force-static'
-export const revalidate = 600
-
-export function generateMetadata(): Metadata {
-  return {
-    title: 'Bloom Knowledge Base',
-    description: 'Guides, articles, and answers for hardware brands and providers on the Bloom platform.',
-  }
-}
-
-const PILLARS = [
-  {
-    name: 'Build',
-    description: 'Account setup, profiles, and workspace config.',
-    color: '#FF9800',
-    slug: 'build',
-  },
-  {
-    name: 'Deliver',
-    description: 'Deliverables, campaign tracking, and active orders.',
-    color: '#F94D00',
-    slug: 'deliver',
-  },
-  {
-    name: 'Service',
-    description: 'Service requests, repairs, and support workflows.',
-    color: '#F4364C',
-    slug: 'service',
-  },
-]
+  LazyEcosystemStats,
+  LazyHomeDiscover,
+  LazyHomeManageCard,
+  LazyMembersTestimonials,
+  LazyMockupterms,
+} from "@/components/home/LazyHomeSections";
+import { loadHomePage } from "@/lib/home-page-resolver";
+import { loadTestimonials } from "@/lib/marketing-content-resolver";
+import { JsonLd, organizationJsonLd, websiteJsonLd } from "@/components/JsonLd";
 
 export default async function HomePage() {
-  const payload = await getPayload({ config: configPromise })
-
-  const [articlesResult, faqsResult] = await Promise.all([
-    payload.find({
-      collection: 'articles',
-      limit: 6,
-      sort: '-createdAt',
-      depth: 0,
-      where: { _status: { equals: 'published' } },
-    }),
-    payload.find({
-      collection: 'faqs',
-      limit: 5,
-      sort: 'sortOrder',
-      depth: 0,
-    }),
-  ])
-
-  const articles = articlesResult.docs
-  const faqs = faqsResult.docs
+  const [home, testimonials] = await Promise.all([
+    loadHomePage(),
+    loadTestimonials(),
+  ]);
 
   return (
-    <main className="min-h-screen bg-background">
-      {/* Hero */}
-      <section className="flex flex-col items-center gap-6 px-4 pb-16 pt-20 text-center">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Bloom Knowledge Base</h1>
-        <p className="max-w-2xl text-lg text-muted-foreground">
-          Guides, articles, and answers for hardware brands and providers on the Bloom platform.
-        </p>
-        <SearchInput className="w-full max-w-md" placeholder="Search articles..." />
-        <div className="flex gap-3">
-          <Button asChild>
-            <Link href="/kb">Browse Articles</Link>
-          </Button>
-          <Button asChild variant="outline">
-            <Link href="/changelog">View Changelog</Link>
-          </Button>
-        </div>
-      </section>
+    <>
+      <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
+      {/* Per-page LCP preload — fetchpriority=high makes the browser
+          start downloading the video poster (the LCP element) at top
+          priority, before discovering it through the <video> element. */}
+      <link
+        rel="preload"
+        as="image"
+        href="/videos/bloom-app-demo-poster.webp"
+        type="image/webp"
+        fetchPriority="high"
+      />
+      <HelpHeader />
+      <main id="main-content" className="flex flex-col">
+        {/* Hero — hand-rolled HTML/CSS replacement for the original
+            Proofly/Framer SECTIONHERONEW export. Drops the
+            @proofly-framer/runtime + framer-motion dependency
+            (~519KB of client JS) plus all the runtime-injected
+            framerusercontent.com image preloads. Content is wired to
+            the HomePage global so the team can edit copy + logos via
+            the Payload admin. */}
+        <HomeHeroNative
+          headline={home.hero.headline}
+          subheadingPrefix={home.hero.subheadingPrefix}
+          rotatingWords={home.hero.rotatingWords}
+          subheadingSuffix={home.hero.subheadingSuffix}
+          chatPlaceholder={home.hero.chatPlaceholder}
+          chatButtonLabel={home.hero.chatButtonLabel}
+          chatPrefillUrl={home.hero.chatPrefillUrl}
+          badgeText={home.hero.badgeText}
+          tagline={home.hero.tagline}
+          logoMarqueeRow1={home.logoMarqueeRow1}
+          logoMarqueeRow2={home.logoMarqueeRow2}
+        />
 
-      {/* Pillar Cards */}
-      <section className="mx-auto max-w-5xl px-4 pb-16">
-        <h2 className="mb-8 text-center text-2xl font-semibold">Explore by Category</h2>
-        <div className="grid gap-6 sm:grid-cols-3">
-          {PILLARS.map((pillar) => (
-            <Link key={pillar.slug} href={`/kb?category=${pillar.slug}`}>
-              <Card className="h-full border-t-4" style={{ borderTopColor: pillar.color }}>
-                <CardHeader>
-                  <CardTitle className="text-xl">{pillar.name}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground">{pillar.description}</p>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
-        </div>
-      </section>
+        {/* Bloom platform app demo video, anchored by orange Bloom mark */}
+        <HomeAppDemo />
 
-      {/* Recent Articles */}
-      {articles.length > 0 && (
-        <section className="mx-auto max-w-5xl px-4 pb-16">
-          <h2 className="mb-8 text-center text-2xl font-semibold">Recent Articles</h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {articles.map((article) => (
-              <Link key={article.id} href={`/kb/${article.slug}`}>
-                <Card className="h-full">
-                  <CardHeader>
-                    <CardTitle className="text-base">{article.title}</CardTitle>
-                  </CardHeader>
-                  {article.summary && (
-                    <CardContent>
-                      <p className="line-clamp-2 text-sm text-muted-foreground">
-                        {article.summary}
-                      </p>
-                    </CardContent>
-                  )}
-                </Card>
-              </Link>
-            ))}
+        {/* All sections below the hero+video opt into content-visibility:auto
+            so the browser defers their style/layout/paint work until the
+            user scrolls them into view. cv-auto-section reserves a 720px
+            intrinsic size on each so the page's scroll height stays
+            stable. */}
+
+        <div className="cv-auto-section cv-h-820">
+          <LazyHomeDiscover heading={home.discover.heading} body={home.discover.body} />
+        </div>
+
+        <div className="cv-auto-section cv-h-820">
+          <LazyHomeManageCard heading={home.manage.heading} body={home.manage.body} />
+        </div>
+
+        {/* Pay section — heading + copy SSR (so SEO sees them);
+            only the cycling Mockupterms widget defers via Lazy. */}
+        <section className="cv-auto-section cv-h-920 w-full py-16 md:py-24">
+          <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
+            <div className="overflow-hidden rounded-md bg-gradient-to-br from-white via-white to-bloom-cream p-8 ring-1 ring-bloom-navy/10 sm:p-10 lg:p-16">
+              <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+                <div className="flex flex-col gap-5">
+                  <h2 className="max-w-[480px] text-[32px] font-bold leading-[36px] text-bloom-navy sm:text-[36px] sm:leading-[40px]">
+                    {home.pay.heading}
+                  </h2>
+                  <p className="max-w-[480px] text-[18px] leading-[26px] text-bloom-navy">
+                    {home.pay.body}
+                  </p>
+                </div>
+                <div className="flex w-full justify-center lg:justify-end">
+                  {/* Mockupterms is the Framer-exported animated widget
+                      used on desktop. It has fixed sizing that overflows
+                      on mobile, so we substitute the hand-rolled
+                      BloomPayWidget below lg — same content, responsive
+                      stacked layout. */}
+                  <div className="w-full max-w-[480px] lg:hidden">
+                    <BloomPayWidget className="w-full" />
+                  </div>
+                  <div className="hidden lg:block">
+                    <LazyMockupterms />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
-      )}
 
-      {/* FAQ Preview */}
-      {faqs.length > 0 && (
-        <section className="mx-auto max-w-3xl px-4 pb-16">
-          <h2 className="mb-8 text-center text-2xl font-semibold">Frequently Asked Questions</h2>
-          <Accordion type="single" collapsible className="w-full">
-            {faqs.map((faq) => (
-              <AccordionItem key={faq.id} value={String(faq.id)}>
-                <AccordionTrigger>{faq.question}</AccordionTrigger>
-                <AccordionContent>
-                  <RichText content={faq.answer} enableGutter={false} enableProse={true} />
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-          <div className="mt-6 text-center">
-            <Button asChild variant="outline">
-              <Link href="/kb/faqs">View all FAQs</Link>
-            </Button>
-          </div>
-        </section>
-      )}
-    </main>
-  )
+        {/* Cultivating an ecosystem stats */}
+        <div className="cv-auto-section">
+          <LazyEcosystemStats
+            heading={home.ecosystem.heading}
+            body={home.ecosystem.body}
+            stats={home.ecosystem.stats}
+          />
+        </div>
+
+        {/* Testimonials — custom widget with active card at 70% width and ~15%
+            peeks on each side, matching the live carousel layout. */}
+        <div className="cv-auto-section cv-h-820">
+          <LazyMembersTestimonials testimonials={testimonials} />
+        </div>
+      </main>
+      <UnifiedFooter />
+    </>
+  );
 }

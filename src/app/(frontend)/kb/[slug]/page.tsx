@@ -20,16 +20,25 @@ type Args = {
 }
 
 export async function generateStaticParams() {
-  const payload = await getPayload({ config: configPromise })
-  const articles = await payload.find({
-    collection: 'articles',
-    draft: false,
-    limit: 1000,
-    overrideAccess: false,
-    select: { slug: true },
-  })
+  // Wrap in try/catch so a transient Neon control-plane outage at
+  // build time doesn't fail the entire deploy. We just return [],
+  // which means no slugs are pre-rendered — the route still works
+  // via on-demand SSR.
+  try {
+    const payload = await getPayload({ config: configPromise })
+    const articles = await payload.find({
+      collection: 'articles',
+      draft: false,
+      limit: 1000,
+      overrideAccess: false,
+      select: { slug: true },
+    })
 
-  return articles.docs.map(({ slug }) => ({ slug }))
+    return articles.docs.map(({ slug }) => ({ slug }))
+  } catch (err) {
+    console.warn('[kb/[slug]] generateStaticParams skipped:', err)
+    return []
+  }
 }
 
 export default async function ArticlePage({ params: paramsPromise }: Args) {
@@ -109,9 +118,15 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const { slug = '' } = await paramsPromise
   const article = await queryArticleBySlug({ slug })
 
+  if (!article) {
+    return {
+      title: 'Article Not Found',
+      robots: { index: false, follow: false },
+    }
+  }
   return {
-    title: article?.title || 'Article Not Found',
-    description: article?.summary || undefined,
+    title: article.title,
+    description: article.summary || undefined,
   }
 }
 

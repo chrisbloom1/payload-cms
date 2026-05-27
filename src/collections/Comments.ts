@@ -1,6 +1,6 @@
 import { CollectionConfig } from 'payload'
 import { authenticated } from '../access/authenticated'
-import { revalidatePath } from 'next/cache'
+import { safeRevalidatePath as revalidatePath } from '@/utilities/safeRevalidate'
 
 export const Comments: CollectionConfig = {
   slug: 'comments',

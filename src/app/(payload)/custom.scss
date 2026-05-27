@@ -1,0 +1,135 @@
+/* ============================================================
+   Bloom admin theme
+   ------------------------------------------------------------
+   Bloom-branded styling for the Payload admin (/admin). Hooks
+   onto Payload's CSS variable layer + adds targeted overrides
+   so the admin reads as part of the same design system as the
+   marketing site (bloom-navy headings, bloom-cream surfaces,
+   bloom-orange brand accent).
+
+   Bloom palette reference (mirrored from the marketing
+   globals.css):
+     navy        rgb(34, 23, 66)   - primary text + buttons
+     navy-deep   rgb(20, 14, 38)
+     cream       rgb(246, 244, 240) - page bg
+     mint        rgb(220, 235, 236) - subtle hover
+     orange      rgb(238, 39, 55)   - brand accent / focus
+     coral       rgb(252, 76, 1)
+   ============================================================ */
+
+:root {
+  /* Brand tokens local to the admin so per-element rules can
+     reference them without re-declaring rgb() every time. */
+  --bloom-navy: rgb(34, 23, 66);
+  --bloom-navy-soft: rgb(34, 23, 66, 0.85);
+  --bloom-cream: rgb(246, 244, 240);
+  --bloom-mint: rgb(220, 235, 236);
+  --bloom-orange: rgb(238, 39, 55);
+  --bloom-coral: rgb(252, 76, 1);
+}
+
+[data-theme='light'] {
+  /* Subtle warm tint on the page background so the admin shares
+     the marketing site's cream surface instead of pure white. */
+  --theme-bg: var(--bloom-cream);
+
+  /* Pull "elevation 0" (cards, inputs) toward true white so they
+     read as raised against the cream backdrop. */
+  --theme-elevation-0: rgb(255, 255, 255);
+  --theme-elevation-50: rgb(252, 250, 246);
+  --theme-elevation-100: rgb(245, 242, 235);
+
+  /* Body text and headings: bloom-navy. Payload's default near-
+     black is fine but navy ties admin copy to the marketing site. */
+  --theme-text: var(--bloom-navy);
+  --theme-elevation-800: var(--bloom-navy);
+  --theme-elevation-850: var(--bloom-navy-soft);
+
+  /* Border + divider tone — slightly warmer than the default. */
+  --theme-border-color: rgba(34, 23, 66, 0.12);
+
+  /* Focus ring + active highlights take the bloom-orange brand
+     accent so the admin matches marketing CTAs visually. */
+  --theme-success-500: var(--bloom-orange);
+  --theme-success-450: var(--bloom-coral);
+  --theme-success-400: rgb(252, 76, 1);
+  --theme-success-350: rgb(255, 152, 0);
+}
+
+[data-theme='dark'] {
+  /* Dark mode keeps Payload's defaults but recolors the brand
+     accent so links / focus / pills still feel Bloom. */
+  --theme-success-500: var(--bloom-orange);
+  --theme-success-450: var(--bloom-coral);
+}
+
+/* ----- Brand-accent button + active state ----------------------
+   Payload's primary button uses --theme-elevation-800 (now navy)
+   for the bg, which gives a dark navy primary with white text.
+   We additionally surface bloom-orange on hover so the brand
+   color shows up at the moment of action. */
+.btn--style-primary {
+  --hover-bg: var(--bloom-orange);
+  --hover-color: rgb(255, 255, 255);
+}
+
+/* Dashboard / nav link active state — bloom-orange accent bar. */
+.nav__link--active::before,
+.nav-group__active-indicator,
+.nav-group__indicator--active {
+  background: var(--bloom-orange) !important;
+}
+
+/* Login screen tweaks ----------------------------------------------
+   The BeforeLogin copy + form reads better with more breathing room
+   above and around the Bloom wordmark. Center the lockup explicitly
+   so the small flower mark in the top-right of the SVG isn't pushed
+   off-axis by Payload's default .graphic-logo container. */
+.login .graphic-logo,
+.template-default .graphic-logo {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.login .graphic-logo svg,
+.template-default .graphic-logo svg {
+  height: 44px !important;
+  width: auto !important;
+}
+
+/* Top-left "home" icon in the admin breadcrumb nav.
+   Payload's default .step-nav__home is 18px square — too tight for
+   the four-petal flower mark to render without clipping the outer
+   tips. Bump to 24px and nudge the surrounding gap so it sits
+   centered against the breadcrumbs. The SVG inside (AdminIcon.tsx)
+   uses a square viewBox + overflow:visible so its intrinsic aspect
+   ratio matches the cell. */
+.step-nav__home {
+  width: 24px !important;
+  height: 24px !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-nav__home .graphic-icon {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  overflow: visible !important;
+}
+
+/* Dashboard quick-edit cards (BeforeDashboard component) — give
+   them a subtle hover that uses bloom-mint without overriding
+   the inline styles in the component. */
+[data-theme='light'] .before-dashboard-quickcard:hover {
+  border-color: var(--bloom-orange) !important;
+}
+
+/* Selection color across admin — bloom-orange tint. */
+::selection {
+  background: rgba(238, 39, 55, 0.18);
+  color: var(--bloom-navy);
+}

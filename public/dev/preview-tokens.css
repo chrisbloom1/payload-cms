@@ -1,0 +1,95 @@
+/*
+  Dev-only token override for the proposed design-system sync.
+  Loaded conditionally by `src/components/dev/TokenPreviewSwitcher.tsx`
+  when a marketing page is visited with `?preview=tokens`.
+
+  Selector `:root.preview-tokens` beats plain `:root`, so this overrides
+  the live token block in `src/app/(frontend)/globals.css` without
+  modifying it. Toggle off and refresh to revert.
+
+  Tokens extracted from the web app's Storybook iframe CSS bundle:
+  https://698f8610dbab6680a3a6c102-ajzvovrvqo.chromatic.com
+*/
+
+:root.preview-tokens {
+  --background: 187 45% 93%;
+  --foreground: 0 0% 10%;
+
+  --card: 187 100% 98%;
+  --card-foreground: 0 0% 10%;
+
+  --popover: 187 100% 98%;
+  --popover-foreground: 0 0% 10%;
+
+  --primary: 266 35% 22%;
+  --primary-foreground: 187 100% 98%;
+
+  --secondary: 186 30% 30%;
+  --secondary-foreground: 187 100% 98%;
+
+  --muted: 187 30% 83%;
+  --muted-foreground: 0 0% 27%;
+
+  --accent: 188 41% 89%;
+  --accent-foreground: 266 35% 22%;
+
+  --destructive: 354 86% 45%;
+  --destructive-foreground: 0 0% 100%;
+
+  --success: 142 76% 26%;
+  --success-foreground: 0 0% 100%;
+
+  --warning: 266 35% 40%;
+  --warning-foreground: 0 0% 100%;
+
+  --border: 187 28% 69%;
+  --input: 187 28% 69%;
+  --ring: 187 30% 83%;
+
+  --radius: 0.3rem;
+
+  --sidebar: 187 100% 98%;
+  --sidebar-foreground: 0 0% 10%;
+  --sidebar-primary: 266 35% 22%;
+  --sidebar-primary-foreground: 187 100% 98%;
+  --sidebar-accent: 188 41% 89%;
+  --sidebar-accent-foreground: 0 0% 10%;
+  --sidebar-border: 187 28% 69%;
+  --sidebar-ring: 187 30% 83%;
+}
+
+html.preview-tokens[data-theme='dark'] {
+  --background: 0 0% 9%;
+  --foreground: 0 0% 95%;
+
+  --card: 0 0% 12%;
+  --card-foreground: 0 0% 95%;
+
+  --popover: 0 0% 12%;
+  --popover-foreground: 0 0% 95%;
+
+  --primary: 273 32% 70%;
+  --primary-foreground: 273 32% 15%;
+
+  --secondary: 186 21% 25%;
+  --secondary-foreground: 186 21% 95%;
+
+  --muted: 0 0% 20%;
+  --muted-foreground: 0 0% 60%;
+
+  --accent: 191 36% 25%;
+  --accent-foreground: 191 36% 95%;
+
+  --destructive: 354 70% 50%;
+  --destructive-foreground: 354 70% 95%;
+
+  --success: 142 76% 46%;
+  --success-foreground: 0 0% 100%;
+
+  --warning: 266 35% 55%;
+  --warning-foreground: 0 0% 100%;
+
+  --border: 0 0% 25%;
+  --input: 0 0% 25%;
+  --ring: 273 32% 50%;
+}

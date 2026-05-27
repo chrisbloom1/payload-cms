@@ -9,7 +9,8 @@ export const Header: GlobalConfig = {
     read: () => true,
   },
   admin: {
-    group: 'Site',
+    group: 'Marketing',
+    description: 'Top navigation links shown across the marketing site.',
   },
   fields: [
     {

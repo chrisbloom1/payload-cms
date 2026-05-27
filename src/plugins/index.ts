@@ -27,6 +27,11 @@ export const plugins: Plugin[] = [
   redirectsPlugin({
     collections: ['pages', 'posts'],
     overrides: {
+      admin: {
+        group: 'System',
+        description:
+          'URL redirects (e.g. retired pages → new ones). Cache rebuilds when this changes.',
+      },
       // @ts-expect-error
       fields: ({ defaultFields }) => {
         return defaultFields.map((field) => {
@@ -57,7 +62,17 @@ export const plugins: Plugin[] = [
     fields: {
       payment: false,
     },
+    formSubmissionOverrides: {
+      admin: {
+        group: 'System',
+        description: 'Submitted form responses (read-only history).',
+      },
+    },
     formOverrides: {
+      admin: {
+        group: 'System',
+        description: 'Reusable form definitions (used by the Form block).',
+      },
       fields: ({ defaultFields }) => {
         return defaultFields.map((field) => {
           if ('name' in field && field.name === 'confirmationMessage') {
@@ -85,6 +100,9 @@ export const plugins: Plugin[] = [
     skipSync: ({ req }) =>
       process.env.DISABLE_SEARCH_SYNC === 'true' || Boolean(req.context.disableSearchSync),
     searchOverrides: {
+      admin: {
+        hidden: true, // Search index is system-managed; no manual editing.
+      },
       fields: ({ defaultFields }) => {
         return [...defaultFields, ...searchFields]
       },
