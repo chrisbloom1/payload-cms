@@ -91,7 +91,7 @@ function BrandsHero({ headline, body }: { headline: string; body: string }) {
   return (
     <RevealOnScroll
       as="section"
-      className="relative w-full overflow-hidden bg-bloom-cream pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-28 lg:pb-24"
+      className="relative w-full overflow-hidden bg-bloom-cream pt-16 pb-16 sm:pt-20 sm:pb-20 lg:pt-24 lg:pb-24"
     >
       <div className="relative z-10 mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-10 px-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] lg:gap-16">
         <div className="flex flex-col gap-6">

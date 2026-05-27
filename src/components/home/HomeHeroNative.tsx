@@ -154,7 +154,7 @@ export function HomeHeroNative({
       aria-label="Bloom"
       className="relative w-full overflow-hidden bg-bloom-cream"
     >
-      <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center px-4 pt-20 pb-12 sm:px-6 sm:pt-24 sm:pb-16 lg:pt-28 lg:pb-20">
+      <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center px-4 pt-16 pb-12 sm:px-6 sm:pt-20 sm:pb-16 lg:pt-24 lg:pb-20">
         <div className="flex w-full max-w-[1080px] flex-col items-center gap-6 text-center sm:gap-8">
           <h1
             className="hero-fade-in text-balance text-[36px] font-extrabold leading-[1.05] tracking-tight text-bloom-navy sm:text-[44px] lg:text-[60px]"

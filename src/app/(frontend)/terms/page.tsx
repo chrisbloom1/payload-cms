@@ -17,7 +17,7 @@ export default function TermsPage() {
       <HelpHeader />
 
       <main id="main-content" className="bg-bloom-cream">
-        <section className="pt-20 pb-12 sm:pt-24 lg:pt-28">
+        <section className="pt-16 pb-12 sm:pt-20 lg:pt-24">
           <div className="mx-auto max-w-[960px] px-4">
             <h1 className="text-[40px] font-bold leading-[44px] tracking-[-0.01em] text-bloom-navy md:text-[48px] md:leading-[52px]">
               Terms of Service
