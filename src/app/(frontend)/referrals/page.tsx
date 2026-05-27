@@ -59,7 +59,7 @@ export default function ReferralsPage() {
         {/* Hero */}
         <RevealOnScroll
           as="section"
-          className="relative w-full overflow-hidden bg-bloom-cream pt-20 pb-16 sm:pt-24 sm:pb-20 lg:pt-28 lg:pb-24"
+          className="relative w-full overflow-hidden bg-bloom-cream pt-16 pb-16 sm:pt-20 sm:pb-20 lg:pt-24 lg:pb-24"
         >
           <div className="mx-auto w-full max-w-[1280px] px-6">
             <h1

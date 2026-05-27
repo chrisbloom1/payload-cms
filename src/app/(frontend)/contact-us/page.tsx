@@ -25,7 +25,7 @@ function ContactHero({ hero }: { hero: ContactContent["hero"] }) {
   return (
     <RevealOnScroll
       as="section"
-      className="relative w-full overflow-hidden bg-bloom-cream pt-20 pb-12 sm:pt-24 sm:pb-16 lg:pt-28 lg:pb-20"
+      className="relative w-full overflow-hidden bg-bloom-cream pt-16 pb-12 sm:pt-20 sm:pb-16 lg:pt-24 lg:pb-20"
     >
       <div className="mx-auto w-full max-w-[820px] px-6 text-center">
         <div
