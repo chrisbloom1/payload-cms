@@ -60,7 +60,7 @@ export function ReferralForm() {
       <Field name="role" placeholder="Your role / company (optional)" />
 
       <Field name="brand" required placeholder="The brand you want to refer" />
-      <Field name="brandUrl" type="url" placeholder="Their website (optional)" />
+      <Field name="brandUrl" placeholder="Their website (optional)" />
 
       <Textarea
         name="why"
