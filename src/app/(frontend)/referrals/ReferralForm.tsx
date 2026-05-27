@@ -45,10 +45,10 @@ export function ReferralForm() {
           {result.error}
         </div>
       )}
-      {/* honeypot */}
+      {/* honeypot — name chosen to dodge browser autofill */}
       <input
         type="text"
-        name="company"
+        name="fax_number"
         autoComplete="off"
         tabIndex={-1}
         className="absolute -left-[10000px] h-0 w-0 opacity-0"
