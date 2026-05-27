@@ -7,7 +7,8 @@ import { Resend } from "resend";
  *
  * Logs structured JSON to the server console, emails the team via Resend,
  * and POSTs to REFERRALS_SUBMISSIONS_WEBHOOK if set (Slack/Linear compatible).
- * Honeypot field "company" blocks naive bot spam.
+ * Honeypot field "fax_number" blocks naive bot spam (chosen to avoid
+ * browser autofill collisions; "company", "email", etc. get autofilled).
  */
 
 type SubmissionResult = { ok: true } | { ok: false; error: string };
@@ -34,7 +35,7 @@ function tooLong(s: string, max: number): boolean {
 export async function submitReferral(
   formData: FormData,
 ): Promise<SubmissionResult> {
-  if (notEmpty(formData.get("company")).length > 0) {
+  if (notEmpty(formData.get("fax_number")).length > 0) {
     return { ok: false, error: "Submission blocked." };
   }
   const name = notEmpty(formData.get("name"));
