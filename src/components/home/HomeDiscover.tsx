@@ -27,8 +27,13 @@ export function HomeDiscover({
                 {body}
               </p>
             </div>
+            {/* Animationweb is a fixed 432px-wide Framer export; on phones
+                (card inner < 432px) it overflowed and clipped. Scale it to
+                fit below ~528px viewport; full size from there up. */}
             <div className="flex w-full justify-center lg:justify-end">
-              <Animationweb />
+              <div className="origin-center scale-[0.62] min-[528px]:scale-100">
+                <Animationweb />
+              </div>
             </div>
           </div>
         </div>
