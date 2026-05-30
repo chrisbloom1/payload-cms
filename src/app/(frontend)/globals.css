@@ -369,6 +369,14 @@ html, body { overflow-x: clip; }
     .hero-marquee-left { animation-duration: 630s; }
     .hero-marquee-right { animation-duration: 740s; }
   }
+  /* Mobile speed-up (Justin's feedback: the phone scroll felt too slow,
+     esp. under the Low Power Mode reduced-motion drift). Faster cadence
+     below 768px. Declared AFTER the reduced-motion block so it also wins
+     for phones in Low Power Mode (equal specificity → later rule applies). */
+  @media (max-width: 767px) {
+    .hero-marquee-left { animation-duration: 240s; }
+    .hero-marquee-right { animation-duration: 280s; }
+  }
 }
 
 /*
