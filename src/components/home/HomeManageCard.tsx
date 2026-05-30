@@ -19,8 +19,22 @@ export function HomeManageCard({
       <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6">
         <div className="overflow-hidden rounded-md bg-gradient-to-bl from-white via-white to-bloom-cream p-8 ring-1 ring-bloom-navy/10 sm:p-10 lg:p-16">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
-            <div className="flex w-full justify-center lg:justify-start">
-              <Animationtree />
+            {/* Static capture on mobile (the fixed-width Framer diagram can't be
+                CSS-scaled); live diagram from md up. See HomeDiscover. */}
+            <div className="w-full">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/manage-diagram.png"
+                alt="Bloom's platform manages manufacturing, engineering, after-sales service, delivery, component sourcing and warehouse partners"
+                width={620}
+                height={837}
+                loading="lazy"
+                decoding="async"
+                className="mx-auto block h-auto w-full max-w-[320px] md:hidden"
+              />
+              <div className="hidden w-full justify-center md:flex lg:justify-start">
+                <Animationtree />
+              </div>
             </div>
             <div className="flex max-w-[480px] flex-col gap-5">
               <h2 className="text-[32px] font-bold leading-[36px] text-bloom-navy sm:text-[36px] sm:leading-[40px] lg:text-[44px] lg:leading-[48px]">
