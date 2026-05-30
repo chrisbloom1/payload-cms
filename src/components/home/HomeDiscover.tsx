@@ -27,8 +27,24 @@ export function HomeDiscover({
                 {body}
               </p>
             </div>
-            <div className="flex w-full justify-center lg:justify-end">
-              <Animationweb />
+            {/* Animationweb is a fixed 432px-wide Framer export. It can't be
+                CSS-scaled (an ancestor transform makes Framer render blank) and
+                is wider than a phone, so on mobile we show a static capture of
+                the same diagram; the live one renders from md up where it fits. */}
+            <div className="w-full">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/discover-diagram.png"
+                alt="Bloom links brands to warehouse, manufacturing &amp; assembly, delivery, engineering, component sourcing and after-sales service partners"
+                width={720}
+                height={812}
+                loading="lazy"
+                decoding="async"
+                className="mx-auto block h-auto w-full max-w-[340px] md:hidden"
+              />
+              <div className="hidden w-full justify-center md:flex lg:justify-end">
+                <Animationweb />
+              </div>
             </div>
           </div>
         </div>

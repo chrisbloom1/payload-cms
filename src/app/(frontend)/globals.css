@@ -357,11 +357,17 @@ html, body { overflow-x: clip; }
   /* Durations chosen so the measured screen-space speed lands at
      ~20px/s on a 1440 viewport — same as the live site. Row 2 has
      more logos (longer track), hence the longer cycle. */
-  .hero-marquee-left { animation: hero-marquee-left 135s linear infinite; }
-  .hero-marquee-right { animation: hero-marquee-right 200s linear infinite; }
+  /* Durations scaled with row length (row 1 now ~21 logos, row 2 ~26)
+     so the screen-space speed stays at the live ~20px/s after the
+     brand additions. */
+  .hero-marquee-left { animation: hero-marquee-left 315s linear infinite; }
+  .hero-marquee-right { animation: hero-marquee-right 370s linear infinite; }
+  /* Reduced motion (incl. iOS Low Power Mode, which forces it): keep a
+     slow, gentle drift rather than freezing — the strip is decorative
+     and a dead static row reads as broken on mobile. ~half speed. */
   @media (prefers-reduced-motion: reduce) {
-    .hero-marquee-left,
-    .hero-marquee-right { animation: none; }
+    .hero-marquee-left { animation-duration: 630s; }
+    .hero-marquee-right { animation-duration: 740s; }
   }
 }
 
