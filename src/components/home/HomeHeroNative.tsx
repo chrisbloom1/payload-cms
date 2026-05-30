@@ -38,34 +38,13 @@ const FADE_MS = 140;
 // fallback render the same set even before any Payload write.
 type Logo = HomeLogo;
 
-const LOGOS_ROW_1: ReadonlyArray<Logo> = [
-  { src: "/images/marquee-logos/boaz-bikes.svg", alt: "Boaz Bikes", width: 216, height: 16 },
-  { src: "/images/marquee-logos/dust.svg", alt: "DUST", width: 202, height: 64 },
-  { src: "/images/marquee-logos/tokyobike.svg", alt: "tokyobike", width: 136, height: 42 },
-  { src: "/images/marquee-logos/civilized-cycles.svg", alt: "Civilized Cycles", width: 80, height: 57 },
-  { src: "/images/marquee-logos/electric-plant-co.svg", alt: "Electric Plant Co", width: 183, height: 36 },
-  { src: "/images/marquee-logos/toyota.svg", alt: "Toyota", width: 207, height: 55 },
-  { src: "/images/marquee-logos/forecast-sardinia.svg", alt: "Forecast Sardinia", width: 127, height: 91 },
-  { src: "/images/marquee-logos/cake.svg", alt: "cake", width: 376, height: 91 },
-  { src: "/images/marquee-logos/clip.png", alt: "CLIP", width: 200, height: 41 },
-];
-
-const LOGOS_ROW_2: ReadonlyArray<Logo> = [
-  { src: "/images/marquee-logos/forward-x-robotics.svg", alt: "Forward X Robotics", width: 246, height: 41 },
-  { src: "/images/marquee-logos/time.png", alt: "TIME", width: 220, height: 81 },
-  { src: "/images/marquee-logos/emoto-supply-co.svg", alt: "emoto Supply Co", width: 185, height: 33 },
-  { src: "/images/marquee-logos/grounded.svg", alt: "GROUNDED", width: 152, height: 25 },
-  { src: "/images/marquee-logos/brand-1.svg", alt: "Brand", width: 444, height: 501 },
-  { src: "/images/marquee-logos/moonbikes.png", alt: "MOONBIKES", width: 500, height: 106 },
-  { src: "/images/marquee-logos/glid.svg", alt: "GLĪD", width: 363, height: 100 },
-  { src: "/images/marquee-logos/brand-2.svg", alt: "Brand", width: 870, height: 600 },
-  { src: "/images/marquee-logos/land.png", alt: "LAND", width: 218, height: 41 },
-  { src: "/images/marquee-logos/vela.svg", alt: "Vela", width: 117, height: 27 },
-  { src: "/images/marquee-logos/its-electric.png", alt: "It's Electric", width: 130, height: 46 },
-  { src: "/images/marquee-logos/tubular-network.svg", alt: "tubular.network", width: 110, height: 22 },
-  { src: "/images/marquee-logos/brand-3.png", alt: "Brand", width: 268, height: 199 },
-  { src: "/images/marquee-logos/envo.png", alt: "ENVO", width: 120, height: 17 },
-];
+// Single source of truth for the default logo set lives in
+// home-page-defaults.ts (DEFAULT_LOGOS_ROW_1/2, surfaced via
+// HOME_DEFAULTS). The weekly Attio→logo automation edits only that file,
+// so the component just falls back to those defaults when Payload hasn't
+// supplied an override.
+const LOGOS_ROW_1: ReadonlyArray<Logo> = HOME_DEFAULTS.logoMarqueeRow1;
+const LOGOS_ROW_2: ReadonlyArray<Logo> = HOME_DEFAULTS.logoMarqueeRow2;
 
 export interface HomeHeroNativeProps {
   headline?: string;

@@ -56,6 +56,18 @@ export const DEFAULT_LOGOS_ROW_1: HomeLogo[] = [
   { src: '/images/marquee-logos/forecast-sardinia.svg', alt: 'Forecast Sardinia', width: 127, height: 91 },
   { src: '/images/marquee-logos/cake.svg', alt: 'cake', width: 376, height: 91 },
   { src: '/images/marquee-logos/clip.png', alt: 'CLIP', width: 200, height: 41 },
+  { src: '/images/marquee-logos/bicycle-transit.png', alt: 'Bicycle Transit Systems', width: 133, height: 48 },
+  { src: '/images/marquee-logos/biomega.png', alt: 'Biomega', width: 405, height: 48 },
+  { src: '/images/marquee-logos/birdstop.png', alt: 'Birdstop', width: 148, height: 48 },
+  { src: '/images/marquee-logos/bo.svg', alt: 'Bo', width: 70, height: 48 },
+  { src: '/images/marquee-logos/electric-outdoors.svg', alt: 'Electric Outdoors', width: 181, height: 48 },
+  { src: '/images/marquee-logos/esspi.png', alt: 'ESSPI', width: 140, height: 48 },
+  { src: '/images/marquee-logos/fauna-robotics.png', alt: 'Fauna Robotics', width: 116, height: 48 },
+  { src: '/images/marquee-logos/hayla.png', alt: 'Hayla', width: 143, height: 48 },
+  { src: '/images/marquee-logos/infinite-machine.svg', alt: 'Infinite Machine', width: 67, height: 48 },
+  { src: '/images/marquee-logos/jatco.png', alt: 'JATCO', width: 181, height: 48 },
+  { src: '/images/marquee-logos/lightfoot.png', alt: 'Lightfoot', width: 357, height: 48 },
+  { src: '/images/marquee-logos/maeving.png', alt: 'Maeving', width: 337, height: 48 },
 ]
 
 export const DEFAULT_LOGOS_ROW_2: HomeLogo[] = [
@@ -73,6 +85,18 @@ export const DEFAULT_LOGOS_ROW_2: HomeLogo[] = [
   { src: '/images/marquee-logos/tubular-network.svg', alt: 'tubular.network', width: 110, height: 22 },
   { src: '/images/marquee-logos/brand-3.png', alt: 'Brand', width: 268, height: 199 },
   { src: '/images/marquee-logos/envo.png', alt: 'ENVO', width: 120, height: 17 },
+  { src: '/images/marquee-logos/mavrik.png', alt: 'MAVRIK', width: 266, height: 48 },
+  { src: '/images/marquee-logos/n-bikes.png', alt: 'n+ Bikes', width: 98, height: 48 },
+  { src: '/images/marquee-logos/nox-metals.svg', alt: 'Nox Metals', width: 626, height: 48 },
+  { src: '/images/marquee-logos/openroad.png', alt: 'OpenRoad', width: 43, height: 48 },
+  { src: '/images/marquee-logos/pave-motors.png', alt: 'Pave Motors', width: 170, height: 48 },
+  { src: '/images/marquee-logos/stoneridge.png', alt: 'Stoneridge', width: 109, height: 48 },
+  { src: '/images/marquee-logos/unlimited-biking.png', alt: 'Unlimited Biking', width: 408, height: 48 },
+  { src: '/images/marquee-logos/vassla.png', alt: 'Vässla', width: 206, height: 48 },
+  { src: '/images/marquee-logos/vue-mobility.png', alt: 'Vue Mobility', width: 572, height: 48 },
+  { src: '/images/marquee-logos/western-magnetics.png', alt: 'Western Magnetics', width: 68, height: 48 },
+  { src: '/images/marquee-logos/wheelme.svg', alt: 'wheel.me', width: 239, height: 48 },
+  { src: '/images/marquee-logos/whizzer.png', alt: 'Whizzer', width: 156, height: 48 },
 ]
 
 export const HOME_DEFAULTS: HomeContent = {
